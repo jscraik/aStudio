@@ -5,6 +5,7 @@ import { ChatHeader } from "./components/ChatHeader";
 import { ChatMessages } from "./components/ChatMessages";
 import { ChatInput } from "./components/ChatInput";
 import { ComposeView } from "./components/ComposeView";
+import { useControllableState } from "./hooks/useControllableState";
 
 export type ChatUIMode = "twoPane" | "full" | "dashboard";
 
@@ -16,15 +17,20 @@ export interface ModelConfig {
 
 export interface ChatUIRootProps {
   mode?: ChatUIMode;
+  defaultMode?: ChatUIMode;
+  onModeChange?: (mode: ChatUIMode) => void;
 
-  /**
-   * Desktop inline sidebar (twoPane only):
-   * when false, sidebar is fully hidden (Option B).
-   */
+  /** Unified sidebar open state (inline or overlay depending on mode/viewport). */
+  sidebarOpen?: boolean;
+
+  /** Default sidebar open state for uncontrolled usage. */
   defaultSidebarOpen?: boolean;
 
-  /** Default main view: chat thread vs compose view */
+  onSidebarOpenChange?: (open: boolean) => void;
+
+  viewMode?: "chat" | "compose";
   defaultViewMode?: "chat" | "compose";
+  onViewModeChange?: (mode: "chat" | "compose") => void;
 
   /** Optional: allow caller to set a starting model */
   defaultModel?: ModelConfig;
@@ -94,9 +100,15 @@ function getFocusable(container: HTMLElement) {
 }
 
 export function ChatUIRoot({
-  mode = "twoPane",
+  mode: modeProp,
+  defaultMode = "twoPane",
+  onModeChange,
+  sidebarOpen: sidebarOpenProp,
   defaultSidebarOpen = true,
+  onSidebarOpenChange,
+  viewMode: viewModeProp,
   defaultViewMode = "chat",
+  onViewModeChange,
   defaultModel,
   mobileBreakpointPx = 768,
   onSidebarToggle,
@@ -109,14 +121,21 @@ export function ChatUIRoot({
 }: ChatUIRootProps) {
   const isMobile = useMediaQuery(`(max-width: ${mobileBreakpointPx}px)`);
 
-  // Inline desktop sidebar (twoPane only; Option B = fully hidden when false).
-  const [desktopSidebarOpen, setDesktopSidebarOpen] = useState(defaultSidebarOpen);
+  const [mode] = useControllableState({
+    value: modeProp,
+    defaultValue: defaultMode,
+    onChange: onModeChange,
+  });
 
-  // Overlay drawer (twoPane mobile + full all sizes).
-  const [overlaySidebarOpen, setOverlaySidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useControllableState({
+    value: sidebarOpenProp,
+    defaultValue: defaultSidebarOpen,
+    onChange: onSidebarOpenChange,
+  });
 
   // Track focus to restore after closing overlay.
   const lastActiveElementRef = useRef<HTMLElement | null>(null);
+  const wasOverlayOpenRef = useRef(false);
   const overlayDrawerRef = useRef<HTMLDivElement | null>(null);
 
   // Local state (replace later with your real data model/host adapter)
@@ -127,7 +146,11 @@ export function ChatUIRoot({
       description: "Our most capable model",
     }
   );
-  const [viewMode, setViewMode] = useState<"chat" | "compose">(defaultViewMode);
+  const [viewMode, setViewMode] = useControllableState<"chat" | "compose">({
+    value: viewModeProp,
+    defaultValue: defaultViewMode,
+    onChange: onViewModeChange,
+  });
 
   const canShowSidebar = mode === "twoPane" || mode === "full";
 
@@ -138,54 +161,63 @@ export function ChatUIRoot({
       : "overlay"; // mode === "full"
 
   const emitToggle = useCallback(
-    (next: { desktopOpen: boolean; overlayOpen: boolean }) => {
-      onSidebarToggle?.(next);
+    (nextOpen: boolean) => {
+      if (!onSidebarToggle) return;
+      onSidebarToggle({
+        desktopOpen: sidebarBehavior === "inline" ? nextOpen : false,
+        overlayOpen: sidebarBehavior === "overlay" ? nextOpen : false,
+      });
     },
-    [onSidebarToggle]
+    [onSidebarToggle, sidebarBehavior]
   );
 
   const closeOverlay = useCallback(() => {
-    setOverlaySidebarOpen(false);
-    emitToggle({ desktopOpen: desktopSidebarOpen, overlayOpen: false });
+    setSidebarOpen(false);
+    emitToggle(false);
 
     const el = lastActiveElementRef.current;
     if (el && typeof el.focus === "function") el.focus();
     lastActiveElementRef.current = null;
-  }, [desktopSidebarOpen, emitToggle]);
+  }, [emitToggle, setSidebarOpen]);
 
   const toggleSidebar = useCallback(() => {
     if (sidebarBehavior === "none") return;
 
-    if (sidebarBehavior === "inline") {
-      setDesktopSidebarOpen((prev) => {
-        const next = !prev;
-        emitToggle({ desktopOpen: next, overlayOpen: false });
-        return next;
-      });
+    if (sidebarBehavior === "overlay") {
+      if (!sidebarOpen) {
+        lastActiveElementRef.current = document.activeElement as HTMLElement | null;
+        setSidebarOpen(true);
+        emitToggle(true);
+      } else {
+        closeOverlay();
+      }
       return;
     }
 
-    // overlay behavior
-    if (!overlaySidebarOpen) {
-      lastActiveElementRef.current = document.activeElement as HTMLElement | null;
-      setOverlaySidebarOpen(true);
-      emitToggle({ desktopOpen: desktopSidebarOpen, overlayOpen: true });
-    } else {
-      closeOverlay();
-    }
-  }, [
-    sidebarBehavior,
-    overlaySidebarOpen,
-    closeOverlay,
-    desktopSidebarOpen,
-    emitToggle,
-  ]);
+    setSidebarOpen((prev) => {
+      const next = !prev;
+      emitToggle(next);
+      return next;
+    });
+  }, [sidebarBehavior, sidebarOpen, closeOverlay, emitToggle, setSidebarOpen]);
 
-  // If we move from mobile (overlay) to desktop inline in twoPane, close overlay.
+  const isOverlayOpen = sidebarBehavior === "overlay" && sidebarOpen;
+
   useEffect(() => {
-    if (mode !== "twoPane") return;
-    if (sidebarBehavior === "inline" && overlaySidebarOpen) closeOverlay();
-  }, [closeOverlay, mode, overlaySidebarOpen, sidebarBehavior]);
+    if (isOverlayOpen && !lastActiveElementRef.current) {
+      lastActiveElementRef.current = document.activeElement as HTMLElement | null;
+    }
+  }, [isOverlayOpen]);
+
+  useEffect(() => {
+    const wasOpen = wasOverlayOpenRef.current;
+    if (wasOpen && !isOverlayOpen) {
+      const el = lastActiveElementRef.current;
+      if (el && typeof el.focus === "function") el.focus();
+      lastActiveElementRef.current = null;
+    }
+    wasOverlayOpenRef.current = isOverlayOpen;
+  }, [isOverlayOpen]);
 
   // Keyboard shortcut: Ctrl/Cmd + B toggles sidebar. Esc closes overlay.
   useEffect(() => {
@@ -198,7 +230,7 @@ export function ChatUIRoot({
         toggleSidebar();
       }
 
-      if (overlaySidebarOpen && e.key === "Escape") {
+      if (isOverlayOpen && e.key === "Escape") {
         e.preventDefault();
         closeOverlay();
       }
@@ -206,11 +238,11 @@ export function ChatUIRoot({
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [closeOverlay, overlaySidebarOpen, sidebarBehavior, toggleSidebar]);
+  }, [closeOverlay, isOverlayOpen, sidebarBehavior, toggleSidebar]);
 
   // Focus trap for overlay drawer
   useEffect(() => {
-    if (!overlaySidebarOpen) return;
+    if (!isOverlayOpen) return;
 
     const drawer = overlayDrawerRef.current;
     if (!drawer) return;
@@ -249,14 +281,10 @@ export function ChatUIRoot({
       window.clearTimeout(t);
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [overlaySidebarOpen]);
+  }, [isOverlayOpen]);
 
   const sidebarOpenForHeader =
-    sidebarBehavior === "inline"
-      ? desktopSidebarOpen
-      : sidebarBehavior === "overlay"
-        ? overlaySidebarOpen
-        : false;
+    sidebarBehavior === "none" ? false : sidebarOpen;
 
   const mainContent = useMemo(() => {
     if (mode === "dashboard") {
@@ -298,10 +326,10 @@ export function ChatUIRoot({
     sidebarOpenForHeader,
     toggleSidebar,
     selectedModel,
+    setSelectedModel,
     viewMode,
+    setViewMode,
     headerRight,
-    sidebarTop,
-    sidebarFooter,
     composerLeft,
     composerRight,
     emptyState,
@@ -312,7 +340,7 @@ export function ChatUIRoot({
       {/* Inline desktop sidebar (twoPane desktop only; Option B = fully hidden when closed) */}
       {sidebarBehavior === "inline" ? (
         <ChatSidebar
-          isOpen={desktopSidebarOpen}
+          isOpen={sidebarOpen}
           onToggle={toggleSidebar}
           sidebarTop={sidebarTop}
           sidebarFooter={sidebarFooter}
@@ -320,7 +348,7 @@ export function ChatUIRoot({
       ) : null}
 
       {/* Overlay sidebar (twoPane mobile + full all sizes) */}
-      {sidebarBehavior === "overlay" && overlaySidebarOpen ? (
+      {sidebarBehavior === "overlay" && sidebarOpen ? (
         <div className="fixed inset-0 z-50">
           <button
             type="button"
@@ -338,7 +366,7 @@ export function ChatUIRoot({
             className="absolute left-0 top-0 h-full w-64 outline-none"
           >
             <ChatSidebar
-              isOpen={true}
+              isOpen={sidebarOpen}
               onToggle={closeOverlay}
               sidebarTop={sidebarTop}
               sidebarFooter={sidebarFooter}

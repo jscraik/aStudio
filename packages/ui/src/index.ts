@@ -1,5 +1,6 @@
 export { default as ChatUIApp } from "./app/App";
 export { ChatUIRoot } from "./app/ChatUIRoot";
+export * from "./app/hooks/useControllableState";
 
 export * from "./app/components/ChatHeader";
 export * from "./app/components/ChatSidebar";

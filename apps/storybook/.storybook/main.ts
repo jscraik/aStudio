@@ -17,6 +17,8 @@ const config: StorybookConfig = {
   },
   viteFinal: async (viteConfig) => {
     // Tailwind CSS v4 via PostCSS - handled by the CSS import in preview.tsx
+    const { default: tailwindcss } = await import("@tailwindcss/vite");
+    viteConfig.plugins = [...(viteConfig.plugins ?? []), tailwindcss()];
     viteConfig.base = "./";
     viteConfig.server = {
       ...(viteConfig.server ?? {}),

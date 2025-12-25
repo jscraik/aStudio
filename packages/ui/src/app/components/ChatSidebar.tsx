@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
-import { useState } from 'react';
+import type { ReactNode } from "react";
+import { useState } from "react";
 import {
   IconSearch,
   IconPlusLg,
@@ -14,10 +14,10 @@ import {
   IconBook,
   IconCompose,
   IconWriting,
-} from './icons/ChatGPTIcons';
-import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
-import { IconPickerModal } from './IconPickerModal';
-import { SettingsModal } from './SettingsModal';
+} from "./icons/ChatGPTIcons";
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { IconPickerModal } from "./IconPickerModal";
+import { SettingsModal } from "./SettingsModal";
 
 interface SidebarItem {
   id: string;
@@ -29,6 +29,7 @@ interface SidebarItem {
 export interface ChatSidebarProps {
   isOpen: boolean;
   onToggle: () => void;
+  onProjectSelect?: (project: SidebarItem) => void;
 
   /** Slot: Custom content at top of sidebar (below search) */
   sidebarTop?: ReactNode;
@@ -38,93 +39,116 @@ export interface ChatSidebarProps {
 }
 
 const quickActions: SidebarItem[] = [
-  { id: 'chatgpt', label: 'ChatGPT', icon: <IconChat className="size-4" /> },
-  { id: 'gpts', label: 'GPTs', icon: <IconChevronRightMd className="size-4" /> },
-  { id: 'new-project', label: 'New project', icon: <IconFolder className="size-4" /> },
+  { id: "chatgpt", label: "ChatGPT", icon: <IconChat className="size-4" /> },
+  { id: "gpts", label: "GPTs", icon: <IconChevronRightMd className="size-4" /> },
+  { id: "new-project", label: "New project", icon: <IconFolder className="size-4" /> },
 ];
 
 const projects: SidebarItem[] = [
-  { id: 'apps-sdk', label: 'Apps SDK Designer', icon: <IconWriting className="size-4" />, color: 'text-[#BA8FF7]' },
-  { id: 'dadmode', label: 'DADMODE', icon: <IconBarChart className="size-4" />, color: 'text-[#40C977]' },
-  { id: 'peer', label: 'PEER Framework', icon: <IconFolder className="size-4" />, color: 'text-[#FF9E6C]' },
+  {
+    id: "apps-sdk",
+    label: "Apps SDK Designer",
+    icon: <IconWriting className="size-4" />,
+    color: "text-[#BA8FF7]",
+  },
+  {
+    id: "dadmode",
+    label: "DADMODE",
+    icon: <IconBarChart className="size-4" />,
+    color: "text-[#40C977]",
+  },
+  {
+    id: "peer",
+    label: "PEER Framework",
+    icon: <IconFolder className="size-4" />,
+    color: "text-[#FF9E6C]",
+  },
 ];
 
 const chatHistory = [
-  'Greeting exchange',
-  'Storybook and Apps SDK UI',
-  'Conversation start',
-  'Your Year with ChatGPT',
-  'CRMO explanation and sensitivity',
-  'Project governance complexity',
-  'React Component Explorers',
-  'Clone SwiftUI macOS App',
-  'Apps SDK UI examples',
-  'Governance framework expansion',
-  'New chat',
-  'Bobblehead figurine design',
-  'Plushie transformation concept',
-  'Plushie-style transformation',
-  '3D pencil sketch generation',
-  'Assistant response clarification',
-  'Learn Year 7 Maths',
+  "Greeting exchange",
+  "Storybook and Apps SDK UI",
+  "Conversation start",
+  "Your Year with ChatGPT",
+  "CRMO explanation and sensitivity",
+  "Project governance complexity",
+  "React Component Explorers",
+  "Clone SwiftUI macOS App",
+  "Apps SDK UI examples",
+  "Governance framework expansion",
+  "New chat",
+  "Bobblehead figurine design",
+  "Plushie transformation concept",
+  "Plushie-style transformation",
+  "3D pencil sketch generation",
+  "Assistant response clarification",
+  "Learn Year 7 Maths",
 ];
 
-export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: ChatSidebarProps) {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedAction, setSelectedAction] = useState('chatgpt');
+export function ChatSidebar({
+  isOpen,
+  onToggle,
+  onProjectSelect,
+  sidebarTop,
+  sidebarFooter,
+}: ChatSidebarProps) {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedAction, setSelectedAction] = useState("chatgpt");
   const [showProjectModal, setShowProjectModal] = useState(false);
-  const [projectName, setProjectName] = useState('');
+  const [projectName, setProjectName] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [showIconPicker, setShowIconPicker] = useState(false);
-  const [selectedProjectForIcon, setSelectedProjectForIcon] = useState<SidebarItem | null>(null);
+  const [selectedProjectForIcon, setSelectedProjectForIcon] = useState<SidebarItem | null>(
+    null
+  );
   const [projectsData, setProjectsData] = useState<SidebarItem[]>(projects);
-  const [newProjectIcon, setNewProjectIcon] = useState('folder');
-  const [newProjectColor, setNewProjectColor] = useState('text-white/60');
+  const [newProjectIcon, setNewProjectIcon] = useState("folder");
+  const [newProjectColor, setNewProjectColor] = useState("text-white/60");
   const [showMoreOptions, setShowMoreOptions] = useState(false);
-  const [memoryOption, setMemoryOption] = useState<'default' | 'project-only'>('default');
+  const [memoryOption, setMemoryOption] = useState<"default" | "project-only">("default");
   const [projectsExpanded, setProjectsExpanded] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
-  const categories = ['Investing', 'Homework', 'Writing', 'Coding', 'Research'];
+  const categories = ["Investing", "Homework", "Writing", "Coding", "Research"];
 
   const categoryIcons = {
-    'Investing': <IconBarChart className="size-3" />,
-    'Homework': <IconBook className="size-3" />,
-    'Writing': <IconWriting className="size-3" />,
-    'Coding': <IconCompose className="size-3" />,
-    'Research': <IconSearch className="size-3" />,
+    Investing: <IconBarChart className="size-3" />,
+    Homework: <IconBook className="size-3" />,
+    Writing: <IconWriting className="size-3" />,
+    Coding: <IconCompose className="size-3" />,
+    Research: <IconSearch className="size-3" />,
   };
 
   const categoryColors = {
-    'Investing': 'bg-[#40C977]/20 text-[#40C977] border-[#40C977]/30',
-    'Homework': 'bg-[#48AAFF]/20 text-[#48AAFF] border-[#48AAFF]/30',
-    'Writing': 'bg-[#BA8FF7]/20 text-[#BA8FF7] border-[#BA8FF7]/30',
-    'Coding': 'bg-[#FF9E6C]/20 text-[#FF9E6C] border-[#FF9E6C]/30',
-    'Research': 'bg-[#FF8FB3]/20 text-[#FF8FB3] border-[#FF8FB3]/30',
+    Investing: "bg-[#40C977]/20 text-[#40C977] border-[#40C977]/30",
+    Homework: "bg-[#48AAFF]/20 text-[#48AAFF] border-[#48AAFF]/30",
+    Writing: "bg-[#BA8FF7]/20 text-[#BA8FF7] border-[#BA8FF7]/30",
+    Coding: "bg-[#FF9E6C]/20 text-[#FF9E6C] border-[#FF9E6C]/30",
+    Research: "bg-[#FF8FB3]/20 text-[#FF8FB3] border-[#FF8FB3]/30",
   };
 
   const handleNewChat = (actionId: string) => {
     setSelectedAction(actionId);
-    console.log('Starting new chat with:', actionId);
+    console.log("Starting new chat with:", actionId);
   };
 
   const toggleCategory = (category: string) => {
-    setSelectedCategories(prev => {
+    setSelectedCategories((prev) => {
       const newCategories = prev.includes(category) 
-        ? prev.filter(c => c !== category)
+        ? prev.filter((c) => c !== category)
         : [...prev, category];
-      
+
       // Update project name based on selected categories
-      setProjectName(newCategories.join(' '));
-      
+      setProjectName(newCategories.join(" "));
+
       return newCategories;
     });
   };
 
   const handleCreateProject = () => {
-    console.log('Creating project:', { name: projectName, categories: selectedCategories });
-    setProjectName('');
+    console.log("Creating project:", { name: projectName, categories: selectedCategories });
+    setProjectName("");
     setSelectedCategories([]);
     setShowProjectModal(false);
   };
@@ -133,21 +157,19 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
     if (selectedProjectForIcon) {
       // Map iconId to the corresponding icon component
       const iconMap: { [key: string]: React.ReactNode } = {
-        'folder': <IconFolder className="size-4" />,
-        'chat': <IconChat className="size-4" />,
-        'bar-chart': <IconBarChart className="size-4" />,
-        'writing': <IconWriting className="size-4" />,
-        'book': <IconBook className="size-4" />,
-        'compose': <IconCompose className="size-4" />,
+        folder: <IconFolder className="size-4" />,
+        chat: <IconChat className="size-4" />,
+        "bar-chart": <IconBarChart className="size-4" />,
+        writing: <IconWriting className="size-4" />,
+        book: <IconBook className="size-4" />,
+        compose: <IconCompose className="size-4" />,
         // Add more mappings as needed
       };
 
       const newIcon = iconMap[iconId] || <IconFolder className="size-4" />;
-      
-      const updatedProjects = projectsData.map(project => 
-        project.id === selectedProjectForIcon.id 
-          ? { ...project, icon: newIcon, color } 
-          : project
+
+      const updatedProjects = projectsData.map((project) =>
+        project.id === selectedProjectForIcon.id ? { ...project, icon: newIcon, color } : project
       );
       setProjectsData(updatedProjects);
     }
@@ -164,9 +186,11 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
   return (
     <>
       {/* Sidebar */}
-      <div className={`bg-[#212121] text-white flex flex-col h-full border-r border-white/10 transition-all duration-300 ease-in-out ${
-        isOpen ? 'w-64' : 'w-0 overflow-hidden'
-      }`}>
+      <div
+        className={`bg-[#212121] text-white flex flex-col h-full border-r border-white/10 transition-all duration-300 ease-in-out ${
+          isOpen ? "w-64" : "w-0 overflow-hidden"
+        }`}
+      >
         {/* Header */}
         <div className="p-3 space-y-3">
           {/* Window Controls */}
@@ -194,9 +218,9 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
         {/* Quick Actions */}
         <div className="px-3 space-y-0.5">
           <button 
-            onClick={() => handleNewChat('chatgpt')}
+            onClick={() => handleNewChat("chatgpt")}
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-left ${
-              selectedAction === 'chatgpt' ? 'bg-white/10' : 'hover:bg-white/5'
+              selectedAction === "chatgpt" ? "bg-white/10" : "hover:bg-white/5"
             }`}
           >
             <IconChat className="size-4 flex-shrink-0" />
@@ -205,20 +229,23 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
           <button 
             onClick={() => setShowProjectModal(true)}
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-left ${
-              selectedAction === 'new-project' ? 'bg-white/10' : 'hover:bg-white/5'
+              selectedAction === "new-project" ? "bg-white/10" : "hover:bg-white/5"
             }`}
           >
             <IconFolder className="size-4 flex-shrink-0" />
             <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px]">New project</span>
           </button>
-          
+
           {/* Projects List */}
           {(projectsExpanded ? projectsData : projectsData.slice(0, 3)).map((project) => (
             <button
               key={project.id}
-              onClick={() => setSelectedAction(project.id)}
+              onClick={() => {
+                setSelectedAction(project.id);
+                onProjectSelect?.(project);
+              }}
               className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-left ${
-                selectedAction === project.id ? 'bg-white/10' : 'hover:bg-white/5'
+                selectedAction === project.id ? "bg-white/10" : "hover:bg-white/5"
               }`}
             >
               <div
@@ -231,10 +258,12 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
               >
                 {project.icon}
               </div>
-              <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px]">{project.label}</span>
+              <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px]">
+                {project.label}
+              </span>
             </button>
           ))}
-          
+
           {projectsData.length > 3 && (
             <button 
               onClick={() => setProjectsExpanded(!projectsExpanded)}
@@ -242,18 +271,14 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
             >
               <IconDotsHorizontal className="size-4 flex-shrink-0" />
               <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px]">
-                {projectsExpanded ? 'See less' : 'See more'}
+                {projectsExpanded ? "See less" : "See more"}
               </span>
             </button>
           )}
         </div>
 
         {/* sidebarTop Slot */}
-        {sidebarTop && (
-          <div className="px-3 py-2">
-            {sidebarTop}
-          </div>
-        )}
+        {sidebarTop ? <div className="px-3 py-2">{sidebarTop}</div> : null}
 
         {/* Divider */}
         <div className="mx-3 my-2 border-t border-white/10" />
@@ -276,11 +301,7 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
         </div>
 
         {/* sidebarFooter Slot */}
-        {sidebarFooter && (
-          <div className="px-3 py-2">
-            {sidebarFooter}
-          </div>
-        )}
+        {sidebarFooter ? <div className="px-3 py-2">{sidebarFooter}</div> : null}
 
         {/* User Profile */}
         <div className="p-3 border-t border-white/10 relative">
@@ -291,12 +312,14 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
             <div className="size-7 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center flex-shrink-0">
               <IconCloseBold className="size-4" />
             </div>
-            <span className="text-[14px] truncate font-normal leading-[20px] tracking-[-0.3px]">Jamie Scott Craik</span>
+            <span className="text-[14px] truncate font-normal leading-[20px] tracking-[-0.3px]">
+              Jamie Scott Craik
+            </span>
           </button>
-          
+
           {/* User Menu Dropdown */}
           {showUserMenu && (
-            <div className="absolute bottom-full left-3 right-3 mb-2 bg-[#2a2a2a] border border-white/20 rounded-xl shadow-2xl py-1 z-50">
+            <div className="absolute bottom-full left-3 right-3 mb-2 bg-[#171717] border border-white/20 rounded-xl shadow-2xl py-1 z-50">
               {/* Account Type */}
               <div className="px-3 py-2.5 border-b border-white/10">
                 <div className="flex items-center gap-2 text-[13px]">
@@ -304,16 +327,24 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
                   <span className="text-white/70 font-normal">PRO/Veteran/Lik</span>
                 </div>
               </div>
-              
+
               {/* Personal Account */}
               <button className="w-full text-left px-3 py-2.5 hover:bg-white/5 transition-colors flex items-center gap-2">
-                <svg className="size-4 text-white/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg
+                  className="size-4 text-white/70"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                   <circle cx="12" cy="7" r="4" />
                 </svg>
-                <span className="text-[14px] text-white font-normal leading-[20px] tracking-[-0.3px]">Personal account</span>
+                <span className="text-[14px] text-white font-normal leading-[20px] tracking-[-0.3px]">
+                  Personal account
+                </span>
               </button>
-              
+
               {/* Settings */}
               <button
                 onClick={() => {
@@ -323,15 +354,19 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
                 className="w-full text-left px-3 py-2.5 hover:bg-white/5 transition-colors flex items-center gap-2"
               >
                 <IconSettings className="size-4 text-white/70" />
-                <span className="text-[14px] text-white font-normal leading-[20px] tracking-[-0.3px]">Settings</span>
+                <span className="text-[14px] text-white font-normal leading-[20px] tracking-[-0.3px]">
+                  Settings
+                </span>
               </button>
-              
+
               {/* Divider */}
               <div className="my-1 border-t border-white/10" />
-              
+
               {/* Log Out */}
               <button className="w-full text-left px-3 py-2.5 hover:bg-white/5 transition-colors">
-                <span className="text-[14px] text-white font-normal leading-[20px] tracking-[-0.3px]">Log Out</span>
+                <span className="text-[14px] text-white font-normal leading-[20px] tracking-[-0.3px]">
+                  Log Out
+                </span>
               </button>
             </div>
           )}
@@ -339,12 +374,19 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
 
         {/* Project Modal */}
         {showProjectModal && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-start justify-center pt-32 z-50" onClick={() => setShowProjectModal(false)}>
-            <div className="bg-[#2a2a2a] border border-white/20 text-white p-0 rounded-[12px] w-[420px] shadow-2xl" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-start justify-center pt-32 z-50"
+            onClick={() => setShowProjectModal(false)}
+          >
+            <div
+              className="bg-[#171717] border border-white/20 text-white p-0 rounded-[12px] w-[420px] shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
               {/* Modal Header */}
               <div className="px-6 pt-6 pb-5">
                 <p className="text-[13px] text-[#ababab] leading-[18px] tracking-[-0.32px] font-normal text-center">
-                  Projects give ChatGPT shared context<br />
+                  Projects give ChatGPT shared context
+                  <br />
                   across chats and files, all in one place.
                 </p>
               </div>
@@ -363,12 +405,12 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
                   >
                     {(() => {
                       const iconMap: { [key: string]: React.ReactNode } = {
-                        'folder': <IconFolder className="size-4" />,
-                        'chat': <IconChat className="size-4" />,
-                        'bar-chart': <IconBarChart className="size-4" />,
-                        'writing': <IconWriting className="size-4" />,
-                        'book': <IconBook className="size-4" />,
-                        'compose': <IconCompose className="size-4" />,
+                        folder: <IconFolder className="size-4" />,
+                        chat: <IconChat className="size-4" />,
+                        "bar-chart": <IconBarChart className="size-4" />,
+                        writing: <IconWriting className="size-4" />,
+                        book: <IconBook className="size-4" />,
+                        compose: <IconCompose className="size-4" />,
                       };
                       return iconMap[newProjectIcon] || <IconFolder className="size-4" />;
                     })()}
@@ -384,19 +426,22 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
 
                 {/* Category Tags */}
                 <div className="mb-6">
-                  <div className="flex gap-2 overflow-x-auto pb-2 -mx-6 px-6 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                  <div
+                    className="flex gap-2 overflow-x-auto pb-2 -mx-6 px-6 scrollbar-hide"
+                    style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                  >
                     {categories.map((category) => {
                       const isSelected = selectedCategories.includes(category);
-                      
+
                       // Icon color mapping
                       const iconColorMap = {
-                        'Investing': 'text-[#40C977]',
-                        'Homework': 'text-[#48AAFF]',
-                        'Writing': 'text-[#BA8FF7]',
-                        'Coding': 'text-[#FF9E6C]',
-                        'Research': 'text-[#FF8FB3]',
+                        Investing: "text-[#40C977]",
+                        Homework: "text-[#48AAFF]",
+                        Writing: "text-[#BA8FF7]",
+                        Coding: "text-[#FF9E6C]",
+                        Research: "text-[#FF8FB3]",
                       };
-                      
+
                       return (
                         <button
                           key={category}
@@ -404,7 +449,7 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
                           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[14px] border transition-all whitespace-nowrap flex-shrink-0 font-normal leading-[20px] tracking-[-0.3px] ${
                             isSelected 
                               ? categoryColors[category as keyof typeof categoryColors]
-                              : 'bg-[#404040] text-white border-white/20 hover:bg-[#4a4a4a]'
+                              : "bg-[#404040] text-white border-white/20 hover:bg-[#4a4a4a]"
                           }`}
                         >
                           <span className={iconColorMap[category as keyof typeof iconColorMap]}>
@@ -462,17 +507,23 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
             }}
             onSave={handleNewProjectIconChange}
             currentColor={newProjectColor}
-            projectName={projectName || 'New Project'}
+            projectName={projectName || "New Project"}
           />
         )}
 
         {/* Project Settings Modal */}
         {showMoreOptions && !showIconPicker && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[100]" onClick={() => setShowMoreOptions(false)}>
-            <div className="bg-[#2a2a2a] border border-white/20 text-white rounded-[16px] w-[380px] shadow-2xl" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[100]"
+            onClick={() => setShowMoreOptions(false)}
+          >
+            <div
+              className="bg-[#171717] border border-white/20 text-white rounded-[16px] w-[380px] shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
               {/* Header */}
               <div className="px-6 pt-5 pb-4">
-                <h2 className="text-[18px] font-medium text-white leading-[24px] tracking-[-0.32px]">
+                <h2 className="text-[18px] font-semibold text-white leading-[24px] tracking-[-0.32px]">
                   Project settings
                 </h2>
               </div>
@@ -484,26 +535,26 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
                   <h3 className="text-[14px] text-white/70 mb-3 font-normal leading-[20px] tracking-[-0.3px]">
                     Memory
                   </h3>
-                  
+
                   {/* Default Option */}
                   <button
-                    onClick={() => setMemoryOption('default')}
+                    onClick={() => setMemoryOption("default")}
                     className={`w-full text-left p-4 rounded-xl mb-2 border transition-all ${
-                      memoryOption === 'default'
-                        ? 'bg-[#2f7a4f]/10 border-[#2f7a4f]'
-                        : 'bg-[#404040]/40 border-white/10 hover:bg-[#404040]/60'
+                      memoryOption === "default"
+                        ? "bg-[#2f7a4f]/10 border-[#2f7a4f]"
+                        : "bg-[#404040]/40 border-white/10 hover:bg-[#404040]/60"
                     }`}
                   >
                     <div className="flex items-start justify-between mb-1">
                       <span className="text-[14px] font-medium text-white leading-[20px] tracking-[-0.3px]">
                         Default
                       </span>
-                      <div className={`size-4 rounded-full border-2 flex items-center justify-center mt-0.5 ${
-                        memoryOption === 'default'
-                          ? 'border-[#2f7a4f]'
-                          : 'border-white/30'
-                      }`}>
-                        {memoryOption === 'default' && (
+                      <div
+                        className={`size-4 rounded-full border-2 flex items-center justify-center mt-0.5 ${
+                          memoryOption === "default" ? "border-[#2f7a4f]" : "border-white/30"
+                        }`}
+                      >
+                        {memoryOption === "default" && (
                           <div className="size-2 rounded-full bg-[#2f7a4f]" />
                         )}
                       </div>
@@ -515,29 +566,32 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
 
                   {/* Project-only Option */}
                   <button
-                    onClick={() => setMemoryOption('project-only')}
+                    onClick={() => setMemoryOption("project-only")}
                     className={`w-full text-left p-4 rounded-xl border transition-all ${
-                      memoryOption === 'project-only'
-                        ? 'bg-[#2f7a4f]/10 border-[#2f7a4f]'
-                        : 'bg-[#404040]/40 border-white/10 hover:bg-[#404040]/60'
+                      memoryOption === "project-only"
+                        ? "bg-[#2f7a4f]/10 border-[#2f7a4f]"
+                        : "bg-[#404040]/40 border-white/10 hover:bg-[#404040]/60"
                     }`}
                   >
                     <div className="flex items-start justify-between mb-1">
                       <span className="text-[14px] font-medium text-white leading-[20px] tracking-[-0.3px]">
                         Project-only
                       </span>
-                      <div className={`size-4 rounded-full border-2 flex items-center justify-center mt-0.5 ${
-                        memoryOption === 'project-only'
-                          ? 'border-[#2f7a4f]'
-                          : 'border-white/30'
-                      }`}>
-                        {memoryOption === 'project-only' && (
+                      <div
+                        className={`size-4 rounded-full border-2 flex items-center justify-center mt-0.5 ${
+                          memoryOption === "project-only"
+                            ? "border-[#2f7a4f]"
+                            : "border-white/30"
+                        }`}
+                      >
+                        {memoryOption === "project-only" && (
                           <div className="size-2 rounded-full bg-[#2f7a4f]" />
                         )}
                       </div>
                     </div>
                     <p className="text-[13px] text-white/60 leading-[18px] tracking-[-0.32px] font-normal">
-                      Project can only access its own memories. Its memories are hidden from outside chats.
+                      Project can only access its own memories. Its memories are hidden from outside
+                      chats.
                     </p>
                   </button>
                 </div>
@@ -553,7 +607,7 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
                 </button>
                 <button
                   onClick={() => {
-                    console.log('Memory option:', memoryOption);
+                    console.log("Memory option:", memoryOption);
                     setShowMoreOptions(false);
                   }}
                   className="px-4 py-2 text-[14px] bg-white text-black hover:bg-white/90 rounded-lg transition-colors font-medium leading-[20px] tracking-[-0.3px]"
@@ -564,13 +618,12 @@ export function ChatSidebar({ isOpen, onToggle, sidebarTop, sidebarFooter }: Cha
             </div>
           </div>
         )}
-      </div>
 
-      {/* Settings Modal */}
-      <SettingsModal
-        isOpen={showSettingsModal}
-        onClose={() => setShowSettingsModal(false)}
-      />
+        {/* Settings Modal */}
+        {showSettingsModal && (
+          <SettingsModal isOpen={showSettingsModal} onClose={() => setShowSettingsModal(false)} />
+        )}
+      </div>
     </>
   );
 }

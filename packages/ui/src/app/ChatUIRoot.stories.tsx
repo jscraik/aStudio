@@ -17,7 +17,7 @@ type Story = StoryObj<typeof ChatUIRoot>;
 
 export const Default: Story = {
   args: {
-    mode: "twoPane",
+    defaultMode: "twoPane",
     defaultSidebarOpen: true,
     defaultViewMode: "chat",
   },
@@ -25,7 +25,7 @@ export const Default: Story = {
 
 export const WithCustomHeaderActions: Story = {
   args: {
-    mode: "twoPane",
+    defaultMode: "twoPane",
     defaultSidebarOpen: true,
     defaultViewMode: "chat",
     headerRight: (
@@ -46,7 +46,7 @@ export const WithCustomHeaderActions: Story = {
 
 export const WithShareButton: Story = {
   args: {
-    mode: "twoPane",
+    defaultMode: "twoPane",
     defaultSidebarOpen: true,
     defaultViewMode: "chat",
     headerRight: (
@@ -60,7 +60,7 @@ export const WithShareButton: Story = {
 
 export const WithSidebarSlots: Story = {
   args: {
-    mode: "twoPane",
+    defaultMode: "twoPane",
     defaultSidebarOpen: true,
     defaultViewMode: "chat",
     sidebarTop: (
@@ -78,7 +78,7 @@ export const WithSidebarSlots: Story = {
 
 export const WithComposerSlots: Story = {
   args: {
-    mode: "twoPane",
+    defaultMode: "twoPane",
     defaultSidebarOpen: false,
     defaultViewMode: "chat",
     composerLeft: (
@@ -96,7 +96,7 @@ export const WithComposerSlots: Story = {
 
 export const WithAllSlots: Story = {
   args: {
-    mode: "twoPane",
+    defaultMode: "twoPane",
     defaultSidebarOpen: true,
     defaultViewMode: "chat",
     headerRight: (
@@ -134,7 +134,7 @@ export const WithAllSlots: Story = {
 
 export const FullWidthWithSlots: Story = {
   args: {
-    mode: "full",
+    defaultMode: "full",
     defaultSidebarOpen: true,
     defaultViewMode: "chat",
     headerRight: (
@@ -152,7 +152,7 @@ export const FullWidthWithSlots: Story = {
 
 export const WithCustomEmptyState: Story = {
   args: {
-    mode: "twoPane",
+    defaultMode: "twoPane",
     defaultSidebarOpen: true,
     defaultViewMode: "chat",
     emptyState: (

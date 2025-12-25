@@ -63,16 +63,6 @@ export const WithSidebarSlots: Story = {
     defaultMode: "twoPane",
     defaultSidebarOpen: true,
     defaultViewMode: "chat",
-    sidebarTop: (
-      <div className="px-3 py-2 bg-[#2f7a4f]/20 text-[#40C977] rounded-lg text-sm font-medium">
-        ✨ Premium Features Active
-      </div>
-    ),
-    sidebarFooter: (
-      <button className="w-full px-3 py-2 bg-white/10 hover:bg-white/15 rounded-lg text-sm text-white/80 transition-colors">
-        + New Workspace
-      </button>
-    ),
   },
 };
 
@@ -108,16 +98,6 @@ export const WithAllSlots: Story = {
           <Share2 className="size-4 text-white/60" />
         </button>
       </>
-    ),
-    sidebarTop: (
-      <div className="px-3 py-2 bg-[#2f7a4f]/20 text-[#40C977] rounded-lg text-sm font-medium">
-        ✨ Premium Features Active
-      </div>
-    ),
-    sidebarFooter: (
-      <button className="w-full px-3 py-2 bg-white/10 hover:bg-white/15 rounded-lg text-sm text-white/80 transition-colors">
-        + New Workspace
-      </button>
     ),
     composerLeft: (
       <button className="p-2 bg-[#1B72E8]/20 text-[#5A9EF4] rounded-lg transition-colors" title="Custom Tool">

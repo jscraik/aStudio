@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import { useState } from "react";
 import {
   IconSearch,
@@ -26,16 +25,10 @@ interface SidebarItem {
   color?: string;
 }
 
-export interface ChatSidebarProps {
+interface ChatSidebarProps {
   isOpen: boolean;
   onToggle: () => void;
   onProjectSelect?: (project: SidebarItem) => void;
-
-  /** Slot: Custom content at top of sidebar (below search) */
-  sidebarTop?: ReactNode;
-
-  /** Slot: Custom content at bottom of sidebar (above user profile) */
-  sidebarFooter?: ReactNode;
 }
 
 const quickActions: SidebarItem[] = [
@@ -85,22 +78,14 @@ const chatHistory = [
   "Learn Year 7 Maths",
 ];
 
-export function ChatSidebar({
-  isOpen,
-  onToggle,
-  onProjectSelect,
-  sidebarTop,
-  sidebarFooter,
-}: ChatSidebarProps) {
+export function ChatSidebar({ isOpen, onToggle, onProjectSelect }: ChatSidebarProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedAction, setSelectedAction] = useState("chatgpt");
   const [showProjectModal, setShowProjectModal] = useState(false);
   const [projectName, setProjectName] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [showIconPicker, setShowIconPicker] = useState(false);
-  const [selectedProjectForIcon, setSelectedProjectForIcon] = useState<SidebarItem | null>(
-    null
-  );
+  const [selectedProjectForIcon, setSelectedProjectForIcon] = useState<SidebarItem | null>(null);
   const [projectsData, setProjectsData] = useState<SidebarItem[]>(projects);
   const [newProjectIcon, setNewProjectIcon] = useState("folder");
   const [newProjectColor, setNewProjectColor] = useState("text-white/60");
@@ -242,7 +227,9 @@ export function ChatSidebar({
               key={project.id}
               onClick={() => {
                 setSelectedAction(project.id);
-                onProjectSelect?.(project);
+                if (onProjectSelect) {
+                  onProjectSelect(project);
+                }
               }}
               className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-left ${
                 selectedAction === project.id ? "bg-white/10" : "hover:bg-white/5"
@@ -277,9 +264,6 @@ export function ChatSidebar({
           )}
         </div>
 
-        {/* sidebarTop Slot */}
-        {sidebarTop ? <div className="px-3 py-2">{sidebarTop}</div> : null}
-
         {/* Divider */}
         <div className="mx-3 my-2 border-t border-white/10" />
 
@@ -299,9 +283,6 @@ export function ChatSidebar({
               </button>
             ))}
         </div>
-
-        {/* sidebarFooter Slot */}
-        {sidebarFooter ? <div className="px-3 py-2">{sidebarFooter}</div> : null}
 
         {/* User Profile */}
         <div className="p-3 border-t border-white/10 relative">
@@ -621,7 +602,10 @@ export function ChatSidebar({
 
         {/* Settings Modal */}
         {showSettingsModal && (
-          <SettingsModal isOpen={showSettingsModal} onClose={() => setShowSettingsModal(false)} />
+          <SettingsModal
+            isOpen={showSettingsModal}
+            onClose={() => setShowSettingsModal(false)}
+          />
         )}
       </div>
     </>

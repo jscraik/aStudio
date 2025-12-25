@@ -51,12 +51,6 @@ export interface ChatUIRootProps {
   /** Slot: Custom content on the right side of header (action buttons) */
   headerRight?: ReactNode;
 
-  /** Slot: Custom content at top of sidebar */
-  sidebarTop?: ReactNode;
-
-  /** Slot: Custom content at bottom of sidebar */
-  sidebarFooter?: ReactNode;
-
   /** Slot: Custom content left of composer input */
   composerLeft?: ReactNode;
 
@@ -113,8 +107,6 @@ export function ChatUIRoot({
   mobileBreakpointPx = 768,
   onSidebarToggle,
   headerRight,
-  sidebarTop,
-  sidebarFooter,
   composerLeft,
   composerRight,
   emptyState,
@@ -342,8 +334,6 @@ export function ChatUIRoot({
         <ChatSidebar
           isOpen={sidebarOpen}
           onToggle={toggleSidebar}
-          sidebarTop={sidebarTop}
-          sidebarFooter={sidebarFooter}
         />
       ) : null}
 
@@ -368,8 +358,6 @@ export function ChatUIRoot({
             <ChatSidebar
               isOpen={sidebarOpen}
               onToggle={closeOverlay}
-              sidebarTop={sidebarTop}
-              sidebarFooter={sidebarFooter}
             />
           </div>
         </div>

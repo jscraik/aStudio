@@ -20,11 +20,13 @@ const config: StorybookConfig = {
     const { default: tailwindcss } = await import("@tailwindcss/vite");
     viteConfig.plugins = [...(viteConfig.plugins ?? []), tailwindcss()];
     viteConfig.base = "./";
+    const repoRoot = path.resolve(__dirname, "../../..");
     viteConfig.server = {
       ...(viteConfig.server ?? {}),
       fs: {
         ...(viteConfig.server?.fs ?? {}),
-        allow: [path.resolve(__dirname, "../../")],
+        strict: false,
+        allow: [repoRoot, path.resolve(repoRoot, "packages")],
       },
     };
     return viteConfig;

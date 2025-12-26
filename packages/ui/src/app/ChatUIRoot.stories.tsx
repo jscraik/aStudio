@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { ChatUIRoot } from "./ChatUIRoot";
 import { Plus, Star, Settings, Share2, Sparkles, Zap } from "lucide-react";

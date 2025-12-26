@@ -1,20 +1,24 @@
+// This file has been automatically migrated to valid ESM format by Storybook.
+import { fileURLToPath } from "node:url";
 import type { StorybookConfig } from "@storybook/react-vite";
-import path from "node:path";
+import path, { dirname } from "node:path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const config: StorybookConfig = {
   stories: ["../../../packages/ui/src/**/*.stories.tsx"],
   addons: [
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
     "@storybook/addon-a11y",
+    "@storybook/addon-docs",
+    "@storybook/addon-vitest"
   ],
+
   framework: {
     name: "@storybook/react-vite",
     options: {},
   },
-  docs: {
-    autodocs: true,
-  },
+
   viteFinal: async (viteConfig) => {
     // Tailwind CSS v4 via PostCSS - handled by the CSS import in preview.tsx
     const { default: tailwindcss } = await import("@tailwindcss/vite");
@@ -30,7 +34,7 @@ const config: StorybookConfig = {
       },
     };
     return viteConfig;
-  },
+  }
 };
 
 export default config;

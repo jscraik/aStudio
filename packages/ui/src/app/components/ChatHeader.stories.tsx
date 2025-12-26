@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { ChatHeader } from "./ChatHeader";
 import { Plus, Star, Settings } from "lucide-react";

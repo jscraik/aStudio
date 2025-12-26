@@ -1,6 +1,6 @@
 import "../preview.css";
 
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-vite";
 import React from "react";
 
 import { AppsSDKUIProvider } from "@openai/apps-sdk-ui/components/AppsSDKUIProvider";
@@ -18,6 +18,7 @@ const preview: Preview = {
       },
     },
   },
+
   decorators: [
     (Story) => (
       <AppsSDKUIProvider>
@@ -25,6 +26,8 @@ const preview: Preview = {
       </AppsSDKUIProvider>
     ),
   ],
+
+  tags: ["autodocs"]
 };
 
 export default preview;

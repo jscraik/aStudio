@@ -12,5 +12,12 @@
     "mcp:start": "pnpm -C apps/mcp start",
     "storybook:dev": "pnpm -C apps/storybook dev",
     "storybook:build": "pnpm -C apps/storybook build"
+  },
+  "devDependencies": {
+    "@storybook/addon-vitest": "^10.1.10",
+    "vitest": "^4.0.16",
+    "playwright": "^1.57.0",
+    "@vitest/browser-playwright": "^4.0.16",
+    "@vitest/coverage-v8": "^4.0.16"
   }
 }

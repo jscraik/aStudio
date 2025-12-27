@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { IconX } from "../../icons";
+import { RangeSlider } from "./ui/range-slider";
+import { SectionHeader } from "./ui/section-header";
+import { SegmentedControl } from "./ui/segmented-control";
+import { Toggle } from "./ui/toggle";
 
 interface DiscoverySettingsModalProps {
   isOpen: boolean;
@@ -8,132 +12,6 @@ interface DiscoverySettingsModalProps {
   onPromptEnhancementChange: (mode: 'rewrite' | 'augment' | 'preserve') => void;
   targetSize: number;
   onTargetSizeChange: (size: number) => void;
-}
-
-function SectionHeader({
-  title,
-  description,
-  descriptionClassName,
-}: {
-  title: string;
-  description: string;
-  descriptionClassName?: string;
-}) {
-  return (
-    <>
-      <h3 className="text-[14px] font-medium leading-[20px] text-white mb-2">{title}</h3>
-      <p
-        className={
-          descriptionClassName ||
-          "text-[13px] font-normal leading-[18px] text-[var(--foundation-text-dark-tertiary)] mb-3"
-        }
-      >
-        {description}
-      </p>
-    </>
-  );
-}
-
-function RangeSlider({
-  label,
-  value,
-  onChange,
-  background,
-}: {
-  label: string;
-  value: number;
-  onChange: (value: number) => void;
-  background: string;
-}) {
-  return (
-    <div className="space-y-2">
-      <div className="flex items-center justify-between">
-        <label className="text-[13px] font-normal leading-[18px] text-white/80">
-          {label}
-        </label>
-        <span className="text-[13px] font-medium leading-[18px] text-white">{value}k</span>
-      </div>
-      <input
-        type="range"
-        min="20"
-        max="100"
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer"
-        style={{ background }}
-      />
-    </div>
-  );
-}
-
-function SegmentedButtons<T extends string>({
-  value,
-  options,
-  onChange,
-}: {
-  value: T;
-  options: { value: T; label: string }[];
-  onChange: (value: T) => void;
-}) {
-  return (
-    <div className="flex gap-2 mb-3">
-      {options.map((option) => (
-        <button
-          key={option.value}
-          onClick={() => onChange(option.value)}
-          className={`px-4 py-2 rounded-lg text-[13px] font-normal leading-[18px] transition-colors ${
-            value === option.value
-              ? "bg-[var(--foundation-accent-green)] text-[var(--foundation-text-light-primary)]"
-              : "bg-[var(--foundation-bg-dark-2)] text-white/60 hover:text-white"
-          }`}
-        >
-          {option.label}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-function ToggleRow({
-  icon,
-  title,
-  description,
-  checked,
-  onToggle,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  checked: boolean;
-  onToggle: () => void;
-}) {
-  return (
-    <div className="flex items-start justify-between">
-      <div className="flex items-start gap-3">
-        <div className="mt-0.5">{icon}</div>
-        <div className="flex-1">
-          <div className="text-[13px] font-medium leading-[18px] text-white mb-0.5">
-            {title}
-          </div>
-          <div className="text-[12px] font-normal leading-[16px] text-white/50">
-            {description}
-          </div>
-        </div>
-      </div>
-      <button
-        onClick={onToggle}
-        className={`relative w-11 h-6 rounded-full transition-colors flex-shrink-0 ${
-          checked ? "bg-[var(--foundation-accent-green)]" : "bg-white/20"
-        }`}
-      >
-        <div
-          className={`absolute top-0.5 left-0.5 size-5 bg-white rounded-full transition-transform ${
-            checked ? 'translate-x-5' : 'translate-x-0'
-          }`}
-        />
-      </button>
-    </div>
-  );
 }
 
 export function DiscoverySettingsModal({ 
@@ -191,9 +69,6 @@ export function DiscoverySettingsModal({
     }
   };
 
-  const targetSizeBackground = `linear-gradient(to right, var(--foundation-accent-green) 0%, var(--foundation-accent-green) ${(targetSize - 20) / 0.8}%, rgba(255,255,255,0.1) ${(targetSize - 20) / 0.8}%, rgba(255,255,255,0.1) 100%)`;
-  const autoPlanBackground = `linear-gradient(to right, var(--foundation-accent-green) 0%, var(--foundation-accent-green) ${(autoPlanBudget - 20) / 0.8}%, rgba(255,255,255,0.1) ${(autoPlanBudget - 20) / 0.8}%, rgba(255,255,255,0.1) 100%)`;
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/60" onClick={onClose} />
@@ -237,7 +112,9 @@ export function DiscoverySettingsModal({
               label="Target size"
               value={targetSize}
               onChange={handleTargetSizeChange}
-              background={targetSizeBackground}
+              min={20}
+              max={100}
+              suffix="k"
             />
             <div className="mt-3">
               <button
@@ -268,7 +145,9 @@ export function DiscoverySettingsModal({
                     label="Target size"
                     value={autoPlanBudget}
                     onChange={setAutoPlanBudget}
-                    background={autoPlanBackground}
+                    min={20}
+                    max={100}
+                    suffix="k"
                   />
                 </div>
               )}
@@ -280,7 +159,7 @@ export function DiscoverySettingsModal({
               title="Prompt Enhancement"
               description="How the agent modifies your instructions after discovery."
             />
-            <SegmentedButtons
+            <SegmentedControl
               value={promptEnhancement}
               options={[
                 { value: 'rewrite', label: 'Rewrite' },
@@ -301,28 +180,48 @@ export function DiscoverySettingsModal({
               descriptionClassName="text-[13px] font-normal leading-[18px] text-white/60 mb-4"
             />
             <div className="space-y-4">
-              <ToggleRow
-                icon={
-                  <svg className="size-5 text-[var(--foundation-accent-blue)]" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M21 15c0-4.625-3.507-8.441-8-8.941V4h-2v2.059c-4.493.5-8 4.316-8 8.941v2l-2 2v1h22v-1l-2-2v-2zm-9 5c1.103 0 2-.897 2-2h-4c0 1.103.897 2 2 2z" />
-                  </svg>
-                }
-                title="Manual Runs (UI)"
-                description="When you click Run Discovery"
-                checked={manualRuns}
-                onToggle={() => setManualRuns(!manualRuns)}
-              />
-              <ToggleRow
-                icon={
-                  <svg className="size-5 text-[var(--foundation-accent-green)]" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M3 3h18v2H3V3zm0 16h18v2H3v-2zm0-8h18v2H3v-2z" />
-                  </svg>
-                }
-                title="MCP Runs"
-                description="When called via context_builder"
-                checked={mcpRuns}
-                onToggle={() => setMcpRuns(!mcpRuns)}
-              />
+              <div className="flex items-start justify-between">
+                <div className="flex items-start gap-3">
+                  <div className="mt-0.5">
+                    <svg className="size-5 text-[var(--foundation-accent-blue)]" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M21 15c0-4.625-3.507-8.441-8-8.941V4h-2v2.059c-4.493.5-8 4.316-8 8.941v2l-2 2v1h22v-1l-2-2v-2zm-9 5c1.103 0 2-.897 2-2h-4c0 1.103.897 2 2 2z" />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-[13px] font-medium leading-[18px] text-white mb-0.5">
+                      Manual Runs (UI)
+                    </div>
+                    <div className="text-[12px] font-normal leading-[16px] text-white/50">
+                      When you click Run Discovery
+                    </div>
+                  </div>
+                </div>
+                <Toggle
+                  checked={manualRuns}
+                  onChange={setManualRuns}
+                />
+              </div>
+              <div className="flex items-start justify-between">
+                <div className="flex items-start gap-3">
+                  <div className="mt-0.5">
+                    <svg className="size-5 text-[var(--foundation-accent-green)]" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M3 3h18v2H3V3zm0 16h18v2H3v-2zm0-8h18v2H3v-2z" />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-[13px] font-medium leading-[18px] text-white mb-0.5">
+                      MCP Runs
+                    </div>
+                    <div className="text-[12px] font-normal leading-[16px] text-white/50">
+                      When called via context_builder
+                    </div>
+                  </div>
+                </div>
+                <Toggle
+                  checked={mcpRuns}
+                  onChange={setMcpRuns}
+                />
+              </div>
             </div>
           </div>
 
@@ -331,7 +230,7 @@ export function DiscoverySettingsModal({
               title="Text Format"
               description="Choose the format for the output text."
             />
-            <SegmentedButtons
+            <SegmentedControl
               value={textFormat}
               options={[
                 { value: 'text', label: 'Text' },
@@ -348,7 +247,7 @@ export function DiscoverySettingsModal({
               title="Reasoning Effort"
               description="Set the level of reasoning effort for the agent."
             />
-            <SegmentedButtons
+            <SegmentedControl
               value={reasoningEffort}
               options={[
                 { value: 'low', label: 'Low' },
@@ -364,7 +263,7 @@ export function DiscoverySettingsModal({
               title="Verbosity"
               description="Set the level of verbosity for the agent's output."
             />
-            <SegmentedButtons
+            <SegmentedControl
               value={verbosity}
               options={[
                 { value: 'low', label: 'Low' },
@@ -380,17 +279,27 @@ export function DiscoverySettingsModal({
               title="Store Logs"
               description="Enable or disable logging of the agent's actions."
             />
-            <ToggleRow
-              icon={
-                <svg className="size-5 text-[var(--foundation-accent-blue)]" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M21 15c0-4.625-3.507-8.441-8-8.941V4h-2v2.059c-4.493.5-8 4.316-8 8.941v2l-2 2v1h22v-1l-2-2v-2zm-9 5c1.103 0 2-.897 2-2h-4c0 1.103.897 2 2 2z" />
-                </svg>
-              }
-              title="Store Logs"
-              description="Enable logging for debugging and analysis"
-              checked={storeLogs}
-              onToggle={() => setStoreLogs(!storeLogs)}
-            />
+            <div className="flex items-start justify-between">
+              <div className="flex items-start gap-3">
+                <div className="mt-0.5">
+                  <svg className="size-5 text-[var(--foundation-accent-blue)]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M21 15c0-4.625-3.507-8.441-8-8.941V4h-2v2.059c-4.493.5-8 4.316-8 8.941v2l-2 2v1h22v-1l-2-2v-2zm-9 5c1.103 0 2-.897 2-2h-4c0 1.103.897 2 2 2z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <div className="text-[13px] font-medium leading-[18px] text-white mb-0.5">
+                    Store Logs
+                  </div>
+                  <div className="text-[12px] font-normal leading-[16px] text-white/50">
+                    Enable logging for debugging and analysis
+                  </div>
+                </div>
+              </div>
+              <Toggle
+                checked={storeLogs}
+                onChange={setStoreLogs}
+              />
+            </div>
           </div>
         </div>
 

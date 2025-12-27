@@ -1,12 +1,20 @@
 {
   "name": "@chatui/tokens",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
+  "license": "MIT",
   "exports": {
     ".": "./src/index.ts",
     "./foundations.css": "./src/foundations.css",
     "./tokens.css": "./src/tokens.css",
     "./tailwind.preset": "./tailwind.preset.ts"
+  },
+  "files": [
+    "src",
+    "dist",
+    "tailwind.preset.ts"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }

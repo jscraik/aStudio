@@ -1,32 +1,20 @@
-import { defineConfig } from "vite";
-import { resolve } from "node:path";
-import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react";
+import { resolve } from "path";
+import { fileURLToPath } from "url";
+import { defineConfig } from "vite";
+
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 export default defineConfig({
-  base: "./",
   plugins: [react(), tailwindcss()],
   build: {
     rollupOptions: {
       input: {
-        "kitchen-sink-lite": resolve(
-          __dirname,
-          "src/kitchen-sink-lite/index.html"
-        ),
+        "chat-view": resolve(__dirname, "src/chat-view/index.html"),
+        "kitchen-sink-lite": resolve(__dirname, "src/kitchen-sink-lite/index.html"),
         "pizzaz-table": resolve(__dirname, "src/pizzaz-table/index.html"),
-        "pizzaz-markdown": resolve(
-          __dirname,
-          "src/pizzaz-markdown/index.html"
-        ),
-        "pizzaz-carousel": resolve(
-          __dirname,
-          "src/pizzaz-carousel/index.html"
-        ),
-        "pizzaz-gallery": resolve(
-          __dirname,
-          "src/pizzaz-gallery/index.html"
-        ),
-        "solar-system": resolve(__dirname, "src/solar-system/index.html"),
+        "search-results": resolve(__dirname, "src/search-results/index.html"),
       },
       output: {
         entryFileNames: "assets/[name]-[hash].js",
@@ -36,10 +24,5 @@ export default defineConfig({
     },
     outDir: "dist",
     emptyOutDir: true,
-  },
-  server: {
-    fs: {
-      allow: [resolve(__dirname, "../..")],
-    },
   },
 });

@@ -6,6 +6,9 @@ import React from "react";
 import { HostProvider, createMockHost } from "@chatui/runtime";
 import { AppsSDKUIProvider } from "@chatui/ui";
 
+// Make React available globally for MDX files
+(globalThis as any).React = React;
+
 const host = createMockHost();
 
 const preview: Preview = {
@@ -15,6 +18,29 @@ const preview: Preview = {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
+      },
+    },
+    // Accessibility testing configuration
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: 'color-contrast',
+            enabled: true,
+          },
+          {
+            id: 'focus-order-semantics',
+            enabled: true,
+          },
+        ],
+      },
+    },
+    // Documentation configuration
+    docs: {
+      toc: {
+        contentsSelector: '.sbdocs-content',
+        headingSelector: 'h1, h2, h3',
+        title: 'Table of Contents',
       },
     },
   },

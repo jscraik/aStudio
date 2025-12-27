@@ -1,11 +1,32 @@
 {
   "name": "@chatui/ui",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
+  "license": "MIT",
   "exports": {
-    ".": "./src/index.ts",
-    "./styles.css": "./src/styles/ui.css"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build && tsc --emitDeclarationOnly",
+    "dev": "vite build --watch",
+    "type-check": "tsc --noEmit",
+    "test:components": "test-storybook",
+    "test:a11y": "test-storybook --coverage",
+    "test:visual": "chromatic --exit-zero-on-changes",
+    "analyze": "echo 'Bundle analysis available in Storybook addon-webpack-stats-v2'",
+    "clean": "rm -rf dist"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",

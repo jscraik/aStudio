@@ -1,0 +1,189 @@
+# Storybook Usage Guide
+
+Your ChatUI library is fully integrated with Storybook for comprehensive testing and documentation. Here's how to leverage all the built-in features:
+
+## 🚀 **Getting Started**
+
+```bash
+# Start Storybook development server
+pnpm storybook:dev
+
+# Build Storybook for production
+pnpm storybook:build
+
+# Run automated tests
+pnpm test:components
+
+# Run accessibility tests
+pnpm test:a11y
+```
+
+## 📚 **What's Already Configured**
+
+### ✅ **Automated Testing** (`@storybook/addon-vitest`)
+
+- Interactive testing in the browser
+- Component behavior validation
+- User interaction testing
+
+### ✅ **Accessibility Testing** (`@storybook/addon-a11y`)
+
+- Real-time accessibility checks
+- WCAG compliance validation
+- Color contrast analysis
+- Keyboard navigation testing
+
+### ✅ **Documentation** (`@storybook/addon-docs`)
+
+- Auto-generated component docs
+- Interactive controls
+- Code examples
+- Design tokens documentation
+
+### ✅ **Bundle Analysis** (`@storybook/addon-webpack-stats-v2`)
+
+- Bundle size monitoring
+- Dependency analysis
+- Performance insights
+
+## 🧪 **Testing Features**
+
+### **Interactive Testing**
+
+Your components include interactive tests that run in the browser:
+
+```tsx
+// Example: button.test.stories.tsx
+export const ClickInteraction: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button");
+    
+    await expect(button).toBeInTheDocument();
+    await userEvent.click(button);
+  },
+};
+```
+
+### **Accessibility Testing**
+
+Every story automatically runs accessibility checks:
+
+- Color contrast ratios
+- ARIA attributes
+- Keyboard navigation
+- Screen reader compatibility
+
+### **Visual Regression Testing**
+
+Set up Chromatic for visual testing:
+
+```bash
+pnpm test:visual
+```
+
+## 📖 **Documentation Features**
+
+### **Design Tokens**
+
+Navigate to "Design System/Design Tokens" in Storybook to see:
+
+- Color palette with CSS variables
+- Spacing scale
+- Border radius tokens
+- Usage examples
+
+### **Component Documentation**
+
+Each component story includes:
+
+- Interactive controls for all props
+- Auto-generated prop tables
+- Usage examples
+- Accessibility guidelines
+
+### **Code Examples**
+
+View source code for any story using the "Show code" feature.
+
+## 🎯 **Best Practices**
+
+### **Writing Stories**
+
+```tsx
+// Good: Comprehensive story with multiple variants
+export const AllVariants: Story = {
+  render: () => (
+    <div className="flex gap-2">
+      <Button variant="primary">Primary</Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="outline">Outline</Button>
+    </div>
+  ),
+};
+
+// Good: Interactive test story
+export const UserInteraction: Story = {
+  play: async ({ canvasElement }) => {
+    // Test user interactions
+  },
+};
+```
+
+### **Accessibility Testing**
+
+- Every interactive component should have keyboard navigation tests
+- Check color contrast in the A11y addon panel
+- Verify ARIA attributes are properly set
+- Test with screen reader simulation
+
+### **Performance Monitoring**
+
+- Use the Bundle addon to monitor component size
+- Check for unnecessary re-renders in React DevTools
+- Monitor bundle impact when adding new dependencies
+
+## 🔧 **Advanced Features**
+
+### **Custom Viewports**
+
+Test responsive behavior with built-in viewport controls.
+
+### **Theme Switching**
+
+Components automatically work with the ChatUI theme system.
+
+### **Mock Data**
+
+Use the provided mock data utilities:
+
+```tsx
+import { mockData } from "@chatui/ui";
+
+export const WithMockData: Story = {
+  args: {
+    models: mockData.models,
+    messages: mockData.messages,
+  },
+};
+```
+
+## 📊 **Available Reports**
+
+1. **Accessibility Report**: A11y addon panel
+2. **Bundle Analysis**: Webpack Stats addon
+3. **Test Results**: Vitest addon panel
+4. **Component Coverage**: Auto-generated from stories
+
+## 🚀 **CI/CD Integration**
+
+```yaml
+# Example GitHub Actions
+- name: Run Storybook Tests
+  run: |
+    pnpm storybook:build
+    pnpm test:components
+    pnpm test:a11y
+```
+
+Your Storybook setup provides everything needed for comprehensive component testing, documentation, and quality assurance without additional tooling!

@@ -1,20 +1,56 @@
 # Apps SDK UI Library Workspace
 
-This repository is a **library-first monorepo**:
+This repository is a **library-first monorepo** for building consistent UI across ChatGPT widgets and standalone React applications.
 
-- **Primary product**: `packages/ui` + `packages/runtime`
-- **Reference harnesses**: `apps/web`, `apps/storybook`, `apps/mcp`
+## What This Is
 
-It uses **Apps SDK UI** as the shared design system while keeping the UI package pure and host-agnostic.
+A shared design system library that you can use across all your projects:
 
-## Workspace layout
+- **ChatGPT Widgets** - Embedded in ChatGPT via Apps SDK
+- **Standalone React Apps** - Any React application
+- **Internal Tools** - Dashboards, admin panels, etc.
 
-- `packages/ui` – reusable UI components (chat layout, header, sidebar, etc.)
-- `packages/runtime` – host adapters + mocks (`window.openai` wrapper, HostProvider)
-- `packages/tokens` – Figma foundations audit tokens (CSS + TS exports)
-- `apps/web` – standalone reference app (browser shell)
-- `apps/storybook` – Storybook for the UI library
-- `apps/mcp` – **integration harness only** (serves widget bundle + tools for ChatGPT)
+## Primary Products
+
+- `@chatui/ui` - Reusable UI components (chat layout, header, sidebar, primitives)
+- `@chatui/runtime` - Host adapters + mocks (`window.openai` wrapper, HostProvider)
+- `@chatui/tokens` - Design tokens (CSS variables, Tailwind preset)
+
+## Reference Harnesses
+
+- `apps/web` - Standalone reference app with page routing system
+- `apps/storybook` - Component documentation and development
+- `apps/mcp` - MCP server for ChatGPT integration
+- `packages/widgets` - Standalone widget bundles for ChatGPT
+
+## 🚀 Quick Start
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start development
+pnpm dev                    # Web app at http://localhost:5176
+pnpm storybook:dev         # Storybook at http://localhost:6006
+
+# Build for production
+pnpm build                 # Build web app
+pnpm build:widget         # Build standalone widgets
+```
+
+## 📄 Pages & Navigation
+
+The web app includes a flexible page system with URL-based routing:
+
+- **Chat**: <http://localhost:5176/> (default)
+- **Settings**: <http://localhost:5176/settings>
+- **Profile**: <http://localhost:5176/profile>
+- **About**: <http://localhost:5176/about>
+- **Widget Harness**: <http://localhost:5176/harness>
+
+### Adding New Pages
+
+See [PAGES_QUICK_START.md](./PAGES_QUICK_START.md) for a 5-minute guide, or check `.kiro/steering/page-development.md` for comprehensive patterns.
 
 ## Rules of the road
 
@@ -58,7 +94,7 @@ This repo uses **Apps SDK UI** as the visual system. Import the CSS in both stan
 @source "../../packages/ui/src";
 ```
 
-See: https://developers.openai.com/apps-sdk/
+See: <https://developers.openai.com/apps-sdk/>
 
 ## Foundation tokens (audit layer)
 
@@ -168,3 +204,120 @@ pnpm lint:compliance
 ```
 
 Set `COMPLIANCE_STRICT=1` to turn warnings into errors.
+
+## Using in Other Projects
+
+### Option 1: Workspace Reference (Monorepo)
+
+If your other projects are in the same monorepo:
+
+```json
+{
+  "dependencies": {
+    "@chatui/ui": "workspace:*",
+    "@chatui/runtime": "workspace:*",
+    "@chatui/tokens": "workspace:*"
+  }
+}
+```
+
+### Option 2: Git Submodule
+
+Add this repo as a submodule in your project:
+
+```bash
+git submodule add <repo-url> packages/chatui
+```
+
+Then reference in your package.json:
+
+```json
+{
+  "dependencies": {
+    "@chatui/ui": "file:./packages/chatui/packages/ui"
+  }
+}
+```
+
+### Option 3: Published Package (npm/GitHub Packages)
+
+Publish to npm or GitHub Packages:
+
+```bash
+pnpm build:lib
+pnpm publish --access public
+```
+
+Then install normally:
+
+```bash
+pnpm add @chatui/ui @chatui/runtime @chatui/tokens
+```
+
+## Creating New Components
+
+Use the component generator:
+
+```bash
+# Create a primitive component (Button, Input, etc.)
+pnpm new:component MyButton primitive
+
+# Create a chat component
+pnpm new:component ChatToolbar chat
+
+# Create a template
+pnpm new:component AdminTemplate template
+
+# Create a page
+pnpm new:component SettingsPage page
+```
+
+This creates the component file and a Storybook story.
+
+## Development Workflow
+
+1. **Design in Storybook** - `pnpm storybook:dev`
+2. **Test in Web App** - `pnpm dev:web`
+3. **Build Widgets** - `pnpm build:widgets`
+4. **Test in ChatGPT** - `pnpm mcp:start`
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     Your Projects                            │
+├─────────────────────────────────────────────────────────────┤
+│  Project A    │  Project B    │  ChatGPT Widget  │  ...     │
+│  (React App)  │  (Dashboard)  │  (Embedded)      │          │
+└───────┬───────┴───────┬───────┴────────┬─────────┴──────────┘
+        │               │                │
+        └───────────────┼────────────────┘
+                        │
+        ┌───────────────▼───────────────┐
+        │      @chatui/ui               │
+        │  (Shared Component Library)   │
+        ├───────────────────────────────┤
+        │  • Chat Components            │
+        │  • UI Primitives              │
+        │  • Templates                  │
+        │  • Pages                      │
+        └───────────────┬───────────────┘
+                        │
+        ┌───────────────▼───────────────┐
+        │      @chatui/runtime          │
+        │  (Host Abstraction)           │
+        ├───────────────────────────────┤
+        │  • createEmbeddedHost()       │
+        │  • createStandaloneHost()     │
+        │  • HostProvider               │
+        └───────────────┬───────────────┘
+                        │
+        ┌───────────────▼───────────────┐
+        │      @chatui/tokens           │
+        │  (Design Tokens)              │
+        ├───────────────────────────────┤
+        │  • CSS Variables              │
+        │  • Tailwind Preset            │
+        │  • Theme Configuration        │
+        └───────────────────────────────┘
+```

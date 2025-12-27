@@ -1,31 +1,32 @@
 import { useState } from "react";
 
-import { Popover } from "../../vendor/appsSdkUi";
 import {
-  IconArchive,
-  IconChat,
-  IconChevronRightMd,
-  IconCloseBold,
-  IconCode,
-  IconDotsHorizontal,
-  IconFolder,
-  IconGrid3x3,
-  IconImage,
-  IconRadio,
-  IconSearch,
-  IconSettings,
-  IconSidebar,
-  Sparkles,
+    IconArchive,
+    IconChat,
+    IconCloseBold,
+    IconCode,
+    IconDotsHorizontal,
+    IconFolder,
+    IconGrid3x3,
+    IconImage,
+    IconRadio,
+    IconSearch,
+    IconSettings,
+    IconSidebar,
+    Sparkles
 } from "../../icons";
-import {
-  IconBarChart,
-  IconBook,
-  IconCompose,
-  IconWriting,
-} from "./icons/ChatGPTIcons";
-import { IconPickerModal } from "./IconPickerModal";
-import { SettingsModal } from "./SettingsModal";
+import { Popover } from "../../vendor/appsSdkUi";
 import { useChatUISlots } from "../slots";
+import { IconPickerModal } from "./IconPickerModal";
+import {
+    IconBarChart,
+    IconBook,
+    IconCompose,
+    IconWriting,
+} from "./icons/ChatGPTIcons";
+import { SettingsModal } from "./SettingsModal";
+import { CollapsibleSection } from "./ui/collapsible-section";
+import { ListItem } from "./ui/list-item";
 
 interface SidebarItem {
   id: string;
@@ -319,154 +320,94 @@ export function ChatSidebar({
         </div>
 
         <div className="px-2 pb-1">
-          <button
+          <ListItem
+            icon={<IconCompose className="size-4" />}
+            label={isCollapsed ? "" : "New chat"}
             onClick={handleNewChat}
-            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors hover:bg-white/5 ${
-              isCollapsed ? "justify-center" : ""
-            }`}
-            title={isCollapsed ? "New chat" : ""}
-          >
-            <IconCompose className="size-4 flex-shrink-0 text-white" />
-            {!isCollapsed && (
-              <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white">
-                New chat
-              </span>
-            )}
-          </button>
+            className={isCollapsed ? "justify-center" : ""}
+          />
         </div>
 
         <div className="px-2 pb-1">
-          <button
-            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors hover:bg-white/5 ${
-              isCollapsed ? "justify-center" : ""
-            }`}
-            title={isCollapsed ? "Search chats" : ""}
-          >
-            <IconSearch className="size-4 flex-shrink-0 text-white" />
-            {!isCollapsed && (
-              <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white">
-                Search chats
-              </span>
-            )}
-          </button>
+          <ListItem
+            icon={<IconSearch className="size-4" />}
+            label={isCollapsed ? "" : "Search chats"}
+            className={isCollapsed ? "justify-center" : ""}
+          />
         </div>
 
         {!isCollapsed && (
           <div className="px-2 pb-1">
-            <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors hover:bg-white/5">
-              <Sparkles className="size-4 flex-shrink-0 text-white" />
-              <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white">
-                Your Year With ChatGPT
-              </span>
-            </button>
+            <ListItem
+              icon={<Sparkles className="size-4" />}
+              label="Your Year With ChatGPT"
+            />
           </div>
         )}
 
         <div className="px-2 pb-1">
-          <button
-            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors hover:bg-white/5 ${
-              isCollapsed ? "justify-center" : ""
-            }`}
-            title={isCollapsed ? "Pulse" : ""}
-          >
-            <IconRadio className="size-4 flex-shrink-0 text-white" />
-            {!isCollapsed && (
-              <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white">
-                Pulse
-              </span>
-            )}
-          </button>
+          <ListItem
+            icon={<IconRadio className="size-4" />}
+            label={isCollapsed ? "" : "Pulse"}
+            className={isCollapsed ? "justify-center" : ""}
+          />
         </div>
 
         <div className="px-2 pb-1">
-          <button
-            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors hover:bg-white/5 ${
-              isCollapsed ? "justify-center" : ""
-            }`}
-            title={isCollapsed ? "Images" : ""}
-          >
-            <IconImage className="size-4 flex-shrink-0 text-white" />
-            {!isCollapsed && (
-              <>
-                <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white">
-                  Images
-                </span>
-                <span className="ml-auto text-[10px] font-semibold leading-[14px] tracking-[0.5px] px-1.5 py-0.5 bg-white/10 rounded text-white uppercase">
-                  NEW
-                </span>
-              </>
+          <ListItem
+            icon={<IconImage className="size-4" />}
+            label={isCollapsed ? "" : "Images"}
+            right={!isCollapsed && (
+              <span className="text-[10px] font-semibold leading-[14px] tracking-[0.5px] px-1.5 py-0.5 bg-white/10 rounded text-white uppercase">
+                NEW
+              </span>
             )}
-          </button>
+            className={isCollapsed ? "justify-center" : ""}
+          />
         </div>
 
         {!isCollapsed && (
           <div className="px-2 pb-1">
-            <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors hover:bg-white/5">
-              <IconArchive className="size-4 flex-shrink-0 text-white" />
-              <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white">
-                Archived chats
-              </span>
-            </button>
+            <ListItem
+              icon={<IconArchive className="size-4" />}
+              label="Archived chats"
+            />
           </div>
         )}
 
         <div className="flex-1 overflow-y-auto overflow-x-hidden">
           {!isCollapsed && (
             <div className="px-2 pb-1">
-              <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors hover:bg-white/5">
-                <IconGrid3x3 className="size-4 flex-shrink-0 text-white" />
-                <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white">
-                  Apps
-                </span>
-              </button>
+              <ListItem
+                icon={<IconGrid3x3 className="size-4" />}
+                label="Apps"
+              />
             </div>
           )}
 
           {!isCollapsed && (
             <div className="px-2 pb-1">
-              <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors hover:bg-white/5">
-                <IconCode className="size-4 flex-shrink-0 text-white" />
-                <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white">
-                  Codex
-                </span>
-              </button>
+              <ListItem
+                icon={<IconCode className="size-4" />}
+                label="Codex"
+              />
             </div>
           )}
 
           {!isCollapsed && (
-            <div className="px-2 pb-1 pt-2">
-              <button
-                onClick={() => setGptsExpanded(!gptsExpanded)}
-                className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg transition-colors hover:bg-white/5"
-              >
-                <span className="text-[13px] font-normal leading-[18px] tracking-[-0.3px] text-[var(--foundation-text-dark-tertiary)]">
-                  GPTs
-                </span>
-                <IconChevronRightMd
-                  className={`size-3 text-[var(--foundation-text-dark-tertiary)] transition-transform ${
-                    gptsExpanded ? "rotate-90" : ""
-                  }`}
-                />
-              </button>
-            </div>
+            <CollapsibleSection
+              title="GPTs"
+              expanded={gptsExpanded}
+              onToggle={() => setGptsExpanded(!gptsExpanded)}
+            />
           )}
 
           {!isCollapsed && (
-            <div className="px-2 pb-1">
-              <button
-                onClick={() => setProjectsExpanded(!projectsExpanded)}
-                className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg transition-colors hover:bg-white/5"
-              >
-                <span className="text-[13px] font-normal leading-[18px] tracking-[-0.3px] text-[var(--foundation-text-dark-tertiary)]">
-                  Projects
-                </span>
-                <IconChevronRightMd
-                  className={`size-3 text-[var(--foundation-text-dark-tertiary)] transition-transform ${
-                    projectsExpanded ? "rotate-90" : ""
-                  }`}
-                />
-              </button>
-            </div>
+            <CollapsibleSection
+              title="Projects"
+              expanded={projectsExpanded}
+              onToggle={() => setProjectsExpanded(!projectsExpanded)}
+            />
           )}
 
           {projectsExpanded && !isCollapsed && (
@@ -474,12 +415,12 @@ export function ChatSidebar({
               <div className="px-2 pb-1">
                 <Popover>
                   <Popover.Trigger>
-                    <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors hover:bg-white/5">
-                      <IconFolder className="size-4 flex-shrink-0 text-white" />
-                      <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white">
-                        New project
-                      </span>
-                    </button>
+                    <div className="w-full">
+                      <ListItem
+                        icon={<IconFolder className="size-4" />}
+                        label="New project"
+                      />
+                    </div>
                   </Popover.Trigger>
                   <Popover.Content
                     side="right"
@@ -569,40 +510,34 @@ export function ChatSidebar({
                 </Popover>
               </div>
 
-              <div
-                className="px-2 pb-1 group"
-                onMouseEnter={() => setHoveredProject("apps-sdk-lib")}
-                onMouseLeave={() => setHoveredProject(null)}
-              >
-                <div className="relative">
-                  <button
-                    onClick={() =>
-                      handleProjectSelect({
-                        id: "apps-sdk-lib",
-                        label: "Apps SDK Library",
-                        icon: <IconCode className="size-4" />,
-                        color: "text-[var(--foundation-accent-green)]",
-                      })
-                    }
-                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors hover:bg-white/5"
-                  >
-                    <IconCode className="size-4 flex-shrink-0 text-[var(--foundation-accent-green)]" />
-                    <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white text-left">
-                      Apps SDK Library
-                    </span>
-                  </button>
-                  {hoveredProject === "apps-sdk-lib" && (
-                    <button
-                      className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 hover:bg-white/10 rounded-md transition-colors"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        console.log("Project options");
-                      }}
-                    >
-                      <IconDotsHorizontal className="size-4 text-[var(--foundation-text-dark-tertiary)]" />
-                    </button>
-                  )}
-                </div>
+              <div className="px-2 pb-1">
+                <ListItem
+                  icon={<IconCode className="size-4 text-[var(--foundation-accent-green)]" />}
+                  label="Apps SDK Library"
+                  onClick={() =>
+                    handleProjectSelect({
+                      id: "apps-sdk-lib",
+                      label: "Apps SDK Library",
+                      icon: <IconCode className="size-4" />,
+                      color: "text-[var(--foundation-accent-green)]",
+                    })
+                  }
+                  right={
+                    hoveredProject === "apps-sdk-lib" && (
+                      <button
+                        className="p-1.5 hover:bg-white/10 rounded-md transition-colors"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          console.log("Project options");
+                        }}
+                      >
+                        <IconDotsHorizontal className="size-4 text-[var(--foundation-text-dark-tertiary)]" />
+                      </button>
+                    )
+                  }
+                  onMouseEnter={() => setHoveredProject("apps-sdk-lib")}
+                  onMouseLeave={() => setHoveredProject(null)}
+                />
               </div>
 
               <div
@@ -663,130 +598,96 @@ export function ChatSidebar({
                 </div>
               </div>
 
-              <div
-                className="px-2 pb-1 group"
-                onMouseEnter={() => setHoveredProject("peer")}
-                onMouseLeave={() => setHoveredProject(null)}
-              >
-                <div className="relative">
-                  <button
-                    onClick={() => handleProjectSelect(projectsData[2])}
-                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors hover:bg-white/5"
-                  >
-                    <IconFolder className="size-4 flex-shrink-0 text-[var(--foundation-accent-orange)]" />
-                    <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white text-left">
-                      PEER Framework
-                    </span>
-                  </button>
-                  {hoveredProject === "peer" && (
-                    <button
-                      className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 hover:bg-white/10 rounded-md transition-colors"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        console.log("Project options");
-                      }}
-                    >
-                      <IconDotsHorizontal className="size-4 text-[var(--foundation-text-dark-tertiary)]" />
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              <div
-                className="px-2 pb-1 group"
-                onMouseEnter={() => setHoveredProject("lyra")}
-                onMouseLeave={() => setHoveredProject(null)}
-              >
-                <div className="relative">
-                  <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors hover:bg-white/5">
-                    <IconFolder className="size-4 flex-shrink-0 text-[var(--foundation-accent-orange)]" />
-                    <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white text-left">
-                      Lyra Interactive
-                    </span>
-                  </button>
-                  {hoveredProject === "lyra" && (
-                    <button
-                      className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 hover:bg-white/10 rounded-md transition-colors"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        console.log("Project options");
-                      }}
-                    >
-                      <IconDotsHorizontal className="size-4 text-[var(--foundation-text-dark-tertiary)]" />
-                    </button>
-                  )}
-                </div>
+              <div className="px-2 pb-1">
+                <ListItem
+                  icon={<IconFolder className="size-4 text-[var(--foundation-accent-orange)]" />}
+                  label="PEER Framework"
+                  onClick={() => handleProjectSelect(projectsData[2])}
+                  right={
+                    hoveredProject === "peer" && (
+                      <button
+                        className="p-1.5 hover:bg-white/10 rounded-md transition-colors"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          console.log("Project options");
+                        }}
+                      >
+                        <IconDotsHorizontal className="size-4 text-[var(--foundation-text-dark-tertiary)]" />
+                      </button>
+                    )
+                  }
+                  onMouseEnter={() => setHoveredProject("peer")}
+                  onMouseLeave={() => setHoveredProject(null)}
+                />
               </div>
 
               <div className="px-2 pb-1">
-                <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors hover:bg-white/5">
-                  <IconDotsHorizontal className="size-4 flex-shrink-0 text-white" />
-                  <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white">
-                    See more
-                  </span>
-                </button>
+                <ListItem
+                  icon={<IconFolder className="size-4 text-[var(--foundation-accent-orange)]" />}
+                  label="Lyra Interactive"
+                  right={
+                    hoveredProject === "lyra" && (
+                      <button
+                        className="p-1.5 hover:bg-white/10 rounded-md transition-colors"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          console.log("Project options");
+                        }}
+                      >
+                        <IconDotsHorizontal className="size-4 text-[var(--foundation-text-dark-tertiary)]" />
+                      </button>
+                    )
+                  }
+                  onMouseEnter={() => setHoveredProject("lyra")}
+                  onMouseLeave={() => setHoveredProject(null)}
+                />
+              </div>
+
+              <div className="px-2 pb-1">
+                <ListItem
+                  icon={<IconDotsHorizontal className="size-4" />}
+                  label="See more"
+                />
               </div>
             </>
           )}
 
           {!isCollapsed && (
-            <div className="px-2 pb-1 pt-2">
-              <button
-                onClick={() => setGroupChatsExpanded(!groupChatsExpanded)}
-                className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg transition-colors hover:bg-white/5"
-              >
-                <span className="text-[13px] font-normal leading-[18px] tracking-[-0.3px] text-[var(--foundation-text-dark-tertiary)]">
-                  Group chats
-                </span>
-                <IconChevronRightMd
-                  className={`size-3 text-[var(--foundation-text-dark-tertiary)] transition-transform ${
-                    groupChatsExpanded ? "rotate-90" : ""
-                  }`}
-                />
-              </button>
-            </div>
+            <CollapsibleSection
+              title="Group chats"
+              expanded={groupChatsExpanded}
+              onToggle={() => setGroupChatsExpanded(!groupChatsExpanded)}
+            />
           )}
 
           {groupChatsExpanded && !isCollapsed && (
             <div className="px-2 pb-1">
-              <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors hover:bg-white/5">
-                <div className="size-6 rounded-full bg-[var(--foundation-accent-red)] flex items-center justify-center flex-shrink-0">
-                  <IconChat className="size-3 text-white" />
-                </div>
-                <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white">
-                  Summarize chat exchange
-                </span>
-              </button>
+              <ListItem
+                icon={
+                  <div className="size-6 rounded-full bg-[var(--foundation-accent-red)] flex items-center justify-center flex-shrink-0">
+                    <IconChat className="size-3 text-white" />
+                  </div>
+                }
+                label="Summarize chat exchange"
+              />
             </div>
           )}
 
           {!isCollapsed && (
-            <div className="px-2 pb-1 pt-2">
-              <button
-                onClick={() => setYourChatsExpanded(!yourChatsExpanded)}
-                className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg transition-colors hover:bg-white/5"
-              >
-                <span className="text-[13px] font-normal leading-[18px] tracking-[-0.3px] text-[var(--foundation-text-dark-tertiary)]">
-                  Your chats
-                </span>
-                <IconChevronRightMd
-                  className={`size-3 text-[var(--foundation-text-dark-tertiary)] transition-transform ${
-                    yourChatsExpanded ? "rotate-90" : ""
-                  }`}
-                />
-              </button>
-            </div>
+            <CollapsibleSection
+              title="Your chats"
+              expanded={yourChatsExpanded}
+              onToggle={() => setYourChatsExpanded(!yourChatsExpanded)}
+            />
           )}
 
           {yourChatsExpanded && !isCollapsed && (
             <>
               {chatHistory.slice(0, 5).map((chat) => (
                 <div key={chat} className="px-2 pb-1">
-                  <button className="w-full text-left px-3 py-2.5 rounded-lg transition-colors hover:bg-white/5">
-                    <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white">
-                      {chat}
-                    </span>
-                  </button>
+                  <ListItem
+                    label={chat}
+                  />
                 </div>
               ))}
             </>

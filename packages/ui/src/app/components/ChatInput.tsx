@@ -3,23 +3,23 @@ import { useState } from "react";
 
 import { Popover } from "../../vendor/appsSdkUi";
 import {
-  IconPlusLg,
-  IconGlobe,
-  IconPaperclip,
-  IconMic,
-  IconGoFilled,
-  IconX,
-  IconCamera,
-  IconClock,
-  IconStuffTools,
-  IconCompose,
-  IconFolder,
-  IconImage,
-  IconVideo,
-  IconHeadphones,
-  IconTelescope,
-  IconOperator,
+    IconCamera,
+    IconClock,
+    IconCompose,
+    IconFolder,
+    IconGlobe,
+    IconGoFilled,
+    IconHeadphones,
+    IconImage,
+    IconMic,
+    IconOperator,
+    IconPlusLg,
+    IconTelescope,
+    IconVideo,
 } from "./icons/ChatGPTIcons";
+import { ContextTag } from "./ui/context-tag";
+import { IconButton } from "./ui/icon-button";
+import { ModelBadge } from "./ui/model-badge";
 
 interface ModelConfig {
   name: string;
@@ -58,16 +58,12 @@ export function ChatInput({ selectedModel, composerLeft, composerRight }: ChatIn
       {/* Active Context Tag */}
       {activeTag && (
         <div className="mb-3 flex items-center gap-2">
-          <div className="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-[var(--foundation-accent-green)] bg-[var(--foundation-accent-green)]/20">
-            <IconCompose className="size-3.5" />
-            <span>{activeTag}</span>
-            <button 
-              onClick={() => setActiveTag("")}
-              className="rounded-full p-0.5 transition-colors hover:bg-[var(--foundation-accent-green)]/30"
-            >
-              <IconX className="size-3" />
-            </button>
-          </div>
+          <ContextTag
+            icon={<IconCompose />}
+            label={activeTag}
+            onClose={() => setActiveTag("")}
+            variant="green"
+          />
         </div>
       )}
 
@@ -388,9 +384,11 @@ export function ChatInput({ selectedModel, composerLeft, composerRight }: ChatIn
               </Popover>
 
               {/* Model Badge */}
-              <div className="ml-2 rounded bg-[var(--foundation-accent-blue)]/20 px-2 py-1 text-[12px] font-normal leading-[18px] tracking-[-0.32px] text-[var(--foundation-accent-blue)]">
-                {selectedModel.shortName}
-              </div>
+              <ModelBadge
+                name={selectedModel.shortName}
+                variant="blue"
+                className="ml-2"
+              />
             </div>
 
             {/* Right Actions */}
@@ -398,31 +396,23 @@ export function ChatInput({ selectedModel, composerLeft, composerRight }: ChatIn
               {/* Composer Right Slot - highest ROI for customization */}
               {composerRight}
               
-              <button 
-                type="button"
-                className="p-2 hover:bg-white/5 rounded-lg transition-colors group"
+              <IconButton
+                icon={<IconClock />}
+                variant="ghost"
+                size="md"
                 title="History"
-              >
-                <IconClock className="size-4 text-[var(--foundation-text-dark-tertiary)] group-hover:text-white" />
-              </button>
+              />
 
               {/* Voice input */}
-              <button 
-                type="button"
+              <IconButton
+                icon={<IconMic />}
+                variant="ghost"
+                size="md"
                 onClick={() => setIsRecording(!isRecording)}
-                className={`p-2 rounded-lg transition-colors group ${
-                  isRecording ? "bg-[var(--foundation-accent-red)]/20" : "hover:bg-white/5"
-                }`}
                 title="Voice input"
-              >
-                <IconMic
-                  className={`size-4 ${
-                    isRecording
-                      ? "text-[var(--foundation-accent-red)]"
-                      : "text-[var(--foundation-text-dark-tertiary)] group-hover:text-white"
-                  }`}
-                />
-              </button>
+                active={isRecording}
+                activeColor="var(--foundation-accent-red)"
+              />
 
               {/* Advanced features with purple gradient */}
               <button 

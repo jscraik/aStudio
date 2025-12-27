@@ -1,13 +1,5 @@
 import { IconOpenAILogo, IconUser } from "./icons/ChatGPTIcons";
-import {
-  IconCopy,
-  IconDotsHorizontal,
-  IconEdit,
-  IconRegenerate,
-  IconShare,
-  IconThumbDown,
-  IconThumbUp,
-} from "../../icons";
+import { MessageActions } from "./ui/message-actions";
 
 interface Message {
   id: string;
@@ -94,8 +86,8 @@ export function ChatMessages({ emptyState, messages }: ChatMessagesProps) {
   return (
     <div className="bg-[var(--foundation-bg-dark-1)]">
       <div className="max-w-3xl mx-auto px-4 py-8 space-y-6">
-        {resolvedMessages.map((message, index) => (
-          <div key={index} className="group">
+        {resolvedMessages.map((message) => (
+          <div key={message.id} className="group">
             {message.role === "assistant" ? (
               <div className="flex gap-3">
                 <div className="flex items-start justify-center size-8 rounded-full bg-[var(--foundation-bg-dark-2)] text-[var(--foundation-text-dark-tertiary)]">
@@ -105,50 +97,15 @@ export function ChatMessages({ emptyState, messages }: ChatMessagesProps) {
                   <div className="text-[15px] leading-[24px] tracking-[-0.3px] font-normal text-[var(--foundation-text-dark-primary)] whitespace-pre-wrap">
                     {message.content}
                   </div>
-                  <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button
-                      onClick={() => navigator.clipboard.writeText(message.content)}
-                      className="p-1.5 rounded-lg hover:bg-white/10 text-[var(--foundation-text-dark-tertiary)] hover:text-[var(--foundation-text-dark-primary)] transition-colors"
-                      title="Copy"
-                    >
-                      <IconCopy className="size-4" />
-                    </button>
-                    <button
-                      onClick={() => console.log("Thumbs up:", message.id)}
-                      className="p-1.5 rounded-lg hover:bg-white/10 text-[var(--foundation-text-dark-tertiary)] hover:text-[var(--foundation-text-dark-primary)] transition-colors"
-                      title="Good response"
-                    >
-                      <IconThumbUp className="size-4" />
-                    </button>
-                    <button
-                      onClick={() => console.log("Thumbs down:", message.id)}
-                      className="p-1.5 rounded-lg hover:bg-white/10 text-[var(--foundation-text-dark-tertiary)] hover:text-[var(--foundation-text-dark-primary)] transition-colors"
-                      title="Bad response"
-                    >
-                      <IconThumbDown className="size-4" />
-                    </button>
-                    <button
-                      onClick={() => console.log("Share:", message.id)}
-                      className="p-1.5 rounded-lg hover:bg-white/10 text-[var(--foundation-text-dark-tertiary)] hover:text-[var(--foundation-text-dark-primary)] transition-colors"
-                      title="Share"
-                    >
-                      <IconShare className="size-4" />
-                    </button>
-                    <button
-                      onClick={() => console.log("Regenerate:", message.id)}
-                      className="p-1.5 rounded-lg hover:bg-white/10 text-[var(--foundation-text-dark-tertiary)] hover:text-[var(--foundation-text-dark-primary)] transition-colors"
-                      title="Regenerate"
-                    >
-                      <IconRegenerate className="size-4" />
-                    </button>
-                    <button
-                      onClick={() => console.log("More options:", message.id)}
-                      className="p-1.5 rounded-lg hover:bg-white/10 text-[var(--foundation-text-dark-tertiary)] hover:text-[var(--foundation-text-dark-primary)] transition-colors"
-                      title="More"
-                    >
-                      <IconDotsHorizontal className="size-4" />
-                    </button>
-                  </div>
+                  <MessageActions
+                    messageId={message.id}
+                    onCopy={() => navigator.clipboard.writeText(message.content)}
+                    onThumbsUp={() => console.log("Thumbs up:", message.id)}
+                    onThumbsDown={() => console.log("Thumbs down:", message.id)}
+                    onShare={() => console.log("Share:", message.id)}
+                    onRegenerate={() => console.log("Regenerate:", message.id)}
+                    onMore={() => console.log("More options:", message.id)}
+                  />
                 </div>
               </div>
             ) : (
@@ -160,22 +117,11 @@ export function ChatMessages({ emptyState, messages }: ChatMessagesProps) {
                   <div className="flex items-center justify-center size-8 rounded-full bg-[var(--foundation-bg-dark-2)] text-[var(--foundation-text-dark-tertiary)]">
                     <IconUser className="size-4" />
                   </div>
-                  <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button
-                      onClick={() => navigator.clipboard.writeText(message.content)}
-                      className="p-1.5 rounded-lg hover:bg-white/10 text-[var(--foundation-text-dark-tertiary)] hover:text-[var(--foundation-text-dark-primary)] transition-colors"
-                      title="Copy"
-                    >
-                      <IconCopy className="size-3.5" />
-                    </button>
-                    <button
-                      onClick={() => console.log("Edit message:", message.id)}
-                      className="p-1.5 rounded-lg hover:bg-white/10 text-[var(--foundation-text-dark-tertiary)] hover:text-[var(--foundation-text-dark-primary)] transition-colors"
-                      title="Edit"
-                    >
-                      <IconEdit className="size-3.5" />
-                    </button>
-                  </div>
+                  <MessageActions
+                    messageId={message.id}
+                    onCopy={() => navigator.clipboard.writeText(message.content)}
+                    actions={["copy"]}
+                  />
                 </div>
               </div>
             )}

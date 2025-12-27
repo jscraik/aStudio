@@ -1,33 +1,17 @@
 import { useState } from "react";
 
-import { Popover } from "../../vendor/appsSdkUi";
-import {
-  IconChevronDownMd,
-  IconCheckmark,
-  IconSettings,
-} from "../../icons";
-import { IconOperator } from "./icons/ChatGPTIcons";
+import { IconCheckmark, IconChevronDownMd, IconSettings } from "../../icons";
 import { DiscoverySettingsModal } from "./DiscoverySettingsModal";
+import { IconOperator } from "./icons/ChatGPTIcons";
+import { ModeSelector, type ModeConfig } from "./ui/mode-selector";
+import { ModelSelector } from "./ui/model-selector";
+import { SegmentedControl } from "./ui/segmented-control";
+import { Toggle } from "./ui/toggle";
 
 interface ModelConfig {
   name: string;
   shortName: string;
   description: string;
-}
-
-interface ModeConfig {
-  id: string;
-  name: string;
-  subtitle: string;
-  contextConfig: {
-    mode: string;
-    selectedFiles: string;
-    fileTree: string;
-    codeMap: string;
-    gitDiff: string;
-  };
-  whenToUse: string[];
-  about: string;
 }
 
 const availableModels: ModelConfig[] = [
@@ -43,13 +27,6 @@ const modes: ModeConfig[] = [
     id: "chat",
     name: "Chat",
     subtitle: "Built-in preset",
-    contextConfig: {
-      mode: "Current Chat",
-      selectedFiles: "Current selection",
-      fileTree: "Auto",
-      codeMap: "Auto",
-      gitDiff: "none",
-    },
     whenToUse: ["General questions", "Code explanations", "Quick discussions"],
     about: "Standard chat mode for general interactions and questions.",
   },
@@ -57,13 +34,6 @@ const modes: ModeConfig[] = [
     id: "plan",
     name: "Plan",
     subtitle: "Built-in preset",
-    contextConfig: {
-      mode: "Current Plan",
-      selectedFiles: "Current selection",
-      fileTree: "Auto",
-      codeMap: "Auto",
-      gitDiff: "none",
-    },
     whenToUse: ["Project planning", "Architecture decisions", "Feature roadmaps"],
     about: "Planning mode for strategic thinking and architectural decisions.",
   },
@@ -71,13 +41,6 @@ const modes: ModeConfig[] = [
     id: "edit",
     name: "Edit",
     subtitle: "Built-in preset",
-    contextConfig: {
-      mode: "Current Edit",
-      selectedFiles: "Current selection",
-      fileTree: "Auto",
-      codeMap: "Auto",
-      gitDiff: "none",
-    },
     whenToUse: ["Direct code modifications", "Focused implementation tasks", "Clear requirements"],
     about: "Direct code editing. Requires a powerful model capable of search/replace.",
   },
@@ -85,13 +48,6 @@ const modes: ModeConfig[] = [
     id: "pro-edit",
     name: "Pro Edit",
     subtitle: "Built-in preset",
-    contextConfig: {
-      mode: "Current Pro Edit",
-      selectedFiles: "Current selection",
-      fileTree: "Auto",
-      codeMap: "Auto",
-      gitDiff: "none",
-    },
     whenToUse: ["Complex refactoring", "Multi-file changes", "Advanced editing tasks"],
     about: "Advanced editing mode with enhanced context awareness and precision.",
   },
@@ -99,13 +55,6 @@ const modes: ModeConfig[] = [
     id: "review",
     name: "Review",
     subtitle: "Built-in preset",
-    contextConfig: {
-      mode: "Current Review",
-      selectedFiles: "Current selection",
-      fileTree: "Auto",
-      codeMap: "Auto",
-      gitDiff: "none",
-    },
     whenToUse: ["Code review sessions", "Quality assessments", "Pre-merge checks"],
     about: "Review-only mode for quality checks and assessments.",
   },
@@ -113,13 +62,6 @@ const modes: ModeConfig[] = [
     id: "manual",
     name: "Manual",
     subtitle: "Built-in preset",
-    contextConfig: {
-      mode: "Current Manual",
-      selectedFiles: "Current selection",
-      fileTree: "Auto",
-      codeMap: "Auto",
-      gitDiff: "none",
-    },
     whenToUse: ["Custom workflows", "Full control over context", "Advanced configuration needs"],
     about: "Unconstrained chat with full control over context. Uses your current file selection and workspace settings.",
   },
@@ -141,7 +83,6 @@ export function ComposeView() {
   const [showDiscoverySettings, setShowDiscoverySettings] = useState(false);
   const [targetSize, setTargetSize] = useState(60);
   const [showTooltip, setShowTooltip] = useState(false);
-  const [showModelPicker, setShowModelPicker] = useState(false);
   const [previewMode, setPreviewMode] = useState<ModeConfig>(modes[5]);
   const [showProEditConfig, setShowProEditConfig] = useState(false);
   const [proEditMode, setProEditMode] = useState<"agent" | "model">("agent");
@@ -345,92 +286,14 @@ export function ComposeView() {
                           <label className="block text-[13px] leading-5 text-[var(--foundation-text-dark-primary)]/70 mb-2">
                             Model
                           </label>
-                          <Popover open={showModelPicker} onOpenChange={setShowModelPicker}>
-                            <Popover.Trigger>
-                              <div className="bg-[var(--foundation-bg-dark-2)] rounded-lg p-0.5">
-                                <button className="flex items-center justify-between hover:bg-white/10 px-3 py-2 rounded-md transition-colors w-full">
-                                  <div className="flex flex-col items-start gap-0.5">
-                                    <span className="text-[14px] text-white font-normal leading-[20px] tracking-[-0.3px]">
-                                      {selectedModel.name}
-                                    </span>
-                                    <span className="text-[12px] text-white/50 font-normal leading-[18px] tracking-[-0.32px]">
-                                      {selectedModel.description}
-                                    </span>
-                                  </div>
-                                  <IconChevronDownMd className="size-3.5 text-white/60 flex-shrink-0" />
-                                </button>
-                              </div>
-                            </Popover.Trigger>
-
-                            <Popover.Content
-                              side="bottom"
-                              align="start"
-                              sideOffset={8}
-                              className="z-50 w-[560px] rounded-2xl border border-white/10 bg-[var(--foundation-bg-dark-2)] shadow-2xl outline-none"
-                            >
-                              <div className="p-3">
-                                <div className="mb-4">
-                                  <h3 className="text-[12px] font-semibold leading-[18px] tracking-[-0.32px] text-white/60 mb-2 px-3">
-                                    GPT MODELS
-                                  </h3>
-                                  <div className="space-y-1">
-                                    {availableModels.slice(0, 3).map((model) => (
-                                      <button
-                                        key={model.name}
-                                        onClick={() => {
-                                          setSelectedModel(model);
-                                          setShowModelPicker(false);
-                                        }}
-                                        className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-white/5 rounded-lg transition-colors text-left group"
-                                      >
-                                        <div className="flex-1">
-                                          <div className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white">
-                                            {model.name}
-                                          </div>
-                                          <div className="text-[12px] text-[var(--foundation-text-dark-tertiary)] leading-[16px] tracking-[-0.3px]">
-                                            {model.description}
-                                          </div>
-                                        </div>
-                                        {selectedModel.name === model.name && (
-                                          <IconCheckmark className="size-4 text-white flex-shrink-0 ml-2" />
-                                        )}
-                                      </button>
-                                    ))}
-                                  </div>
-                                </div>
-
-                                <div>
-                                  <h3 className="text-[12px] font-semibold leading-[18px] tracking-[-0.32px] text-white/60 mb-2 px-3">
-                                    OTHER MODELS
-                                  </h3>
-                                  <div className="space-y-1">
-                                    {availableModels.slice(3).map((model) => (
-                                      <button
-                                        key={model.name}
-                                        onClick={() => {
-                                          setSelectedModel(model);
-                                          setShowModelPicker(false);
-                                        }}
-                                        className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-white/5 rounded-lg transition-colors text-left group"
-                                      >
-                                        <div className="flex-1">
-                                          <div className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white">
-                                            {model.name}
-                                          </div>
-                                          <div className="text-[12px] text-[var(--foundation-text-dark-tertiary)] leading-[16px] tracking-[-0.3px]">
-                                            {model.description}
-                                          </div>
-                                        </div>
-                                        {selectedModel.name === model.name && (
-                                          <IconCheckmark className="size-4 text-white flex-shrink-0 ml-2" />
-                                        )}
-                                      </button>
-                                    ))}
-                                  </div>
-                                </div>
-                              </div>
-                            </Popover.Content>
-                          </Popover>
+                          <ModelSelector
+                            value={selectedModel.name}
+                            onChange={(modelName) => {
+                              const model = availableModels.find(m => m.name === modelName);
+                              if (model) setSelectedModel(model);
+                            }}
+                            models={availableModels}
+                          />
                         </div>
 
                         <div className="flex-1">
@@ -553,12 +416,21 @@ export function ComposeView() {
                         <div className="flex items-center gap-4">
                           <div>
                             <div className="text-[13px] leading-5 text-[var(--foundation-text-dark-primary)]">
-                              Auto Create
+                              Prompt Enhancement
                             </div>
                             <div className="text-[12px] leading-[18px] text-[var(--foundation-text-dark-primary)]/70">
-                              Generate a prompt automatically after discovery
+                              How to handle your instructions
                             </div>
                           </div>
+                          <SegmentedControl
+                            value={promptEnhancement}
+                            onChange={setPromptEnhancement}
+                            options={[
+                              { value: "rewrite", label: "Rewrite" },
+                              { value: "augment", label: "Augment" },
+                              { value: "preserve", label: "Preserve" },
+                            ]}
+                          />
                         </div>
 
                         <div className="flex items-center gap-4">
@@ -566,31 +438,18 @@ export function ComposeView() {
                             <span className="text-[12px] leading-[18px] text-[var(--foundation-text-dark-primary)]/70">
                               Plan mode
                             </span>
-                            <div className="relative">
-                              <button
-                                onClick={handleModalOpen}
-                                className="bg-[var(--foundation-bg-dark-2)] border border-white/10 rounded-lg px-3 py-1.5 text-[12px] leading-[18px] text-[var(--foundation-text-dark-primary)] flex items-center gap-2 hover:bg-[var(--foundation-bg-dark-3)] transition-colors"
-                              >
-                                {previewMode.name}
-                                <IconChevronDownMd className="size-3 text-[var(--foundation-text-dark-primary)]/70" />
-                              </button>
-                            </div>
+                            <ModeSelector
+                              value={previewMode}
+                              onChange={handleModeSelect}
+                              modes={modes}
+                              showPreview={true}
+                            />
                           </div>
 
-                          <button
-                            onClick={() => setAutoPlan(!autoPlan)}
-                            className={`relative w-11 h-6 rounded-full transition-colors ${
-                              autoPlan
-                                ? "bg-[var(--foundation-accent-green)]"
-                                : "bg-[var(--foundation-bg-dark-3)]"
-                            }`}
-                          >
-                            <div
-                              className={`absolute top-0.5 left-0.5 size-5 bg-white rounded-full transition-transform shadow-sm ${
-                                autoPlan ? "translate-x-5" : "translate-x-0"
-                              }`}
-                            />
-                          </button>
+                          <Toggle
+                            checked={autoPlan}
+                            onChange={setAutoPlan}
+                          />
                           <span className="text-[13px] leading-5 text-[var(--foundation-text-dark-primary)]/70 min-w-[32px]">
                             {autoPlan ? "On" : "Off"}
                           </span>

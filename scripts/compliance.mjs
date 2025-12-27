@@ -6,9 +6,11 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const uiRoot = path.join(root, "packages/ui/src");
 const allowedHexRoots = [
   path.join(root, "packages/tokens"),
-  path.join(root, "packages/ui/src/foundations"),
+  path.join(root, "packages/ui/src/docs"),
+  path.join(root, "packages/ui/src/imports"),
 ];
 const allowedLucideRoots = [path.join(root, "packages/ui/src/icons")];
+const allowedRadixRoot = path.join(root, "packages/ui/src/app/components/ui");
 
 const exts = new Set([".ts", ".tsx", ".css"]);
 const hexRegex = /#[0-9a-fA-F]{3,8}/g;
@@ -72,11 +74,11 @@ for (const file of walk(uiRoot)) {
     });
   }
 
-  if (radixRegex.test(content) && !rel.startsWith("packages/ui/src/primitives/")) {
+  if (radixRegex.test(content) && !file.startsWith(allowedRadixRoot)) {
     warnings.push({
       type: "radix",
       file: rel,
-      detail: "@radix-ui import outside primitives/",
+      detail: "@radix-ui import outside app/components/ui/",
     });
   }
 }

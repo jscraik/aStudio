@@ -24,6 +24,7 @@ export interface OpenAiGlobals {
 
 export interface OpenAiBridge extends OpenAiGlobals {
   setWidgetState?: (state: UnknownRecord | null) => void;
+  getWidgetState?: () => UnknownRecord | null;
   callTool?: (name: string, args?: UnknownRecord) => Promise<unknown>;
   sendFollowUpMessage?: (args: { prompt: string }) => Promise<unknown>;
   uploadFile?: (file: File) => Promise<{ fileId: string }>;
@@ -133,8 +134,10 @@ export function createMockHost(overrides: Partial<Host> = {}): Host {
 export function useOpenAiGlobal<K extends keyof OpenAiGlobals>(
   key: K
 ): OpenAiGlobals[K] {
+  const isBrowser = typeof window !== "undefined";
   return useSyncExternalStore(
     (onChange) => {
+      if (!isBrowser) return () => {};
       const handleSetGlobal = (event: Event) => {
         const typed = event as SetGlobalsEvent;
         const value = typed.detail?.globals?.[key];
@@ -150,7 +153,8 @@ export function useOpenAiGlobal<K extends keyof OpenAiGlobals>(
         window.removeEventListener(SET_GLOBALS_EVENT_TYPE, handleSetGlobal);
       };
     },
-    () => window.openai?.[key]
+    () => (isBrowser ? window.openai?.[key] : undefined),
+    () => undefined
   );
 }
 

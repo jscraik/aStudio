@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "pnpm -C ../web build:widget && pnpm -C ../../packages/widgets build",
     "dev": "node server.js",
+    "prestart": "pnpm -C ../web build:widget && pnpm -C ../../packages/widgets build",
     "start": "node server.js"
   },
   "dependencies": {

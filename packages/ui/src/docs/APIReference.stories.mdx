@@ -1,14 +1,14 @@
-import { Meta, Canvas, Story, ArgTypes } from '@storybook/blocks';
-import { 
-  Button, 
-  IconButton, 
-  ModelSelector, 
-  ContextTag, 
-  Toggle, 
+import { Meta, Canvas, Story, ArgTypes } from "@storybook/blocks";
+import {
+  Button,
+  IconButton,
+  ModelSelector,
+  ContextTag,
+  Toggle,
   RangeSlider,
   SegmentedControl,
-  MessageActions 
-} from '../index';
+  MessageActions,
+} from "../index";
 
 <Meta title="Documentation/API Reference" />
 
@@ -75,7 +75,7 @@ Compact button for displaying icons with consistent sizing and interaction state
     {() => {
       const [liked, setLiked] = React.useState(false);
       const [bookmarked, setBookmarked] = React.useState(false);
-      
+
       return (
         <div className="p-4 space-y-4">
           <div className="flex gap-2">
@@ -83,23 +83,23 @@ Compact button for displaying icons with consistent sizing and interaction state
             <IconButton icon={<span>🔗</span>} variant="outline" title="Link" />
             <IconButton icon={<span>⚙️</span>} variant="solid" title="Settings" />
           </div>
-          
+
           <div className="flex gap-2">
             <IconButton icon={<span>❤️</span>} size="sm" title="Small" />
             <IconButton icon={<span>❤️</span>} size="md" title="Medium" />
             <IconButton icon={<span>❤️</span>} size="lg" title="Large" />
           </div>
-          
+
           <div className="flex gap-2">
-            <IconButton 
-              icon={<span>❤️</span>} 
+            <IconButton
+              icon={<span>❤️</span>}
               active={liked}
               activeColor="var(--foundation-accent-red)"
               onClick={() => setLiked(!liked)}
               title="Like"
             />
-            <IconButton 
-              icon={<span>🔖</span>} 
+            <IconButton
+              icon={<span>🔖</span>}
               active={bookmarked}
               activeColor="var(--foundation-accent-blue)"
               onClick={() => setBookmarked(!bookmarked)}
@@ -109,6 +109,7 @@ Compact button for displaying icons with consistent sizing and interaction state
         </div>
       );
     }}
+
   </Story>
 </Canvas>
 
@@ -122,17 +123,17 @@ Dropdown component for selecting AI models with support for legacy models and de
   <Story name="ModelSelector API">
     {() => {
       const [selectedModel, setSelectedModel] = React.useState("GPT-4o");
-      
+
       const models = [
         { name: "GPT-4o", shortName: "4o", description: "Fast and efficient" },
         { name: "GPT-4", shortName: "4", description: "Most capable" },
         { name: "GPT-3.5 Turbo", shortName: "3.5", description: "Quick responses" },
       ];
-      
+
       const legacyModels = [
         { name: "GPT-3", shortName: "3", description: "Legacy model", isLegacy: true },
       ];
-      
+
       return (
         <div className="p-4 space-y-4">
           <ModelSelector
@@ -142,13 +143,12 @@ Dropdown component for selecting AI models with support for legacy models and de
             onChange={setSelectedModel}
             label="ChatGPT"
           />
-          
-          <div className="text-white/60 text-sm">
-            Selected: {selectedModel}
-          </div>
+
+          <div className="text-white/60 text-sm">Selected: {selectedModel}</div>
         </div>
       );
     }}
+
   </Story>
 </Canvas>
 
@@ -168,22 +168,18 @@ Removable tag component for displaying active context or filters.
         <ContextTag label="Red variant" variant="red" />
         <ContextTag label="Default variant" variant="default" />
       </div>
-      
+
       <div className="flex flex-wrap gap-2">
-        <ContextTag 
-          icon={<span>📄</span>}
-          label="With icon" 
-          variant="green" 
-          size="sm"
-        />
-        <ContextTag 
+        <ContextTag icon={<span>📄</span>} label="With icon" variant="green" size="sm" />
+        <ContextTag
           icon={<span>📁</span>}
-          label="With close button" 
-          variant="blue" 
-          onClose={() => console.log('Closed')}
+          label="With close button"
+          variant="blue"
+          onClose={() => console.log("Closed")}
         />
       </div>
     </div>
+
   </Story>
 </Canvas>
 
@@ -198,21 +194,19 @@ Switch component for boolean values with consistent styling.
     {() => {
       const [enabled, setEnabled] = React.useState(false);
       const [disabled, setDisabled] = React.useState(true);
-      
+
       return (
         <div className="p-4 space-y-4">
           <div className="flex items-center gap-4">
             <Toggle checked={enabled} onChange={setEnabled} />
-            <span className="text-white/80">
-              {enabled ? 'Enabled' : 'Disabled'}
-            </span>
+            <span className="text-white/80">{enabled ? "Enabled" : "Disabled"}</span>
           </div>
-          
+
           <div className="flex items-center gap-4">
             <Toggle checked={disabled} onChange={setDisabled} disabled />
             <span className="text-white/60">Disabled state</span>
           </div>
-          
+
           <div className="flex items-center gap-4">
             <Toggle checked={true} size="sm" />
             <Toggle checked={true} size="md" />
@@ -221,6 +215,7 @@ Switch component for boolean values with consistent styling.
         </div>
       );
     }}
+
   </Story>
 </Canvas>
 
@@ -235,7 +230,7 @@ Range input component with labels, custom styling, and value display.
     {() => {
       const [volume, setVolume] = React.useState(75);
       const [quality, setQuality] = React.useState(60);
-      
+
       return (
         <div className="p-4 space-y-6 max-w-md">
           <RangeSlider
@@ -246,7 +241,7 @@ Range input component with labels, custom styling, and value display.
             max={100}
             suffix="%"
           />
-          
+
           <RangeSlider
             label="Quality"
             value={quality}
@@ -256,17 +251,12 @@ Range input component with labels, custom styling, and value display.
             suffix="k"
             showValue={true}
           />
-          
-          <RangeSlider
-            value={50}
-            min={0}
-            max={100}
-            disabled
-            showValue={false}
-          />
+
+          <RangeSlider value={50} min={0} max={100} disabled showValue={false} />
         </div>
       );
     }}
+
   </Story>
 </Canvas>
 
@@ -281,7 +271,7 @@ Multi-option selector with segmented button appearance.
     {() => {
       const [quality, setQuality] = React.useState("medium");
       const [size, setSize] = React.useState("md");
-      
+
       return (
         <div className="p-4 space-y-6">
           <div>
@@ -296,7 +286,7 @@ Multi-option selector with segmented button appearance.
               onChange={setQuality}
             />
           </div>
-          
+
           <div>
             <label className="text-white/80 text-sm mb-2 block">Size</label>
             <SegmentedControl
@@ -313,6 +303,7 @@ Multi-option selector with segmented button appearance.
         </div>
       );
     }}
+
   </Story>
 </Canvas>
 
@@ -332,12 +323,12 @@ Action buttons for chat messages with configurable actions.
         <MessageActions
           messageId="example"
           actions={["copy", "thumbsUp", "thumbsDown", "share", "regenerate", "more"]}
-          onCopy={() => console.log('Copied')}
-          onThumbsUp={() => console.log('Thumbs up')}
-          onThumbsDown={() => console.log('Thumbs down')}
-          onShare={() => console.log('Shared')}
-          onRegenerate={() => console.log('Regenerated')}
-          onMore={() => console.log('More options')}
+          onCopy={() => console.log("Copied")}
+          onThumbsUp={() => console.log("Thumbs up")}
+          onThumbsDown={() => console.log("Thumbs down")}
+          onShare={() => console.log("Shared")}
+          onRegenerate={() => console.log("Regenerated")}
+          onMore={() => console.log("More options")}
         />
       </div>
     </div>
@@ -351,41 +342,39 @@ Action buttons for chat messages with configurable actions.
 Most components accept these common styling props:
 
 ### className
+
 All components accept a `className` prop for custom CSS classes:
 
 ```tsx
-<Button className="bg-purple-500 hover:bg-purple-600">
-  Custom Button
-</Button>
+<Button className="bg-purple-500 hover:bg-purple-600">Custom Button</Button>
 ```
 
 ### CSS Custom Properties
+
 Components use CSS custom properties that can be overridden:
 
 ```tsx
-<Button style={{ '--button-radius': '12px' }}>
-  Custom Radius
-</Button>
+<Button style={{ "--button-radius": "12px" }}>Custom Radius</Button>
 ```
 
 ## 🔧 Advanced Usage
 
 ### Ref Forwarding
+
 All components forward refs to their underlying DOM elements:
 
 ```tsx
 const buttonRef = useRef<HTMLButtonElement>(null);
 
-<Button ref={buttonRef}>
-  Focusable Button
-</Button>
+<Button ref={buttonRef}>Focusable Button</Button>;
 ```
 
 ### Event Handling
+
 Components provide consistent event handling patterns:
 
 ```tsx
-<Button 
+<Button
   onClick={(event) => {
     event.preventDefault();
     // Handle click
@@ -396,4 +385,5 @@ Components provide consistent event handling patterns:
 ```
 
 ### Accessibility
+
 All components include proper ARIA attributes and keyboard support. Use the A11y addon in Storybook to verify accessibility compliance.

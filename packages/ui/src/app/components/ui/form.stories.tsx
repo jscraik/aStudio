@@ -36,10 +36,7 @@ export const Default: Story = {
 
     return (
       <Form {...form}>
-        <form
-          className="w-[320px] space-y-4"
-          onSubmit={form.handleSubmit(() => {})}
-        >
+        <form className="w-[320px] space-y-4" onSubmit={form.handleSubmit(() => {})}>
           <FormField
             control={form.control}
             name="email"

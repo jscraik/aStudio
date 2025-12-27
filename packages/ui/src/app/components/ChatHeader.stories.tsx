@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { ChatHeader } from "./ChatHeader";
 import { IconPlusLg, IconStar, IconSettings } from "../../icons";
+import { sampleLegacyModels, sampleModels } from "../data/sample-data";
+
+import { ChatHeader } from "./ChatHeader";
 
 const meta: Meta<typeof ChatHeader> = {
   title: "ChatUI/ChatHeader",
@@ -13,6 +15,8 @@ const meta: Meta<typeof ChatHeader> = {
       shortName: "Auto",
       description: "Decides how long to think",
     },
+    models: sampleModels,
+    legacyModels: sampleLegacyModels,
     viewMode: "chat",
     onSidebarToggle: () => {},
     onModelChange: () => {},
@@ -38,13 +42,19 @@ export const WithCustomHeaderRight: Story = {
   args: {
     headerRight: (
       <>
-        <button className="p-1.5 hover:bg-white/10 rounded-md transition-colors" aria-label="New chat">
+        <button
+          className="p-1.5 hover:bg-white/10 rounded-md transition-colors"
+          aria-label="New chat"
+        >
           <IconPlusLg className="size-4 text-white/60" />
         </button>
         <button className="p-1.5 hover:bg-white/10 rounded-md transition-colors" aria-label="Star">
           <IconStar className="size-4 text-white/60" />
         </button>
-        <button className="p-1.5 hover:bg-white/10 rounded-md transition-colors" aria-label="Settings">
+        <button
+          className="p-1.5 hover:bg-white/10 rounded-md transition-colors"
+          aria-label="Settings"
+        >
           <IconSettings className="size-4 text-white/60" />
         </button>
       </>

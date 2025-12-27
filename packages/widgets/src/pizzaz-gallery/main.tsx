@@ -2,14 +2,15 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-
-import { Button } from "@chatui/ui";
+import { HostProvider, createEmbeddedHost, ensureMockOpenAI, useHost } from "@chatui/runtime";
+import { AppsSDKButton, AppsSDKUIProvider } from "@chatui/ui";
 
 import "../styles/widget.css";
 
-import albumsData from "./albums.json";
 import { useMaxHeight } from "../shared/use-max-height";
 import { useOpenAiGlobal } from "../shared/use-openai-global";
+
+import albumsData from "./albums.json";
 import FullscreenViewer from "./FullscreenViewer";
 import AlbumCard from "./AlbumCard";
 
@@ -78,9 +79,9 @@ function AlbumsCarousel({ onSelect }: AlbumsCarouselProps) {
   };
 
   return (
-    <div className="antialiased relative w-full text-black py-5 select-none">
+    <div className="antialiased relative w-full text-primary py-5 select-none bg-surface">
       <div
-        className="overflow-hidden max-sm:mx-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+        className="overflow-hidden max-sm:mx-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         ref={emblaRef}
         role="region"
         aria-roledescription="carousel"
@@ -102,7 +103,7 @@ function AlbumsCarousel({ onSelect }: AlbumsCarouselProps) {
         }
       >
         <div
-          className="h-full w-full border-l border-black/15 bg-gradient-to-r from-black/10 to-transparent"
+          className="h-full w-full border-l border-subtle bg-gradient-to-r from-[var(--color-surface)] to-transparent opacity-70"
           style={{
             WebkitMaskImage:
               "linear-gradient(to bottom, transparent 0%, white 30%, white 70%, transparent 100%)",
@@ -119,7 +120,7 @@ function AlbumsCarousel({ onSelect }: AlbumsCarouselProps) {
         }
       >
         <div
-          className="h-full w-full border-r border-black/15 bg-gradient-to-l from-black/10 to-transparent"
+          className="h-full w-full border-r border-subtle bg-gradient-to-l from-[var(--color-surface)] to-transparent opacity-70"
           style={{
             WebkitMaskImage:
               "linear-gradient(to bottom, transparent 0%, white 30%, white 70%, transparent 100%)",
@@ -129,7 +130,7 @@ function AlbumsCarousel({ onSelect }: AlbumsCarouselProps) {
         />
       </div>
       {canPrev && (
-        <Button
+        <AppsSDKButton
           aria-label="Previous"
           className="absolute left-2 top-1/2 -translate-y-1/2 z-10 shadow-lg"
           color="secondary"
@@ -139,15 +140,11 @@ function AlbumsCarousel({ onSelect }: AlbumsCarouselProps) {
           onClick={() => emblaApi && emblaApi.scrollPrev()}
           type="button"
         >
-          <ArrowLeft
-            strokeWidth={1.5}
-            className="h-4.5 w-4.5"
-            aria-hidden="true"
-          />
-        </Button>
+          <ArrowLeft strokeWidth={1.5} className="h-4.5 w-4.5" aria-hidden="true" />
+        </AppsSDKButton>
       )}
       {canNext && (
-        <Button
+        <AppsSDKButton
           aria-label="Next"
           className="absolute right-2 top-1/2 -translate-y-1/2 z-10 shadow-lg"
           color="secondary"
@@ -157,12 +154,8 @@ function AlbumsCarousel({ onSelect }: AlbumsCarouselProps) {
           onClick={() => emblaApi && emblaApi.scrollNext()}
           type="button"
         >
-          <ArrowRight
-            strokeWidth={1.5}
-            className="h-4.5 w-4.5"
-            aria-hidden="true"
-          />
-        </Button>
+          <ArrowRight strokeWidth={1.5} className="h-4.5 w-4.5" aria-hidden="true" />
+        </AppsSDKButton>
       )}
     </div>
   );
@@ -170,12 +163,13 @@ function AlbumsCarousel({ onSelect }: AlbumsCarouselProps) {
 
 function App() {
   const displayMode = useOpenAiGlobal("displayMode");
+  const host = useHost();
   const [selectedAlbum, setSelectedAlbum] = React.useState<Album | null>(null);
   const maxHeight = useMaxHeight() ?? undefined;
 
-  const handleSelectAlbum = (album) => {
+  const handleSelectAlbum = (album: Album) => {
     setSelectedAlbum(album);
-    void window.openai?.requestDisplayMode?.({ mode: "fullscreen" });
+    void host.requestDisplayMode?.({ mode: "fullscreen" });
   };
 
   return (
@@ -190,13 +184,9 @@ function App() {
       <div className="sr-only" aria-live="polite">
         Gallery updated.
       </div>
-      {displayMode !== "fullscreen" && (
-        <AlbumsCarousel onSelect={handleSelectAlbum} />
-      )}
+      {displayMode !== "fullscreen" && <AlbumsCarousel onSelect={handleSelectAlbum} />}
 
-      {displayMode === "fullscreen" && selectedAlbum && (
-        <FullscreenViewer album={selectedAlbum} />
-      )}
+      {displayMode === "fullscreen" && selectedAlbum && <FullscreenViewer album={selectedAlbum} />}
     </div>
   );
 }
@@ -204,5 +194,17 @@ function App() {
 const root = document.getElementById("pizzaz-albums-root");
 
 if (root) {
-  createRoot(root).render(<App />);
+  if (import.meta.env.DEV) {
+    ensureMockOpenAI();
+  }
+
+  const host = createEmbeddedHost();
+
+  createRoot(root).render(
+    <HostProvider host={host}>
+      <AppsSDKUIProvider linkComponent="a">
+        <App />
+      </AppsSDKUIProvider>
+    </HostProvider>,
+  );
 }

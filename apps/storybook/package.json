@@ -5,23 +5,26 @@
   "type": "module",
   "scripts": {
     "dev": "storybook dev -p 6006",
-    "build": "storybook build"
+    "build": "storybook build",
+    "test": "vitest --project=storybook",
+    "test:coverage": "vitest --project=storybook --coverage"
   },
   "dependencies": {
     "@chatui/runtime": "workspace:*",
-    "@chatui/ui": "workspace:*",
     "@chatui/tokens": "workspace:*",
+    "@chatui/ui": "workspace:*",
     "react": "19.0.0",
     "react-dom": "19.0.0"
   },
   "devDependencies": {
-    "storybook": "^10.1.10",
+    "@storybook/addon-a11y": "^10.1.10",
+    "@storybook/addon-docs": "^10.1.10",
+    "@storybook/addon-themes": "^10.1.10",
     "@storybook/react": "^10.1.10",
     "@storybook/react-vite": "^10.1.10",
-    "@storybook/addon-a11y": "^10.1.10",
     "@tailwindcss/vite": "4.1.12",
+    "storybook": "^10.1.10",
     "tailwindcss": "4.1.12",
-    "tw-animate-css": "^1.3.8",
-    "@storybook/addon-docs": "^10.1.10"
+    "tw-animate-css": "^1.3.8"
   }
 }

@@ -1,6 +1,7 @@
 # ChatGPT Design System Audit Report
 
 ## Executive Summary
+
 Comprehensive audit of all UI components against ChatGPT design standards as defined in `/COLOR_REFERENCE.md` and `/src/app/design-system/DesignTokens.ts`.
 
 **Status:** ✅ AUDIT COMPLETE - All critical and high priority issues RESOLVED
@@ -10,6 +11,7 @@ Comprehensive audit of all UI components against ChatGPT design standards as def
 ## ✅ FIXES APPLIED (December 25, 2024)
 
 ### Critical Fixes
+
 1. **DiscoverySettingsModal.tsx**
    - ✅ Fixed `#4ade80` → `#40C977` (Reset button - line 84)
    - ✅ Fixed `#4ade80` → `#40C977` (Enhancement label - line 496)
@@ -29,6 +31,7 @@ Comprehensive audit of all UI components against ChatGPT design standards as def
    - ✅ Updated modal heading to `font-semibold` with proper tracking
 
 ### Summary of Changes
+
 - All modal backgrounds now use correct `#171717` color
 - All legacy `#4ade80` green replaced with ChatGPT standard `#40C977`
 - All modal headings now use `font-semibold` instead of `font-medium`
@@ -39,6 +42,7 @@ Comprehensive audit of all UI components against ChatGPT design standards as def
 ## ✅ COMPLIANT COMPONENTS
 
 ### Fully Conformant
+
 - **DiscoverySettingsModal.tsx** - Recently updated, now fully compliant
 - **ChatHeader.tsx** - Model selector matches ChatGPT standards
 - **ComposeView.tsx** - Model selector matches ChatGPT standards
@@ -51,20 +55,26 @@ Comprehensive audit of all UI components against ChatGPT design standards as def
 ### 1. COLOR VIOLATIONS
 
 #### Critical (Must Fix)
+
 **File: `/src/app/components/DiscoverySettingsModal.tsx`**
+
 - **Line 84**: Reset button uses `#4ade80` → Should be `#40C977`
 - **Line 496**: Enhancement label uses `#4ade80` → Should be `#40C977`
 
 **File: `/src/app/components/ChatSidebar.tsx`**
+
 - **Line 284**: User menu uses `#2a2a2a` background → Should be `#171717` for modal-type surfaces
 - **Line 328**: Project modal uses `#2a2a2a` → Should be `#171717` (PRIMARY MODAL BG)
 - **Line 457**: Settings modal uses `#2a2a2a` → Should be `#171717` (PRIMARY MODAL BG)
 
 **File: `/src/app/components/SettingsModal.tsx`**
+
 - **Line 131**: Main modal uses `#2a2a2a` → Should be `#171717` (PRIMARY MODAL BG)
 
 #### Background Color Usage (By Standard)
+
 According to COLOR_REFERENCE.md:
+
 - `#171717` = Primary Modal Background (ALL modals)
 - `#2a2a2a` = Input fields, dropdowns, nested surfaces (NOT modal containers)
 - `#2C2C2C` = Header bars, input containers
@@ -75,40 +85,51 @@ According to COLOR_REFERENCE.md:
 ### 2. TYPOGRAPHY VIOLATIONS
 
 #### Font Weight Issues
+
 Many components use `font-medium` (500) when they should use `font-semibold` (600) for headings:
 
 **ChatSidebar.tsx**
+
 - Line 255: Section label uses `font-medium` → Should be `font-semibold` with proper tracking
 - Line 460: Modal heading uses `font-medium` → Should be `font-semibold`
 - Line 483, 511: Option labels use `font-medium` → Should be `font-semibold`
 
 **ChatHeader.tsx**
+
 - Line 83: "Compose" label uses `font-medium` → Should be `font-semibold` for emphasis
 
 **ComposeView.tsx**
+
 - Line 239, 282: Section headers use `font-medium` → Should be `font-semibold`
 - Lines 341, 343, 355, 357, 369, 371: Tooltip text uses `font-medium` → Inconsistent with design system
 
 **DiscoverySettingsModal.tsx**
+
 - Line 78: Modal title uses `font-medium` → Should be `font-semibold`
 
 **IconPickerModal.tsx**
+
 - Line 118: Modal title uses `font-medium` → Should be `font-semibold`
 
 #### Font Size Issues
+
 Non-standard font sizes used (not in design system):
 
 **ComposeView.tsx**
+
 - Line 263: Uses `text-[15px]` → Not in typography scale (should use 14px or 16px)
 - Line 239, 282: Uses `text-[15px]` → Should be `text-[14px]` with proper tracking
 
 **ProjectView.tsx**
+
 - Line 95: Uses `text-[15px]` → Should be `text-[14px]`
 
 **ChatInput.tsx**
+
 - Line 73: Uses `text-[16px]` → Correct, but missing semibold for labels
 
 **ChatMessages.tsx**
+
 - Line 40: Uses `text-[15px]` → Should be `text-[14px]` or `text-[16px]`
 
 ---
@@ -118,13 +139,16 @@ Non-standard font sizes used (not in design system):
 Components missing proper tracking values:
 
 **ChatSidebar.tsx**
+
 - Line 255: Missing `tracking-[-0.32px]` on label
 - Line 460: Missing `tracking-[-0.32px]` on modal heading
 
 **ChatInput.tsx**
+
 - Line 73: Has tracking but should verify consistency
 
 **ComposeView.tsx**
+
 - Multiple lines missing tracking on tooltips and labels
 
 ---
@@ -132,10 +156,12 @@ Components missing proper tracking values:
 ### 4. BORDER RADIUS INCONSISTENCIES
 
 **Current Issues:**
+
 - Mix of `rounded-xl` (12px), `rounded-[12px]`, `rounded-[16px]`
 - Should use design token values: `rounded-[12px]` or `rounded-[16px]`
 
 **Recommendations:**
+
 - Modals: `rounded-[16px]` (large surfaces)
 - Dropdowns/Menus: `rounded-[12px]` (medium surfaces)
 - Buttons: `rounded-lg` (8px)
@@ -186,6 +212,7 @@ Components missing proper tracking values:
 ## 🎨 DESIGN SYSTEM REFERENCE
 
 ### Typography Scale (Use Only These)
+
 ```
 Headings:
 - 36px: font-semibold leading-[40px] tracking-[-0.1px]
@@ -200,6 +227,7 @@ Body:
 ```
 
 ### Color Palette (Use Only These)
+
 ```
 Backgrounds:
 - Modal Background: #171717

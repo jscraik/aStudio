@@ -17,11 +17,7 @@ type FilmStripProps = {
   onSelect?: (index: number) => void;
 };
 
-export default function FilmStrip({
-  album,
-  selectedIndex,
-  onSelect,
-}: FilmStripProps) {
+export default function FilmStrip({ album, selectedIndex, onSelect }: FilmStripProps) {
   return (
     <div className="h-full w-full overflow-auto flex flex-col items-center justify-center p-5 space-y-5">
       {album.photos.map((photo, idx) => (
@@ -32,8 +28,8 @@ export default function FilmStrip({
           className={
             "block w-full p-[1px] pointer-events-auto rounded-[10px] cursor-pointer border transition-[colors,opacity] " +
             (idx === selectedIndex
-              ? "border-black"
-              : "border-black/0 hover:border-black/30 opacity-60 hover:opacity-100")
+              ? "border-strong"
+              : "border-transparent hover:border-subtle opacity-60 hover:opacity-100")
           }
         >
           <div className="aspect-[5/3] rounded-lg overflow-hidden w-full">

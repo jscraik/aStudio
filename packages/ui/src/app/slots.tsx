@@ -14,11 +14,7 @@ export function ChatUISlotsProvider({
   value: ChatUISlots;
   children: ReactNode;
 }) {
-  return (
-    <ChatUISlotsContext.Provider value={value}>
-      {children}
-    </ChatUISlotsContext.Provider>
-  );
+  return <ChatUISlotsContext.Provider value={value}>{children}</ChatUISlotsContext.Provider>;
 }
 
 export function useChatUISlots(): ChatUISlots {

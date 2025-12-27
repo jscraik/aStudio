@@ -2,8 +2,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-
-import { Button } from "@chatui/ui";
+import { AppsSDKButton } from "@chatui/ui";
 
 import "../styles/widget.css";
 
@@ -58,13 +57,13 @@ function App() {
   };
 
   return (
-    <div className="antialiased relative w-full text-black py-5 bg-white">
+    <div className="antialiased relative w-full text-primary py-5 bg-surface">
       <h1 className="sr-only">Pizzaz Carousel</h1>
       <div className="sr-only" aria-live="polite">
         Carousel updated.
       </div>
       <div
-        className="overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+        className="overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         ref={emblaRef}
         role="region"
         aria-roledescription="carousel"
@@ -87,7 +86,7 @@ function App() {
         }
       >
         <div
-          className="h-full w-full border-l border-black/15 bg-gradient-to-r from-black/10 to-transparent"
+          className="h-full w-full border-l border-subtle bg-gradient-to-r from-[var(--color-surface)] to-transparent opacity-70"
           style={{
             WebkitMaskImage:
               "linear-gradient(to bottom, transparent 0%, white 30%, white 70%, transparent 100%)",
@@ -104,7 +103,7 @@ function App() {
         }
       >
         <div
-          className="h-full w-full border-r border-black/15 bg-gradient-to-l from-black/10 to-transparent"
+          className="h-full w-full border-r border-subtle bg-gradient-to-l from-[var(--color-surface)] to-transparent opacity-70"
           style={{
             WebkitMaskImage:
               "linear-gradient(to bottom, transparent 0%, white 30%, white 70%, transparent 100%)",
@@ -114,7 +113,7 @@ function App() {
         />
       </div>
       {canPrev && (
-        <Button
+        <AppsSDKButton
           aria-label="Previous"
           className="absolute left-2 top-1/2 -translate-y-1/2 z-10 shadow-lg"
           color="secondary"
@@ -124,15 +123,11 @@ function App() {
           onClick={() => emblaApi && emblaApi.scrollPrev()}
           type="button"
         >
-          <ArrowLeft
-            strokeWidth={1.5}
-            className="h-4.5 w-4.5"
-            aria-hidden="true"
-          />
-        </Button>
+          <ArrowLeft strokeWidth={1.5} className="h-4.5 w-4.5" aria-hidden="true" />
+        </AppsSDKButton>
       )}
       {canNext && (
-        <Button
+        <AppsSDKButton
           aria-label="Next"
           className="absolute right-2 top-1/2 -translate-y-1/2 z-10 shadow-lg"
           color="secondary"
@@ -142,12 +137,8 @@ function App() {
           onClick={() => emblaApi && emblaApi.scrollNext()}
           type="button"
         >
-          <ArrowRight
-            strokeWidth={1.5}
-            className="h-4.5 w-4.5"
-            aria-hidden="true"
-          />
-        </Button>
+          <ArrowRight strokeWidth={1.5} className="h-4.5 w-4.5" aria-hidden="true" />
+        </AppsSDKButton>
       )}
     </div>
   );

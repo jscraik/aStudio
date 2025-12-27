@@ -30,7 +30,7 @@ export interface SegmentedControlProps<T extends string = string> {
 
 /**
  * SegmentedControl - A group of mutually exclusive buttons
- * 
+ *
  * @example
  * ```tsx
  * <SegmentedControl
@@ -64,7 +64,7 @@ export function SegmentedControl<T extends string = string>({
       className={cn(
         "inline-flex items-center gap-0 bg-[var(--foundation-bg-dark-2)] rounded-lg p-1",
         fullWidth && "w-full",
-        className
+        className,
       )}
     >
       {options.map((option) => {
@@ -79,10 +79,8 @@ export function SegmentedControl<T extends string = string>({
               "rounded-md transition-all font-normal leading-[20px] tracking-[-0.3px] flex items-center gap-1.5",
               sizes[size],
               fullWidth && "flex-1 justify-center",
-              isSelected
-                ? "text-white"
-                : "text-white/60 hover:text-white",
-              option.disabled && "opacity-50 cursor-not-allowed"
+              isSelected ? "text-white" : "text-white/60 hover:text-white",
+              option.disabled && "opacity-50 cursor-not-allowed",
             )}
             style={{
               backgroundColor: isSelected

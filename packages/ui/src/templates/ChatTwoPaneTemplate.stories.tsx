@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
-import { ChatTwoPaneTemplate } from "./ChatTwoPaneTemplate";
 import { ChatHeader } from "../app/components/ChatHeader";
 import { ChatSidebar } from "../app/components/ChatSidebar";
 import { ChatMessages } from "../app/components/ChatMessages";
 import { ChatInput } from "../app/components/ChatInput";
 import { ComposeView } from "../app/components/ComposeView";
+
+import { ChatTwoPaneTemplate } from "./ChatTwoPaneTemplate";
 
 type ModelConfig = {
   name: string;
@@ -27,12 +28,7 @@ type StoryArgs = {
   showCompose: boolean;
 };
 
-function TwoPaneStoryShell({
-  showSidebar,
-  showFooter,
-  showDetailsPanel,
-  showCompose,
-}: StoryArgs) {
+function TwoPaneStoryShell({ showSidebar, showFooter, showDetailsPanel, showCompose }: StoryArgs) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedModel, setSelectedModel] = useState<ModelConfig>(models[0]);
   const [viewMode, setViewMode] = useState<"chat" | "compose">("chat");
@@ -43,9 +39,7 @@ function TwoPaneStoryShell({
     <div className="h-full w-full">
       <ChatTwoPaneTemplate
         sidebar={
-          showSidebar ? (
-            <ChatSidebar isOpen={isSidebarOpen} onToggle={onToggleSidebar} />
-          ) : null
+          showSidebar ? <ChatSidebar isOpen={isSidebarOpen} onToggle={onToggleSidebar} /> : null
         }
         header={
           <ChatHeader
@@ -57,13 +51,7 @@ function TwoPaneStoryShell({
             onViewModeChange={setViewMode}
           />
         }
-        body={
-          viewMode === "compose" || showCompose ? (
-            <ComposeView />
-          ) : (
-            <ChatMessages />
-          )
-        }
+        body={viewMode === "compose" || showCompose ? <ComposeView /> : <ChatMessages />}
         footer={
           showFooter && (viewMode === "compose" || showCompose) ? null : (
             <ChatInput selectedModel={selectedModel} />

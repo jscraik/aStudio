@@ -1,9 +1,7 @@
 import { useState } from "react";
-import {
-    IconCheckmark,
-    IconChevronDownMd,
-    IconSettings,
-} from "../../../icons";
+
+import { IconCheckmark, IconChevronDownMd, IconSettings } from "../../../icons";
+
 import { cn } from "./utils";
 
 export interface ModeConfig {
@@ -42,7 +40,7 @@ export interface ModeSelectorProps {
 
 /**
  * ModeSelector - A selector for choosing operational modes
- * 
+ *
  * @example
  * ```tsx
  * <ModeSelector
@@ -102,7 +100,7 @@ export function ModeSelector({
           onClick={handleOpen}
           className={cn(
             "text-[12px] leading-[18px] text-[var(--foundation-text-dark-primary)] flex items-center gap-2 hover:bg-[var(--foundation-bg-dark-3)] transition-colors",
-            triggerClasses[variant]
+            triggerClasses[variant],
           )}
         >
           {value?.name ?? modes[0]?.name}
@@ -112,15 +110,16 @@ export function ModeSelector({
 
       {isOpen && (
         <>
-          <div
-            className="fixed inset-0 bg-black/40 z-40"
-            onClick={() => setIsOpen(false)}
-          />
+          <div className="fixed inset-0 bg-black/40 z-40" onClick={() => setIsOpen(false)} />
 
-          <div className={cn(
-            "fixed z-50 bg-[var(--foundation-bg-dark-1)] border border-white/10 rounded-[16px] shadow-2xl overflow-hidden",
-            showPreview ? "top-16 right-4 w-[960px]" : "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px]"
-          )}>
+          <div
+            className={cn(
+              "fixed z-50 bg-[var(--foundation-bg-dark-1)] border border-white/10 rounded-[16px] shadow-2xl overflow-hidden",
+              showPreview
+                ? "top-16 right-4 w-[960px]"
+                : "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px]",
+            )}
+          >
             <div className={cn("flex", showPreview && "h-[600px]")}>
               {/* Preview Panel */}
               {showPreview && previewMode && (
@@ -167,7 +166,7 @@ export function ModeSelector({
                         When to use
                       </h3>
                       <ul className="space-y-2">
-                        {previewMode.whenToUse.map((item, index) => (
+                        {previewMode.whenToUse?.map((item, index) => (
                           <li
                             key={index}
                             className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white/80 flex items-start gap-2"
@@ -194,10 +193,12 @@ export function ModeSelector({
               )}
 
               {/* Mode List */}
-              <div className={cn(
-                "bg-[var(--foundation-bg-dark-1)] p-6",
-                showPreview ? "w-[360px] border-l border-white/10" : "w-full"
-              )}>
+              <div
+                className={cn(
+                  "bg-[var(--foundation-bg-dark-1)] p-6",
+                  showPreview ? "w-[360px] border-l border-white/10" : "w-full",
+                )}
+              >
                 <h3 className="text-[14px] font-semibold leading-[20px] tracking-[-0.3px] text-white/60 mb-4">
                   Available Modes
                 </h3>
@@ -211,15 +212,13 @@ export function ModeSelector({
                         "w-full px-4 py-3 rounded-lg text-left transition-all flex items-center justify-between",
                         value?.id === mode.id
                           ? "bg-[var(--foundation-accent-green)]/10 border border-[var(--foundation-accent-green)]/30 text-white"
-                          : "bg-white/5 border border-transparent text-white/80 hover:bg-white/10"
+                          : "bg-white/5 border border-transparent text-white/80 hover:bg-white/10",
                       )}
                     >
                       <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px]">
                         {mode.name}
                       </span>
-                      {value?.id === mode.id && (
-                        <IconCheckmark className="size-4 text-white" />
-                      )}
+                      {value?.id === mode.id && <IconCheckmark className="size-4 text-white" />}
                     </button>
                   ))}
                 </div>

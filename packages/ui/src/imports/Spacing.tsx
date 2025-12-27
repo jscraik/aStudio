@@ -14,9 +14,15 @@ function IconOpenaiLogoBold() {
 
 function Metadata() {
   return (
-    <div className="content-stretch flex gap-[8px] items-center relative shrink-0" data-name="Metadata">
+    <div
+      className="content-stretch flex gap-[8px] items-center relative shrink-0"
+      data-name="Metadata"
+    >
       <IconOpenaiLogoBold />
-      <p className="font-['SF_Pro:Semibold',sans-serif] font-[590] leading-[18px] relative shrink-0 text-[12px] text-black text-nowrap tracking-[-0.32px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <p
+        className="font-['SF_Pro:Semibold',sans-serif] font-[590] leading-[18px] relative shrink-0 text-[12px] text-black text-nowrap tracking-[-0.32px]"
+        style={{ fontVariationSettings: "'wdth' 100" }}
+      >
         Foundations
       </p>
     </div>
@@ -25,12 +31,27 @@ function Metadata() {
 
 function ActionsDivider() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full" data-name="Actions + Divider">
+    <div
+      className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full"
+      data-name="Actions + Divider"
+    >
       <Metadata />
       <div className="h-0 relative shrink-0 w-full" data-name="Accent">
         <div className="absolute inset-[-2px_0_0_0]">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 736 2">
-            <line id="Accent" stroke="var(--stroke-0, black)" strokeWidth="2" x2="736" y1="1" y2="1" />
+          <svg
+            className="block size-full"
+            fill="none"
+            preserveAspectRatio="none"
+            viewBox="0 0 736 2"
+          >
+            <line
+              id="Accent"
+              stroke="var(--stroke-0, black)"
+              strokeWidth="2"
+              x2="736"
+              y1="1"
+              y2="1"
+            />
           </svg>
         </div>
       </div>
@@ -40,8 +61,14 @@ function ActionsDivider() {
 
 function ComponentDesc() {
   return (
-    <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-name="Component + Desc.">
-      <p className="font-['SF_Pro:Semibold',sans-serif] font-[590] leading-[1.2] relative shrink-0 text-[56px] text-black text-nowrap tracking-[0.416px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+    <div
+      className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full"
+      data-name="Component + Desc."
+    >
+      <p
+        className="font-['SF_Pro:Semibold',sans-serif] font-[590] leading-[1.2] relative shrink-0 text-[56px] text-black text-nowrap tracking-[0.416px]"
+        style={{ fontVariationSettings: "'wdth' 100" }}
+      >
         Spacing
       </p>
     </div>
@@ -50,7 +77,10 @@ function ComponentDesc() {
 
 function UtilityComponentFrameHeader() {
   return (
-    <div className="bg-white relative rounded-[8px] shrink-0 w-full" data-name="Utility-componentFrameHeader">
+    <div
+      className="bg-white relative rounded-[8px] shrink-0 w-full"
+      data-name="Utility-componentFrameHeader"
+    >
       <div className="overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col gap-[24px] items-start p-[32px] relative w-full">
           <ActionsDivider />
@@ -63,14 +93,32 @@ function UtilityComponentFrameHeader() {
 
 function UtilityComponentHeading() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] h-[40px] items-start relative shrink-0 w-full" data-name="Utility-componentHeading">
-      <p className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[12px] text-black text-nowrap tracking-[-0.32px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+    <div
+      className="content-stretch flex flex-col gap-[16px] h-[40px] items-start relative shrink-0 w-full"
+      data-name="Utility-componentHeading"
+    >
+      <p
+        className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[12px] text-black text-nowrap tracking-[-0.32px]"
+        style={{ fontVariationSettings: "'wdth' 100" }}
+      >
         Definitions
       </p>
       <div className="h-0 relative shrink-0 w-full" data-name="Accent">
         <div className="absolute inset-[-2px_0_0_0]">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 736 2">
-            <line id="Accent" stroke="var(--stroke-0, black)" strokeWidth="2" x2="736" y1="1" y2="1" />
+          <svg
+            className="block size-full"
+            fill="none"
+            preserveAspectRatio="none"
+            viewBox="0 0 736 2"
+          >
+            <line
+              id="Accent"
+              stroke="var(--stroke-0, black)"
+              strokeWidth="2"
+              x2="736"
+              y1="1"
+              y2="1"
+            />
           </svg>
         </div>
       </div>
@@ -81,14 +129,20 @@ function UtilityComponentHeading() {
 function Component11() {
   return (
     <div className="bg-[rgba(255,105,180,0.25)] relative shrink-0 size-[128px]" data-name="128">
-      <div aria-hidden="true" className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none" />
+      <div
+        aria-hidden="true"
+        className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none"
+      />
     </div>
   );
 }
 
 function Value() {
   return (
-    <div className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]" data-name="Value">
+    <div
+      className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]"
+      data-name="Value"
+    >
       <Component11 />
     </div>
   );
@@ -96,7 +150,10 @@ function Value() {
 
 function StyleDetails() {
   return (
-    <div className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full" data-name="Style + Details">
+    <div
+      className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full"
+      data-name="Style + Details"
+    >
       <p className="relative shrink-0">128px</p>
       <p className="opacity-50 relative shrink-0">space-64</p>
     </div>
@@ -105,7 +162,10 @@ function StyleDetails() {
 
 function PreviewDetails() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0" data-name="Preview + Details">
+    <div
+      className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0"
+      data-name="Preview + Details"
+    >
       <Value />
       <StyleDetails />
     </div>
@@ -114,7 +174,10 @@ function PreviewDetails() {
 
 function SpacingPreviewRow() {
   return (
-    <div className="content-stretch flex items-center relative shrink-0" data-name="_spacingPreviewRow">
+    <div
+      className="content-stretch flex items-center relative shrink-0"
+      data-name="_spacingPreviewRow"
+    >
       <PreviewDetails />
     </div>
   );
@@ -123,14 +186,20 @@ function SpacingPreviewRow() {
 function Component10() {
   return (
     <div className="bg-[rgba(255,105,180,0.25)] relative shrink-0 size-[64px]" data-name="64">
-      <div aria-hidden="true" className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none" />
+      <div
+        aria-hidden="true"
+        className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none"
+      />
     </div>
   );
 }
 
 function Value1() {
   return (
-    <div className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]" data-name="Value">
+    <div
+      className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]"
+      data-name="Value"
+    >
       <Component10 />
     </div>
   );
@@ -138,7 +207,10 @@ function Value1() {
 
 function StyleDetails1() {
   return (
-    <div className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full" data-name="Style + Details">
+    <div
+      className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full"
+      data-name="Style + Details"
+    >
       <p className="relative shrink-0">64px</p>
       <p className="opacity-50 relative shrink-0">space-32</p>
     </div>
@@ -147,7 +219,10 @@ function StyleDetails1() {
 
 function PreviewDetails1() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0" data-name="Preview + Details">
+    <div
+      className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0"
+      data-name="Preview + Details"
+    >
       <Value1 />
       <StyleDetails1 />
     </div>
@@ -156,7 +231,10 @@ function PreviewDetails1() {
 
 function SpacingPreviewRow1() {
   return (
-    <div className="content-stretch flex items-center relative shrink-0" data-name="_spacingPreviewRow">
+    <div
+      className="content-stretch flex items-center relative shrink-0"
+      data-name="_spacingPreviewRow"
+    >
       <PreviewDetails1 />
     </div>
   );
@@ -165,14 +243,20 @@ function SpacingPreviewRow1() {
 function Component9() {
   return (
     <div className="bg-[rgba(255,105,180,0.25)] relative shrink-0 size-[48px]" data-name="48">
-      <div aria-hidden="true" className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none" />
+      <div
+        aria-hidden="true"
+        className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none"
+      />
     </div>
   );
 }
 
 function Value2() {
   return (
-    <div className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]" data-name="Value">
+    <div
+      className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]"
+      data-name="Value"
+    >
       <Component9 />
     </div>
   );
@@ -180,7 +264,10 @@ function Value2() {
 
 function StyleDetails2() {
   return (
-    <div className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full" data-name="Style + Details">
+    <div
+      className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full"
+      data-name="Style + Details"
+    >
       <p className="relative shrink-0">48px</p>
       <p className="opacity-50 relative shrink-0">space-24</p>
     </div>
@@ -189,7 +276,10 @@ function StyleDetails2() {
 
 function PreviewDetails2() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0" data-name="Preview + Details">
+    <div
+      className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0"
+      data-name="Preview + Details"
+    >
       <Value2 />
       <StyleDetails2 />
     </div>
@@ -198,7 +288,10 @@ function PreviewDetails2() {
 
 function SpacingPreviewRow2() {
   return (
-    <div className="content-stretch flex items-center relative shrink-0" data-name="_spacingPreviewRow">
+    <div
+      className="content-stretch flex items-center relative shrink-0"
+      data-name="_spacingPreviewRow"
+    >
       <PreviewDetails2 />
     </div>
   );
@@ -207,14 +300,20 @@ function SpacingPreviewRow2() {
 function Component8() {
   return (
     <div className="bg-[rgba(255,105,180,0.25)] relative shrink-0 size-[40px]" data-name="40">
-      <div aria-hidden="true" className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none" />
+      <div
+        aria-hidden="true"
+        className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none"
+      />
     </div>
   );
 }
 
 function Value3() {
   return (
-    <div className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]" data-name="Value">
+    <div
+      className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]"
+      data-name="Value"
+    >
       <Component8 />
     </div>
   );
@@ -222,7 +321,10 @@ function Value3() {
 
 function StyleDetails3() {
   return (
-    <div className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full" data-name="Style + Details">
+    <div
+      className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full"
+      data-name="Style + Details"
+    >
       <p className="relative shrink-0">40px</p>
       <p className="opacity-50 relative shrink-0">space-20</p>
     </div>
@@ -231,7 +333,10 @@ function StyleDetails3() {
 
 function PreviewDetails3() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0" data-name="Preview + Details">
+    <div
+      className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0"
+      data-name="Preview + Details"
+    >
       <Value3 />
       <StyleDetails3 />
     </div>
@@ -240,7 +345,10 @@ function PreviewDetails3() {
 
 function SpacingPreviewRow3() {
   return (
-    <div className="content-stretch flex items-center relative shrink-0" data-name="_spacingPreviewRow">
+    <div
+      className="content-stretch flex items-center relative shrink-0"
+      data-name="_spacingPreviewRow"
+    >
       <PreviewDetails3 />
     </div>
   );
@@ -249,14 +357,20 @@ function SpacingPreviewRow3() {
 function Component7() {
   return (
     <div className="bg-[rgba(255,105,180,0.25)] relative shrink-0 size-[32px]" data-name="32">
-      <div aria-hidden="true" className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none" />
+      <div
+        aria-hidden="true"
+        className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none"
+      />
     </div>
   );
 }
 
 function Value4() {
   return (
-    <div className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]" data-name="Value">
+    <div
+      className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]"
+      data-name="Value"
+    >
       <Component7 />
     </div>
   );
@@ -264,7 +378,10 @@ function Value4() {
 
 function StyleDetails4() {
   return (
-    <div className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full" data-name="Style + Details">
+    <div
+      className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full"
+      data-name="Style + Details"
+    >
       <p className="relative shrink-0">32px</p>
       <p className="opacity-50 relative shrink-0">space-16</p>
     </div>
@@ -273,7 +390,10 @@ function StyleDetails4() {
 
 function PreviewDetails4() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0" data-name="Preview + Details">
+    <div
+      className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0"
+      data-name="Preview + Details"
+    >
       <Value4 />
       <StyleDetails4 />
     </div>
@@ -282,7 +402,10 @@ function PreviewDetails4() {
 
 function SpacingPreviewRow4() {
   return (
-    <div className="content-stretch flex items-center relative shrink-0" data-name="_spacingPreviewRow">
+    <div
+      className="content-stretch flex items-center relative shrink-0"
+      data-name="_spacingPreviewRow"
+    >
       <PreviewDetails4 />
     </div>
   );
@@ -290,7 +413,10 @@ function SpacingPreviewRow4() {
 
 function Row() {
   return (
-    <div className="content-start flex flex-wrap gap-[24px] items-start relative shrink-0" data-name="Row">
+    <div
+      className="content-start flex flex-wrap gap-[24px] items-start relative shrink-0"
+      data-name="Row"
+    >
       <SpacingPreviewRow />
       <SpacingPreviewRow1 />
       <SpacingPreviewRow2 />
@@ -303,14 +429,20 @@ function Row() {
 function Component6() {
   return (
     <div className="bg-[rgba(255,105,180,0.25)] relative shrink-0 size-[24px]" data-name="24">
-      <div aria-hidden="true" className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none" />
+      <div
+        aria-hidden="true"
+        className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none"
+      />
     </div>
   );
 }
 
 function Value5() {
   return (
-    <div className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]" data-name="Value">
+    <div
+      className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]"
+      data-name="Value"
+    >
       <Component6 />
     </div>
   );
@@ -318,7 +450,10 @@ function Value5() {
 
 function StyleDetails5() {
   return (
-    <div className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full" data-name="Style + Details">
+    <div
+      className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full"
+      data-name="Style + Details"
+    >
       <p className="relative shrink-0">24px</p>
       <p className="opacity-50 relative shrink-0">space-12</p>
     </div>
@@ -327,7 +462,10 @@ function StyleDetails5() {
 
 function PreviewDetails5() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0" data-name="Preview + Details">
+    <div
+      className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0"
+      data-name="Preview + Details"
+    >
       <Value5 />
       <StyleDetails5 />
     </div>
@@ -336,7 +474,10 @@ function PreviewDetails5() {
 
 function SpacingPreviewRow5() {
   return (
-    <div className="content-stretch flex items-center relative shrink-0" data-name="_spacingPreviewRow">
+    <div
+      className="content-stretch flex items-center relative shrink-0"
+      data-name="_spacingPreviewRow"
+    >
       <PreviewDetails5 />
     </div>
   );
@@ -345,14 +486,20 @@ function SpacingPreviewRow5() {
 function Component5() {
   return (
     <div className="bg-[rgba(255,105,180,0.25)] relative shrink-0 size-[16px]" data-name="16">
-      <div aria-hidden="true" className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none" />
+      <div
+        aria-hidden="true"
+        className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none"
+      />
     </div>
   );
 }
 
 function Value6() {
   return (
-    <div className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]" data-name="Value">
+    <div
+      className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]"
+      data-name="Value"
+    >
       <Component5 />
     </div>
   );
@@ -360,7 +507,10 @@ function Value6() {
 
 function StyleDetails6() {
   return (
-    <div className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full" data-name="Style + Details">
+    <div
+      className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full"
+      data-name="Style + Details"
+    >
       <p className="relative shrink-0">16px</p>
       <p className="opacity-50 relative shrink-0">space-8</p>
     </div>
@@ -369,7 +519,10 @@ function StyleDetails6() {
 
 function PreviewDetails6() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0" data-name="Preview + Details">
+    <div
+      className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0"
+      data-name="Preview + Details"
+    >
       <Value6 />
       <StyleDetails6 />
     </div>
@@ -378,7 +531,10 @@ function PreviewDetails6() {
 
 function SpacingPreviewRow6() {
   return (
-    <div className="content-stretch flex items-center relative shrink-0" data-name="_spacingPreviewRow">
+    <div
+      className="content-stretch flex items-center relative shrink-0"
+      data-name="_spacingPreviewRow"
+    >
       <PreviewDetails6 />
     </div>
   );
@@ -387,14 +543,20 @@ function SpacingPreviewRow6() {
 function Component4() {
   return (
     <div className="bg-[rgba(255,105,180,0.25)] relative shrink-0 size-[12px]" data-name="12">
-      <div aria-hidden="true" className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none" />
+      <div
+        aria-hidden="true"
+        className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none"
+      />
     </div>
   );
 }
 
 function Value7() {
   return (
-    <div className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]" data-name="Value">
+    <div
+      className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]"
+      data-name="Value"
+    >
       <Component4 />
     </div>
   );
@@ -402,7 +564,10 @@ function Value7() {
 
 function StyleDetails7() {
   return (
-    <div className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full" data-name="Style + Details">
+    <div
+      className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full"
+      data-name="Style + Details"
+    >
       <p className="relative shrink-0">12px</p>
       <p className="opacity-50 relative shrink-0">space-6</p>
     </div>
@@ -411,7 +576,10 @@ function StyleDetails7() {
 
 function PreviewDetails7() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0" data-name="Preview + Details">
+    <div
+      className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0"
+      data-name="Preview + Details"
+    >
       <Value7 />
       <StyleDetails7 />
     </div>
@@ -420,7 +588,10 @@ function PreviewDetails7() {
 
 function SpacingPreviewRow7() {
   return (
-    <div className="content-stretch flex items-center relative shrink-0" data-name="_spacingPreviewRow">
+    <div
+      className="content-stretch flex items-center relative shrink-0"
+      data-name="_spacingPreviewRow"
+    >
       <PreviewDetails7 />
     </div>
   );
@@ -429,14 +600,20 @@ function SpacingPreviewRow7() {
 function Component3() {
   return (
     <div className="bg-[rgba(255,105,180,0.25)] relative shrink-0 size-[8px]" data-name="8">
-      <div aria-hidden="true" className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none" />
+      <div
+        aria-hidden="true"
+        className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none"
+      />
     </div>
   );
 }
 
 function Value8() {
   return (
-    <div className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]" data-name="Value">
+    <div
+      className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]"
+      data-name="Value"
+    >
       <Component3 />
     </div>
   );
@@ -444,7 +621,10 @@ function Value8() {
 
 function StyleDetails8() {
   return (
-    <div className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full" data-name="Style + Details">
+    <div
+      className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full"
+      data-name="Style + Details"
+    >
       <p className="relative shrink-0">8px</p>
       <p className="opacity-50 relative shrink-0">space-4</p>
     </div>
@@ -453,7 +633,10 @@ function StyleDetails8() {
 
 function PreviewDetails8() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0" data-name="Preview + Details">
+    <div
+      className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0"
+      data-name="Preview + Details"
+    >
       <Value8 />
       <StyleDetails8 />
     </div>
@@ -462,7 +645,10 @@ function PreviewDetails8() {
 
 function SpacingPreviewRow8() {
   return (
-    <div className="content-stretch flex items-center relative shrink-0" data-name="_spacingPreviewRow">
+    <div
+      className="content-stretch flex items-center relative shrink-0"
+      data-name="_spacingPreviewRow"
+    >
       <PreviewDetails8 />
     </div>
   );
@@ -471,14 +657,20 @@ function SpacingPreviewRow8() {
 function Component2() {
   return (
     <div className="bg-[rgba(255,105,180,0.25)] relative shrink-0 size-[4px]" data-name="4">
-      <div aria-hidden="true" className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none" />
+      <div
+        aria-hidden="true"
+        className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none"
+      />
     </div>
   );
 }
 
 function Value9() {
   return (
-    <div className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]" data-name="Value">
+    <div
+      className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]"
+      data-name="Value"
+    >
       <Component2 />
     </div>
   );
@@ -486,7 +678,10 @@ function Value9() {
 
 function StyleDetails9() {
   return (
-    <div className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full" data-name="Style + Details">
+    <div
+      className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full"
+      data-name="Style + Details"
+    >
       <p className="relative shrink-0">4px</p>
       <p className="opacity-50 relative shrink-0">space-2</p>
     </div>
@@ -495,7 +690,10 @@ function StyleDetails9() {
 
 function PreviewDetails9() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0" data-name="Preview + Details">
+    <div
+      className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0"
+      data-name="Preview + Details"
+    >
       <Value9 />
       <StyleDetails9 />
     </div>
@@ -504,7 +702,10 @@ function PreviewDetails9() {
 
 function SpacingPreviewRow9() {
   return (
-    <div className="content-stretch flex items-center relative shrink-0" data-name="_spacingPreviewRow">
+    <div
+      className="content-stretch flex items-center relative shrink-0"
+      data-name="_spacingPreviewRow"
+    >
       <PreviewDetails9 />
     </div>
   );
@@ -512,7 +713,10 @@ function SpacingPreviewRow9() {
 
 function Row1() {
   return (
-    <div className="content-start flex flex-wrap gap-[24px] items-start relative shrink-0" data-name="Row">
+    <div
+      className="content-start flex flex-wrap gap-[24px] items-start relative shrink-0"
+      data-name="Row"
+    >
       <SpacingPreviewRow5 />
       <SpacingPreviewRow6 />
       <SpacingPreviewRow7 />
@@ -525,14 +729,20 @@ function Row1() {
 function Component1() {
   return (
     <div className="bg-[rgba(255,105,180,0.25)] relative shrink-0 size-[2px]" data-name="2">
-      <div aria-hidden="true" className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none" />
+      <div
+        aria-hidden="true"
+        className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none"
+      />
     </div>
   );
 }
 
 function Value10() {
   return (
-    <div className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]" data-name="Value">
+    <div
+      className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]"
+      data-name="Value"
+    >
       <Component1 />
     </div>
   );
@@ -540,7 +750,10 @@ function Value10() {
 
 function StyleDetails10() {
   return (
-    <div className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full" data-name="Style + Details">
+    <div
+      className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full"
+      data-name="Style + Details"
+    >
       <p className="relative shrink-0">2px</p>
       <p className="opacity-50 relative shrink-0">space-1</p>
     </div>
@@ -549,7 +762,10 @@ function StyleDetails10() {
 
 function PreviewDetails10() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0" data-name="Preview + Details">
+    <div
+      className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0"
+      data-name="Preview + Details"
+    >
       <Value10 />
       <StyleDetails10 />
     </div>
@@ -558,7 +774,10 @@ function PreviewDetails10() {
 
 function SpacingPreviewRow10() {
   return (
-    <div className="content-stretch flex items-center relative shrink-0" data-name="_spacingPreviewRow">
+    <div
+      className="content-stretch flex items-center relative shrink-0"
+      data-name="_spacingPreviewRow"
+    >
       <PreviewDetails10 />
     </div>
   );
@@ -566,15 +785,24 @@ function SpacingPreviewRow10() {
 
 function Component() {
   return (
-    <div className="bg-[rgba(255,105,180,0.25)] opacity-0 relative shrink-0 size-[256px]" data-name="0">
-      <div aria-hidden="true" className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none" />
+    <div
+      className="bg-[rgba(255,105,180,0.25)] opacity-0 relative shrink-0 size-[256px]"
+      data-name="0"
+    >
+      <div
+        aria-hidden="true"
+        className="absolute border border-[#ff69b4] border-solid inset-0 pointer-events-none"
+      />
     </div>
   );
 }
 
 function Value11() {
   return (
-    <div className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]" data-name="Value">
+    <div
+      className="bg-[rgba(0,0,0,0.02)] content-stretch flex flex-col gap-[8px] items-center justify-center p-[24px] relative shrink-0 size-[128px]"
+      data-name="Value"
+    >
       <Component />
     </div>
   );
@@ -582,7 +810,10 @@ function Value11() {
 
 function StyleDetails11() {
   return (
-    <div className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full" data-name="Style + Details">
+    <div
+      className="content-stretch flex flex-col font-['SF_Mono:Medium',sans-serif] items-start leading-[18px] not-italic relative shrink-0 text-[12px] text-black text-center text-nowrap tracking-[-0.32px] w-full"
+      data-name="Style + Details"
+    >
       <p className="relative shrink-0">0</p>
       <p className="opacity-50 relative shrink-0">space-0</p>
     </div>
@@ -591,7 +822,10 @@ function StyleDetails11() {
 
 function PreviewDetails11() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0" data-name="Preview + Details">
+    <div
+      className="content-stretch flex flex-col gap-[16px] items-center justify-center relative shrink-0"
+      data-name="Preview + Details"
+    >
       <Value11 />
       <StyleDetails11 />
     </div>
@@ -600,7 +834,10 @@ function PreviewDetails11() {
 
 function SpacingPreviewRow11() {
   return (
-    <div className="content-stretch flex items-center relative shrink-0" data-name="_spacingPreviewRow">
+    <div
+      className="content-stretch flex items-center relative shrink-0"
+      data-name="_spacingPreviewRow"
+    >
       <PreviewDetails11 />
     </div>
   );
@@ -608,7 +845,10 @@ function SpacingPreviewRow11() {
 
 function Row2() {
   return (
-    <div className="content-start flex flex-wrap gap-[24px] items-start relative shrink-0" data-name="Row">
+    <div
+      className="content-start flex flex-wrap gap-[24px] items-start relative shrink-0"
+      data-name="Row"
+    >
       <SpacingPreviewRow10 />
       <SpacingPreviewRow11 />
     </div>
@@ -617,20 +857,47 @@ function Row2() {
 
 function Table() {
   return (
-    <div className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0" data-name="Table">
+    <div
+      className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0"
+      data-name="Table"
+    >
       <Row />
       <div className="h-0 relative shrink-0 w-full" data-name="Divider">
         <div className="absolute inset-[-1px_0_0_0]">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 736 1">
-            <line id="Divider" stroke="var(--stroke-0, black)" strokeOpacity="0.1" x2="736" y1="0.5" y2="0.5" />
+          <svg
+            className="block size-full"
+            fill="none"
+            preserveAspectRatio="none"
+            viewBox="0 0 736 1"
+          >
+            <line
+              id="Divider"
+              stroke="var(--stroke-0, black)"
+              strokeOpacity="0.1"
+              x2="736"
+              y1="0.5"
+              y2="0.5"
+            />
           </svg>
         </div>
       </div>
       <Row1 />
       <div className="h-0 relative shrink-0 w-full" data-name="Divider">
         <div className="absolute inset-[-1px_0_0_0]">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 736 1">
-            <line id="Divider" stroke="var(--stroke-0, black)" strokeOpacity="0.1" x2="736" y1="0.5" y2="0.5" />
+          <svg
+            className="block size-full"
+            fill="none"
+            preserveAspectRatio="none"
+            viewBox="0 0 736 1"
+          >
+            <line
+              id="Divider"
+              stroke="var(--stroke-0, black)"
+              strokeOpacity="0.1"
+              x2="736"
+              y1="0.5"
+              y2="0.5"
+            />
           </svg>
         </div>
       </div>

@@ -1,11 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "./accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
 
 const meta: Meta<typeof Accordion> = {
   title: "UI/Accordion",
@@ -37,9 +32,7 @@ export const Default: Story = {
         </AccordionItem>
         <AccordionItem value="item-3">
           <AccordionTrigger>Does it support slots?</AccordionTrigger>
-          <AccordionContent>
-            Slots allow flexible composition across app surfaces.
-          </AccordionContent>
+          <AccordionContent>Slots allow flexible composition across app surfaces.</AccordionContent>
         </AccordionItem>
       </Accordion>
     </div>
@@ -52,21 +45,15 @@ export const Multiple: Story = {
       <Accordion type="multiple" defaultValue={["item-1", "item-2"]}>
         <AccordionItem value="item-1">
           <AccordionTrigger>Multiple open panels</AccordionTrigger>
-          <AccordionContent>
-            This accordion allows more than one item open.
-          </AccordionContent>
+          <AccordionContent>This accordion allows more than one item open.</AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
           <AccordionTrigger>Second item</AccordionTrigger>
-          <AccordionContent>
-            Useful for FAQs or grouped settings.
-          </AccordionContent>
+          <AccordionContent>Useful for FAQs or grouped settings.</AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-3">
           <AccordionTrigger>Third item</AccordionTrigger>
-          <AccordionContent>
-            Add as many panels as you need.
-          </AccordionContent>
+          <AccordionContent>Add as many panels as you need.</AccordionContent>
         </AccordionItem>
       </Accordion>
     </div>

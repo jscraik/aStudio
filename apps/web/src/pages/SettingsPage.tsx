@@ -1,13 +1,14 @@
 import {
-    Button,
-    CollapsibleSection,
-    IconButton,
-    RangeSlider,
-    SectionHeader,
-    SegmentedControl,
-    Toggle
+  Button,
+  CollapsibleSection,
+  IconButton,
+  RangeSlider,
+  SectionHeader,
+  SegmentedControl,
+  Toggle,
 } from "@chatui/ui";
 import { useState } from "react";
+
 import type { Route } from "../Router";
 
 interface SettingsPageProps {
@@ -35,12 +36,8 @@ export function SettingsPage({ onNavigate }: SettingsPageProps) {
             />
             <h1 className="text-xl font-semibold text-white">Settings</h1>
           </div>
-          
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={() => console.log("Export settings")}
-          >
+
+          <Button variant="outline" size="sm" onClick={() => console.log("Export settings")}>
             Export
           </Button>
         </div>
@@ -48,7 +45,6 @@ export function SettingsPage({ onNavigate }: SettingsPageProps) {
 
       {/* Content */}
       <div className="max-w-2xl mx-auto p-6 space-y-8">
-        
         {/* Appearance Section */}
         <CollapsibleSection title="Appearance" defaultOpen>
           <div className="space-y-6">
@@ -118,9 +114,7 @@ export function SettingsPage({ onNavigate }: SettingsPageProps) {
           <Button variant="outline" onClick={() => console.log("Reset to defaults")}>
             Reset to Defaults
           </Button>
-          <Button onClick={() => console.log("Save settings")}>
-            Save Changes
-          </Button>
+          <Button onClick={() => console.log("Save settings")}>Save Changes</Button>
         </div>
       </div>
     </div>

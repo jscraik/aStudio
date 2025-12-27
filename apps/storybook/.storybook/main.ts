@@ -1,4 +1,4 @@
-// This file has been automatically migrated to valid ESM format by Storybook.
+// Storybook 10 configuration for ChatUI Design System
 import type { StorybookConfig } from "@storybook/react-vite";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -7,13 +7,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const config: StorybookConfig = {
-  stories: ["../../../packages/ui/src/**/*.stories.@(js|jsx|ts|tsx|mdx)"],
+  stories: [
+    "../../../packages/ui/src/**/*.stories.@(js|jsx|ts|tsx)",
+  ],
+
   addons: [
-    "@storybook/addon-a11y",
+    // Essential addons (Storybook 10)
     "@storybook/addon-docs",
+    "@storybook/addon-a11y",
+    "@storybook/addon-themes",
     "@storybook/addon-vitest",
-    "@storybook/addon-webpack-stats-v2",
-    "@storybook/addon-storysource"
   ],
 
   framework: {
@@ -21,11 +24,26 @@ const config: StorybookConfig = {
     options: {},
   },
 
+  // TypeScript configuration
+  typescript: {
+    reactDocgen: "react-docgen-typescript",
+    reactDocgenTypescriptOptions: {
+      shouldExtractLiteralValuesFromEnum: true,
+      shouldRemoveUndefinedFromOptional: true,
+      propFilter: (prop) =>
+        prop.parent ? !/node_modules/.test(prop.parent.fileName) : true,
+    },
+  },
+
+  // Static directories for assets
+  staticDirs: ["../public"],
+
   viteFinal: async (viteConfig) => {
-    // Tailwind CSS v4 via PostCSS - handled by the CSS import in preview.tsx
+    // Tailwind CSS v4 via Vite plugin
     const { default: tailwindcss } = await import("@tailwindcss/vite");
     viteConfig.plugins = [...(viteConfig.plugins ?? []), tailwindcss()];
     viteConfig.base = "./";
+
     const repoRoot = path.resolve(__dirname, "../../..");
     viteConfig.server = {
       ...(viteConfig.server ?? {}),
@@ -35,8 +53,19 @@ const config: StorybookConfig = {
         allow: [repoRoot, path.resolve(repoRoot, "packages")],
       },
     };
+
+    // Optimize dependencies for faster dev startup
+    viteConfig.optimizeDeps = {
+      ...(viteConfig.optimizeDeps ?? {}),
+      include: [
+        "@storybook/addon-docs",
+        "@storybook/addon-a11y",
+        "@storybook/addon-themes",
+      ],
+    };
+
     return viteConfig;
-  }
+  },
 };
 
 export default config;

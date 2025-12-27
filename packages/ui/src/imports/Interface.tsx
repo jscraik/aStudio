@@ -14,9 +14,15 @@ function IconOpenaiLogoBold() {
 
 function Metadata() {
   return (
-    <div className="content-stretch flex gap-[8px] items-center relative shrink-0" data-name="Metadata">
+    <div
+      className="content-stretch flex gap-[8px] items-center relative shrink-0"
+      data-name="Metadata"
+    >
       <IconOpenaiLogoBold />
-      <p className="font-['SF_Pro:Semibold',sans-serif] font-[590] leading-[18px] relative shrink-0 text-[#0d0d0d] text-[12px] text-nowrap tracking-[-0.32px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <p
+        className="font-['SF_Pro:Semibold',sans-serif] font-[590] leading-[18px] relative shrink-0 text-[#0d0d0d] text-[12px] text-nowrap tracking-[-0.32px]"
+        style={{ fontVariationSettings: "'wdth' 100" }}
+      >
         Iconography
       </p>
     </div>
@@ -25,12 +31,30 @@ function Metadata() {
 
 function ActionsDivider() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full" data-name="Actions + Divider">
+    <div
+      className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full"
+      data-name="Actions + Divider"
+    >
       <Metadata />
       <div className="h-0 relative shrink-0 w-full" data-name="Accent">
-        <div className="absolute inset-[-2px_0_0_0]" style={{ "--stroke-0": "rgba(13, 13, 13, 1)" } as React.CSSProperties}>
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 704 2">
-            <line id="Accent" stroke="var(--stroke-0, #0D0D0D)" strokeWidth="2" x2="704" y1="1" y2="1" />
+        <div
+          className="absolute inset-[-2px_0_0_0]"
+          style={{ "--stroke-0": "rgba(13, 13, 13, 1)" } as React.CSSProperties}
+        >
+          <svg
+            className="block size-full"
+            fill="none"
+            preserveAspectRatio="none"
+            viewBox="0 0 704 2"
+          >
+            <line
+              id="Accent"
+              stroke="var(--stroke-0, #0D0D0D)"
+              strokeWidth="2"
+              x2="704"
+              y1="1"
+              y2="1"
+            />
           </svg>
         </div>
       </div>
@@ -40,8 +64,14 @@ function ActionsDivider() {
 
 function ComponentDesc() {
   return (
-    <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-name="Component + Desc.">
-      <p className="font-['SF_Pro:Semibold',sans-serif] font-[590] leading-[1.2] relative shrink-0 text-[#0d0d0d] text-[56px] text-nowrap tracking-[0.416px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+    <div
+      className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full"
+      data-name="Component + Desc."
+    >
+      <p
+        className="font-['SF_Pro:Semibold',sans-serif] font-[590] leading-[1.2] relative shrink-0 text-[#0d0d0d] text-[56px] text-nowrap tracking-[0.416px]"
+        style={{ fontVariationSettings: "'wdth' 100" }}
+      >
         Interface
       </p>
     </div>
@@ -50,7 +80,10 @@ function ComponentDesc() {
 
 function UtilityComponentFrameHeader() {
   return (
-    <div className="bg-white relative rounded-[8px] shrink-0 w-full" data-name="Utility-componentFrameHeader">
+    <div
+      className="bg-white relative rounded-[8px] shrink-0 w-full"
+      data-name="Utility-componentFrameHeader"
+    >
       <div className="overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col gap-[24px] items-start p-[32px] relative w-full">
           <ActionsDivider />
@@ -63,14 +96,35 @@ function UtilityComponentFrameHeader() {
 
 function UtilityComponentHeading() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] h-[40px] items-start relative shrink-0 w-full" data-name="Utility-componentHeading">
-      <p className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[#0d0d0d] text-[12px] text-nowrap tracking-[-0.32px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+    <div
+      className="content-stretch flex flex-col gap-[16px] h-[40px] items-start relative shrink-0 w-full"
+      data-name="Utility-componentHeading"
+    >
+      <p
+        className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[#0d0d0d] text-[12px] text-nowrap tracking-[-0.32px]"
+        style={{ fontVariationSettings: "'wdth' 100" }}
+      >
         Public component(s)
       </p>
       <div className="h-0 relative shrink-0 w-full" data-name="Accent">
-        <div className="absolute inset-[-2px_0_0_0]" style={{ "--stroke-0": "rgba(13, 13, 13, 1)" } as React.CSSProperties}>
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 704 2">
-            <line id="Accent" stroke="var(--stroke-0, #0D0D0D)" strokeWidth="2" x2="704" y1="1" y2="1" />
+        <div
+          className="absolute inset-[-2px_0_0_0]"
+          style={{ "--stroke-0": "rgba(13, 13, 13, 1)" } as React.CSSProperties}
+        >
+          <svg
+            className="block size-full"
+            fill="none"
+            preserveAspectRatio="none"
+            viewBox="0 0 704 2"
+          >
+            <line
+              id="Accent"
+              stroke="var(--stroke-0, #0D0D0D)"
+              strokeWidth="2"
+              x2="704"
+              y1="1"
+              y2="1"
+            />
           </svg>
         </div>
       </div>
@@ -80,8 +134,14 @@ function UtilityComponentHeading() {
 
 function Interface() {
   return (
-    <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Interface">
-      <p className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[#0d0d0d] text-[16px] text-nowrap tracking-[-0.32px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+    <div
+      className="content-stretch flex flex-col items-start relative shrink-0"
+      data-name="Interface"
+    >
+      <p
+        className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[#0d0d0d] text-[16px] text-nowrap tracking-[-0.32px]"
+        style={{ fontVariationSettings: "'wdth' 100" }}
+      >
         Interface
       </p>
     </div>
@@ -229,9 +289,24 @@ function IconLinkDisabledBold() {
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / link-disabled-bold">
           <g id="vector">
-            <path clipRule="evenodd" d={svgPaths.p15b4580} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" />
-            <path clipRule="evenodd" d={svgPaths.p2b2e5e00} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" />
-            <path clipRule="evenodd" d={svgPaths.p32511ba0} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" />
+            <path
+              clipRule="evenodd"
+              d={svgPaths.p15b4580}
+              fill="var(--fill-0, #0D0D0D)"
+              fillRule="evenodd"
+            />
+            <path
+              clipRule="evenodd"
+              d={svgPaths.p2b2e5e00}
+              fill="var(--fill-0, #0D0D0D)"
+              fillRule="evenodd"
+            />
+            <path
+              clipRule="evenodd"
+              d={svgPaths.p32511ba0}
+              fill="var(--fill-0, #0D0D0D)"
+              fillRule="evenodd"
+            />
           </g>
         </g>
       </svg>
@@ -244,7 +319,13 @@ function IconSearch() {
     <div className="relative shrink-0 size-[24px]" data-name="icon / search">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / search">
-          <path clipRule="evenodd" d={svgPaths.p1d606080} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p1d606080}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -292,7 +373,10 @@ function IconXCircleCrossedClose() {
 
 function IconXCircleFilledCrossedClose() {
   return (
-    <div className="relative shrink-0 size-[24px]" data-name="icon / x-circle-filled, crossed, close">
+    <div
+      className="relative shrink-0 size-[24px]"
+      data-name="icon / x-circle-filled, crossed, close"
+    >
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / x-circle-filled, crossed, close">
           <path d={svgPaths.pd643e00} fill="var(--fill-0, #0D0D0D)" id="vector" />
@@ -393,7 +477,10 @@ function IconSidebarMenuMobile() {
 
 function IconSidebarMenuMobileBadgeCutout() {
   return (
-    <div className="relative shrink-0 size-[24px]" data-name="icon / sidebar-menu-mobile-badge-cutout">
+    <div
+      className="relative shrink-0 size-[24px]"
+      data-name="icon / sidebar-menu-mobile-badge-cutout"
+    >
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / sidebar-menu-mobile-badge-cutout">
           <path d={svgPaths.p21162480} fill="var(--fill-0, #0D0D0D)" id="vector" />
@@ -421,7 +508,13 @@ function IconSidebarBadge() {
     <div className="relative shrink-0 size-[24px]" data-name="icon / sidebar-badge">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / sidebar-badge">
-          <path clipRule="evenodd" d={svgPaths.p247cc100} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p247cc100}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
           <circle cx="20" cy="4" fill="var(--fill-0, #0285FF)" id="badge" r="4" />
         </g>
       </svg>
@@ -470,7 +563,13 @@ function IconCloseBold() {
     <div className="relative shrink-0 size-[24px]" data-name="icon / close-bold">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / close-bold">
-          <path clipRule="evenodd" d={svgPaths.p1d9d7080} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p1d9d7080}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -491,7 +590,10 @@ function IconProductTag() {
 
 function Icons() {
   return (
-    <div className="content-start flex flex-wrap gap-[24px] items-start overflow-clip p-[24px] relative rounded-[16px] shrink-0 w-[704px]" data-name="Icons">
+    <div
+      className="content-start flex flex-wrap gap-[24px] items-start overflow-clip p-[24px] relative rounded-[16px] shrink-0 w-[704px]"
+      data-name="Icons"
+    >
       <IconDotsHorizontalMoreMenu />
       <IconDotsVerticalMoreMenu />
       <IconPlusLg18PxAdd />
@@ -531,7 +633,10 @@ function Icons() {
 
 function PublicComponentS() {
   return (
-    <div className="bg-white content-stretch flex flex-col gap-[32px] items-start p-[32px] relative rounded-[8px] shrink-0" data-name="Public component(s)">
+    <div
+      className="bg-white content-stretch flex flex-col gap-[32px] items-start p-[32px] relative rounded-[8px] shrink-0"
+      data-name="Public component(s)"
+    >
       <UtilityComponentHeading />
       <Interface />
       <Icons />

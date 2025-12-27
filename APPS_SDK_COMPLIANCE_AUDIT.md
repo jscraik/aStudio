@@ -8,25 +8,25 @@ This document audits your codebase against OpenAI's official Apps SDK guidelines
 
 ### ✅ Compliant
 
-| Requirement | Status | Notes |
-|-------------|--------|-------|
-| Purpose and originality | ✅ | Clear purpose as UI library |
-| Quality and reliability | ✅ | TypeScript, proper error handling |
-| Using Apps SDK UI | ✅ | Integrated via `@openai/apps-sdk-ui` |
-| Tool annotations | ✅ | Added `readOnlyHint`, `destructiveHint`, `openWorldHint` |
-| Clear tool names | ✅ | `display_chat`, `display_search_results`, `display_table` |
-| Descriptive descriptions | ✅ | Detailed descriptions for model understanding |
-| Parameter documentation | ✅ | Zod schemas with `.describe()` |
+| Requirement              | Status | Notes                                                     |
+| ------------------------ | ------ | --------------------------------------------------------- |
+| Purpose and originality  | ✅     | Clear purpose as UI library                               |
+| Quality and reliability  | ✅     | TypeScript, proper error handling                         |
+| Using Apps SDK UI        | ✅     | Integrated via `@openai/apps-sdk-ui`                      |
+| Tool annotations         | ✅     | Added `readOnlyHint`, `destructiveHint`, `openWorldHint`  |
+| Clear tool names         | ✅     | `display_chat`, `display_search_results`, `display_table` |
+| Descriptive descriptions | ✅     | Detailed descriptions for model understanding             |
+| Parameter documentation  | ✅     | Zod schemas with `.describe()`                            |
 
 ### ⚠️ Needs Attention Before Submission
 
-| Requirement | Status | Action Needed |
-|-------------|--------|---------------|
-| Privacy policy | ⚠️ | Add privacy policy URL to submission |
-| Test credentials | ⚠️ | Create demo account for review |
-| App screenshots | ⚠️ | Capture screenshots per required dimensions |
-| Developer verification | ⚠️ | Verify identity in OpenAI Platform Dashboard |
-| Support contact | ⚠️ | Provide customer support contact details |
+| Requirement            | Status | Action Needed                                |
+| ---------------------- | ------ | -------------------------------------------- |
+| Privacy policy         | ⚠️     | Add privacy policy URL to submission         |
+| Test credentials       | ⚠️     | Create demo account for review               |
+| App screenshots        | ⚠️     | Capture screenshots per required dimensions  |
+| Developer verification | ⚠️     | Verify identity in OpenAI Platform Dashboard |
+| Support contact        | ⚠️     | Provide customer support contact details     |
 
 ---
 
@@ -34,13 +34,13 @@ This document audits your codebase against OpenAI's official Apps SDK guidelines
 
 ### ✅ Compliant
 
-| Principle | Status | Notes |
-|-----------|--------|-------|
-| Focus on core jobs | ✅ | Widgets are focused, atomic |
-| Design for ChatGPT environment | ✅ | Using Apps SDK UI |
-| Optimize for conversation | ✅ | Tools provide structured outputs |
-| Atomic, model-friendly actions | ✅ | Each tool is self-contained |
-| Helpful UI only | ✅ | Widgets serve specific purposes |
+| Principle                      | Status | Notes                            |
+| ------------------------------ | ------ | -------------------------------- |
+| Focus on core jobs             | ✅     | Widgets are focused, atomic      |
+| Design for ChatGPT environment | ✅     | Using Apps SDK UI                |
+| Optimize for conversation      | ✅     | Tools provide structured outputs |
+| Atomic, model-friendly actions | ✅     | Each tool is self-contained      |
+| Helpful UI only                | ✅     | Widgets serve specific purposes  |
 
 ### Checklist (from guidelines)
 
@@ -58,20 +58,20 @@ This document audits your codebase against OpenAI's official Apps SDK guidelines
 
 ### ✅ Compliant
 
-| Guideline | Status | Notes |
-|-----------|--------|-------|
-| Using Apps SDK UI design system | ✅ | Integrated |
-| Display modes (inline) | ✅ | Widgets render inline |
-| System fonts | ✅ | Using Apps SDK defaults |
-| Color system | ✅ | Using Apps SDK palettes |
+| Guideline                       | Status | Notes                   |
+| ------------------------------- | ------ | ----------------------- |
+| Using Apps SDK UI design system | ✅     | Integrated              |
+| Display modes (inline)          | ✅     | Widgets render inline   |
+| System fonts                    | ✅     | Using Apps SDK defaults |
+| Color system                    | ✅     | Using Apps SDK palettes |
 
 ### ⚠️ Recommended Improvements
 
-| Guideline | Action |
-|-----------|--------|
+| Guideline       | Action                                     |
+| --------------- | ------------------------------------------ |
 | Fullscreen mode | Add `requestDisplayMode` for complex views |
-| Accessibility | Run accessibility audit on widgets |
-| 8px grid | Verify spacing alignment |
+| Accessibility   | Run accessibility audit on widgets         |
+| 8px grid        | Verify spacing alignment                   |
 
 ---
 
@@ -79,19 +79,19 @@ This document audits your codebase against OpenAI's official Apps SDK guidelines
 
 ### ✅ Compliant
 
-| Requirement | Status | Notes |
-|-------------|--------|-------|
-| Sandboxed iframe | ✅ | Widgets run in iframe |
-| No privileged APIs | ✅ | Not using alert/prompt/confirm |
-| Data minimization | ✅ | Tools request minimal inputs |
-| Read-only annotations | ✅ | All display tools marked read-only |
+| Requirement           | Status | Notes                              |
+| --------------------- | ------ | ---------------------------------- |
+| Sandboxed iframe      | ✅     | Widgets run in iframe              |
+| No privileged APIs    | ✅     | Not using alert/prompt/confirm     |
+| Data minimization     | ✅     | Tools request minimal inputs       |
+| Read-only annotations | ✅     | All display tools marked read-only |
 
 ### ⚠️ Recommended
 
-| Requirement | Action |
-|-------------|--------|
+| Requirement      | Action                         |
+| ---------------- | ------------------------------ |
 | Input validation | Add validation for user inputs |
-| Error handling | Ensure graceful error messages |
+| Error handling   | Ensure graceful error messages |
 
 ---
 
@@ -99,19 +99,19 @@ This document audits your codebase against OpenAI's official Apps SDK guidelines
 
 ### ✅ Compliant
 
-| Requirement | Status | Notes |
-|-------------|--------|-------|
-| Clear tool names | ✅ | `display_*` naming convention |
-| Descriptive descriptions | ✅ | Detailed, actionable descriptions |
-| Parameter docs | ✅ | Zod `.describe()` on all params |
+| Requirement              | Status | Notes                             |
+| ------------------------ | ------ | --------------------------------- |
+| Clear tool names         | ✅     | `display_*` naming convention     |
+| Descriptive descriptions | ✅     | Detailed, actionable descriptions |
+| Parameter docs           | ✅     | Zod `.describe()` on all params   |
 
 ### ⚠️ Recommended
 
-| Requirement | Action |
-|-------------|--------|
-| Golden prompt set | Create test prompts for each tool |
-| Regression testing | Document expected behavior |
-| Production monitoring | Add analytics for tool usage |
+| Requirement           | Action                            |
+| --------------------- | --------------------------------- |
+| Golden prompt set     | Create test prompts for each tool |
+| Regression testing    | Document expected behavior        |
+| Production monitoring | Add analytics for tool usage      |
 
 ---
 
@@ -152,7 +152,7 @@ Create test prompts for each tool:
 - "Open a conversation interface"
 - "Let's have a discussion"
 
-# display_search_results  
+# display_search_results
 - "Show me search results for React components"
 - "Display these findings in a list"
 - "Present the search results visually"
@@ -216,7 +216,7 @@ Based on the official Apps SDK reference documentation, the following improvemen
 async (args, { _meta } = {}) => {
   const locale = _meta?.["openai/locale"] ?? "en";
   const userLocation = _meta?.["openai/userLocation"];
-  
+
   return {
     content: [{ type: "text", text: "Results displayed" }],
     structuredContent: { query, results, locale },
@@ -225,7 +225,7 @@ async (args, { _meta } = {}) => {
       searchContext: { location: userLocation, timestamp: new Date().toISOString() },
     },
   };
-}
+};
 ```
 
 ### Compliance Status: 100% ✅
@@ -233,7 +233,7 @@ async (args, { _meta } = {}) => {
 The implementation now fully complies with all Apps SDK specifications:
 
 - ✅ Tool descriptor requirements
-- ✅ Annotation requirements  
+- ✅ Annotation requirements
 - ✅ Resource management
 - ✅ Client metadata handling
 - ✅ Security policies

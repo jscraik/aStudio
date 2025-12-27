@@ -17,7 +17,7 @@ export interface SectionHeaderProps {
 
 /**
  * SectionHeader - A header for content sections
- * 
+ *
  * @example
  * ```tsx
  * <SectionHeader
@@ -53,12 +53,7 @@ export function SectionHeader({
   return (
     <div className={cn("flex items-start justify-between", className)}>
       <div>
-        <h3
-          className={cn(
-            "font-medium text-white tracking-[-0.3px]",
-            sizes[size].title
-          )}
-        >
+        <h3 className={cn("font-medium text-white tracking-[-0.3px]", sizes[size].title)}>
           {title}
         </h3>
         {description && (
@@ -66,7 +61,7 @@ export function SectionHeader({
             className={cn(
               "font-normal text-[var(--foundation-text-dark-tertiary)] tracking-[-0.3px] mt-1",
               sizes[size].description,
-              descriptionClassName
+              descriptionClassName,
             )}
           >
             {description}

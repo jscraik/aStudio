@@ -4,7 +4,10 @@
   "type": "module",
   "license": "MIT",
   "exports": {
-    ".": "./src/index.ts",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
     "./foundations.css": "./src/foundations.css",
     "./tokens.css": "./src/tokens.css",
     "./tailwind.preset": "./tailwind.preset.ts"
@@ -14,6 +17,17 @@
     "dist",
     "tailwind.preset.ts"
   ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": [
+    "./src/foundations.css",
+    "./src/tokens.css"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "type-check": "tsc -p tsconfig.json --noEmit",
+    "clean": "rm -rf dist"
+  },
   "publishConfig": {
     "access": "public"
   }

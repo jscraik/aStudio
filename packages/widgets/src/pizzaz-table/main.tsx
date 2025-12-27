@@ -11,37 +11,52 @@ if (import.meta.env.DEV) {
       data: [
         { id: 1, name: "Pizza Margherita", price: "$12", rating: 4.5 },
         { id: 2, name: "Pizza Pepperoni", price: "$14", rating: 4.8 },
-        { id: 3, name: "Pizza Quattro Stagioni", price: "$16", rating: 4.3 }
-      ]
-    }
+        { id: 3, name: "Pizza Quattro Stagioni", price: "$16", rating: 4.3 },
+      ],
+    },
   });
 }
 
 function PizzazTableWidget() {
   const host = createEmbeddedHost();
-  const data = (host.toolOutput as any)?.data || [];
-  
+  type TableRow = Record<string, string | number>;
+  const data = (host.toolOutput as { data?: TableRow[] } | undefined)?.data ?? [];
+
   return (
     <HostProvider host={host}>
       <AppsSDKUIProvider linkComponent="a">
-        <div className="p-4">
-          <h1 className="text-lg font-semibold mb-4">Pizzaz Table</h1>
-          
+        <div className="p-4 bg-surface text-primary">
+          <h1 className="text-[16px] font-semibold mb-4 leading-[22px] tracking-[-0.32px]">
+            Pizzaz Table
+          </h1>
+
           <div className="overflow-x-auto">
-            <table className="w-full border-collapse border border-gray-200">
+            <table className="w-full border-collapse border border-subtle">
               <thead>
-                <tr className="bg-gray-50">
-                  <th className="border border-gray-200 px-3 py-2 text-left">Name</th>
-                  <th className="border border-gray-200 px-3 py-2 text-left">Price</th>
-                  <th className="border border-gray-200 px-3 py-2 text-left">Rating</th>
+                <tr className="bg-surface-secondary">
+                  <th className="border border-subtle px-3 py-2 text-left text-[13px] font-semibold leading-[18px] tracking-[-0.3px]">
+                    Name
+                  </th>
+                  <th className="border border-subtle px-3 py-2 text-left text-[13px] font-semibold leading-[18px] tracking-[-0.3px]">
+                    Price
+                  </th>
+                  <th className="border border-subtle px-3 py-2 text-left text-[13px] font-semibold leading-[18px] tracking-[-0.3px]">
+                    Rating
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {data.map((item: any) => (
-                  <tr key={item.id}>
-                    <td className="border border-gray-200 px-3 py-2">{item.name}</td>
-                    <td className="border border-gray-200 px-3 py-2">{item.price}</td>
-                    <td className="border border-gray-200 px-3 py-2">{item.rating}</td>
+                {data.map((item) => (
+                  <tr key={item.id} className="odd:bg-surface-secondary">
+                    <td className="border border-subtle px-3 py-2 text-[13px] leading-[18px] tracking-[-0.3px]">
+                      {item.name}
+                    </td>
+                    <td className="border border-subtle px-3 py-2 text-[13px] leading-[18px] tracking-[-0.3px]">
+                      {item.price}
+                    </td>
+                    <td className="border border-subtle px-3 py-2 text-[13px] leading-[18px] tracking-[-0.3px]">
+                      {item.rating}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -56,5 +71,5 @@ function PizzazTableWidget() {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <PizzazTableWidget />
-  </StrictMode>
+  </StrictMode>,
 );

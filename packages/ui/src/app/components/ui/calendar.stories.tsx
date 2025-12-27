@@ -13,13 +13,7 @@ export default meta;
 type Story = StoryObj<typeof Calendar>;
 
 export const Default: Story = {
-  render: () => (
-    <Calendar
-      mode="single"
-      selected={new Date()}
-      className="rounded-md border"
-    />
-  ),
+  render: () => <Calendar mode="single" selected={new Date()} className="rounded-md border" />,
 };
 
 export const Range: Story = {

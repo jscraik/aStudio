@@ -1,21 +1,23 @@
 import type { ReactNode } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { ChatSidebar } from "./components/ChatSidebar";
 import { ChatHeader } from "./components/ChatHeader";
-import { ChatMessages } from "./components/ChatMessages";
 import { ChatInput } from "./components/ChatInput";
+import { ChatMessages, type ChatMessage } from "./components/ChatMessages";
+import { ChatSidebar, type ChatSidebarUser, type SidebarItem } from "./components/ChatSidebar";
 import { ComposeView } from "./components/ComposeView";
+import type { ModeConfig } from "./components/ui/mode-selector";
+import type { ModelConfig } from "./components/ui/model-selector";
 import { useControllableState } from "./hooks/useControllableState";
 import { ChatUISlotsProvider, type ChatUISlots } from "./slots";
 
 export type ChatUIMode = "twoPane" | "full" | "dashboard";
 
-export interface ModelConfig {
-  name: string;
-  shortName: string;
-  description: string;
-}
+const FALLBACK_MODEL: ModelConfig = {
+  name: "Default",
+  shortName: "Default",
+  description: "Default model",
+};
 
 export interface ChatUIRootProps {
   mode?: ChatUIMode;
@@ -36,6 +38,27 @@ export interface ChatUIRootProps {
 
   /** Optional: allow caller to set a starting model */
   defaultModel?: ModelConfig;
+
+  /** Models for header selector */
+  models?: ModelConfig[];
+  legacyModels?: ModelConfig[];
+
+  /** Messages for ChatMessages */
+  messages?: ChatMessage[];
+
+  /** Sidebar data */
+  projects?: SidebarItem[];
+  chatHistory?: string[];
+  groupChats?: SidebarItem[];
+  categories?: string[];
+  categoryIcons?: Record<string, React.ReactNode>;
+  categoryColors?: Record<string, string>;
+  categoryIconColors?: Record<string, string>;
+  user?: ChatSidebarUser;
+
+  /** Compose view config */
+  composeModels?: ModelConfig[];
+  composeModes?: ModeConfig[];
 
   /**
    * Breakpoint for mobile overlay behavior.
@@ -90,7 +113,7 @@ function getFocusable(container: HTMLElement) {
     "input:not([disabled])",
     "select:not([disabled])",
     "textarea:not([disabled])",
-    "[tabindex]:not([tabindex=\"-1\"])",
+    '[tabindex]:not([tabindex="-1"])',
   ].join(",");
 
   return Array.from(container.querySelectorAll<HTMLElement>(selectors)).filter(
@@ -109,6 +132,19 @@ export function ChatUIRoot({
   defaultViewMode = "chat",
   onViewModeChange,
   defaultModel,
+  models,
+  legacyModels,
+  messages,
+  projects,
+  chatHistory,
+  groupChats,
+  categories,
+  categoryIcons,
+  categoryColors,
+  categoryIconColors,
+  user,
+  composeModels,
+  composeModes,
   mobileBreakpointPx = 768,
   onSidebarToggle,
   headerRight,
@@ -119,6 +155,15 @@ export function ChatUIRoot({
 }: ChatUIRootProps) {
   const isMobile = useMediaQuery(`(max-width: ${mobileBreakpointPx}px)`);
   const slotsValue = useMemo(() => slots ?? {}, [slots]);
+  const resolvedModels = useMemo(
+    () => (models && models.length > 0 ? models : [defaultModel ?? FALLBACK_MODEL]),
+    [models, defaultModel],
+  );
+  const resolvedLegacyModels = useMemo(() => legacyModels ?? [], [legacyModels]);
+  const resolvedComposeModels = useMemo(
+    () => composeModels ?? resolvedModels,
+    [composeModels, resolvedModels],
+  );
 
   const [mode] = useControllableState({
     value: modeProp,
@@ -137,11 +182,7 @@ export function ChatUIRoot({
   const overlayDrawerRef = useRef<HTMLDivElement | null>(null);
 
   const [selectedModel, setSelectedModel] = useState<ModelConfig>(
-    defaultModel ?? {
-      name: "ChatGPT 5.2 Pro",
-      shortName: "5.2 Pro",
-      description: "Our most capable model",
-    },
+    defaultModel ?? resolvedModels[0] ?? FALLBACK_MODEL,
   );
   const [viewMode, setViewMode] = useControllableState<"chat" | "compose">({
     value: viewModeProp,
@@ -154,7 +195,9 @@ export function ChatUIRoot({
   const sidebarBehavior: "none" | "inline" | "overlay" = !canShowSidebar
     ? "none"
     : mode === "twoPane"
-      ? (isMobile ? "overlay" : "inline")
+      ? isMobile
+        ? "overlay"
+        : "inline"
       : "overlay";
 
   const emitToggle = useCallback(
@@ -295,17 +338,26 @@ export function ChatUIRoot({
           isSidebarOpen={sidebarOpenForHeader}
           onSidebarToggle={toggleSidebar}
           selectedModel={selectedModel}
-          onModelChange={setSelectedModel}
+          onModelChange={(model) => {
+            if (typeof model === "string") {
+              // Handle string model selection - convert to ModelConfig
+              setSelectedModel({ name: model, shortName: model, description: "" });
+            } else {
+              setSelectedModel(model);
+            }
+          }}
+          models={resolvedModels}
+          legacyModels={resolvedLegacyModels}
           viewMode={viewMode}
           onViewModeChange={setViewMode}
           headerRight={headerRight}
         />
 
         {viewMode === "compose" ? (
-          <ComposeView />
+          <ComposeView models={resolvedComposeModels} modes={composeModes} />
         ) : (
           <>
-            <ChatMessages emptyState={emptyState} />
+            <ChatMessages emptyState={emptyState} messages={messages} />
             <ChatInput
               selectedModel={selectedModel}
               composerLeft={composerLeft}
@@ -321,19 +373,35 @@ export function ChatUIRoot({
     toggleSidebar,
     selectedModel,
     setSelectedModel,
+    resolvedModels,
+    resolvedLegacyModels,
     viewMode,
     setViewMode,
     headerRight,
+    resolvedComposeModels,
+    composeModes,
     composerLeft,
     composerRight,
     emptyState,
+    messages,
   ]);
 
   return (
     <div className="size-full flex bg-[var(--foundation-bg-dark-1)] dark overflow-hidden">
       {sidebarBehavior === "inline" ? (
         <ChatUISlotsProvider value={slotsValue}>
-          <ChatSidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
+          <ChatSidebar
+            isOpen={sidebarOpen}
+            onToggle={toggleSidebar}
+            projects={projects}
+            chatHistory={chatHistory}
+            groupChats={groupChats}
+            categories={categories}
+            categoryIcons={categoryIcons}
+            categoryColors={categoryColors}
+            categoryIconColors={categoryIconColors}
+            user={user}
+          />
         </ChatUISlotsProvider>
       ) : null}
 
@@ -355,7 +423,18 @@ export function ChatUIRoot({
             className="absolute left-0 top-0 h-full w-64 outline-none"
           >
             <ChatUISlotsProvider value={slotsValue}>
-              <ChatSidebar isOpen={sidebarOpen} onToggle={closeOverlay} />
+              <ChatSidebar
+                isOpen={sidebarOpen}
+                onToggle={closeOverlay}
+                projects={projects}
+                chatHistory={chatHistory}
+                groupChats={groupChats}
+                categories={categories}
+                categoryIcons={categoryIcons}
+                categoryColors={categoryColors}
+                categoryIconColors={categoryIconColors}
+                user={user}
+              />
             </ChatUISlotsProvider>
           </div>
         </div>

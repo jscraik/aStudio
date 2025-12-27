@@ -25,9 +25,7 @@ export const Default: Story = {
         </HoverCardTrigger>
         <HoverCardContent>
           <div className="text-sm font-medium">ChatUI Team</div>
-          <div className="text-muted-foreground text-xs">
-            Building thoughtful chat experiences.
-          </div>
+          <div className="text-muted-foreground text-xs">Building thoughtful chat experiences.</div>
         </HoverCardContent>
       </HoverCard>
     </div>

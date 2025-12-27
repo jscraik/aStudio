@@ -1,21 +1,33 @@
 import {
+  IconArrowCurvedRight,
+  IconArrowDownLg,
+  IconArrowRotateCw,
+  IconArrowTopRightSm,
   IconArrowUpSm,
   IconBarChart,
   IconBook,
   IconChat,
   IconCheckmark,
   IconChevronRightMd,
+  IconChevronUpDown,
   IconCompose,
   IconCopy,
   IconEdit,
+  IconExpandLg,
   IconFolder,
   IconPlusLg,
+  IconRedo,
+  IconRegenerate,
+  IconRegenerateStar,
+  IconReply,
   IconSearch,
   IconSettings,
   IconShare,
+  IconShuffle,
   IconStar,
   IconThumbUp,
   IconTrash,
+  IconUndo,
   IconUser,
   IconWriting,
 } from "./icons/ChatGPTIcons";
@@ -26,7 +38,11 @@ const iconSections = [
     description: "Arrows, chevrons, search, and add",
     icons: [
       { name: "ArrowUp", Icon: IconArrowUpSm },
+      { name: "ArrowDownLg", Icon: IconArrowDownLg },
+      { name: "ArrowCurved", Icon: IconArrowCurvedRight },
+      { name: "ArrowDiagonal", Icon: IconArrowTopRightSm },
       { name: "ChevronRight", Icon: IconChevronRightMd },
+      { name: "ChevronUpDown", Icon: IconChevronUpDown },
       { name: "Search", Icon: IconSearch },
       { name: "Plus", Icon: IconPlusLg },
     ],
@@ -39,6 +55,7 @@ const iconSections = [
       { name: "Checkmark", Icon: IconCheckmark },
       { name: "Edit", Icon: IconEdit },
       { name: "Trash", Icon: IconTrash },
+      { name: "Expand", Icon: IconExpandLg },
     ],
   },
   {
@@ -50,6 +67,19 @@ const iconSections = [
       { name: "Copy", Icon: IconCopy },
       { name: "Share", Icon: IconShare },
       { name: "ThumbUp", Icon: IconThumbUp },
+      { name: "Reply", Icon: IconReply },
+    ],
+  },
+  {
+    title: "Actions",
+    description: "Undo, redo, regenerate, and shuffle",
+    icons: [
+      { name: "Undo", Icon: IconUndo },
+      { name: "Redo", Icon: IconRedo },
+      { name: "Regenerate", Icon: IconRegenerate },
+      { name: "RegenerateStar", Icon: IconRegenerateStar },
+      { name: "Rotate", Icon: IconArrowRotateCw },
+      { name: "Shuffle", Icon: IconShuffle },
     ],
   },
   {
@@ -76,14 +106,19 @@ export function IconographyShowcase() {
   const textTertiary = "var(--foundation-text-light-tertiary)";
 
   return (
-    <div className="min-h-screen p-8" style={{ backgroundColor: lightSurfaceAlt, color: textPrimary }}>
+    <div
+      className="min-h-screen p-8"
+      style={{ backgroundColor: lightSurfaceAlt, color: textPrimary }}
+    >
       <div className="mx-auto max-w-6xl space-y-10">
         <header className="rounded-lg p-8 shadow-sm" style={{ backgroundColor: lightSurface }}>
           <div className="flex items-center gap-3 mb-4">
             <IconSettings className="size-5" />
             <p className="text-[12px] font-semibold tracking-[-0.32px]">Foundations</p>
           </div>
-          <h1 className="text-[36px] font-semibold leading-[40px] tracking-[-0.1px]">Iconography</h1>
+          <h1 className="text-[36px] font-semibold leading-[40px] tracking-[-0.1px]">
+            Iconography
+          </h1>
           <p className="text-[14px] leading-[20px] mt-2" style={{ color: textSecondary }}>
             Canonical icon families aligned to Apps SDK UI. Use these sets before introducing new
             glyphs.
@@ -99,7 +134,11 @@ export function IconographyShowcase() {
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {iconSizes.map((size) => (
-              <div key={size} className="rounded-xl p-4" style={{ backgroundColor: lightSurfaceAlt }}>
+              <div
+                key={size}
+                className="rounded-xl p-4"
+                style={{ backgroundColor: lightSurfaceAlt }}
+              >
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-[12px] font-semibold">{size}px</span>
                   <span className="text-[11px]" style={{ color: textTertiary }}>

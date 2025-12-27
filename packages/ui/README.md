@@ -25,6 +25,14 @@ function App() {
 }
 ```
 
+### Dev/demo exports
+
+Demo pages and sandbox utilities live under a separate entry to keep the production API minimal:
+
+```tsx
+import { ChatUIApp, DesignSystemPage } from "@chatui/ui/dev";
+```
+
 ## 📦 What's Included
 
 ### Core Chat Components
@@ -99,9 +107,7 @@ The library uses CSS custom properties for theming:
 Components accept `className` props and use `tailwind-merge` for style composition:
 
 ```tsx
-<Button className="bg-purple-500 hover:bg-purple-600">
-  Custom Button
-</Button>
+<Button className="bg-purple-500 hover:bg-purple-600">Custom Button</Button>
 ```
 
 ## 🔧 Advanced Usage
@@ -109,13 +115,7 @@ Components accept `className` props and use `tailwind-merge` for style compositi
 ### Component Composition
 
 ```tsx
-import { 
-  ChatUIRoot, 
-  ChatHeader, 
-  ChatSidebar, 
-  ChatMessages, 
-  ChatInput 
-} from "@chatui/ui";
+import { ChatUIRoot, ChatHeader, ChatSidebar, ChatMessages, ChatInput } from "@chatui/ui";
 
 function ChatApp() {
   return (

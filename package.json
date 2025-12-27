@@ -17,17 +17,39 @@
     "mcp:start": "pnpm -C apps/mcp start",
     "storybook:dev": "pnpm -C apps/storybook dev",
     "storybook:build": "pnpm -C apps/storybook build",
+    "storybook:test": "pnpm -C apps/storybook test",
+    "test": "pnpm -C packages/ui test",
+    "test:watch": "pnpm -C packages/ui test:watch",
+    "test:coverage": "pnpm -C packages/ui test:coverage",
     "test:embed": "node ./apps/mcp/scripts/smoke.mjs",
     "lint:compliance": "node ./scripts/compliance.mjs",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "new:component": "node ./scripts/new-component.mjs"
   },
   "devDependencies": {
     "@storybook/addon-vitest": "^10.1.10",
     "@vitest/browser-playwright": "^4.0.16",
     "@vitest/coverage-v8": "^4.0.16",
+    "@eslint/js": "^9.18.0",
+    "eslint": "^9.18.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "prettier": "^3.7.4",
     "concurrently": "^9.2.1",
     "playwright": "^1.57.0",
     "typescript": "^5.9.3",
+    "typescript-eslint": "^8.24.1",
     "vitest": "^4.0.16"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "storybook": "^10.1.10"
+      }
+    }
   }
 }

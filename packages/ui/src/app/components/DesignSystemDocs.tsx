@@ -1,4 +1,5 @@
 import { spacingScale, typographyTokens } from "@chatui/tokens";
+
 import {
   IconArrowUpSm,
   IconCheckmark,
@@ -74,7 +75,10 @@ export function DesignSystemDocs() {
   const textTertiary = "var(--foundation-text-light-tertiary)";
 
   return (
-    <div className="min-h-screen p-8" style={{ backgroundColor: lightSurfaceAlt, color: textPrimary }}>
+    <div
+      className="min-h-screen p-8"
+      style={{ backgroundColor: lightSurfaceAlt, color: textPrimary }}
+    >
       <div className="mx-auto max-w-6xl space-y-10">
         <header className="rounded-lg p-8 shadow-sm" style={{ backgroundColor: lightSurface }}>
           <div className="flex items-center gap-3 mb-6">
@@ -89,7 +93,10 @@ export function DesignSystemDocs() {
           <h1 className="mb-4 text-[40px] font-semibold leading-[1.2] tracking-[0.416px]">
             Foundations & Compliance
           </h1>
-          <p className="text-[16px] leading-[24px] tracking-[-0.32px]" style={{ color: textSecondary }}>
+          <p
+            className="text-[16px] leading-[24px] tracking-[-0.32px]"
+            style={{ color: textSecondary }}
+          >
             This page audits UI tokens, iconography, typography, and spacing against the Apps SDK UI
             design system.
           </p>
@@ -108,7 +115,10 @@ export function DesignSystemDocs() {
               style={{ backgroundColor: lightSurface }}
             >
               <div className="text-[32px] font-semibold leading-[40px]">{stat.value}</div>
-              <div className="text-[14px] leading-[20px] tracking-[-0.3px]" style={{ color: textSecondary }}>
+              <div
+                className="text-[14px] leading-[20px] tracking-[-0.3px]"
+                style={{ color: textSecondary }}
+              >
                 {stat.label}
               </div>
             </div>
@@ -228,7 +238,10 @@ export function DesignSystemDocs() {
                 Use Apps SDK UI components and tokens for all primitives. Avoid raw hex values in UI
                 components.
               </p>
-              <div className="mt-3 rounded-lg p-3 text-[12px]" style={{ backgroundColor: lightSurface }}>
+              <div
+                className="mt-3 rounded-lg p-3 text-[12px]"
+                style={{ backgroundColor: lightSurface }}
+              >
                 bg-surface text-primary border-default
               </div>
             </div>
@@ -237,7 +250,10 @@ export function DesignSystemDocs() {
                 Use the host adapter seam for runtime calls. UI should not touch window.openai
                 directly.
               </p>
-              <div className="mt-3 rounded-lg p-3 text-[12px]" style={{ backgroundColor: lightSurface }}>
+              <div
+                className="mt-3 rounded-lg p-3 text-[12px]"
+                style={{ backgroundColor: lightSurface }}
+              >
                 const host = createEmbeddedHost()
               </div>
             </div>

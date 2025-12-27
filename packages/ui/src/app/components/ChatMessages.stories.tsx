@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import { sampleMessages } from "../data/sample-data";
+
 import { ChatMessages } from "./ChatMessages";
 
 const meta: Meta<typeof ChatMessages> = {
@@ -20,7 +22,9 @@ export default meta;
 type Story = StoryObj<typeof ChatMessages>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    messages: sampleMessages,
+  },
 };
 
 export const EmptyState: Story = {

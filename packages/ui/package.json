@@ -8,17 +8,44 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/ui.css",
+    "./dist/ui.css": "./dist/ui.css",
+    "./forms": {
+      "types": "./dist/app/components/ui/forms/index.d.ts",
+      "import": "./dist/forms.js"
+    },
+    "./chat": {
+      "types": "./dist/app/components/ui/chat/index.d.ts",
+      "import": "./dist/chat.js"
+    },
+    "./layout": {
+      "types": "./dist/app/components/ui/layout/index.d.ts",
+      "import": "./dist/layout.js"
+    },
+    "./templates": {
+      "types": "./dist/templates/index.d.ts",
+      "import": "./dist/templates.js"
+    },
+    "./dev": {
+      "types": "./dist/dev.d.ts",
+      "import": "./dist/dev.js"
+    }
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "sideEffects": [
+    "./dist/ui.css"
+  ],
   "scripts": {
-    "build": "vite build && tsc --emitDeclarationOnly",
+    "build": "vite build",
     "dev": "vite build --watch",
     "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "test:components": "test-storybook",
     "test:a11y": "test-storybook --coverage",
     "test:visual": "chromatic --exit-zero-on-changes",
@@ -33,11 +60,8 @@
     "react-dom": "^18.0.0 || ^19.0.0"
   },
   "dependencies": {
-    "clsx": "^2.1.1",
     "@chatui/tokens": "workspace:*",
     "@openai/apps-sdk-ui": "^0.2.1",
-    "@radix-ui/react-popover": "^1.1.6",
-    "class-variance-authority": "^0.7.1",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.1.2",
     "@radix-ui/react-aspect-ratio": "^1.1.0",
@@ -51,6 +75,7 @@
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-menubar": "^1.1.2",
     "@radix-ui/react-navigation-menu": "^1.2.1",
+    "@radix-ui/react-popover": "^1.1.6",
     "@radix-ui/react-progress": "^1.1.0",
     "@radix-ui/react-radio-group": "^1.2.1",
     "@radix-ui/react-scroll-area": "^1.2.1",
@@ -63,17 +88,37 @@
     "@radix-ui/react-toggle": "^1.1.0",
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "cmdk": "1.1.1",
+    "embla-carousel-react": "8.6.0",
+    "input-otp": "1.4.2",
+    "lucide-react": "^0.487.0",
+    "next-themes": "0.4.6",
+    "react-day-picker": "^9.13.0",
     "react-hook-form": "^7.54.2",
     "react-resizable-panels": "2.1.7",
-    "next-themes": "0.4.6",
-    "embla-carousel-react": "8.6.0",
     "recharts": "2.15.2",
-    "react-day-picker": "8.10.1",
-    "input-otp": "1.4.2",
     "sonner": "2.0.3",
-    "vaul": "^1.1.0",
-    "lucide-react": "^0.487.0",
-    "tailwind-merge": "^3.2.0"
+    "tailwind-merge": "^3.2.0",
+    "vaul": "^1.1.0"
+  },
+  "devDependencies": {
+    "@storybook/react-vite": "^10.1.10",
+    "@storybook/test": "^8.6.15",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^25.0.3",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "axe-core": "^4.10.3",
+    "jsdom": "^26.1.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.4.1",
+    "vite-plugin-dts": "^4.3.0",
+    "vitest": "^4.0.16",
+    "vitest-axe": "^1.0.0-pre.3"
   }
 }

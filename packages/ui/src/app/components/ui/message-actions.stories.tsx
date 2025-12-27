@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
 import { MessageActions } from "./message-actions";
 
 const meta: Meta<typeof MessageActions> = {
@@ -68,7 +69,8 @@ export const InMessageContext: Story = {
       <div className="group">
         <div className="mb-3 p-3 bg-[var(--foundation-bg-dark-2)] rounded-lg">
           <p className="text-white text-sm mb-2">
-            This is a sample assistant message that demonstrates how the MessageActions component appears in context.
+            This is a sample assistant message that demonstrates how the MessageActions component
+            appears in context.
           </p>
           <MessageActions
             messageId="context-msg"

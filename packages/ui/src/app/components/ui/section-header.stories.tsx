@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
 import { SectionHeader } from "./section-header";
 
 const meta: Meta<typeof SectionHeader> = {
@@ -29,7 +30,8 @@ export const TitleOnly: Story = {
 export const WithCustomDescription: Story = {
   args: {
     title: "Token Budgets",
-    description: "Sets the target size for your final prompt. Use 60k for ChatGPT (lite Pro context), higher for CLI/API tools with larger context windows.",
+    description:
+      "Sets the target size for your final prompt. Use 60k for ChatGPT (lite Pro context), higher for CLI/API tools with larger context windows.",
     descriptionClassName: "text-[13px] font-normal leading-[18px] text-white/60 mb-4",
   },
 };
@@ -37,14 +39,16 @@ export const WithCustomDescription: Story = {
 export const LongTitle: Story = {
   args: {
     title: "This is a Very Long Section Title That Might Wrap",
-    description: "Even with long titles, the description should still be properly formatted and readable.",
+    description:
+      "Even with long titles, the description should still be properly formatted and readable.",
   },
 };
 
 export const LongDescription: Story = {
   args: {
     title: "Configuration",
-    description: "This is a longer description that explains in detail what this section is about and what the user can expect to find here. It provides comprehensive information about the settings and options available.",
+    description:
+      "This is a longer description that explains in detail what this section is about and what the user can expect to find here. It provides comprehensive information about the settings and options available.",
   },
 };
 
@@ -58,7 +62,8 @@ export const SettingsExample: Story = {
 export const ClarifyingQuestionsExample: Story = {
   args: {
     title: "Clarifying Questions",
-    description: "Allow the agent to ask you questions during discovery to better understand your intent.",
+    description:
+      "Allow the agent to ask you questions during discovery to better understand your intent.",
     descriptionClassName: "text-[13px] font-normal leading-[18px] text-white/60 mb-4",
   },
 };

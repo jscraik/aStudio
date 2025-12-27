@@ -31,9 +31,7 @@ export const Default: Story = {
         <ContextMenuItem>New file</ContextMenuItem>
         <ContextMenuItem>Duplicate</ContextMenuItem>
         <ContextMenuSeparator />
-        <ContextMenuCheckboxItem checked>
-          Show hidden files
-        </ContextMenuCheckboxItem>
+        <ContextMenuCheckboxItem checked>Show hidden files</ContextMenuCheckboxItem>
       </ContextMenuContent>
     </ContextMenu>
   ),

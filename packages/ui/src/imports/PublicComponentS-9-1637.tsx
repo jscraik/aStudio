@@ -2,14 +2,35 @@ import svgPaths from "./svg-s5xs1q0c9v";
 
 function UtilityComponentHeading() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] h-[40px] items-start relative shrink-0 w-full" data-name="Utility-componentHeading">
-      <p className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[#0d0d0d] text-[12px] text-nowrap tracking-[-0.32px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+    <div
+      className="content-stretch flex flex-col gap-[16px] h-[40px] items-start relative shrink-0 w-full"
+      data-name="Utility-componentHeading"
+    >
+      <p
+        className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[#0d0d0d] text-[12px] text-nowrap tracking-[-0.32px]"
+        style={{ fontVariationSettings: "'wdth' 100" }}
+      >
         Public component(s)
       </p>
       <div className="h-0 relative shrink-0 w-full" data-name="Accent">
-        <div className="absolute inset-[-2px_0_0_0]" style={{ "--stroke-0": "rgba(13, 13, 13, 1)" } as React.CSSProperties}>
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 792 2">
-            <line id="Accent" stroke="var(--stroke-0, #0D0D0D)" strokeWidth="2" x2="792" y1="1" y2="1" />
+        <div
+          className="absolute inset-[-2px_0_0_0]"
+          style={{ "--stroke-0": "rgba(13, 13, 13, 1)" } as React.CSSProperties}
+        >
+          <svg
+            className="block size-full"
+            fill="none"
+            preserveAspectRatio="none"
+            viewBox="0 0 792 2"
+          >
+            <line
+              id="Accent"
+              stroke="var(--stroke-0, #0D0D0D)"
+              strokeWidth="2"
+              x2="792"
+              y1="1"
+              y2="1"
+            />
           </svg>
         </div>
       </div>
@@ -19,8 +40,14 @@ function UtilityComponentHeading() {
 
 function Interface() {
   return (
-    <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Interface">
-      <p className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[#0d0d0d] text-[16px] text-nowrap tracking-[-0.32px]" style={{ fontVariationSettings: "'wdth' 100" }}>{`Chat, Canvas & Dall·E`}</p>
+    <div
+      className="content-stretch flex flex-col items-start relative shrink-0"
+      data-name="Interface"
+    >
+      <p
+        className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[#0d0d0d] text-[16px] text-nowrap tracking-[-0.32px]"
+        style={{ fontVariationSettings: "'wdth' 100" }}
+      >{`Chat, Canvas & Dall·E`}</p>
     </div>
   );
 }
@@ -158,7 +185,12 @@ function IconComposeCanvasEditStar() {
         <g id="icon / compose-canvas, edit, star">
           <g id="vector">
             <path d={svgPaths.p12c3e180} fill="var(--fill-0, #0D0D0D)" />
-            <path clipRule="evenodd" d={svgPaths.p7d25200} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" />
+            <path
+              clipRule="evenodd"
+              d={svgPaths.p7d25200}
+              fill="var(--fill-0, #0D0D0D)"
+              fillRule="evenodd"
+            />
           </g>
         </g>
       </svg>
@@ -300,7 +332,10 @@ function IconCameraFilledPhoto() {
 
 function IconImageSquarePictureLibrary() {
   return (
-    <div className="relative shrink-0 size-[24px]" data-name="icon / image-square, picture, library">
+    <div
+      className="relative shrink-0 size-[24px]"
+      data-name="icon / image-square, picture, library"
+    >
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / image-square, picture, library">
           <path d={svgPaths.p37a33500} fill="var(--fill-0, #0D0D0D)" id="vector" />
@@ -327,7 +362,13 @@ function IconImageWideFilled() {
     <div className="relative shrink-0 size-[24px]" data-name="icon / image-wide-filled">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / image-wide-filled">
-          <path clipRule="evenodd" d={svgPaths.p33a58b00} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p33a58b00}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -381,7 +422,13 @@ function IconFolderOpen() {
     <div className="relative shrink-0 size-[24px]" data-name="icon / folder-open">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / folder-open">
-          <path clipRule="evenodd" d={svgPaths.p28c65e00} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p28c65e00}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -393,7 +440,13 @@ function IconFolderStuffed() {
     <div className="relative shrink-0 size-[24px]" data-name="icon / folder-stuffed">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / folder-stuffed">
-          <path clipRule="evenodd" d={svgPaths.p1c518a00} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p1c518a00}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -405,7 +458,13 @@ function IconFolders() {
     <div className="relative shrink-0 size-[24px]" data-name="icon / folders">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / folders">
-          <path clipRule="evenodd" d={svgPaths.p12433a00} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p12433a00}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -591,7 +650,13 @@ function IconGraduationCap() {
     <div className="relative shrink-0 size-[24px]" data-name="icon / graduation-cap">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / graduation-cap">
-          <path clipRule="evenodd" d={svgPaths.p10909b00} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p10909b00}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -630,7 +695,13 @@ function IconSoundOffSpeaker() {
     <div className="relative shrink-0 size-[24px]" data-name="icon / sound-off, speaker">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / sound-off, speaker">
-          <path clipRule="evenodd" d={svgPaths.p32d6ff00} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p32d6ff00}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -639,10 +710,19 @@ function IconSoundOffSpeaker() {
 
 function IconSoundOnReadOutLoudSpeaker() {
   return (
-    <div className="relative shrink-0 size-[24px]" data-name="icon / sound-on, read-out-loud, speaker">
+    <div
+      className="relative shrink-0 size-[24px]"
+      data-name="icon / sound-on, read-out-loud, speaker"
+    >
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / sound-on, read-out-loud, speaker">
-          <path clipRule="evenodd" d={svgPaths.p18b300} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p18b300}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -683,7 +763,13 @@ function IconSpeak() {
     <div className="relative shrink-0 size-[24px]" data-name="icon / speak">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / speak">
-          <path clipRule="evenodd" d={svgPaths.p10238900} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p10238900}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -692,7 +778,10 @@ function IconSpeak() {
 
 function IconVoiceInputAreaMobileFilledVoiceXs() {
   return (
-    <div className="relative shrink-0 size-[24px]" data-name="icon / voice-input-area-mobile-filled, voice-xs">
+    <div
+      className="relative shrink-0 size-[24px]"
+      data-name="icon / voice-input-area-mobile-filled, voice-xs"
+    >
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / voice-input-area-mobile-filled, voice-xs">
           <g id="vector">
@@ -727,7 +816,12 @@ function IconMic() {
         <g id="icon / mic">
           <g id="vector">
             <path d={svgPaths.p8605170} fill="var(--fill-0, #0D0D0D)" />
-            <path clipRule="evenodd" d={svgPaths.p2e6cf700} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" />
+            <path
+              clipRule="evenodd"
+              d={svgPaths.p2e6cf700}
+              fill="var(--fill-0, #0D0D0D)"
+              fillRule="evenodd"
+            />
           </g>
         </g>
       </svg>
@@ -755,7 +849,13 @@ function IconMicOff() {
     <div className="relative shrink-0 size-[24px]" data-name="icon / mic-off">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / mic-off">
-          <path clipRule="evenodd" d={svgPaths.p15faa570} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p15faa570}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -850,7 +950,13 @@ function VoiceBold() {
     <div className="relative shrink-0 size-[24px]" data-name="voice-bold">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="voice-bold">
-          <path clipRule="evenodd" d={svgPaths.p5075580} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p5075580}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -877,7 +983,13 @@ function IconNotificationBell() {
     <div className="relative shrink-0 size-[24px]" data-name="icon / notification, bell">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / notification, bell">
-          <path clipRule="evenodd" d={svgPaths.p2ba39800} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p2ba39800}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -889,7 +1001,13 @@ function IconNotificationOffBell() {
     <div className="relative shrink-0 size-[24px]" data-name="icon / notification-off, bell">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / notification-off, bell">
-          <path clipRule="evenodd" d={svgPaths.p19510a80} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p19510a80}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -904,7 +1022,12 @@ function IconTasks() {
           <g id="vector">
             <path d={svgPaths.p17c64580} fill="var(--fill-0, #0D0D0D)" />
             <path d={svgPaths.p1507a180} fill="var(--fill-0, #0D0D0D)" />
-            <path clipRule="evenodd" d={svgPaths.p7317a80} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" />
+            <path
+              clipRule="evenodd"
+              d={svgPaths.p7317a80}
+              fill="var(--fill-0, #0D0D0D)"
+              fillRule="evenodd"
+            />
             <path d={svgPaths.pe744f00} fill="var(--fill-0, #0D0D0D)" />
           </g>
         </g>
@@ -936,7 +1059,12 @@ function IconPause() {
           <g id="vector">
             <path d={svgPaths.p18464200} fill="var(--fill-0, #0D0D0D)" />
             <path d={svgPaths.p75e6b00} fill="var(--fill-0, #0D0D0D)" />
-            <path clipRule="evenodd" d={svgPaths.p1bb4a100} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" />
+            <path
+              clipRule="evenodd"
+              d={svgPaths.p1bb4a100}
+              fill="var(--fill-0, #0D0D0D)"
+              fillRule="evenodd"
+            />
           </g>
         </g>
       </svg>
@@ -949,7 +1077,13 @@ function IconPlayCircleFilled() {
     <div className="relative shrink-0 size-[24px]" data-name="icon / play-circle-filled">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / play-circle-filled">
-          <path clipRule="evenodd" d={svgPaths.p3f8e0780} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p3f8e0780}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -1231,7 +1365,13 @@ function IconCleanup() {
     <div className="relative shrink-0 size-[24px]" data-name="icon / cleanup">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / cleanup">
-          <path clipRule="evenodd" d={svgPaths.p2d876f80} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p2d876f80}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -1243,7 +1383,13 @@ function IconReadingLevel() {
     <div className="relative shrink-0 size-[24px]" data-name="icon / reading-level">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / reading-level">
-          <path clipRule="evenodd" d={svgPaths.pa29cb80} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.pa29cb80}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -1255,7 +1401,13 @@ function IconCodeSquareSlash() {
     <div className="relative shrink-0 size-[24px]" data-name="icon / code-square, slash">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="icon / code-square, slash">
-          <path clipRule="evenodd" d={svgPaths.p347c74c0} fill="var(--fill-0, #0D0D0D)" fillRule="evenodd" id="vector" />
+          <path
+            clipRule="evenodd"
+            d={svgPaths.p347c74c0}
+            fill="var(--fill-0, #0D0D0D)"
+            fillRule="evenodd"
+            id="vector"
+          />
         </g>
       </svg>
     </div>
@@ -1544,7 +1696,10 @@ function IconEmojiAdd() {
 
 function Icons() {
   return (
-    <div className="content-start flex flex-wrap gap-[24px] items-start overflow-clip p-[24px] relative rounded-[16px] shrink-0 w-[792px]" data-name="Icons">
+    <div
+      className="content-start flex flex-wrap gap-[24px] items-start overflow-clip p-[24px] relative rounded-[16px] shrink-0 w-[792px]"
+      data-name="Icons"
+    >
       <IconAppChatgptCursor />
       <IconAppOperator />
       <IconThumbUp />
@@ -1660,8 +1815,16 @@ function Icons() {
       <IconEmojiAdd />
       <div className="relative shrink-0 size-[24px]" data-name="icon / pulse">
         <div className="absolute inset-[16.37%_4.17%]" data-name="vector">
-          <div className="absolute inset-0" style={{ "--fill-0": "rgba(13, 13, 13, 1)" } as React.CSSProperties}>
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 21.9993 16.142">
+          <div
+            className="absolute inset-0"
+            style={{ "--fill-0": "rgba(13, 13, 13, 1)" } as React.CSSProperties}
+          >
+            <svg
+              className="block size-full"
+              fill="none"
+              preserveAspectRatio="none"
+              viewBox="0 0 21.9993 16.142"
+            >
               <g id="vector">
                 <path d={svgPaths.p95da180} fill="var(--fill-0, #0D0D0D)" />
                 <path d={svgPaths.pe39e00} fill="var(--fill-0, #0D0D0D)" />

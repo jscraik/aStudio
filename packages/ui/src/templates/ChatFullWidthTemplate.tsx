@@ -6,11 +6,7 @@ export interface ChatFullWidthTemplateProps {
   footer?: ReactNode;
 }
 
-export function ChatFullWidthTemplate({
-  header,
-  body,
-  footer,
-}: ChatFullWidthTemplateProps) {
+export function ChatFullWidthTemplate({ header, body, footer }: ChatFullWidthTemplateProps) {
   return (
     <div className="flex h-full w-full min-h-0 flex-col">
       {header ? <div className="shrink-0">{header}</div> : null}

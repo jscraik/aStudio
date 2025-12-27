@@ -1,5 +1,5 @@
-import { Meta, Canvas, Story, Controls } from '@storybook/blocks';
-import { ChatUIRoot, Button, ModelSelector, ContextTag, MessageActions } from '../index';
+import { Meta, Canvas, Story, Controls } from "@storybook/blocks";
+import { ChatUIRoot, Button, ModelSelector, ContextTag, MessageActions } from "../index";
 
 <Meta title="Documentation/Getting Started" />
 
@@ -89,11 +89,7 @@ Use `ContextTag` to show active context or removable items:
           variant="green"
           onClose={() => console.log("Context removed")}
         />
-        <ContextTag
-          label="Active File: main.tsx"
-          variant="blue"
-          icon={<span>📄</span>}
-        />
+        <ContextTag label="Active File: main.tsx" variant="blue" icon={<span>📄</span>} />
       </div>
     </ChatUIRoot>
   </Story>
@@ -108,7 +104,9 @@ The `MessageActions` component provides interaction buttons for chat messages:
     <ChatUIRoot>
       <div className="p-4">
         <div className="bg-[var(--foundation-bg-dark-2)] p-4 rounded-lg">
-          <p className="text-white mb-3">This is a sample message that demonstrates the message actions component.</p>
+          <p className="text-white mb-3">
+            This is a sample message that demonstrates the message actions component.
+          </p>
           <MessageActions
             messageId="example"
             actions={["copy", "thumbsUp", "thumbsDown", "share", "regenerate"]}
@@ -124,18 +122,21 @@ The `MessageActions` component provides interaction buttons for chat messages:
 Our components are organized into logical categories for better discoverability:
 
 ### 📝 Form Components
+
 - `Button`, `IconButton` - Various button styles
-- `Input`, `Textarea` - Form inputs  
+- `Input`, `Textarea` - Form inputs
 - `Toggle`, `Checkbox` - Selection controls
 - `Select`, `SegmentedControl` - Dropdowns and controls
 - `RangeSlider` - Range inputs
 
-### 🏗️ Layout Components  
+### 🏗️ Layout Components
+
 - `Card`, `Dialog`, `Sheet` - Containers
 - `Tabs`, `Accordion` - Content organization
 - `Sidebar`, `CollapsibleSection` - Layout helpers
 
 ### 💬 Chat-Specific Components
+
 - `ModelSelector` - AI model selection
 - `ContextTag` - Active context display
 - `MessageActions` - Message interactions
@@ -160,7 +161,7 @@ Components automatically adapt to these theme tokens, and you can override them 
 ## Next Steps
 
 - 📚 **Explore Components**: Browse the component library in the sidebar
-- 🎨 **Design System**: Check out our design tokens and guidelines  
+- 🎨 **Design System**: Check out our design tokens and guidelines
 - 🧪 **Interactive Testing**: Use Storybook's controls to experiment with props
 - ♿ **Accessibility**: Review the A11y addon panel for accessibility insights
 
@@ -168,5 +169,5 @@ Components automatically adapt to these theme tokens, and you can override them 
 
 - Check component prop tables in each story
 - Use the interactive controls to experiment
-- Review the source code using "Show code" 
+- Review the source code using "Show code"
 - Test accessibility with the A11y addon

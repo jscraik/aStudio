@@ -14,9 +14,15 @@ function IconOpenaiLogoBold() {
 
 function Metadata() {
   return (
-    <div className="content-stretch flex gap-[8px] items-center relative shrink-0" data-name="Metadata">
+    <div
+      className="content-stretch flex gap-[8px] items-center relative shrink-0"
+      data-name="Metadata"
+    >
       <IconOpenaiLogoBold />
-      <p className="font-['SF_Pro:Semibold',sans-serif] font-[590] leading-[18px] relative shrink-0 text-[#0d0d0d] text-[12px] text-nowrap tracking-[-0.32px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <p
+        className="font-['SF_Pro:Semibold',sans-serif] font-[590] leading-[18px] relative shrink-0 text-[#0d0d0d] text-[12px] text-nowrap tracking-[-0.32px]"
+        style={{ fontVariationSettings: "'wdth' 100" }}
+      >
         Iconography
       </p>
     </div>
@@ -25,12 +31,30 @@ function Metadata() {
 
 function ActionsDivider() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full" data-name="Actions + Divider">
+    <div
+      className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full"
+      data-name="Actions + Divider"
+    >
       <Metadata />
       <div className="h-0 relative shrink-0 w-full" data-name="Accent">
-        <div className="absolute inset-[-2px_0_0_0]" style={{ "--stroke-0": "rgba(13, 13, 13, 1)" } as React.CSSProperties}>
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 744 2">
-            <line id="Accent" stroke="var(--stroke-0, #0D0D0D)" strokeWidth="2" x2="744" y1="1" y2="1" />
+        <div
+          className="absolute inset-[-2px_0_0_0]"
+          style={{ "--stroke-0": "rgba(13, 13, 13, 1)" } as React.CSSProperties}
+        >
+          <svg
+            className="block size-full"
+            fill="none"
+            preserveAspectRatio="none"
+            viewBox="0 0 744 2"
+          >
+            <line
+              id="Accent"
+              stroke="var(--stroke-0, #0D0D0D)"
+              strokeWidth="2"
+              x2="744"
+              y1="1"
+              y2="1"
+            />
           </svg>
         </div>
       </div>
@@ -40,8 +64,14 @@ function ActionsDivider() {
 
 function ComponentDesc() {
   return (
-    <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-name="Component + Desc.">
-      <p className="font-['SF_Pro:Semibold',sans-serif] font-[590] leading-[1.2] relative shrink-0 text-[#0d0d0d] text-[56px] text-nowrap tracking-[0.416px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+    <div
+      className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full"
+      data-name="Component + Desc."
+    >
+      <p
+        className="font-['SF_Pro:Semibold',sans-serif] font-[590] leading-[1.2] relative shrink-0 text-[#0d0d0d] text-[56px] text-nowrap tracking-[0.416px]"
+        style={{ fontVariationSettings: "'wdth' 100" }}
+      >
         Arrows
       </p>
     </div>
@@ -50,7 +80,10 @@ function ComponentDesc() {
 
 function UtilityComponentFrameHeader() {
   return (
-    <div className="bg-white relative rounded-[8px] shrink-0 w-full" data-name="Utility-componentFrameHeader">
+    <div
+      className="bg-white relative rounded-[8px] shrink-0 w-full"
+      data-name="Utility-componentFrameHeader"
+    >
       <div className="overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col gap-[24px] items-start p-[32px] relative w-full">
           <ActionsDivider />
@@ -63,14 +96,35 @@ function UtilityComponentFrameHeader() {
 
 function UtilityComponentHeading() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] h-[40px] items-start relative shrink-0 w-full" data-name="Utility-componentHeading">
-      <p className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[#0d0d0d] text-[12px] text-nowrap tracking-[-0.32px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+    <div
+      className="content-stretch flex flex-col gap-[16px] h-[40px] items-start relative shrink-0 w-full"
+      data-name="Utility-componentHeading"
+    >
+      <p
+        className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[#0d0d0d] text-[12px] text-nowrap tracking-[-0.32px]"
+        style={{ fontVariationSettings: "'wdth' 100" }}
+      >
         Public component(s)
       </p>
       <div className="h-0 relative shrink-0 w-full" data-name="Accent">
-        <div className="absolute inset-[-2px_0_0_0]" style={{ "--stroke-0": "rgba(13, 13, 13, 1)" } as React.CSSProperties}>
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 744 2">
-            <line id="Accent" stroke="var(--stroke-0, #0D0D0D)" strokeWidth="2" x2="744" y1="1" y2="1" />
+        <div
+          className="absolute inset-[-2px_0_0_0]"
+          style={{ "--stroke-0": "rgba(13, 13, 13, 1)" } as React.CSSProperties}
+        >
+          <svg
+            className="block size-full"
+            fill="none"
+            preserveAspectRatio="none"
+            viewBox="0 0 744 2"
+          >
+            <line
+              id="Accent"
+              stroke="var(--stroke-0, #0D0D0D)"
+              strokeWidth="2"
+              x2="744"
+              y1="1"
+              y2="1"
+            />
           </svg>
         </div>
       </div>
@@ -81,7 +135,10 @@ function UtilityComponentHeading() {
 function Arrows() {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Arrows">
-      <p className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[#0d0d0d] text-[16px] text-nowrap tracking-[-0.32px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <p
+        className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[#0d0d0d] text-[16px] text-nowrap tracking-[-0.32px]"
+        style={{ fontVariationSettings: "'wdth' 100" }}
+      >
         Arrows
       </p>
     </div>
@@ -572,7 +629,10 @@ function IconReply() {
 
 function Icons() {
   return (
-    <div className="content-start flex flex-wrap gap-[24px] items-start overflow-clip p-[24px] relative rounded-[16px] shrink-0 w-[744px]" data-name="Icons">
+    <div
+      className="content-start flex flex-wrap gap-[24px] items-start overflow-clip p-[24px] relative rounded-[16px] shrink-0 w-[744px]"
+      data-name="Icons"
+    >
       <IconArrowUpSm />
       <IconArrowDownSm />
       <IconArrowRightSm />
@@ -622,7 +682,10 @@ function Icons() {
 
 function PublicComponentS() {
   return (
-    <div className="bg-white content-stretch flex flex-col gap-[32px] items-start p-[32px] relative rounded-[8px] shrink-0" data-name="Public component(s)">
+    <div
+      className="bg-white content-stretch flex flex-col gap-[32px] items-start p-[32px] relative rounded-[8px] shrink-0"
+      data-name="Public component(s)"
+    >
       <UtilityComponentHeading />
       <Arrows />
       <Icons />

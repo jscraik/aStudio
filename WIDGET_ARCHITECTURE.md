@@ -33,12 +33,16 @@ Your codebase now supports both **standalone React apps** and **ChatGPT widget i
 
 ## Current Widgets
 
-| Widget | Purpose | Components Used |
-|--------|---------|-----------------|
-| `chat-view` | Full chat interface | `ChatUIRoot` (same as main app) |
-| `search-results` | Display search results | Apps SDK `Badge`, custom layout |
-| `kitchen-sink-lite` | API demo/testing | Apps SDK `Button`, `CodeBlock` |
-| `pizzaz-table` | Data table display | Custom table with Apps SDK styling |
+| Widget              | Purpose                     | Components Used                    |
+| ------------------- | --------------------------- | ---------------------------------- |
+| `chat-view`         | Full chat interface         | `ChatUIRoot` (same as main app)    |
+| `search-results`    | Display search results      | Apps SDK `Badge`, custom layout    |
+| `kitchen-sink-lite` | API demo/testing            | Apps SDK `Button`, `CodeBlock`     |
+| `pizzaz-table`      | Data table display          | Custom table with Apps SDK styling |
+| `pizzaz-carousel`   | Carousel showcase           | Apps SDK `Button`, custom carousel |
+| `pizzaz-gallery`    | Gallery + fullscreen viewer | Apps SDK `Image`, `Badge`          |
+| `pizzaz-markdown`   | Markdown renderer           | Custom markdown styling            |
+| `solar-system`      | 3D visualization            | Three.js + Apps SDK styling        |
 
 ## Build Commands
 
@@ -65,7 +69,7 @@ pnpm storybook:dev
 - Identical styling between standalone app and ChatGPT widgets
 - Shared CSS and design tokens
 
-### ✅ Behavioral Consistency  
+### ✅ Behavioral Consistency
 
 - Same React components in both contexts
 - Host abstraction handles ChatGPT vs standalone differences
@@ -95,7 +99,7 @@ const host = createStandaloneHost("http://localhost:8787");
   <AppsSDKUIProvider linkComponent="a">
     <ChatUIRoot />
   </AppsSDKUIProvider>
-</HostProvider>
+</HostProvider>;
 ```
 
 ### For ChatGPT Widgets
@@ -106,7 +110,7 @@ const host = createEmbeddedHost(); // Uses window.openai
   <AppsSDKUIProvider linkComponent="a">
     <SearchResultsWidget />
   </AppsSDKUIProvider>
-</HostProvider>
+</HostProvider>;
 ```
 
 ## Next Steps

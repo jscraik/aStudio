@@ -127,16 +127,24 @@ The UI package re-exports chat components and UI primitives from a single entry 
 import { Button, ChatHeader, ChatSidebar } from "@chatui/ui";
 ```
 
+### Dev/demo exports
+
+Demo pages and sandbox utilities are exposed from a separate entry to keep the production surface clean:
+
+```ts
+import { ChatUIApp, DesignSystemPage } from "@chatui/ui/dev";
+```
+
 ## Public API surface
 
-| Category | Exports (examples) |
-| --- | --- |
+| Category           | Exports (examples)                                                        |
+| ------------------ | ------------------------------------------------------------------------- |
 | Chat UI components | ChatUIRoot, ChatHeader, ChatSidebar, ChatMessages, ChatInput, ComposeView |
-| UI primitives | Button, Dialog, Tabs, Tooltip, and more |
-| Icons | Icons adapter, ChatGPTIcons |
-| Pages | DesignSystemPage, TypographyPage, SpacingPage |
-| Templates | ChatFullWidthTemplate, ChatTwoPaneTemplate, DashboardTemplate |
-| Utilities | useControllableState |
+| UI primitives      | Button, Dialog, Tabs, Tooltip, and more                                   |
+| Icons              | Icons adapter, ChatGPTIcons                                               |
+| Pages              | DesignSystemPage, TypographyPage, SpacingPage                             |
+| Templates          | ChatFullWidthTemplate, ChatTwoPaneTemplate, DashboardTemplate             |
+| Utilities          | useControllableState                                                      |
 
 ## Storybook navigation
 

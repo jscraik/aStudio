@@ -1,5 +1,5 @@
-import { Meta, Canvas, Story, ColorPalette, ColorItem } from '@storybook/blocks';
-import { colors } from '../app/utils/theme';
+import { Meta, Canvas, Story, ColorPalette, ColorItem } from "@storybook/blocks";
+import { colors } from "../app/utils/theme";
 
 <Meta title="Documentation/Design System" />
 
@@ -124,19 +124,25 @@ Typography follows a clear hierarchy with consistent sizing and spacing:
 ## 🎯 Component Variants
 
 ### Size Variants
+
 Most components support consistent size variants:
+
 - `sm` - Small, compact size
-- `md` - Medium, default size  
+- `md` - Medium, default size
 - `lg` - Large, prominent size
 
 ### Visual Variants
+
 Common visual variants across components:
+
 - `ghost` - Transparent background, visible on hover
 - `outline` - Border with transparent background
 - `solid` - Filled background
 
 ### State Variants
+
 Interactive components support these states:
+
 - `default` - Normal, interactive state
 - `active` - Currently selected or pressed
 - `disabled` - Non-interactive state
@@ -145,17 +151,21 @@ Interactive components support these states:
 ## ♿ Accessibility Guidelines
 
 ### Color Contrast
+
 All color combinations meet WCAG AA standards:
+
 - Text on backgrounds: minimum 4.5:1 ratio
 - Large text: minimum 3:1 ratio
 - Interactive elements: minimum 3:1 ratio
 
 ### Focus Management
+
 - All interactive elements are keyboard accessible
 - Focus indicators are clearly visible
 - Focus order follows logical tab sequence
 
 ### Screen Reader Support
+
 - Semantic HTML elements used where appropriate
 - ARIA attributes provided for complex interactions
 - Alternative text for icons and images
@@ -163,6 +173,7 @@ All color combinations meet WCAG AA standards:
 ## 🎨 Usage Examples
 
 ### CSS Custom Properties
+
 ```css
 .my-component {
   background-color: var(--foundation-bg-dark-1);
@@ -174,6 +185,7 @@ All color combinations meet WCAG AA standards:
 ```
 
 ### Tailwind Classes
+
 ```tsx
 <div className="bg-[var(--foundation-bg-dark-1)] text-[var(--foundation-text-dark-primary)] p-4 rounded-lg">
   Content with design tokens
@@ -181,6 +193,7 @@ All color combinations meet WCAG AA standards:
 ```
 
 ### Theme Utilities
+
 ```tsx
 import { colors, spacing } from "@chatui/ui";
 
@@ -193,19 +206,18 @@ const styles = {
 ## 🔧 Customization
 
 ### Override CSS Variables
+
 ```css
 :root {
   --foundation-accent-blue: #0066cc; /* Custom blue */
-  --foundation-bg-dark-1: #0a0a0a;   /* Darker background */
+  --foundation-bg-dark-1: #0a0a0a; /* Darker background */
 }
 ```
 
 ### Component-Specific Overrides
+
 ```tsx
-<Button 
-  className="bg-purple-500 hover:bg-purple-600" 
-  style={{ '--button-radius': '12px' }}
->
+<Button className="bg-purple-500 hover:bg-purple-600" style={{ "--button-radius": "12px" }}>
   Custom Button
 </Button>
 ```

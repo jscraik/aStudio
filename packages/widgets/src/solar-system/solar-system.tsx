@@ -1,25 +1,15 @@
-import { createRoot } from "react-dom/client";
 import { useRef, useImperativeHandle, useState, useEffect } from "react";
-import { Canvas, useFrame, useThree, useLoader } from "@react-three/fiber";
-import { Html, OrbitControls } from "@react-three/drei";
+import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
-import { useSpring } from "@react-spring/three";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  EffectComposer,
-  Bloom,
-  DepthOfField,
-} from "@react-three/postprocessing";
+import { EffectComposer, Bloom, DepthOfField } from "@react-three/postprocessing";
+import { useHost } from "@chatui/runtime";
+import { useNavigate, useParams, Routes, Route, BrowserRouter } from "react-router-dom";
+
 import { useWidgetProps } from "../shared/use-widget-props";
 import { useMaxHeight } from "../shared/use-max-height";
 import { useDisplayMode } from "../shared/use-display-mode";
-import {
-  useNavigate,
-  useParams,
-  Routes,
-  Route,
-  BrowserRouter,
-} from "react-router-dom";
 
 const ExpandIcon = () => {
   return (
@@ -43,8 +33,8 @@ function StreamWord({ children, index, delay }) {
   ) : (
     <motion.span
       key={index}
-      initial={{ opacity: 0, color: "rgba(0,168,255,1)" }}
-      animate={{ opacity: 1, color: "rgba(255,255,255,1)" }}
+      initial={{ opacity: 0, color: "var(--color-text-info)" }}
+      animate={{ opacity: 1, color: "var(--color-text)" }}
       transition={{
         type: "spring",
         bounce: 0,
@@ -76,7 +66,7 @@ function SceneBackground() {
   const { scene } = useThree();
   const texture = useLoader(
     THREE.TextureLoader,
-    "https://persistent.oaistatic.com/ecosys/stars_8k.webp"
+    "https://persistent.oaistatic.com/ecosys/stars_8k.webp",
   );
   useEffect(() => {
     texture.mapping = THREE.EquirectangularReflectionMapping;
@@ -113,12 +103,7 @@ function Effects({ focusTarget, hasFocus }) {
         bokehScale={0} // initial value; updated each frame
         target={focusTarget}
       />
-      <Bloom
-        luminanceThreshold={0}
-        luminanceSmoothing={0.25}
-        intensity={1.75}
-        mipmapBlur
-      />
+      <Bloom luminanceThreshold={0} luminanceSmoothing={0.25} intensity={1.75} mipmapBlur />
     </EffectComposer>
   );
 }
@@ -213,15 +198,16 @@ function SolarSystem() {
 
   const [focusTarget, setFocusTarget] = useState(new THREE.Vector3(0, 0, 0));
   const [isReady, setIsReady] = useState(false);
+  const host = useHost();
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.openai?.setWidgetState) {
-      void window.openai.setWidgetState({
+    if (host.setState) {
+      host.setState({
         isOrbiting,
         currentPlanet: currentPlanet ? currentPlanet.name : null,
       });
     }
-  }, [isOrbiting, currentPlanet]);
+  }, [isOrbiting, currentPlanet, host]);
 
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -263,10 +249,8 @@ function SolarSystem() {
   const displayMode = useDisplayMode();
   return (
     <div
-      className={`antialiased w-full relative bg-black overflow-hidden ${
-        displayMode !== "fullscreen"
-          ? "aspect-[640/480] sm:aspect-[640/400]"
-          : ""
+      className={`antialiased w-full relative bg-surface overflow-hidden ${
+        displayMode !== "fullscreen" ? "aspect-[640/480] sm:aspect-[640/400]" : ""
       }`}
       style={{
         maxHeight,
@@ -278,10 +262,10 @@ function SolarSystem() {
         Solar system updated.
       </div>
       {displayMode !== "fullscreen" && (
-        <div className="fixed end-3 z-20 top-3 aspect-square rounded-full p-2 bg-white/20 text-white backdrop-blur-lg">
+        <div className="fixed end-3 z-20 top-3 aspect-square rounded-full p-2 bg-surface-secondary text-primary border border-subtle backdrop-blur-lg">
           <button
             onClick={() => {
-              void window.openai?.requestDisplayMode?.({ mode: "fullscreen" });
+              void host.requestDisplayMode?.({ mode: "fullscreen" });
             }}
           >
             <ExpandIcon />
@@ -323,10 +307,7 @@ function SolarSystem() {
             />
           ))}
 
-          <Effects
-            focusTarget={focusTarget}
-            hasFocus={currentPlanet !== null}
-          />
+          <Effects focusTarget={focusTarget} hasFocus={currentPlanet !== null} />
           <CameraController
             targetPosition={targetPlanetPosition}
             orbitControlsRef={orbitControlsRef}
@@ -350,11 +331,11 @@ function SolarSystem() {
     absolute inset-0
     flex flex-col justify-end items-center text-center
     pb-4 px-8 sm:p-8
-    bg-gradient-to-t from-black/80 to-black/0
-    md:bg-gradient-to-r md:from-black md:to-black/0
+    bg-gradient-to-t from-[var(--color-surface)] to-transparent
+    md:bg-gradient-to-r md:from-[var(--color-surface)] md:to-transparent
     md:items-start md:text-left md:justify-start
     md:w-72
-    rounded-xl text-white pointer-events-none z-10
+    rounded-xl text-primary pointer-events-none z-10
   "
           >
             <div className="text-4xl font-medium">
@@ -393,7 +374,7 @@ function Sun() {
 function SaturnRing({ planetSize }) {
   const texture = useLoader(
     THREE.TextureLoader,
-    "https://persistent.oaistatic.com/ecosys/saturn_ring.webp"
+    "https://persistent.oaistatic.com/ecosys/saturn_ring.webp",
   );
   return (
     <mesh rotation={[-Math.PI / 2, 0, 0]}>
@@ -416,7 +397,7 @@ function Planet({ name, radius, size, speed, isOrbiting, onPlanetClick, ref }) {
   /* texture per planet */
   const texture = useLoader(
     THREE.TextureLoader,
-    `https://persistent.oaistatic.com/ecosys/${name.toLowerCase()}_2k.webp`
+    `https://persistent.oaistatic.com/ecosys/${name.toLowerCase()}_2k.webp`,
   );
 
   useFrame(() => {
@@ -484,7 +465,15 @@ function CameraController({
 
     // Disable user interaction while we animate
     if (orbitControlsRef.current) orbitControlsRef.current.enabled = false;
-  }, [targetPosition]);
+  }, [
+    targetPosition,
+    camera,
+    initialCameraPosition,
+    initialOrbitTarget,
+    orbitControlsRef,
+    setFocusTarget,
+    setIsOrbiting,
+  ]);
 
   useFrame(() => {
     if (!targetCamPos.current || !targetCamFocus.current) return;

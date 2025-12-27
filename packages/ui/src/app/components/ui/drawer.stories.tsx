@@ -33,9 +33,7 @@ export const Default: Story = {
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Quick actions</DrawerTitle>
-          <DrawerDescription>
-            Manage shortcuts and recent items.
-          </DrawerDescription>
+          <DrawerDescription>Manage shortcuts and recent items.</DrawerDescription>
         </DrawerHeader>
         <div className="px-4 text-sm">Drawer content area.</div>
         <DrawerFooter>

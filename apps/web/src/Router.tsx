@@ -1,18 +1,19 @@
 import { ChatUIRoot } from "@chatui/ui";
 import { useEffect, useState } from "react";
-import { WidgetHarness } from "./WidgetHarness";
 
-// Import your page components
+import { WidgetHarness } from "./WidgetHarness";
+import {
+  sampleChatHistory,
+  sampleMessages,
+  sampleModels,
+  sampleProjects,
+  sampleUser,
+} from "./sample-data";
 import { AboutPage } from "./pages/AboutPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { SettingsPage } from "./pages/SettingsPage";
 
-export type Route = 
-  | "chat"
-  | "harness" 
-  | "settings"
-  | "profile"
-  | "about";
+export type Route = "chat" | "harness" | "settings" | "profile" | "about";
 
 interface RouterProps {
   initialRoute?: Route;
@@ -21,16 +22,16 @@ interface RouterProps {
 export function Router({ initialRoute }: RouterProps) {
   const [currentRoute, setCurrentRoute] = useState<Route>(() => {
     if (initialRoute) return initialRoute;
-    
+
     // Parse route from URL
     const path = window.location.pathname;
     const search = window.location.search;
-    
+
     if (path === "/harness" || search.includes("harness=true")) return "harness";
     if (path === "/settings") return "settings";
     if (path === "/profile") return "profile";
     if (path === "/about") return "about";
-    
+
     return "chat";
   });
 
@@ -52,7 +53,7 @@ export function Router({ initialRoute }: RouterProps) {
   // Navigation function
   const navigate = (route: Route) => {
     setCurrentRoute(route);
-    
+
     // Update URL without page reload
     const url = route === "chat" ? "/" : `/${route}`;
     window.history.pushState({}, "", url);
@@ -71,7 +72,15 @@ export function Router({ initialRoute }: RouterProps) {
         return <AboutPage onNavigate={navigate} />;
       case "chat":
       default:
-        return <ChatUIRoot onNavigate={navigate} />;
+        return (
+          <ChatUIRoot
+            models={sampleModels}
+            messages={sampleMessages}
+            projects={sampleProjects}
+            chatHistory={sampleChatHistory}
+            user={sampleUser}
+          />
+        );
     }
   };
 

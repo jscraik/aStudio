@@ -49,7 +49,7 @@ export function MyPage({ onNavigate }: MyPageProps) {
 
 ```tsx
 // Add to Route type
-export type Route = 
+export type Route =
   | "chat" | "harness" | "settings" | "profile" | "about"
   | "mypage";  // ← Add this
 
@@ -67,9 +67,7 @@ else if (path === "/mypage") setCurrentRoute("mypage");
 1. **Navigate to your page:**
 
 ```tsx
-<Button onClick={() => onNavigate("mypage")}>
-  Go to My Page
-</Button>
+<Button onClick={() => onNavigate("mypage")}>Go to My Page</Button>
 ```
 
 1. **Test it:**
@@ -82,7 +80,7 @@ pnpm dev
 ## 🎯 Current Working Examples
 
 - **Settings**: <http://localhost:5176/settings>
-- **Profile**: <http://localhost:5176/profile>  
+- **Profile**: <http://localhost:5176/profile>
 - **About**: <http://localhost:5176/about>
 - **Dashboard** (Storybook): Pages/DashboardPage
 

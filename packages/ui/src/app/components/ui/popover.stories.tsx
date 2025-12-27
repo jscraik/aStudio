@@ -22,9 +22,7 @@ export const Default: Story = {
         <PopoverTrigger asChild>
           <Button size="sm">Open popover</Button>
         </PopoverTrigger>
-        <PopoverContent className="text-sm">
-          Popover content with a little context.
-        </PopoverContent>
+        <PopoverContent className="text-sm">Popover content with a little context.</PopoverContent>
       </Popover>
     </div>
   ),

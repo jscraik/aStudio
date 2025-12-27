@@ -58,7 +58,7 @@ export const ClickInteraction: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button");
-    
+
     await expect(button).toBeInTheDocument();
     await userEvent.click(button);
   },

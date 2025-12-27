@@ -1,5 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import {
+  sampleCategories,
+  sampleCategoryColors,
+  sampleCategoryIconColors,
+  sampleCategoryIcons,
+  sampleChatHistory,
+  sampleGroupChats,
+  sampleProjects,
+  sampleUser,
+} from "../data/sample-data";
+
 import { ChatSidebar } from "./ChatSidebar";
 
 const meta: Meta<typeof ChatSidebar> = {
@@ -9,6 +20,14 @@ const meta: Meta<typeof ChatSidebar> = {
     isOpen: true,
     onToggle: () => {},
     onProjectSelect: () => {},
+    projects: sampleProjects,
+    chatHistory: sampleChatHistory,
+    groupChats: sampleGroupChats,
+    categories: sampleCategories,
+    categoryIcons: sampleCategoryIcons,
+    categoryColors: sampleCategoryColors,
+    categoryIconColors: sampleCategoryIconColors,
+    user: sampleUser,
   },
   parameters: {
     layout: "fullscreen",

@@ -1,9 +1,13 @@
 @import "tailwindcss";
 
+/* Import foundation tokens directly */
+@import "../../packages/tokens/src/foundations.css";
+
 /* Required for Tailwind to find class references in Apps SDK UI components. */
 @source "../../packages/ui/node_modules/@openai/apps-sdk-ui";
 
-@import "@chatui/ui/styles.css";
+/* Import UI styles directly via relative path */
+@import "../../packages/ui/dist/ui.css";
 @import "tw-animate-css";
 
 @source "../../packages/ui/src";

@@ -1,5 +1,6 @@
 import { IconChat } from "../../../icons";
 import { Sparkles } from "../../../vendor/appsSdkUi";
+
 import { cn } from "./utils";
 
 export type ViewMode = "chat" | "compose";
@@ -22,7 +23,7 @@ export interface ViewModeToggleProps {
 
 /**
  * ViewModeToggle - Toggle between chat and compose modes
- * 
+ *
  * @example
  * ```tsx
  * <ViewModeToggle
@@ -48,7 +49,7 @@ export function ViewModeToggle({
       className={cn(
         "flex items-center gap-2 px-4 py-2 border border-white/10 rounded-xl hover:bg-white/5 transition-colors",
         disabled && "opacity-50 cursor-not-allowed",
-        className
+        className,
       )}
       onClick={handleToggle}
       disabled={disabled}

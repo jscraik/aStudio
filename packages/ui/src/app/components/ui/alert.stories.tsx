@@ -16,9 +16,7 @@ export const Default: Story = {
   render: () => (
     <Alert className="max-w-sm">
       <AlertTitle>Heads up</AlertTitle>
-      <AlertDescription>
-        This is a default alert with supporting text.
-      </AlertDescription>
+      <AlertDescription>This is a default alert with supporting text.</AlertDescription>
     </Alert>
   ),
 };
@@ -27,9 +25,7 @@ export const Destructive: Story = {
   render: () => (
     <Alert variant="destructive" className="max-w-sm">
       <AlertTitle>Something went wrong</AlertTitle>
-      <AlertDescription>
-        Your request could not be completed. Try again.
-      </AlertDescription>
+      <AlertDescription>Your request could not be completed. Try again.</AlertDescription>
     </Alert>
   ),
 };

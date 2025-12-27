@@ -2,9 +2,9 @@ import "./main.css";
 
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-
 import { HostProvider, createStandaloneHost, ensureMockOpenAI } from "@chatui/runtime";
 import { AppsSDKUIProvider } from "@chatui/ui";
+
 import { Router } from "./Router";
 
 if (import.meta.env.DEV) {
@@ -20,5 +20,5 @@ createRoot(document.getElementById("root")!).render(
         <Router />
       </AppsSDKUIProvider>
     </HostProvider>
-  </StrictMode>
+  </StrictMode>,
 );

@@ -1,10 +1,8 @@
 import { useState } from "react";
-import {
-    IconCheckmark,
-    IconChevronDownMd,
-    IconChevronRightMd,
-} from "../../../icons";
+
+import { IconCheckmark, IconChevronDownMd, IconChevronRightMd } from "../../../icons";
 import { Popover } from "../../../vendor/appsSdkUi";
+
 import { cn } from "./utils";
 
 export interface ModelConfig {
@@ -39,7 +37,7 @@ export interface ModelSelectorProps {
 
 /**
  * ModelSelector - A dropdown for selecting AI models
- * 
+ *
  * @example
  * ```tsx
  * <ModelSelector
@@ -65,7 +63,7 @@ export function ModelSelector({
   const [isOpen, setIsOpen] = useState(false);
   const [isLegacyOpen, setIsLegacyOpen] = useState(false);
 
-  const modelName = typeof value === "string" ? value : value?.shortName ?? models[0]?.shortName;
+  const modelName = typeof value === "string" ? value : (value?.shortName ?? models[0]?.shortName);
 
   const handleSelect = (model: ModelConfig) => {
     onChange?.(model.name);
@@ -74,13 +72,13 @@ export function ModelSelector({
   };
 
   return (
-    <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <Popover.Trigger disabled={disabled}>
+    <Popover open={isOpen} onOpenChange={disabled ? undefined : setIsOpen}>
+      <Popover.Trigger>
         <button
           className={cn(
             "flex items-center gap-2 px-3 py-1.5 hover:bg-white/10 rounded-lg transition-colors",
             disabled && "opacity-50 cursor-not-allowed",
-            className
+            className,
           )}
           disabled={disabled}
         >
@@ -124,7 +122,7 @@ export function ModelSelector({
                   <IconChevronRightMd
                     className={cn(
                       "size-4 text-[var(--foundation-text-dark-tertiary)] transition-transform",
-                      isLegacyOpen && "rotate-90"
+                      isLegacyOpen && "rotate-90",
                     )}
                   />
                 </button>
@@ -175,9 +173,7 @@ function ModelOption({ model, isSelected, onSelect }: ModelOptionProps) {
           {model.description}
         </div>
       </div>
-      {isSelected && (
-        <IconCheckmark className="size-4 text-white flex-shrink-0 ml-2" />
-      )}
+      {isSelected && <IconCheckmark className="size-4 text-white flex-shrink-0 ml-2" />}
     </button>
   );
 }

@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
-import { DashboardTemplate } from "./DashboardTemplate";
 import { ChatHeader } from "../app/components/ChatHeader";
 import { ChatSidebar } from "../app/components/ChatSidebar";
 import { ChatMessages } from "../app/components/ChatMessages";
 import { ChatInput } from "../app/components/ChatInput";
 import { ComposeView } from "../app/components/ComposeView";
+
+import { DashboardTemplate } from "./DashboardTemplate";
 
 type ModelConfig = {
   name: string;
@@ -53,9 +54,7 @@ function DashboardStoryShell({
           />
         }
         sidebar={
-          showSidebar ? (
-            <ChatSidebar isOpen={isSidebarOpen} onToggle={onToggleSidebar} />
-          ) : null
+          showSidebar ? <ChatSidebar isOpen={isSidebarOpen} onToggle={onToggleSidebar} /> : null
         }
         body={viewMode === "compose" || showCompose ? <ComposeView /> : <ChatMessages />}
         detailsPanel={

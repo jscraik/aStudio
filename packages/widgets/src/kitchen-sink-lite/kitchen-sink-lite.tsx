@@ -12,6 +12,7 @@
  */
 import React, { useEffect, useMemo, useState } from "react";
 import { Badge, Button, Checkbox, CodeBlock, Input, Textarea } from "@chatui/ui";
+
 import { useOpenAiGlobal } from "../shared/use-openai-global";
 import { useWidgetState } from "../shared/use-widget-state";
 import type { DisplayMode, Theme } from "../shared/types";
@@ -30,8 +31,7 @@ type DemoWidgetState = {
 };
 
 const fallbackContent: DemoContent = {
-  message:
-    "Run the MCP tool to hydrate this widget. The structured content shows up here.",
+  message: "Run the MCP tool to hydrate this widget. The structured content shows up here.",
   accentColor: "#2d6cdf",
   details: "This is placeholder content shown when no tool output is present.",
   fromTool: "widget shell",
@@ -61,9 +61,7 @@ function Card({
           ) : null}
         </div>
         <div className="flex flex-col gap-1 min-w-0">
-          <h2 className="text-sm font-semibold text-primary leading-tight truncate">
-            {title}
-          </h2>
+          <h2 className="text-sm font-semibold text-primary leading-tight truncate">{title}</h2>
           {description ? (
             <p className="text-sm text-secondary leading-snug">{description}</p>
           ) : null}
@@ -74,13 +72,7 @@ function Card({
   );
 }
 
-function PillRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string | number | undefined | null;
-}) {
+function PillRow({ label, value }: { label: string; value: string | number | undefined | null }) {
   return (
     <div className="flex items-center justify-between rounded-lg bg-subtle px-3 py-2 text-sm">
       <span className="text-secondary">{label}</span>
@@ -90,16 +82,15 @@ function PillRow({
 }
 
 export default function KitchenSinkLite() {
-  const toolOutput = (useOpenAiGlobal("toolOutput") ??
-    null) as DemoContent | null;
+  const toolOutput = (useOpenAiGlobal("toolOutput") ?? null) as DemoContent | null;
   const toolInput = useOpenAiGlobal("toolInput") as Record<string, unknown>;
-  const toolResponseMetadata = useOpenAiGlobal(
-    "toolResponseMetadata"
-  ) as Record<string, unknown> | null;
+  const toolResponseMetadata = useOpenAiGlobal("toolResponseMetadata") as Record<
+    string,
+    unknown
+  > | null;
   const userAgent = useOpenAiGlobal("userAgent") as Record<string, unknown> | null;
   const theme = (useOpenAiGlobal("theme") ?? "light") as Theme;
-  const displayMode = (useOpenAiGlobal("displayMode") ??
-    "inline") as DisplayMode;
+  const displayMode = (useOpenAiGlobal("displayMode") ?? "inline") as DisplayMode;
 
   const [widgetState, setWidgetState] = useWidgetState<DemoWidgetState>({
     note: "Tap save to persist widget state on the host.",
@@ -108,24 +99,16 @@ export default function KitchenSinkLite() {
   });
 
   const [noteDraft, setNoteDraft] = useState(widgetState?.note ?? "");
-  const [highlightDraft, setHighlightDraft] = useState(
-    widgetState?.highlight ?? false
-  );
+  const [highlightDraft, setHighlightDraft] = useState(widgetState?.highlight ?? false);
 
-  const [refreshText, setRefreshText] = useState(
-    "Ask the MCP server to refresh this widget."
-  );
+  const [refreshText, setRefreshText] = useState("Ask the MCP server to refresh this widget.");
   const [callResult, setCallResult] = useState<string | null>(null);
   const [callError, setCallError] = useState<string | null>(null);
   const [isCalling, setIsCalling] = useState(false);
-  const [displayModeResult, setDisplayModeResult] = useState<DisplayMode | "">(
-    ""
-  );
+  const [displayModeResult, setDisplayModeResult] = useState<DisplayMode | "">("");
   const [events, setEvents] = useState<string[]>([]);
   const [anyToolName, setAnyToolName] = useState("kitchen-sink-show");
-  const [anyToolArgs, setAnyToolArgs] = useState(
-    '{"message": "Hello from any tool"}'
-  );
+  const [anyToolArgs, setAnyToolArgs] = useState('{"message": "Hello from any tool"}');
   const [anyToolResult, setAnyToolResult] = useState<string | null>(null);
   const [anyToolError, setAnyToolError] = useState<string | null>(null);
   const [anyToolLoading, setAnyToolLoading] = useState(false);
@@ -138,18 +121,12 @@ export default function KitchenSinkLite() {
     setHighlightDraft(widgetState?.highlight ?? false);
   }, [widgetState?.note, widgetState?.highlight]);
 
-  const content = useMemo(
-    () => toolOutput ?? fallbackContent,
-    [toolOutput]
-  );
+  const content = useMemo(() => toolOutput ?? fallbackContent, [toolOutput]);
 
   // Keep a short rolling log of host API calls to render in the event log.
   const logEvent = (text: string) => {
     setEvents((prev) => {
-      const next = [
-        `${new Date().toLocaleTimeString([], { hour12: false })} ${text}`,
-        ...prev,
-      ];
+      const next = [`${new Date().toLocaleTimeString([], { hour12: false })} ${text}`, ...prev];
       return next.slice(0, 12);
     });
   };
@@ -191,15 +168,11 @@ export default function KitchenSinkLite() {
         message: refreshText,
       });
       const serialized =
-        typeof response === "string"
-          ? response
-          : JSON.stringify(response, null, 2);
+        typeof response === "string" ? response : JSON.stringify(response, null, 2);
       setCallResult(serialized);
       logEvent('callTool("kitchen-sink-refresh") succeeded');
     } catch (error) {
-      setCallError(
-        error instanceof Error ? error.message : "Failed to call tool"
-      );
+      setCallError(error instanceof Error ? error.message : "Failed to call tool");
       logEvent('callTool("kitchen-sink-refresh") failed');
     } finally {
       setIsCalling(false);
@@ -247,19 +220,14 @@ export default function KitchenSinkLite() {
     setAnyToolError(null);
     setAnyToolResult(null);
     try {
-      const parsed =
-        anyToolArgs.trim().length === 0 ? {} : JSON.parse(anyToolArgs);
+      const parsed = anyToolArgs.trim().length === 0 ? {} : JSON.parse(anyToolArgs);
       const response = await window.openai.callTool(anyToolName, parsed);
       const serialized =
-        typeof response === "string"
-          ? response
-          : JSON.stringify(response, null, 2);
+        typeof response === "string" ? response : JSON.stringify(response, null, 2);
       setAnyToolResult(serialized);
       logEvent(`callTool("${anyToolName}") succeeded`);
     } catch (error) {
-      setAnyToolError(
-        error instanceof Error ? error.message : "Failed to call tool"
-      );
+      setAnyToolError(error instanceof Error ? error.message : "Failed to call tool");
       logEvent(`callTool("${anyToolName}") failed`);
     } finally {
       setAnyToolLoading(false);
@@ -275,9 +243,7 @@ export default function KitchenSinkLite() {
       setFetchResult(JSON.stringify(json, null, 2));
       logEvent("fetch demo succeeded");
     } catch (error) {
-      setFetchError(
-        error instanceof Error ? error.message : "Fetch demo failed"
-      );
+      setFetchError(error instanceof Error ? error.message : "Fetch demo failed");
       logEvent("fetch demo failed");
     }
   };
@@ -298,14 +264,10 @@ export default function KitchenSinkLite() {
         title: "Kitchen sink modal",
         params: { message: "Hello from the widget" },
       });
-      setModalResult(
-        resp ? JSON.stringify(resp, null, 2) : "Modal closed without result"
-      );
+      setModalResult(resp ? JSON.stringify(resp, null, 2) : "Modal closed without result");
       logEvent("requestModal resolved");
     } catch (error) {
-      setModalResult(
-        error instanceof Error ? error.message : "requestModal failed"
-      );
+      setModalResult(error instanceof Error ? error.message : "requestModal failed");
       logEvent("requestModal failed");
     }
   };
@@ -459,11 +421,7 @@ export default function KitchenSinkLite() {
           <div className="flex flex-col gap-3">
             <label className="flex flex-col gap-1 text-sm">
               <span className="text-secondary">Note (saved on host)</span>
-              <Textarea
-                value={noteDraft}
-                onChange={(e) => setNoteDraft(e.target.value)}
-                rows={3}
-              />
+              <Textarea value={noteDraft} onChange={(e) => setNoteDraft(e.target.value)} rows={3} />
             </label>
             <Checkbox
               checked={highlightDraft}
@@ -534,10 +492,7 @@ export default function KitchenSinkLite() {
           <div className="flex flex-col gap-3">
             <label className="flex flex-col gap-1 text-sm">
               <span className="text-secondary">message to send</span>
-              <Input
-                value={refreshText}
-                onChange={(e) => setRefreshText(e.target.value)}
-              />
+              <Input value={refreshText} onChange={(e) => setRefreshText(e.target.value)} />
             </label>
             <div className="flex flex-col gap-1 text-sm">
               <span className="text-secondary uppercase tracking-[0.08em] text-[11px]">
@@ -641,9 +596,7 @@ export default function KitchenSinkLite() {
               </Button>
             </div>
             {displayModeResult ? (
-              <p className="text-xs text-secondary">
-                Host granted mode: {displayModeResult}
-              </p>
+              <p className="text-xs text-secondary">Host granted mode: {displayModeResult}</p>
             ) : (
               <p className="text-xs text-secondary">Current displayMode: {displayMode}</p>
             )}
@@ -654,7 +607,12 @@ export default function KitchenSinkLite() {
             apiLabel="openExternal()"
             description="Open a link in the host."
           >
-            <Button variant="outline" color="secondary" onClick={handleOpenExternal} className="w-fit">
+            <Button
+              variant="outline"
+              color="secondary"
+              onClick={handleOpenExternal}
+              className="w-fit"
+            >
               openExternal({"{ href }"})
             </Button>
             <p className="text-xs text-secondary">Example: platform.openai.com/docs/guides/apps</p>

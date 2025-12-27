@@ -1,80 +1,64 @@
 import { useState } from "react";
 
 import { IconCheckmark, IconChevronDownMd, IconSettings } from "../../icons";
+
 import { DiscoverySettingsModal } from "./DiscoverySettingsModal";
 import { IconOperator } from "./icons/ChatGPTIcons";
 import { ModeSelector, type ModeConfig } from "./ui/mode-selector";
-import { ModelSelector } from "./ui/model-selector";
+import { ModelSelector, type ModelConfig } from "./ui/model-selector";
 import { SegmentedControl } from "./ui/segmented-control";
 import { Toggle } from "./ui/toggle";
 
-interface ModelConfig {
-  name: string;
-  shortName: string;
-  description: string;
+interface ComposeModeConfig extends ModeConfig {
+  contextConfig?: {
+    mode?: string;
+    selectedFiles?: string;
+    fileTree?: string;
+    codeMap?: string;
+    gitDiff?: string;
+  };
 }
 
-const availableModels: ModelConfig[] = [
-  { name: "ChatGPT 5.2 Pro", shortName: "5.2 Pro", description: "Our most capable model" },
-  { name: "ChatGPT 4o", shortName: "4o", description: "Fast and efficient" },
-  { name: "ChatGPT 4o mini", shortName: "4o mini", description: "Lightweight and quick" },
-  { name: "Claude 3.5 Sonnet", shortName: "Claude", description: "Anthropic's latest model" },
-  { name: "Gemini Pro", shortName: "Gemini", description: "Google's advanced model" },
-];
+interface ComposeViewProps {
+  models?: ModelConfig[];
+  modes?: ComposeModeConfig[];
+}
 
-const modes: ModeConfig[] = [
-  {
-    id: "chat",
-    name: "Chat",
-    subtitle: "Built-in preset",
-    whenToUse: ["General questions", "Code explanations", "Quick discussions"],
-    about: "Standard chat mode for general interactions and questions.",
-  },
-  {
-    id: "plan",
-    name: "Plan",
-    subtitle: "Built-in preset",
-    whenToUse: ["Project planning", "Architecture decisions", "Feature roadmaps"],
-    about: "Planning mode for strategic thinking and architectural decisions.",
-  },
-  {
-    id: "edit",
-    name: "Edit",
-    subtitle: "Built-in preset",
-    whenToUse: ["Direct code modifications", "Focused implementation tasks", "Clear requirements"],
-    about: "Direct code editing. Requires a powerful model capable of search/replace.",
-  },
-  {
-    id: "pro-edit",
-    name: "Pro Edit",
-    subtitle: "Built-in preset",
-    whenToUse: ["Complex refactoring", "Multi-file changes", "Advanced editing tasks"],
-    about: "Advanced editing mode with enhanced context awareness and precision.",
-  },
-  {
-    id: "review",
-    name: "Review",
-    subtitle: "Built-in preset",
-    whenToUse: ["Code review sessions", "Quality assessments", "Pre-merge checks"],
-    about: "Review-only mode for quality checks and assessments.",
-  },
-  {
-    id: "manual",
-    name: "Manual",
-    subtitle: "Built-in preset",
-    whenToUse: ["Custom workflows", "Full control over context", "Advanced configuration needs"],
-    about: "Unconstrained chat with full control over context. Uses your current file selection and workspace settings.",
-  },
-];
+const fallbackModel: ModelConfig = {
+  name: "Default",
+  shortName: "Default",
+  description: "Default model",
+};
 
-export function ComposeView() {
-  const [selectedModel, setSelectedModel] = useState<ModelConfig>(availableModels[0]);
-  const [selectedMode, setSelectedMode] = useState<ModeConfig>(modes[0]);
+const fallbackMode: ComposeModeConfig = {
+  id: "default",
+  name: "Default",
+  subtitle: "Custom",
+  whenToUse: [],
+  about: "Default mode configuration.",
+  contextConfig: {
+    mode: "—",
+    selectedFiles: "—",
+    fileTree: "—",
+    codeMap: "—",
+    gitDiff: "—",
+  },
+};
+
+export function ComposeView({ models, modes }: ComposeViewProps) {
+  const resolvedModels = models && models.length > 0 ? models : [fallbackModel];
+  const resolvedModes = modes && modes.length > 0 ? modes : [fallbackMode];
+  const [selectedModel, setSelectedModel] = useState<ModelConfig>(
+    resolvedModels[0] ?? fallbackModel,
+  );
+  const [selectedMode, setSelectedMode] = useState<ComposeModeConfig>(
+    resolvedModes[0] ?? fallbackMode,
+  );
   const [activeTab] = useState<"builder" | "rules">("builder");
   const [instructions, setInstructions] = useState("");
-  const [promptEnhancement, setPromptEnhancement] = useState<
-    "rewrite" | "augment" | "preserve"
-  >("rewrite");
+  const [promptEnhancement, setPromptEnhancement] = useState<"rewrite" | "augment" | "preserve">(
+    "rewrite",
+  );
   const [isWebSearchActive, setIsWebSearchActive] = useState(false);
   const [systemMessage, setSystemMessage] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
@@ -83,25 +67,22 @@ export function ComposeView() {
   const [showDiscoverySettings, setShowDiscoverySettings] = useState(false);
   const [targetSize, setTargetSize] = useState(60);
   const [showTooltip, setShowTooltip] = useState(false);
-  const [previewMode, setPreviewMode] = useState<ModeConfig>(modes[5]);
+  const [previewMode, setPreviewMode] = useState<ComposeModeConfig>(
+    resolvedModes[5] ?? resolvedModes[0] ?? fallbackMode,
+  );
   const [showProEditConfig, setShowProEditConfig] = useState(false);
   const [proEditMode, setProEditMode] = useState<"agent" | "model">("agent");
   const [selectedAgent, setSelectedAgent] = useState("Codex CLI");
   const [selectedModelConfig, setSelectedModelConfig] = useState("GPT-5.2 Codex Medium");
 
-  const handleModeSelect = (mode: ModeConfig) => {
+  const handleModeSelect = (mode: ComposeModeConfig) => {
     setSelectedMode(mode);
     setPreviewMode(mode);
     setShowModeSelector(false);
   };
 
-  const handleModeHover = (mode: ModeConfig) => {
+  const handleModeHover = (mode: ComposeModeConfig) => {
     setPreviewMode(mode);
-  };
-
-  const handleModalOpen = () => {
-    setPreviewMode(selectedMode);
-    setShowModeSelector(true);
   };
 
   const getTaskSectionConfig = () => {
@@ -110,7 +91,7 @@ export function ComposeView() {
         return {
           label: "Task Description",
           placeholder:
-            "Describe your task here...\n\nExample: \"Add a dark mode toggle to the settings page with system, light, and dark options. Store the preference and apply it app-wide.\"",
+            'Describe your task here...\n\nExample: "Add a dark mode toggle to the settings page with system, light, and dark options. Store the preference and apply it app-wide."',
           tooltip:
             "Describe your task here.\n\nThe agent will:\n• Analyze your codebase\n• Select relevant files\n• Write detailed instructions above\n\nThis is your primary input in Rewrite mode.",
           buttonText: "Rewrite",
@@ -149,14 +130,34 @@ export function ComposeView() {
                     Prompt Instructions
                   </span>
                   <button className="p-1.5 hover:bg-white/10 rounded-md transition-colors">
-                    <svg className="size-4 text-[var(--foundation-text-dark-tertiary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    <svg
+                      className="size-4 text-[var(--foundation-text-dark-tertiary)]"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                      />
                     </svg>
                   </button>
                 </div>
                 <button className="flex items-center gap-2 px-3 py-1.5 bg-[var(--foundation-bg-dark-2)] hover:bg-[var(--foundation-bg-dark-3)] border border-white/10 text-white rounded-lg transition-colors text-[13px] leading-5">
-                  <svg className="size-4 text-[var(--foundation-text-dark-tertiary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z" />
+                  <svg
+                    className="size-4 text-[var(--foundation-text-dark-tertiary)]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={1.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"
+                    />
                   </svg>
                   Send to Chat
                 </button>
@@ -170,8 +171,17 @@ export function ComposeView() {
 
               <div className="flex items-center justify-between px-4 py-2 bg-[var(--foundation-bg-dark-1)] border-t border-white/10">
                 <div className="flex items-center gap-1">
-                  <button className="p-1.5 hover:bg-white/10 rounded-md transition-colors" title="Add">
-                    <svg className="size-4 text-[var(--foundation-text-dark-tertiary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <button
+                    className="p-1.5 hover:bg-white/10 rounded-md transition-colors"
+                    title="Add"
+                  >
+                    <svg
+                      className="size-4 text-[var(--foundation-text-dark-tertiary)]"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                     </svg>
                   </button>
@@ -195,7 +205,11 @@ export function ComposeView() {
                       stroke="currentColor"
                       strokeWidth={2}
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                      />
                     </svg>
                     {isWebSearchActive && (
                       <svg
@@ -205,18 +219,48 @@ export function ComposeView() {
                         strokeWidth={2}
                         stroke="currentColor"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4.5 12.75l6 6 9-13.5"
+                        />
                       </svg>
                     )}
                   </button>
-                  <button className="p-1.5 hover:bg-white/10 rounded-md transition-colors" title="Link">
-                    <svg className="size-4 text-[var(--foundation-text-dark-tertiary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                  <button
+                    className="p-1.5 hover:bg-white/10 rounded-md transition-colors"
+                    title="Link"
+                  >
+                    <svg
+                      className="size-4 text-[var(--foundation-text-dark-tertiary)]"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                      />
                     </svg>
                   </button>
-                  <button className="p-1.5 hover:bg-white/10 rounded-md transition-colors" title="Refresh">
-                    <svg className="size-4 text-[var(--foundation-text-dark-tertiary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  <button
+                    className="p-1.5 hover:bg-white/10 rounded-md transition-colors"
+                    title="Refresh"
+                  >
+                    <svg
+                      className="size-4 text-[var(--foundation-text-dark-tertiary)]"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                      />
                     </svg>
                   </button>
                   <button
@@ -238,21 +282,54 @@ export function ComposeView() {
 
                 <div className="flex items-center gap-1">
                   <button className="flex items-center gap-1.5 px-2 py-1 hover:bg-white/10 rounded-md transition-colors">
-                    <svg className="size-3.5 text-[var(--foundation-text-dark-tertiary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    <svg
+                      className="size-3.5 text-[var(--foundation-text-dark-tertiary)]"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                      />
                     </svg>
                     <span className="text-[12px] leading-4 text-[var(--foundation-text-dark-tertiary)]">
                       Auto-clear
                     </span>
                   </button>
-                  <button className="p-1.5 hover:bg-white/10 rounded-md transition-colors" title="Voice">
-                    <svg className="size-4 text-[var(--foundation-text-dark-tertiary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                  <button
+                    className="p-1.5 hover:bg-white/10 rounded-md transition-colors"
+                    title="Voice"
+                  >
+                    <svg
+                      className="size-4 text-[var(--foundation-text-dark-tertiary)]"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                      />
                     </svg>
                   </button>
                   <button className="w-6 h-6 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 ml-1 flex items-center justify-center hover:opacity-80 transition-opacity">
-                    <svg className="size-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                    <svg
+                      className="size-3 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2.5}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 10l7-7m0 0l7 7m-7-7v18"
+                      />
                     </svg>
                   </button>
                 </div>
@@ -271,9 +348,23 @@ export function ComposeView() {
                       </span>
                     </div>
                     <button className="flex items-center gap-2 px-3 py-1.5 bg-[var(--foundation-bg-dark-2)] hover:bg-[var(--foundation-bg-dark-3)] border border-white/10 text-[var(--foundation-text-dark-primary)] rounded-lg transition-colors text-[13px] leading-5">
-                      <svg className="size-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      <svg
+                        className="size-[18px]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
                       </svg>
                       Run Discovery
                     </button>
@@ -289,10 +380,10 @@ export function ComposeView() {
                           <ModelSelector
                             value={selectedModel.name}
                             onChange={(modelName) => {
-                              const model = availableModels.find(m => m.name === modelName);
+                              const model = resolvedModels.find((m) => m.name === modelName);
                               if (model) setSelectedModel(model);
                             }}
-                            models={availableModels}
+                            models={resolvedModels}
                           />
                         </div>
 
@@ -321,8 +412,18 @@ export function ComposeView() {
                                 onMouseEnter={() => setShowTooltip(true)}
                                 onMouseLeave={() => setShowTooltip(false)}
                               >
-                                <svg className="size-4 text-[var(--foundation-text-dark-primary)]/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <svg
+                                  className="size-4 text-[var(--foundation-text-dark-primary)]/70"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                  strokeWidth={2}
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                  />
                                 </svg>
                               </button>
 
@@ -347,7 +448,9 @@ export function ComposeView() {
                                     )}
                                     {promptEnhancement === "augment" && (
                                       <>
-                                        <p className="font-medium">Add extra context to help the agent.</p>
+                                        <p className="font-medium">
+                                          Add extra context to help the agent.
+                                        </p>
                                         <div>
                                           <p className="font-medium mb-1.5">The agent will:</p>
                                           <ul className="space-y-1 ml-0">
@@ -363,7 +466,9 @@ export function ComposeView() {
                                     )}
                                     {promptEnhancement === "preserve" && (
                                       <>
-                                        <p className="font-medium">Provide hints for file discovery.</p>
+                                        <p className="font-medium">
+                                          Provide hints for file discovery.
+                                        </p>
                                         <div>
                                           <p className="font-medium mb-1.5">The agent will:</p>
                                           <ul className="space-y-1 ml-0">
@@ -381,8 +486,18 @@ export function ComposeView() {
                               )}
                             </div>
                             <button className="p-1.5 hover:bg-[var(--foundation-bg-dark-2)] rounded transition-colors">
-                              <svg className="size-4 text-[var(--foundation-text-dark-primary)]/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                              <svg
+                                className="size-4 text-[var(--foundation-text-dark-primary)]/70"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                strokeWidth={2}
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M6 18L18 6M6 6l12 12"
+                                />
                               </svg>
                             </button>
                           </div>
@@ -441,15 +556,12 @@ export function ComposeView() {
                             <ModeSelector
                               value={previewMode}
                               onChange={handleModeSelect}
-                              modes={modes}
+                              modes={resolvedModes}
                               showPreview={true}
                             />
                           </div>
 
-                          <Toggle
-                            checked={autoPlan}
-                            onChange={setAutoPlan}
-                          />
+                          <Toggle checked={autoPlan} onChange={setAutoPlan} />
                           <span className="text-[13px] leading-5 text-[var(--foundation-text-dark-primary)]/70 min-w-[32px]">
                             {autoPlan ? "On" : "Off"}
                           </span>
@@ -475,7 +587,10 @@ export function ComposeView() {
 
       {showModeSelector && (
         <>
-          <div className="fixed inset-0 bg-black/40 z-40" onClick={() => setShowModeSelector(false)} />
+          <div
+            className="fixed inset-0 bg-black/40 z-40"
+            onClick={() => setShowModeSelector(false)}
+          />
 
           <div className="fixed top-16 right-4 z-50 w-[960px] bg-[var(--foundation-bg-dark-1)] border border-white/10 rounded-[16px] shadow-2xl overflow-hidden">
             <div className="flex h-[600px]">
@@ -501,27 +616,40 @@ export function ComposeView() {
                   <div className="grid grid-cols-2 gap-3">
                     <div className="px-4 py-3 bg-white/5 border border-white/10 rounded-lg">
                       <div className="text-[12px] font-normal leading-[18px] tracking-[-0.32px] text-white/60">
-                        Mode · <span className="text-white">{previewMode.contextConfig.mode}</span>
+                        Mode ·{" "}
+                        <span className="text-white">{previewMode.contextConfig?.mode ?? "—"}</span>
                       </div>
                     </div>
                     <div className="px-4 py-3 bg-white/5 border border-white/10 rounded-lg">
                       <div className="text-[12px] font-normal leading-[18px] tracking-[-0.32px] text-white/60">
-                        Selected Files · <span className="text-white">{previewMode.contextConfig.selectedFiles}</span>
+                        Selected Files ·{" "}
+                        <span className="text-white">
+                          {previewMode.contextConfig?.selectedFiles ?? "—"}
+                        </span>
                       </div>
                     </div>
                     <div className="px-4 py-3 bg-white/5 border border-white/10 rounded-lg">
                       <div className="text-[12px] font-normal leading-[18px] tracking-[-0.32px] text-white/60">
-                        File Tree <span className="text-white">{previewMode.contextConfig.fileTree}</span>
+                        File Tree{" "}
+                        <span className="text-white">
+                          {previewMode.contextConfig?.fileTree ?? "—"}
+                        </span>
                       </div>
                     </div>
                     <div className="px-4 py-3 bg-white/5 border border-white/10 rounded-lg">
                       <div className="text-[12px] font-normal leading-[18px] tracking-[-0.32px] text-white/60">
-                        Code Map · <span className="text-white">{previewMode.contextConfig.codeMap}</span>
+                        Code Map ·{" "}
+                        <span className="text-white">
+                          {previewMode.contextConfig?.codeMap ?? "—"}
+                        </span>
                       </div>
                     </div>
                     <div className="px-4 py-3 bg-white/5 border border-white/10 rounded-lg col-span-2">
                       <div className="text-[12px] font-normal leading-[18px] tracking-[-0.32px] text-white/60">
-                        Git Diff · <span className="text-white">{previewMode.contextConfig.gitDiff}</span>
+                        Git Diff ·{" "}
+                        <span className="text-white">
+                          {previewMode.contextConfig?.gitDiff ?? "—"}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -532,7 +660,7 @@ export function ComposeView() {
                     When to use
                   </h3>
                   <ul className="space-y-2">
-                    {previewMode.whenToUse.map((item, index) => (
+                    {previewMode.whenToUse?.map((item, index) => (
                       <li
                         key={index}
                         className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white/80 flex items-start gap-2"
@@ -570,7 +698,7 @@ export function ComposeView() {
                   Standard Modes
                 </h3>
                 <div className="space-y-2">
-                  {modes.map((mode) => (
+                  {resolvedModes.map((mode) => (
                     <button
                       key={mode.id}
                       onClick={() => handleModeSelect(mode)}
@@ -600,7 +728,10 @@ export function ComposeView() {
 
       {showProEditConfig && (
         <>
-          <div className="fixed inset-0 bg-black/60 z-50" onClick={() => setShowProEditConfig(false)} />
+          <div
+            className="fixed inset-0 bg-black/60 z-50"
+            onClick={() => setShowProEditConfig(false)}
+          />
 
           <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[60] w-[720px] bg-[var(--foundation-bg-dark-2)] border border-white/10 rounded-[12px] shadow-2xl p-8">
             <h2 className="text-[18px] font-semibold leading-[26px] tracking-[-0.45px] text-white mb-4">
@@ -615,7 +746,8 @@ export function ComposeView() {
             </div>
 
             <p className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white/70 mb-6">
-              Pro Edit mode uses your selected AI model to plan edits, while delegate edit agents or models apply those edits simultaneously.
+              Pro Edit mode uses your selected AI model to plan edits, while delegate edit agents or
+              models apply those edits simultaneously.
             </p>
 
             <div className="inline-flex items-center gap-0 bg-[var(--foundation-bg-dark-2)] rounded-lg p-1 mb-6">

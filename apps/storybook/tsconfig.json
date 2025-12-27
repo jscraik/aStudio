@@ -15,11 +15,6 @@
       "@chatui/runtime/*": ["../../packages/runtime/src/*"]
     }
   },
-  "include": [
-    "../**/*.ts",
-    "../**/*.tsx",
-    ".storybook/**/*",
-    "../../packages/ui/src/**/*"
-  ],
+  "include": ["../**/*.ts", "../**/*.tsx", ".storybook/**/*", "../../packages/ui/src/**/*"],
   "exclude": ["node_modules"]
 }

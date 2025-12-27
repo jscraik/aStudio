@@ -1,4 +1,5 @@
 import { IconChevronRightMd } from "../../../icons";
+
 import { cn } from "./utils";
 
 export interface ListItemProps {
@@ -26,7 +27,7 @@ export interface ListItemProps {
 
 /**
  * ListItem - A versatile list item component
- * 
+ *
  * @example
  * ```tsx
  * <ListItem
@@ -68,14 +69,12 @@ export function ListItem({
         onClick && "hover:bg-white/5 cursor-pointer",
         selected && "bg-white/10",
         disabled && "opacity-50 cursor-not-allowed",
-        className
+        className,
       )}
     >
       <div className="flex items-center gap-3 flex-1 min-w-0">
         {icon && (
-          <div className="flex-shrink-0 text-[var(--foundation-text-dark-tertiary)]">
-            {icon}
-          </div>
+          <div className="flex-shrink-0 text-[var(--foundation-text-dark-tertiary)]">{icon}</div>
         )}
         <div className="flex-1 min-w-0">
           <div className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white truncate">
@@ -88,7 +87,7 @@ export function ListItem({
           )}
         </div>
       </div>
-      
+
       <div className="flex items-center gap-2 flex-shrink-0 ml-2">
         {right}
         {showChevron && (
@@ -107,16 +106,19 @@ export interface ListItemCheckProps extends Omit<ListItemProps, "right" | "showC
 /**
  * ListItemCheck - A list item with a checkmark indicator
  */
-export function ListItemCheck({
-  checked = false,
-  ...props
-}: ListItemCheckProps) {
+export function ListItemCheck({ checked = false, ...props }: ListItemCheckProps) {
   return (
     <ListItem
       {...props}
       right={
         checked && (
-          <svg className="size-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg
+            className="size-4 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         )

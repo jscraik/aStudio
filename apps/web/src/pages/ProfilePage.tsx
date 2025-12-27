@@ -1,14 +1,6 @@
-import {
-    Avatar,
-    Badge,
-    Button,
-    Card,
-    IconButton,
-    Input,
-    ListItem,
-    Textarea
-} from "@chatui/ui";
+import { Avatar, Badge, Button, Card, IconButton, Input, ListItem, Textarea } from "@chatui/ui";
 import { useState } from "react";
+
 import type { Route } from "../Router";
 
 interface ProfilePageProps {
@@ -47,8 +39,8 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
             />
             <h1 className="text-xl font-semibold text-white">Profile</h1>
           </div>
-          
-          <Button 
+
+          <Button
             variant={isEditing ? "default" : "outline"}
             size="sm"
             onClick={() => setIsEditing(!isEditing)}
@@ -60,14 +52,13 @@ export function ProfilePage({ onNavigate }: ProfilePageProps) {
 
       {/* Content */}
       <div className="max-w-4xl mx-auto p-6 space-y-8">
-        
         {/* Profile Header */}
         <Card className="p-6">
           <div className="flex items-start gap-6">
             <Avatar className="size-20">
               <span className="text-2xl">👤</span>
             </Avatar>
-            
+
             <div className="flex-1 space-y-4">
               {isEditing ? (
                 <div className="space-y-3">

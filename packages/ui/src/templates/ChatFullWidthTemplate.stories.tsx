@@ -1,11 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
-import { ChatFullWidthTemplate } from "./ChatFullWidthTemplate";
 import { ChatHeader } from "../app/components/ChatHeader";
 import { ChatMessages } from "../app/components/ChatMessages";
 import { ChatInput } from "../app/components/ChatInput";
 import { ComposeView } from "../app/components/ComposeView";
+
+import { ChatFullWidthTemplate } from "./ChatFullWidthTemplate";
 
 type ModelConfig = {
   name: string;

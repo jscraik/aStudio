@@ -26,12 +26,7 @@ export const Disabled: Story = {
   render: () => (
     <div className="grid gap-2 group" data-disabled="true">
       <Label htmlFor="disabled-input">Disabled</Label>
-      <Input
-        id="disabled-input"
-        className="w-64"
-        placeholder="Unavailable"
-        disabled
-      />
+      <Input id="disabled-input" className="w-64" placeholder="Unavailable" disabled />
     </div>
   ),
 };

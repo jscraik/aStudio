@@ -17,10 +17,5 @@ export const Default: Story = {
 };
 
 export const WithValue: Story = {
-  render: () => (
-    <Textarea
-      className="w-72"
-      defaultValue="This is a pre-filled message."
-    />
-  ),
+  render: () => <Textarea className="w-72" defaultValue="This is a pre-filled message." />,
 };

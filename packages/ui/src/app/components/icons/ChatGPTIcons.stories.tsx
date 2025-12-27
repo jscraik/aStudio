@@ -1,5 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+
 import * as Icons from "./ChatGPTIcons";
 
 type IconComponent = React.ComponentType<{ className?: string }>;

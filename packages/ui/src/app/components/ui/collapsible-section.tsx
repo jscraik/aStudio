@@ -1,5 +1,7 @@
 import { useState } from "react";
+
 import { IconChevronDownMd } from "../../../icons";
+
 import { cn } from "./utils";
 
 export interface CollapsibleSectionProps {
@@ -12,7 +14,7 @@ export interface CollapsibleSectionProps {
   /** Callback when expanded state changes */
   onExpandedChange?: (expanded: boolean) => void;
   /** Section content */
-  children: React.ReactNode;
+  children?: React.ReactNode;
   /** Right-side content in header */
   headerRight?: React.ReactNode;
   /** Additional CSS classes */
@@ -25,7 +27,7 @@ export interface CollapsibleSectionProps {
 
 /**
  * CollapsibleSection - An expandable/collapsible section
- * 
+ *
  * @example
  * ```tsx
  * <CollapsibleSection title="Advanced Options" defaultExpanded={false}>
@@ -45,7 +47,7 @@ export function CollapsibleSection({
   contentClassName,
 }: CollapsibleSectionProps) {
   const [internalExpanded, setInternalExpanded] = useState(defaultExpanded);
-  
+
   const isControlled = controlledExpanded !== undefined;
   const expanded = isControlled ? controlledExpanded : internalExpanded;
 
@@ -63,14 +65,14 @@ export function CollapsibleSection({
         onClick={handleToggle}
         className={cn(
           "w-full flex items-center justify-between py-2 text-left group",
-          headerClassName
+          headerClassName,
         )}
       >
         <div className="flex items-center gap-2">
           <IconChevronDownMd
             className={cn(
               "size-4 text-[var(--foundation-text-dark-tertiary)] transition-transform",
-              !expanded && "-rotate-90"
+              !expanded && "-rotate-90",
             )}
           />
           <span className="text-[12px] font-semibold leading-[18px] tracking-[-0.32px] text-white/60 uppercase">
@@ -79,12 +81,8 @@ export function CollapsibleSection({
         </div>
         {headerRight}
       </button>
-      
-      {expanded && (
-        <div className={cn("mt-1", contentClassName)}>
-          {children}
-        </div>
-      )}
+
+      {expanded && <div className={cn("mt-1", contentClassName)}>{children}</div>}
     </div>
   );
 }

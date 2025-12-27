@@ -1,18 +1,42 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import { IconLightBulb, IconPlusLg, IconSettings, IconShare, IconStar } from "../icons";
+
 import { ChatUIRoot } from "./ChatUIRoot";
-import {
-  IconLightBulb,
-  IconPlusLg,
-  IconSettings,
-  IconShare,
-  IconStar,
-} from "../icons";
 import { IconPro } from "./components/icons/ChatGPTIcons";
+import {
+  sampleCategories,
+  sampleCategoryColors,
+  sampleCategoryIconColors,
+  sampleCategoryIcons,
+  sampleChatHistory,
+  sampleComposeModes,
+  sampleGroupChats,
+  sampleLegacyModels,
+  sampleMessages,
+  sampleModels,
+  sampleProjects,
+  sampleUser,
+} from "./data/sample-data";
 
 const meta: Meta<typeof ChatUIRoot> = {
   title: "ChatUI/ChatUIRoot",
   component: ChatUIRoot,
+  args: {
+    models: sampleModels,
+    legacyModels: sampleLegacyModels,
+    messages: sampleMessages,
+    projects: sampleProjects,
+    chatHistory: sampleChatHistory,
+    groupChats: sampleGroupChats,
+    categories: sampleCategories,
+    categoryIcons: sampleCategoryIcons,
+    categoryColors: sampleCategoryColors,
+    categoryIconColors: sampleCategoryIconColors,
+    user: sampleUser,
+    composeModels: sampleModels,
+    composeModes: sampleComposeModes,
+  },
   parameters: {
     layout: "fullscreen",
   },
@@ -42,13 +66,19 @@ export const WithCustomHeaderActions: Story = {
     defaultViewMode: "chat",
     headerRight: (
       <>
-        <button className="p-1.5 hover:bg-white/10 rounded-md transition-colors" aria-label="New chat">
+        <button
+          className="p-1.5 hover:bg-white/10 rounded-md transition-colors"
+          aria-label="New chat"
+        >
           <IconPlusLg className="size-4 text-white/60" />
         </button>
         <button className="p-1.5 hover:bg-white/10 rounded-md transition-colors" aria-label="Star">
           <IconStar className="size-4 text-white/60" />
         </button>
-        <button className="p-1.5 hover:bg-white/10 rounded-md transition-colors" aria-label="Settings">
+        <button
+          className="p-1.5 hover:bg-white/10 rounded-md transition-colors"
+          aria-label="Settings"
+        >
           <IconSettings className="size-4 text-white/60" />
         </button>
       </>
@@ -91,12 +121,18 @@ export const WithComposerSlots: Story = {
     defaultSidebarOpen: false,
     defaultViewMode: "chat",
     composerLeft: (
-      <button className="p-2 bg-[var(--foundation-accent-blue)]/20 text-[var(--foundation-accent-blue)] rounded-lg transition-colors" title="Custom Tool">
+      <button
+        className="p-2 bg-[var(--foundation-accent-blue)]/20 text-[var(--foundation-accent-blue)] rounded-lg transition-colors"
+        title="Custom Tool"
+      >
         <IconLightBulb className="size-4" />
       </button>
     ),
     composerRight: (
-      <button className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg transition-colors" title="AI Assistant">
+      <button
+        className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg transition-colors"
+        title="AI Assistant"
+      >
         <IconPro className="size-4 text-white" />
       </button>
     ),
@@ -118,7 +154,10 @@ export const WithAllSlots: Story = {
     defaultViewMode: "chat",
     headerRight: (
       <>
-        <button className="p-1.5 hover:bg-white/10 rounded-md transition-colors" aria-label="New chat">
+        <button
+          className="p-1.5 hover:bg-white/10 rounded-md transition-colors"
+          aria-label="New chat"
+        >
           <IconPlusLg className="size-4 text-white/60" />
         </button>
         <button className="p-1.5 hover:bg-white/10 rounded-md transition-colors" aria-label="Share">
@@ -127,12 +166,18 @@ export const WithAllSlots: Story = {
       </>
     ),
     composerLeft: (
-      <button className="p-2 bg-[var(--foundation-accent-blue)]/20 text-[var(--foundation-accent-blue)] rounded-lg transition-colors" title="Custom Tool">
+      <button
+        className="p-2 bg-[var(--foundation-accent-blue)]/20 text-[var(--foundation-accent-blue)] rounded-lg transition-colors"
+        title="Custom Tool"
+      >
         <IconLightBulb className="size-4" />
       </button>
     ),
     composerRight: (
-      <button className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg transition-colors" title="AI Assistant">
+      <button
+        className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg transition-colors"
+        title="AI Assistant"
+      >
         <IconPro className="size-4 text-white" />
       </button>
     ),
@@ -146,7 +191,10 @@ export const FullWidthWithSlots: Story = {
     defaultViewMode: "chat",
     headerRight: (
       <>
-        <button className="p-1.5 hover:bg-white/10 rounded-md transition-colors" aria-label="New chat">
+        <button
+          className="p-1.5 hover:bg-white/10 rounded-md transition-colors"
+          aria-label="New chat"
+        >
           <IconPlusLg className="size-4 text-white/60" />
         </button>
         <button className="p-1.5 hover:bg-white/10 rounded-md transition-colors" aria-label="Share">

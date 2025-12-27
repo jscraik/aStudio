@@ -2,14 +2,35 @@ import svgPaths from "./svg-wy81rutxlg";
 
 function UtilityComponentHeading() {
   return (
-    <div className="content-stretch flex flex-col gap-[16px] h-[40px] items-start relative shrink-0 w-full" data-name="Utility-componentHeading">
-      <p className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[#0d0d0d] text-[12px] text-nowrap tracking-[-0.32px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+    <div
+      className="content-stretch flex flex-col gap-[16px] h-[40px] items-start relative shrink-0 w-full"
+      data-name="Utility-componentHeading"
+    >
+      <p
+        className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[#0d0d0d] text-[12px] text-nowrap tracking-[-0.32px]"
+        style={{ fontVariationSettings: "'wdth' 100" }}
+      >
         Public component(s)
       </p>
       <div className="h-0 relative shrink-0 w-full" data-name="Accent">
-        <div className="absolute inset-[-2px_0_0_0]" style={{ "--stroke-0": "rgba(13, 13, 13, 1)" } as React.CSSProperties}>
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 504 2">
-            <line id="Accent" stroke="var(--stroke-0, #0D0D0D)" strokeWidth="2" x2="504" y1="1" y2="1" />
+        <div
+          className="absolute inset-[-2px_0_0_0]"
+          style={{ "--stroke-0": "rgba(13, 13, 13, 1)" } as React.CSSProperties}
+        >
+          <svg
+            className="block size-full"
+            fill="none"
+            preserveAspectRatio="none"
+            viewBox="0 0 504 2"
+          >
+            <line
+              id="Accent"
+              stroke="var(--stroke-0, #0D0D0D)"
+              strokeWidth="2"
+              x2="504"
+              y1="1"
+              y2="1"
+            />
           </svg>
         </div>
       </div>
@@ -19,8 +40,14 @@ function UtilityComponentHeading() {
 
 function Interface() {
   return (
-    <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Interface">
-      <p className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[#0d0d0d] text-[16px] text-nowrap tracking-[-0.32px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+    <div
+      className="content-stretch flex flex-col items-start relative shrink-0"
+      data-name="Interface"
+    >
+      <p
+        className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[24px] relative shrink-0 text-[#0d0d0d] text-[16px] text-nowrap tracking-[-0.32px]"
+        style={{ fontVariationSettings: "'wdth' 100" }}
+      >
         Platform
       </p>
     </div>
@@ -347,7 +374,10 @@ function IconApiKeyAdmin() {
 
 function Icons() {
   return (
-    <div className="content-start flex flex-wrap gap-[24px] items-start overflow-clip p-[24px] relative rounded-[16px] shrink-0 w-[504px]" data-name="Icons">
+    <div
+      className="content-start flex flex-wrap gap-[24px] items-start overflow-clip p-[24px] relative rounded-[16px] shrink-0 w-[504px]"
+      data-name="Icons"
+    >
       <IconAgent />
       <IconPlayground />
       <IconGptPlaceholder />

@@ -1,11 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import * as RechartsPrimitive from "recharts";
 
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "./chart";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "./chart";
 
 const meta: Meta<typeof ChartContainer> = {
   title: "UI/Chart",
@@ -39,11 +35,7 @@ export const Default: Story = {
         <RechartsPrimitive.CartesianGrid vertical={false} />
         <RechartsPrimitive.XAxis dataKey="day" tickLine={false} axisLine={false} />
         <ChartTooltip content={<ChartTooltipContent />} />
-        <RechartsPrimitive.Bar
-          dataKey="visits"
-          fill="var(--color-visits)"
-          radius={[4, 4, 0, 0]}
-        />
+        <RechartsPrimitive.Bar dataKey="visits" fill="var(--color-visits)" radius={[4, 4, 0, 0]} />
       </RechartsPrimitive.BarChart>
     </ChartContainer>
   ),

@@ -10,15 +10,15 @@ if (import.meta.env.DEV) {
     toolOutput: {
       messages: [
         { role: "user", content: "Hello!" },
-        { role: "assistant", content: "Hi there! How can I help you today?" }
-      ]
-    }
+        { role: "assistant", content: "Hi there! How can I help you today?" },
+      ],
+    },
   });
 }
 
 function ChatViewWidget() {
   const host = createEmbeddedHost();
-  
+
   return (
     <HostProvider host={host}>
       <AppsSDKUIProvider linkComponent="a">
@@ -32,5 +32,5 @@ function ChatViewWidget() {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ChatViewWidget />
-  </StrictMode>
+  </StrictMode>,
 );

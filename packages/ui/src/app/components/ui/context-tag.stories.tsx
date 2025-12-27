@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
 import { IconCode, IconFolder, IconImage } from "../../../icons";
+
 import { ContextTag } from "./context-tag";
 
 const meta: Meta<typeof ContextTag> = {
@@ -64,17 +66,17 @@ export const AllVariants: Story = {
 export const AllSizes: Story = {
   render: () => (
     <div className="flex flex-col gap-3">
-      <ContextTag 
+      <ContextTag
         icon={<IconImage />}
-        label="Small size" 
-        variant="green" 
+        label="Small size"
+        variant="green"
         size="sm"
         onClose={() => {}}
       />
-      <ContextTag 
+      <ContextTag
         icon={<IconImage />}
-        label="Medium size" 
-        variant="green" 
+        label="Medium size"
+        variant="green"
         size="md"
         onClose={() => {}}
       />

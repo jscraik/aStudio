@@ -68,7 +68,10 @@ export function FoundationsShowcase() {
                 <div className="space-y-2">
                   {Object.entries(section.tokens).map(([name, value]) => (
                     <div key={name} className="flex items-center gap-3">
-                      <div className="size-8 rounded border border-black/10" style={{ backgroundColor: value }} />
+                      <div
+                        className="size-8 rounded border border-black/10"
+                        style={{ backgroundColor: value }}
+                      />
                       <div className="text-sm">
                         <div className="font-medium">{name}</div>
                         <div className="text-xs" style={{ color: textTertiary }}>

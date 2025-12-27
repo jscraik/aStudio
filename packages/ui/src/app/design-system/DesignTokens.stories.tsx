@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
 import { borderRadius, colors, spacing } from "../utils/theme";
 
 const meta: Meta = {
@@ -7,7 +8,8 @@ const meta: Meta = {
     layout: "fullscreen",
     docs: {
       description: {
-        component: "Design tokens used throughout the ChatUI component library. These tokens ensure consistency across all components and enable easy theming.",
+        component:
+          "Design tokens used throughout the ChatUI component library. These tokens ensure consistency across all components and enable easy theming.",
       },
     },
   },
@@ -22,14 +24,14 @@ export const Colors: Story = {
     <div className="p-6 space-y-8">
       <div>
         <h2 className="text-2xl font-bold text-white mb-4">Color Tokens</h2>
-        
+
         <div className="space-y-6">
           <div>
             <h3 className="text-lg font-semibold text-white mb-3">Background Colors</h3>
             <div className="grid grid-cols-2 gap-4">
               {Object.entries(colors.bg).map(([key, value]) => (
                 <div key={key} className="flex items-center gap-3">
-                  <div 
+                  <div
                     className="w-12 h-12 rounded-lg border border-white/20"
                     style={{ backgroundColor: value }}
                   />
@@ -47,7 +49,7 @@ export const Colors: Story = {
             <div className="grid grid-cols-2 gap-4">
               {Object.entries(colors.text).map(([key, value]) => (
                 <div key={key} className="flex items-center gap-3">
-                  <div 
+                  <div
                     className="w-12 h-12 rounded-lg border border-white/20 flex items-center justify-center"
                     style={{ backgroundColor: "var(--foundation-bg-dark-2)" }}
                   >
@@ -67,10 +69,7 @@ export const Colors: Story = {
             <div className="grid grid-cols-2 gap-4">
               {Object.entries(colors.accent).map(([key, value]) => (
                 <div key={key} className="flex items-center gap-3">
-                  <div 
-                    className="w-12 h-12 rounded-lg"
-                    style={{ backgroundColor: value }}
-                  />
+                  <div className="w-12 h-12 rounded-lg" style={{ backgroundColor: value }} />
                   <div>
                     <div className="text-white font-medium">accent.{key}</div>
                     <div className="text-white/60 text-sm font-mono">{value}</div>
@@ -95,10 +94,7 @@ export const Spacing: Story = {
             <div key={key} className="flex items-center gap-4">
               <div className="w-20 text-white font-medium">spacing.{key}</div>
               <div className="text-white/60 text-sm font-mono w-16">{value}</div>
-              <div 
-                className="bg-[var(--foundation-accent-blue)] h-4"
-                style={{ width: value }}
-              />
+              <div className="bg-[var(--foundation-accent-blue)] h-4" style={{ width: value }} />
             </div>
           ))}
         </div>
@@ -115,7 +111,7 @@ export const BorderRadius: Story = {
         <div className="grid grid-cols-3 gap-6">
           {Object.entries(borderRadius).map(([key, value]) => (
             <div key={key} className="text-center">
-              <div 
+              <div
                 className="w-16 h-16 bg-[var(--foundation-accent-green)] mx-auto mb-2"
                 style={{ borderRadius: value }}
               />
@@ -134,12 +130,12 @@ export const Usage: Story = {
     <div className="p-6 space-y-6">
       <div>
         <h2 className="text-2xl font-bold text-white mb-4">Usage Examples</h2>
-        
+
         <div className="space-y-6">
           <div>
             <h3 className="text-lg font-semibold text-white mb-3">In Components</h3>
             <pre className="bg-[var(--foundation-bg-dark-2)] p-4 rounded-lg text-white/80 text-sm overflow-x-auto">
-{`import { colors, spacing } from "@chatui/ui";
+              {`import { colors, spacing } from "@chatui/ui";
 
 const styles = {
   backgroundColor: colors.bg.dark1,
@@ -153,7 +149,7 @@ const styles = {
           <div>
             <h3 className="text-lg font-semibold text-white mb-3">CSS Custom Properties</h3>
             <pre className="bg-[var(--foundation-bg-dark-2)] p-4 rounded-lg text-white/80 text-sm overflow-x-auto">
-{`.my-component {
+              {`.my-component {
   background-color: var(--foundation-bg-dark-1);
   color: var(--foundation-text-dark-primary);
   border: 1px solid var(--foundation-accent-blue);
@@ -164,7 +160,7 @@ const styles = {
           <div>
             <h3 className="text-lg font-semibold text-white mb-3">Tailwind Classes</h3>
             <pre className="bg-[var(--foundation-bg-dark-2)] p-4 rounded-lg text-white/80 text-sm overflow-x-auto">
-{`<div className="bg-[var(--foundation-bg-dark-1)] text-[var(--foundation-text-dark-primary)] p-4 rounded-lg">
+              {`<div className="bg-[var(--foundation-bg-dark-1)] text-[var(--foundation-text-dark-primary)] p-4 rounded-lg">
   Content with design tokens
 </div>`}
             </pre>

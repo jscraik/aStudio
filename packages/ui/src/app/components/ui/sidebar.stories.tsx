@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+
 import { IconChat, IconFolder, IconSettings } from "../../../icons";
 
 import {
@@ -65,18 +66,14 @@ export const Default: Story = {
               </SidebarGroupContent>
             </SidebarGroup>
           </SidebarContent>
-          <SidebarFooter className="text-xs text-muted-foreground">
-            Team Workspace
-          </SidebarFooter>
+          <SidebarFooter className="text-xs text-muted-foreground">Team Workspace</SidebarFooter>
         </Sidebar>
         <SidebarInset>
           <div className="flex items-center gap-2 border-b px-3 py-2">
             <SidebarTrigger className="h-8 w-8" />
             <span className="text-sm font-medium">Dashboard</span>
           </div>
-          <div className="p-4 text-sm text-muted-foreground">
-            Main content goes here.
-          </div>
+          <div className="p-4 text-sm text-muted-foreground">Main content goes here.</div>
         </SidebarInset>
       </div>
     </SidebarProvider>

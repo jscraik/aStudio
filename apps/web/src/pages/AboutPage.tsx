@@ -1,4 +1,5 @@
 import { Badge, Button, Card, IconButton } from "@chatui/ui";
+
 import type { Route } from "../Router";
 
 interface AboutPageProps {
@@ -13,7 +14,7 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
       icon: "🤖",
     },
     {
-      title: "Real-time Collaboration", 
+      title: "Real-time Collaboration",
       description: "Work together with AI in real-time",
       icon: "⚡",
     },
@@ -56,11 +57,10 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
       <div className="text-center py-16 px-6">
         <div className="max-w-3xl mx-auto">
           <div className="text-6xl mb-6">💬</div>
-          <h1 className="text-4xl font-bold text-white mb-4">
-            ChatUI
-          </h1>
+          <h1 className="text-4xl font-bold text-white mb-4">ChatUI</h1>
           <p className="text-xl text-white/80 mb-6">
-            A modern, accessible, and extensible chat interface built for the future of AI conversations.
+            A modern, accessible, and extensible chat interface built for the future of AI
+            conversations.
           </p>
           <div className="flex justify-center gap-2 mb-8">
             <Badge variant="secondary">v0.1.0</Badge>
@@ -68,9 +68,7 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
             <Badge variant="outline">TypeScript</Badge>
           </div>
           <div className="flex justify-center gap-4">
-            <Button onClick={() => onNavigate("chat")}>
-              Start Chatting
-            </Button>
+            <Button onClick={() => onNavigate("chat")}>Start Chatting</Button>
             <Button variant="outline" onClick={() => window.open("https://github.com", "_blank")}>
               View on GitHub
             </Button>
@@ -80,19 +78,13 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
 
       {/* Features */}
       <div className="max-w-6xl mx-auto px-6 py-16">
-        <h2 className="text-3xl font-bold text-white text-center mb-12">
-          Features
-        </h2>
+        <h2 className="text-3xl font-bold text-white text-center mb-12">Features</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature) => (
             <Card key={feature.title} className="p-6 text-center">
               <div className="text-4xl mb-4">{feature.icon}</div>
-              <h3 className="text-lg font-semibold text-white mb-2">
-                {feature.title}
-              </h3>
-              <p className="text-white/60 text-sm">
-                {feature.description}
-              </p>
+              <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
+              <p className="text-white/60 text-sm">{feature.description}</p>
             </Card>
           ))}
         </div>
@@ -100,19 +92,13 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
 
       {/* Team */}
       <div className="max-w-4xl mx-auto px-6 py-16">
-        <h2 className="text-3xl font-bold text-white text-center mb-12">
-          Built With ❤️
-        </h2>
+        <h2 className="text-3xl font-bold text-white text-center mb-12">Built With ❤️</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {team.map((member) => (
             <Card key={member.name} className="p-6 text-center">
               <div className="text-4xl mb-4">{member.avatar}</div>
-              <h3 className="text-lg font-semibold text-white mb-1">
-                {member.name}
-              </h3>
-              <p className="text-white/60 text-sm">
-                {member.role}
-              </p>
+              <h3 className="text-lg font-semibold text-white mb-1">{member.name}</h3>
+              <p className="text-white/60 text-sm">{member.role}</p>
             </Card>
           ))}
         </div>
@@ -120,13 +106,17 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
 
       {/* Tech Stack */}
       <div className="max-w-4xl mx-auto px-6 py-16">
-        <h2 className="text-3xl font-bold text-white text-center mb-8">
-          Built With Modern Tech
-        </h2>
+        <h2 className="text-3xl font-bold text-white text-center mb-8">Built With Modern Tech</h2>
         <div className="flex flex-wrap justify-center gap-3">
           {[
-            "React", "TypeScript", "Tailwind CSS", "Vite", 
-            "Storybook", "Radix UI", "OpenAI SDK", "pnpm"
+            "React",
+            "TypeScript",
+            "Tailwind CSS",
+            "Vite",
+            "Storybook",
+            "Radix UI",
+            "OpenAI SDK",
+            "pnpm",
           ].map((tech) => (
             <Badge key={tech} variant="outline" className="text-sm">
               {tech}
@@ -137,9 +127,7 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
 
       {/* Footer */}
       <div className="border-t border-white/10 bg-[var(--foundation-bg-dark-2)] p-6 text-center">
-        <p className="text-white/60 text-sm">
-          Made with 💜 for the AI community
-        </p>
+        <p className="text-white/60 text-sm">Made with 💜 for the AI community</p>
       </div>
     </div>
   );

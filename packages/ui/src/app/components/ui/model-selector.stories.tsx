@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
 import { ModelSelector } from "./model-selector";
 
 const meta: Meta<typeof ModelSelector> = {

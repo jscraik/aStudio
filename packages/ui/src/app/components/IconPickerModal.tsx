@@ -1,34 +1,35 @@
-import { useState } from 'react';
-import { 
-  IconFolder,
-  IconChat,
-  IconImage,
-  IconEdit,
-  IconCompass,
-  IconClock,
-  IconEmail,
-  IconPhone,
-  IconCamera,
-  IconMic,
-  IconVideo,
-  IconHeadphones,
-  IconTrash,
-  IconSettings,
+import { useState } from "react";
+
+import {
   IconBarChart,
-  IconFlask,
-  IconLightBulb,
-  IconStar,
-  IconFlag,
-  IconPin,
   IconBook,
-  IconTerminal,
-  IconNotebook,
-  IconGlobe,
-  IconMapPin,
   IconCalendar,
-  IconWriting,
+  IconCamera,
+  IconChat,
+  IconClock,
+  IconCompass,
+  IconEdit,
+  IconEmail,
+  IconFlag,
+  IconFlask,
+  IconFolder,
+  IconGlobe,
+  IconHeadphones,
+  IconImage,
+  IconLightBulb,
+  IconMapPin,
+  IconMic,
+  IconNotebook,
+  IconPhone,
+  IconPin,
+  IconSettings,
+  IconStar,
   IconStuffTools,
-} from './icons/ChatGPTIcons';
+  IconTerminal,
+  IconTrash,
+  IconVideo,
+  IconWriting,
+} from "./icons/ChatGPTIcons";
 
 interface IconPickerModalProps {
   isOpen: boolean;
@@ -41,41 +42,57 @@ interface IconPickerModalProps {
 
 const colors = [
   { id: "gray", value: "text-white/60", bg: "bg-white/60" },
-  { id: "blue", value: "text-[var(--foundation-accent-blue)]", bg: "bg-[var(--foundation-accent-blue)]" },
-  { id: "green", value: "text-[var(--foundation-accent-green)]", bg: "bg-[var(--foundation-accent-green)]" },
-  { id: "orange", value: "text-[var(--foundation-accent-orange)]", bg: "bg-[var(--foundation-accent-orange)]" },
-  { id: "red", value: "text-[var(--foundation-accent-red)]", bg: "bg-[var(--foundation-accent-red)]" },
+  {
+    id: "blue",
+    value: "text-[var(--foundation-accent-blue)]",
+    bg: "bg-[var(--foundation-accent-blue)]",
+  },
+  {
+    id: "green",
+    value: "text-[var(--foundation-accent-green)]",
+    bg: "bg-[var(--foundation-accent-green)]",
+  },
+  {
+    id: "orange",
+    value: "text-[var(--foundation-accent-orange)]",
+    bg: "bg-[var(--foundation-accent-orange)]",
+  },
+  {
+    id: "red",
+    value: "text-[var(--foundation-accent-red)]",
+    bg: "bg-[var(--foundation-accent-red)]",
+  },
 ];
 
 const icons = [
-  { id: 'folder', component: IconFolder },
-  { id: 'chat', component: IconChat },
-  { id: 'image', component: IconImage },
-  { id: 'edit', component: IconEdit },
-  { id: 'compass', component: IconCompass },
-  { id: 'clock', component: IconClock },
-  { id: 'email', component: IconEmail },
-  { id: 'phone', component: IconPhone },
-  { id: 'camera', component: IconCamera },
-  { id: 'mic', component: IconMic },
-  { id: 'video', component: IconVideo },
-  { id: 'headphones', component: IconHeadphones },
-  { id: 'trash', component: IconTrash },
-  { id: 'settings', component: IconSettings },
-  { id: 'bar-chart', component: IconBarChart },
-  { id: 'flask', component: IconFlask },
-  { id: 'lightbulb', component: IconLightBulb },
-  { id: 'star', component: IconStar },
-  { id: 'flag', component: IconFlag },
-  { id: 'pin', component: IconPin },
-  { id: 'book', component: IconBook },
-  { id: 'terminal', component: IconTerminal },
-  { id: 'notebook', component: IconNotebook },
-  { id: 'globe', component: IconGlobe },
-  { id: 'map-pin', component: IconMapPin },
-  { id: 'calendar', component: IconCalendar },
-  { id: 'writing', component: IconWriting },
-  { id: 'tools', component: IconStuffTools },
+  { id: "folder", component: IconFolder },
+  { id: "chat", component: IconChat },
+  { id: "image", component: IconImage },
+  { id: "edit", component: IconEdit },
+  { id: "compass", component: IconCompass },
+  { id: "clock", component: IconClock },
+  { id: "email", component: IconEmail },
+  { id: "phone", component: IconPhone },
+  { id: "camera", component: IconCamera },
+  { id: "mic", component: IconMic },
+  { id: "video", component: IconVideo },
+  { id: "headphones", component: IconHeadphones },
+  { id: "trash", component: IconTrash },
+  { id: "settings", component: IconSettings },
+  { id: "bar-chart", component: IconBarChart },
+  { id: "flask", component: IconFlask },
+  { id: "lightbulb", component: IconLightBulb },
+  { id: "star", component: IconStar },
+  { id: "flag", component: IconFlag },
+  { id: "pin", component: IconPin },
+  { id: "book", component: IconBook },
+  { id: "terminal", component: IconTerminal },
+  { id: "notebook", component: IconNotebook },
+  { id: "globe", component: IconGlobe },
+  { id: "map-pin", component: IconMapPin },
+  { id: "calendar", component: IconCalendar },
+  { id: "writing", component: IconWriting },
+  { id: "tools", component: IconStuffTools },
 ];
 
 const getSelectedIconComponent = (selectedIcon: string) =>
@@ -129,7 +146,7 @@ function ColorPicker({
             className={`size-8 rounded-full transition-all ${color.bg} ${
               selectedColor === color.value
                 ? "ring-2 ring-white ring-offset-2 ring-offset-[var(--foundation-bg-dark-2)] scale-110"
-                : 'hover:scale-105'
+                : "hover:scale-105"
             }`}
             title={color.id}
           />
@@ -157,12 +174,12 @@ function IconGrid({
             key={icon.id}
             onClick={() => onSelect(icon.id)}
             className={`p-3 rounded-lg transition-all ${
-              selectedIcon === icon.id ? 'bg-white/10 scale-95' : 'hover:bg-white/5'
+              selectedIcon === icon.id ? "bg-white/10 scale-95" : "hover:bg-white/5"
             }`}
             title={icon.id}
           >
             <IconComponent
-              className={`size-5 ${selectedIcon === icon.id ? selectedColor : 'text-white/60'}`}
+              className={`size-5 ${selectedIcon === icon.id ? selectedColor : "text-white/60"}`}
             />
           </button>
         );
@@ -190,15 +207,15 @@ function ModalFooter({ onClose, onSave }: { onClose: () => void; onSave: () => v
   );
 }
 
-export function IconPickerModal({ 
-  isOpen, 
-  onClose, 
+export function IconPickerModal({
+  isOpen,
+  onClose,
   currentColor = "text-white/60",
   onSave,
   projectName,
 }: IconPickerModalProps) {
   const [selectedColor, setSelectedColor] = useState(currentColor);
-  const [selectedIcon, setSelectedIcon] = useState('folder');
+  const [selectedIcon, setSelectedIcon] = useState("folder");
 
   if (!isOpen) return null;
 
@@ -231,7 +248,7 @@ export function IconPickerModal({
         </div>
       </div>
 
-      <style jsx="true">{`
+      <style>{`
         .custom-scrollbar::-webkit-scrollbar {
           width: 6px;
         }

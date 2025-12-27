@@ -25,7 +25,7 @@ export interface IconButtonProps {
 
 /**
  * IconButton - A button that displays only an icon
- * 
+ *
  * @example
  * ```tsx
  * <IconButton
@@ -77,15 +77,19 @@ export function IconButton({
         variants[variant],
         active && `bg-[${activeColor}]/10`,
         disabled && "opacity-50 cursor-not-allowed",
-        className
+        className,
       )}
-      style={active ? { backgroundColor: `color-mix(in srgb, ${activeColor} 10%, transparent)` } : undefined}
+      style={
+        active
+          ? { backgroundColor: `color-mix(in srgb, ${activeColor} 10%, transparent)` }
+          : undefined
+      }
     >
       <span
         className={cn(
           iconSizes[size],
           "text-[var(--foundation-text-dark-tertiary)] hover:text-[var(--foundation-text-dark-primary)] transition-colors",
-          "[&>svg]:w-full [&>svg]:h-full"
+          "[&>svg]:w-full [&>svg]:h-full",
         )}
         style={active ? { color: activeColor } : undefined}
       >

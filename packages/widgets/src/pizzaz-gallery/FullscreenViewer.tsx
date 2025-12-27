@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useMaxHeight } from "../shared/use-max-height";
+
 import FilmStrip from "./FilmStrip";
 
 type Photo = {
@@ -32,7 +33,7 @@ export default function FullscreenViewer({ album }: FullscreenViewerProps) {
 
   return (
     <div
-      className="relative w-full h-full bg-white"
+      className="relative w-full h-full bg-surface"
       style={{
         maxHeight,
         height: maxHeight,
@@ -50,7 +51,7 @@ export default function FullscreenViewer({ album }: FullscreenViewerProps) {
               <img
                 src={photo.url}
                 alt={photo.title || album.title}
-                className="absolute inset-0 m-auto rounded-3xl shadow-sm border border-black/10 max-w-full max-h-full object-contain"
+                className="absolute inset-0 m-auto rounded-3xl shadow-sm border border-subtle max-w-full max-h-full object-contain"
               />
             ) : null}
           </div>

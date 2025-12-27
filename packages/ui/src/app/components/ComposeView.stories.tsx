@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import { sampleComposeModes, sampleModels } from "../data/sample-data";
+
 import { ComposeView } from "./ComposeView";
 
 const meta: Meta<typeof ComposeView> = {
@@ -10,7 +12,7 @@ const meta: Meta<typeof ComposeView> = {
   },
   render: () => (
     <div className="h-screen bg-[var(--foundation-bg-dark-1)]">
-      <ComposeView />
+      <ComposeView models={sampleModels} modes={sampleComposeModes} />
     </div>
   ),
 };
@@ -25,7 +27,7 @@ export const Framed: Story = {
   render: () => (
     <div className="h-screen bg-[var(--foundation-bg-dark-1)] p-6">
       <div className="h-full rounded-2xl border border-white/10 overflow-hidden">
-        <ComposeView />
+        <ComposeView models={sampleModels} modes={sampleComposeModes} />
       </div>
     </div>
   ),

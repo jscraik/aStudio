@@ -1,11 +1,12 @@
 import {
-    IconCopy,
-    IconDotsHorizontal,
-    IconRegenerate,
-    IconShare,
-    IconThumbDown,
-    IconThumbUp,
+  IconCopy,
+  IconDotsHorizontal,
+  IconRegenerate,
+  IconShare,
+  IconThumbDown,
+  IconThumbUp,
 } from "../../../icons";
+
 import { IconButton } from "./icon-button";
 import { cn } from "./utils";
 
@@ -34,7 +35,7 @@ export interface MessageActionsProps {
 
 /**
  * MessageActions - Action buttons for chat messages
- * 
+ *
  * @example
  * ```tsx
  * <MessageActions
@@ -95,7 +96,7 @@ export function MessageActions({
       className={cn(
         "flex items-center gap-1",
         showOnHover && "opacity-0 group-hover:opacity-100 transition-opacity",
-        className
+        className,
       )}
     >
       {actions.map((action) => {

@@ -1,4 +1,5 @@
 import { IconX } from "../../../icons";
+
 import { cn } from "./utils";
 
 export interface ContextTagProps {
@@ -46,7 +47,7 @@ const variantStyles = {
 
 /**
  * ContextTag - A dismissible tag showing active context
- * 
+ *
  * @example
  * ```tsx
  * <ContextTag
@@ -78,7 +79,7 @@ export function ContextTag({
         styles.bg,
         styles.text,
         sizes[size],
-        className
+        className,
       )}
     >
       {icon && <span className="size-3.5 [&>svg]:w-full [&>svg]:h-full">{icon}</span>}

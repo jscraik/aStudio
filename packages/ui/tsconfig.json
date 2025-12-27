@@ -1,16 +1,10 @@
 {
-    "extends": "../../tsconfig.base.json",
-    "compilerOptions": {
-        "composite": true,
-        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
-        "types": []
-    },
-    "include": [
-        "src/**/*"
-    ],
-    "references": [
-        {
-            "path": "../tokens"
-        }
-    ]
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo",
+    "types": ["node"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["**/*.stories.*", "**/*.mdx", "**/*.test.*", "src/test/**"]
 }

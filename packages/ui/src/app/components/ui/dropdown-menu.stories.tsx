@@ -32,9 +32,7 @@ export const Default: Story = {
         <DropdownMenuItem>View profile</DropdownMenuItem>
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem checked>
-          Enable notifications
-        </DropdownMenuCheckboxItem>
+        <DropdownMenuCheckboxItem checked>Enable notifications</DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>
   ),

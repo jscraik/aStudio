@@ -54,9 +54,7 @@ for (const file of walk(uiRoot)) {
   }
 
   if (lucideRegex.test(content)) {
-    const isAllowedLucide = allowedLucideRoots.some((allowed) =>
-      file.startsWith(allowed),
-    );
+    const isAllowedLucide = allowedLucideRoots.some((allowed) => file.startsWith(allowed));
     if (!isAllowedLucide) {
       warnings.push({
         type: "lucide",
@@ -88,9 +86,7 @@ if (warnings.length) {
   for (const warning of warnings) {
     console.warn(`- [${warning.type}] ${warning.file} (${warning.detail})`);
   }
-  console.warn(
-    "Set COMPLIANCE_STRICT=1 to make these warnings fail the build."
-  );
+  console.warn("Set COMPLIANCE_STRICT=1 to make these warnings fail the build.");
 } else {
   console.log("Compliance checks passed (no warnings).");
 }

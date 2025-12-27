@@ -2,17 +2,12 @@
  * Testing utilities for components
  */
 import * as React from "react";
-import { ChatUIRoot } from "../ChatUIRoot";
 
 /**
  * Test wrapper that provides necessary context
  */
 export function TestWrapper({ children }: { children: React.ReactNode }) {
-  return (
-    <ChatUIRoot>
-      {children}
-    </ChatUIRoot>
-  );
+  return <div className="dark bg-[var(--foundation-bg-dark-1)]">{children}</div>;
 }
 
 /**
@@ -24,7 +19,7 @@ export const mockData = {
     { name: "GPT-4", shortName: "4", description: "Most capable" },
     { name: "GPT-3.5 Turbo", shortName: "3.5", description: "Quick responses" },
   ],
-  
+
   messages: [
     {
       id: "1",
@@ -33,7 +28,7 @@ export const mockData = {
       timestamp: new Date(),
     },
     {
-      id: "2", 
+      id: "2",
       role: "assistant" as const,
       content: "I'm doing well, thank you! How can I help you today?",
       timestamp: new Date(),
@@ -65,10 +60,10 @@ export const a11y = {
     const tabIndex = element.getAttribute("tabindex");
     const role = element.getAttribute("role");
     const tagName = element.tagName.toLowerCase();
-    
+
     // Interactive elements that are naturally focusable
     const interactiveElements = ["button", "input", "select", "textarea", "a"];
-    
+
     return (
       interactiveElements.includes(tagName) ||
       (tabIndex !== null && parseInt(tabIndex) >= 0) ||
@@ -89,7 +84,7 @@ export const perf = {
     const start = performance.now();
     renderFn();
     // Wait for next frame
-    await new Promise(resolve => requestAnimationFrame(resolve));
+    await new Promise((resolve) => requestAnimationFrame(resolve));
     const end = performance.now();
     return end - start;
   },

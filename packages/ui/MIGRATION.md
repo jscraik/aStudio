@@ -46,8 +46,8 @@ import { Button, ModelSelector } from "@chatui/ui";
 **Before:**
 
 ```tsx
-<IconButton 
-  icon={<Icon />} 
+<IconButton
+  icon={<Icon />}
   variant={isActive ? "solid" : "ghost"}
   className={isActive ? "bg-blue-500" : ""}
 />
@@ -56,8 +56,8 @@ import { Button, ModelSelector } from "@chatui/ui";
 **After:**
 
 ```tsx
-<IconButton 
-  icon={<Icon />} 
+<IconButton
+  icon={<Icon />}
   variant="ghost"
   active={isActive}
   activeColor="var(--foundation-accent-blue)"
@@ -74,7 +74,7 @@ Components are now organized by category for better tree-shaking:
 // Form components
 import { Button, Input, Toggle } from "@chatui/ui/forms";
 
-// Layout components  
+// Layout components
 import { Card, Dialog, Tabs } from "@chatui/ui/layout";
 
 // Chat-specific components

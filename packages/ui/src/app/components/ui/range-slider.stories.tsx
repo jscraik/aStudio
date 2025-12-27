@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
+
 import { RangeSlider } from "./range-slider";
 
 const meta: Meta<typeof RangeSlider> = {
@@ -19,10 +20,7 @@ export const Default: Story = {
     const [value, setValue] = useState(50);
     return (
       <div className="w-80">
-        <RangeSlider
-          value={value}
-          onChange={setValue}
-        />
+        <RangeSlider value={value} onChange={setValue} />
       </div>
     );
   },

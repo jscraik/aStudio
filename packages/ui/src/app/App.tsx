@@ -42,7 +42,7 @@ export default function App() {
           </button>
           <button
             onClick={() => setCurrentView('chat')}
-            className="rounded-lg bg-[#0d0d0d] px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-[#2d2d2d]"
+            className="rounded-lg bg-[var(--foundation-bg-dark-1)] px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-[var(--foundation-bg-dark-2)]"
           >
             ← Back to Chat
           </button>
@@ -70,7 +70,7 @@ export default function App() {
           </button>
           <button
             onClick={() => setCurrentView('chat')}
-            className="rounded-lg bg-[#0d0d0d] px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-[#2d2d2d]"
+            className="rounded-lg bg-[var(--foundation-bg-dark-1)] px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-[var(--foundation-bg-dark-2)]"
           >
             ← Back to Chat
           </button>
@@ -92,7 +92,7 @@ export default function App() {
           </button>
           <button
             onClick={() => setCurrentView('chat')}
-            className="rounded-lg bg-[#0d0d0d] px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-[#2d2d2d]"
+            className="rounded-lg bg-[var(--foundation-bg-dark-1)] px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-[var(--foundation-bg-dark-2)]"
           >
             ← Back to Chat
           </button>
@@ -108,12 +108,12 @@ export default function App() {
   }
 
   return (
-    <div className="size-full flex bg-[#212121] dark">
+    <div className="size-full flex bg-[var(--foundation-bg-dark-1)] dark">
       {/* Sidebar */}
       <ChatSidebar isOpen={isSidebarOpen} onToggle={toggleSidebar} />
 
       {/* Main Area */}
-      <div className="flex-1 flex flex-col bg-[#0D0D0D]">
+      <div className="flex-1 flex flex-col bg-[var(--foundation-bg-dark-1)]">
         {/* Header */}
         <ChatHeader 
           isSidebarOpen={isSidebarOpen} 

@@ -9,8 +9,8 @@ const meta: Meta<typeof MessageActions> = {
     backgrounds: {
       default: "dark",
       values: [
-        { name: "dark", value: "#1a1a1a" },
-        { name: "light", value: "#ffffff" },
+        { name: "dark", value: "var(--foundation-bg-dark-1)" },
+        { name: "light", value: "var(--foundation-bg-light-1)" },
       ],
     },
   },

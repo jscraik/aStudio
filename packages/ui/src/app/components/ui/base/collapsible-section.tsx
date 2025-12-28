@@ -71,11 +71,11 @@ export function CollapsibleSection({
         <div className="flex items-center gap-2">
           <IconChevronDownMd
             className={cn(
-              "size-4 text-foundation-text-dark-tertiary transition-transform",
+              "size-4 text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary transition-transform",
               !expanded && "-rotate-90",
             )}
           />
-          <span className="text-[12px] font-semibold leading-[18px] tracking-[-0.32px] text-white/60 uppercase">
+          <span className="text-[12px] font-semibold leading-[18px] tracking-[-0.32px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary uppercase">
             {title}
           </span>
         </div>

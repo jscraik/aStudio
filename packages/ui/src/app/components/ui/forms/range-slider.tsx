@@ -55,17 +55,17 @@ export function RangeSlider({
 }: RangeSliderProps) {
   const percentage = ((value - min) / (max - min)) * 100;
 
-  const defaultGradient = `linear-gradient(to right, var(--foundation-accent-green) 0%, var(--foundation-accent-green) ${percentage}%, rgba(255,255,255,0.1) ${percentage}%, rgba(255,255,255,0.1) 100%)`;
+  const defaultGradient = `linear-gradient(to right, var(--foundation-range-fill) 0%, var(--foundation-range-fill) ${percentage}%, var(--foundation-range-track) ${percentage}%, var(--foundation-range-track) 100%)`;
 
   return (
     <div className={cn("space-y-2", className)}>
       {(label || showValue) && (
         <div className="flex items-center justify-between">
           {label && (
-            <label className="text-[13px] font-normal leading-[18px] text-white/80">{label}</label>
+            <label className="text-[13px] font-normal leading-[18px] text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary">{label}</label>
           )}
           {showValue && (
-            <span className="text-[13px] font-medium leading-[18px] text-white">
+            <span className="text-[13px] font-medium leading-[18px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary">
               {value}
               {suffix}
             </span>
@@ -81,9 +81,9 @@ export function RangeSlider({
         onChange={(e) => onChange?.(Number(e.target.value))}
         disabled={disabled}
         className={cn(
-          "w-full h-1.5 rounded-lg appearance-none cursor-pointer",
-          "[&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-sm",
-          "[&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer",
+          "w-full h-1.5 rounded-lg appearance-none cursor-pointer [--foundation-range-track:var(--foundation-bg-light-3)] [--foundation-range-thumb:var(--foundation-bg-light-1)] [--foundation-range-fill:var(--foundation-accent-green)] dark:[--foundation-range-track:var(--foundation-bg-dark-3)] dark:[--foundation-range-thumb:var(--foundation-bg-dark-1)]",
+          "[&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[var(--foundation-range-thumb)] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-sm",
+          "[&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[var(--foundation-range-thumb)] [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer",
           disabled && "opacity-50 cursor-not-allowed",
         )}
         style={{ background: gradient || defaultGradient }}

@@ -76,21 +76,21 @@ export function ModelSelector({
       <Popover.Trigger>
         <button
           className={cn(
-            "flex items-center gap-2 px-3 py-1.5 hover:bg-white/10 rounded-lg transition-colors",
+            "flex items-center gap-2 px-3 py-1.5 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3 rounded-lg transition-colors",
             disabled && "opacity-50 cursor-not-allowed",
             className,
           )}
           disabled={disabled}
         >
           {label && (
-            <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white">
+            <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary">
               {label}
             </span>
           )}
-          <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-dark-tertiary">
+          <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary">
             {modelName}
           </span>
-          <IconChevronDownMd className="size-4 text-foundation-text-dark-tertiary" />
+          <IconChevronDownMd className="size-4 text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary" />
         </button>
       </Popover.Trigger>
 
@@ -98,7 +98,7 @@ export function ModelSelector({
         side="bottom"
         align="start"
         sideOffset={8}
-        className="z-50 w-[340px] rounded-2xl border border-white/10 bg-foundation-bg-dark-2 shadow-2xl outline-none"
+        className="z-50 w-[340px] rounded-2xl border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 shadow-2xl outline-none"
       >
         <div className="p-3">
           <div className="mb-2">
@@ -115,13 +115,13 @@ export function ModelSelector({
           {legacyModels && legacyModels.length > 0 && (
             <Popover open={isLegacyOpen} onOpenChange={setIsLegacyOpen}>
               <Popover.Trigger>
-                <button className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-white/5 rounded-lg transition-colors text-left">
-                  <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white">
+                <button className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3 rounded-lg transition-colors text-left">
+                  <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary">
                     Legacy models
                   </span>
                   <IconChevronRightMd
                     className={cn(
-                      "size-4 text-foundation-text-dark-tertiary transition-transform",
+                      "size-4 text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary transition-transform",
                       isLegacyOpen && "rotate-90",
                     )}
                   />
@@ -132,7 +132,7 @@ export function ModelSelector({
                 side="right"
                 align="start"
                 sideOffset={8}
-                className="z-50 w-[340px] rounded-2xl border border-white/10 bg-foundation-bg-dark-2 shadow-2xl outline-none"
+                className="z-50 w-[340px] rounded-2xl border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 shadow-2xl outline-none"
               >
                 <div className="p-3 max-h-[400px] overflow-y-auto">
                   {legacyModels.map((model) => (
@@ -163,17 +163,19 @@ function ModelOption({ model, isSelected, onSelect }: ModelOptionProps) {
   return (
     <button
       onClick={() => onSelect(model)}
-      className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-white/5 rounded-lg transition-colors text-left group"
+      className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3 rounded-lg transition-colors text-left group"
     >
       <div className="flex-1">
-        <div className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white">
+        <div className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary">
           {model.name}
         </div>
-        <div className="text-[12px] text-foundation-text-dark-tertiary leading-[16px] tracking-[-0.3px]">
+        <div className="text-[12px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary leading-[16px] tracking-[-0.3px]">
           {model.description}
         </div>
       </div>
-      {isSelected && <IconCheckmark className="size-4 text-white flex-shrink-0 ml-2" />}
+      {isSelected && (
+        <IconCheckmark className="size-4 text-foundation-text-light-primary dark:text-foundation-text-dark-primary flex-shrink-0 ml-2" />
+      )}
     </button>
   );
 }

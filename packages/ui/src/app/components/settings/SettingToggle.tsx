@@ -44,7 +44,7 @@ export function SettingToggle({
           aria-label={label}
         >
           <span
-            className={`inline-block size-4 transform rounded-full bg-foundation-bg-light-1 dark:bg-white transition-transform ${
+            className={`inline-block size-4 transform rounded-full bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 transition-transform ${
               checked ? "translate-x-[18px]" : "translate-x-0.5"
             }`}
           />

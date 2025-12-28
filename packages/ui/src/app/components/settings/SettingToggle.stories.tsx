@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn } from "@storybook/test";
 import { useState } from "react";
 
-import { IconBell, IconLock } from "../icons/ChatGPTIcons";
+import { IconMessaging, IconUserLock } from "../icons/ChatGPTIcons";
 
 import { SettingToggle } from "./SettingToggle";
 
@@ -86,7 +86,7 @@ export const WithDescription: Story = {
 export const WithIcon: Story = {
   args: {
     checked: true,
-    icon: <IconBell className="size-4 text-[var(--foundation-icon-dark-secondary)]" />,
+    icon: <IconMessaging className="size-4 text-[var(--foundation-icon-dark-secondary)]" />,
     label: "Push Notifications",
     description: "Get notified about important events",
   },
@@ -99,7 +99,7 @@ export const Interactive: Story = {
       <SettingToggle
         checked={checked}
         onCheckedChange={setChecked}
-        icon={<IconLock className="size-4 text-[var(--foundation-icon-dark-secondary)]" />}
+        icon={<IconUserLock className="size-4 text-[var(--foundation-icon-dark-secondary)]" />}
         label="Two-factor authentication"
         description="Add an extra layer of security to your account"
       />
@@ -121,7 +121,7 @@ export const AllStates: Story = {
       <SettingToggle
         checked={true}
         onCheckedChange={() => {}}
-        icon={<IconBell className="size-4 text-[var(--foundation-icon-dark-secondary)]" />}
+        icon={<IconMessaging className="size-4 text-[var(--foundation-icon-dark-secondary)]" />}
         label="With Icon"
         description="Icon on the left side"
       />

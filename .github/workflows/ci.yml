@@ -6,8 +6,18 @@ on:
   pull_request:
 
 jobs:
+  # Multi-platform build matrix
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            platform: web
+          - os: macos-latest
+            platform: macos
+    runs-on: ${{ matrix.os }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,36 +44,46 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
+      - name: Setup Swift (macOS only)
+        if: matrix.os == 'macos-latest'
+        uses: swift-actions/setup-swift@v2
+        with:
+          swift-version: "5.9"
+
       - name: Install deps
         run: pnpm install --frozen-lockfile
 
-      - name: Lint
+      - name: Lint (web platform only)
+        if: matrix.platform == 'web'
         run: pnpm lint
 
-      - name: Format check
+      - name: Format check (web platform only)
+        if: matrix.platform == 'web'
         run: pnpm format:check
 
-      - name: Compliance checks
+      - name: Compliance checks (web platform only)
+        if: matrix.platform == 'web'
         run: pnpm lint:compliance
 
-      - name: Type-check packages
+      - name: Type-check packages (web platform only)
+        if: matrix.platform == 'web'
         run: |
           pnpm -C packages/ui type-check
           pnpm -C packages/runtime type-check
           pnpm -C packages/tokens type-check
 
-      - name: Unit tests
-        run: pnpm -C packages/ui test
+      - name: Enhanced build pipeline
+        run: node scripts/build-pipeline.mjs --platforms ${{ matrix.platform }}
 
-      - name: MCP tool contract tests
-        run: pnpm test:mcp-contract
-
-      - name: Build packages
-        run: |
-          pnpm -C packages/tokens build
-          pnpm -C packages/ui build
-          pnpm -C packages/runtime build
-          pnpm -C packages/widgets build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts-${{ matrix.platform }}
+          path: |
+            packages/*/dist/
+            packages/ui-swift/.build/
+            .build-cache/
+          retention-days: 7
 
   a11y:
     runs-on: ubuntu-latest
@@ -159,3 +179,61 @@ jobs:
 
       - name: Run visual regression (Playwright)
         run: pnpm test:visual:web
+        continue-on-error: true
+
+      - name: Upload screenshot artifacts (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-screenshots-diff
+          path: |
+            apps/web/tests/visual/__snapshots__/
+            apps/web/playwright-report/visual/
+          retention-days: 7
+
+      - name: Fail job if visual tests failed
+        if: failure()
+        run: exit 1
+
+      - name: Comment PR with visual diff results
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const botComment = comments.find(comment =>
+              comment.user.type === 'Bot' &&
+              comment.body.includes('Visual Regression Tests')
+            );
+
+            const body = `## Visual Regression Tests Failed
+
+            Screenshots have changed and may require review.
+
+            ### Steps to review:
+            1. Download the [visual-screenshots-diff artifact](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            2. Compare images in \`__snapshots__\` with the actual results
+            3. If changes are intentional, run \`pnpm test:visual:update\` locally
+
+            \`${{ github.sha }}\``;
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: body,
+              });
+            }

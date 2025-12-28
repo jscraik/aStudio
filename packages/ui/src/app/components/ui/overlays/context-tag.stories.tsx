@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { IconCode, IconFolder, IconImage } from "../../../icons";
+import { IconCode, IconFolder, IconImage } from "../../../../icons";
 
 import { ContextTag } from "./context-tag";
 

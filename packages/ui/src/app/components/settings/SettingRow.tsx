@@ -30,7 +30,11 @@ export function SettingRow({
   const content = (
     <>
       <div className="flex items-center gap-3 flex-1">
-        {icon}
+        {icon && (
+          <span className="text-foundation-icon-light-secondary dark:text-foundation-icon-dark-secondary">
+            {icon}
+          </span>
+        )}
         <div className="flex-1">
           <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary">
             {label}

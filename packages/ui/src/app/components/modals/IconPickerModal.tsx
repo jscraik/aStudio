@@ -43,7 +43,11 @@ interface IconPickerModalProps {
 
 // Color definitions with ID and CSS class
 const colors = [
-  { id: "gray", className: "text-foundation-icon-light-tertiary dark:text-white/60", bg: "bg-foundation-icon-light-tertiary dark:bg-white/60" },
+  {
+    id: "gray",
+    className: "text-foundation-icon-light-tertiary dark:text-foundation-icon-dark-tertiary",
+    bg: "bg-foundation-icon-light-tertiary dark:bg-foundation-icon-dark-tertiary",
+  },
   {
     id: "blue",
     className: "text-foundation-accent-blue",
@@ -114,7 +118,7 @@ function IconPreview({
 }) {
   return (
     <div className="flex items-center justify-center mb-6">
-      <div className={`p-4 rounded-xl bg-black/5 dark:bg-white/5 ${selectedColor}`}>
+      <div className={`p-4 rounded-xl bg-foundation-bg-light-3 dark:bg-foundation-bg-dark-3 ${selectedColor}`}>
         <SelectedIconComponent className="size-8" />
       </div>
     </div>
@@ -138,7 +142,7 @@ function ColorPicker({
             onClick={() => onSelect(color.id)}
             className={`size-8 rounded-full transition-all ${color.bg} ${
               selectedColorId === color.id
-                ? "ring-2 ring-black/20 dark:ring-white ring-offset-2 ring-offset-foundation-bg-light-2 dark:ring-offset-foundation-bg-dark-2 scale-110"
+                ? "ring-2 ring-black/20 dark:ring-foundation-text-dark-primary ring-offset-2 ring-offset-foundation-bg-light-2 dark:ring-offset-foundation-bg-dark-2 scale-110"
                 : "hover:scale-105"
             }`}
             title={color.id}
@@ -169,13 +173,19 @@ function IconGrid({
             type="button"
             onClick={() => onSelect(icon.id)}
             className={`p-3 rounded-lg transition-all ${
-              selectedIcon === icon.id ? "bg-black/10 dark:bg-white/10 scale-95" : "hover:bg-black/5 dark:hover:bg-white/5"
+              selectedIcon === icon.id
+                ? "bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-3 scale-95"
+                : "hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-2"
             }`}
             title={icon.id}
             aria-label={`Icon: ${icon.id}`}
           >
             <IconComponent
-              className={`size-5 ${selectedIcon === icon.id ? selectedColorClass : "text-foundation-text-light-tertiary dark:text-white/60"}`}
+              className={`size-5 ${
+                selectedIcon === icon.id
+                  ? selectedColorClass
+                  : "text-foundation-icon-light-tertiary dark:text-foundation-icon-dark-tertiary"
+              }`}
             />
           </button>
         );
@@ -186,11 +196,11 @@ function IconGrid({
 
 function ModalFooter({ onClose, onSave }: { onClose: () => void; onSave: () => void }) {
   return (
-    <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-foundation-bg-light-3 dark:border-white/10">
+    <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-foundation-bg-light-3 dark:border-foundation-bg-dark-3">
       <button
         type="button"
         onClick={onClose}
-        className="px-4 py-2 text-[14px] text-foundation-text-light-secondary dark:text-white/70 hover:text-foundation-text-light-primary dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 rounded-lg transition-colors font-normal leading-[20px] tracking-[-0.3px]"
+        className="px-4 py-2 text-[14px] text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary hover:text-foundation-text-light-primary dark:hover:text-foundation-text-dark-primary hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3 rounded-lg transition-colors font-normal leading-[20px] tracking-[-0.3px]"
       >
         Cancel
       </button>
@@ -233,12 +243,15 @@ export function IconPickerModal({
 
   return (
     <ModalDialog isOpen={isOpen} onClose={onClose} title="Choose icon" maxWidth="400px">
-      <div className="px-6 py-4 border-b border-foundation-bg-light-3 dark:border-white/10">
+      <div className="px-6 py-4 border-b border-foundation-bg-light-3 dark:border-foundation-bg-dark-3">
         <div>
-          <h2 id="icon-picker-title" className="text-[16px] font-medium text-foundation-text-light-primary dark:text-white leading-[24px] tracking-[-0.32px]">
+          <h2
+            id="icon-picker-title"
+            className="text-[16px] font-medium text-foundation-text-light-primary dark:text-foundation-text-dark-primary leading-[24px] tracking-[-0.32px]"
+          >
             Choose icon
           </h2>
-          <p className="text-[13px] text-foundation-text-light-tertiary dark:text-white/60 mt-0.5 leading-[18px] tracking-[-0.32px]">
+          <p className="text-[13px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary mt-0.5 leading-[18px] tracking-[-0.32px]">
             {projectName}
           </p>
         </div>

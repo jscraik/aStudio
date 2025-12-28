@@ -24,7 +24,19 @@ export const Default: Story = {
     isOpen: true,
     onClose: () => {},
     onSave: () => {},
-    currentColor: "text-[var(--foundation-accent-blue)]",
+    currentIconId: "folder",
+    currentColorId: "blue",
     projectName: "Apps SDK Designer",
+  },
+};
+
+export const GreenTheme: Story = {
+  args: {
+    isOpen: true,
+    onClose: () => {},
+    onSave: () => {},
+    currentIconId: "lightbulb",
+    currentColorId: "green",
+    projectName: "Ideas Board",
   },
 };

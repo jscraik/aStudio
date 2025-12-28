@@ -21,7 +21,15 @@ public enum ChatUISwift {
     /// Initializes the ChatUISwift package
     /// Call this method early in your app's lifecycle to ensure proper setup
     public static func initialize() {
-        // Future initialization code can go here
-        // For now, this is a placeholder for any setup that might be needed
+        #if DEBUG
+        // Enable debug tools in development
+        DebugConfig.isEnabled = true
+        PreviewPerformanceConfig.isEnabled = true
+        
+        print("🛠️ ChatUISwift initialized with development tools enabled")
+        print("   Debug tools: ✅")
+        print("   Performance monitoring: ✅")
+        print("   Use .debugComponent(name:) on views for full debugging")
+        #endif
     }
 }

@@ -28,7 +28,10 @@ export interface SidebarItem {
   id: string;
   label: string;
   icon: ReactNode;
+  /** @deprecated Use colorId instead (stores ID like "blue", not CSS class) */
   color?: string;
+  /** Color ID (e.g., "blue", "green") - preferred over color */
+  colorId?: string;
 }
 
 export interface ChatSidebarUser {
@@ -63,18 +66,16 @@ const projectIconMap: Record<string, ReactNode> = {
 const getProjectIcon = (iconId: string) =>
   projectIconMap[iconId] || <IconFolder className="size-4" />;
 
-// Helper to get color ID from CSS class string (reverse mapping)
-const getColorIdFromClass = (colorClass: string): string => {
+// Color ID to CSS class mapping
+const getColorClass = (colorId: string): string => {
   const colorClassMap: Record<string, string> = {
-    gray: "text-foundation-icon-light-tertiary dark:text-white/60",
+    gray: "text-foundation-icon-light-tertiary dark:text-foundation-text-dark-tertiary",
     blue: "text-foundation-accent-blue",
     green: "text-foundation-accent-green",
     orange: "text-foundation-accent-orange",
     red: "text-foundation-accent-red",
   };
-  return (
-    Object.entries(colorClassMap).find(([_, value]) => colorClass === value)?.[0] ?? "gray"
-  );
+  return colorClassMap[colorId] || colorClassMap.gray;
 };
 
 function RailButton(props: {
@@ -93,8 +94,8 @@ function RailButton(props: {
       title={label}
       aria-current={active ? "page" : undefined}
       onClick={onClick}
-      className={`mx-2 mb-1 size-10 rounded-lg flex items-center justify-center transition-colors hover:bg-black/5 dark:hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/20 dark:focus-visible:ring-white/30 ${
-        active ? "bg-black/10 dark:bg-white/10" : ""
+      className={`mx-2 mb-1 size-10 rounded-lg flex items-center justify-center transition-colors hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/20 dark:focus-visible:ring-foundation-bg-dark-3 ${
+        active ? "bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-3" : ""
       }`}
     >
       {icon}
@@ -167,7 +168,7 @@ function ProjectSettingsModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby="project-settings-title"
-        className="bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-white/10 text-foundation-text-light-primary dark:text-foundation-text-dark-primary rounded-2xl w-[380px] shadow-2xl outline-none"
+        className="bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 text-foundation-text-light-primary dark:text-foundation-text-dark-primary rounded-2xl w-[380px] shadow-2xl outline-none"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="px-6 pt-6 pb-5">
@@ -180,7 +181,7 @@ function ProjectSettingsModal({
         </div>
         <div className="px-6 pb-6">
           <div className="mb-6">
-            <h3 className="text-[13px] text-foundation-text-light-tertiary dark:text-white/50 mb-3 font-normal leading-[18px] tracking-[-0.3px]">
+            <h3 className="text-[13px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary mb-3 font-normal leading-[18px] tracking-[-0.3px]">
               Memory
             </h3>
             <button
@@ -188,7 +189,7 @@ function ProjectSettingsModal({
               className={`w-full text-left p-4 rounded-xl mb-3 border-2 transition-all ${
                 memoryOption === "default"
                   ? "bg-foundation-accent-green/20 border-foundation-accent-green/40"
-                  : "bg-transparent border-foundation-bg-light-3 dark:border-white/10 hover:border-foundation-bg-light-3/70 dark:hover:border-white/20"
+                  : "bg-transparent border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 hover:border-foundation-bg-light-3/70 dark:hover:border-white/20"
               }`}
             >
               <div className="flex items-start justify-between mb-2">
@@ -196,7 +197,7 @@ function ProjectSettingsModal({
                   Default
                 </span>
               </div>
-              <p className="text-[13px] text-foundation-text-light-tertiary dark:text-white/50 leading-[18px] tracking-[-0.32px] font-normal">
+              <p className="text-[13px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary leading-[18px] tracking-[-0.32px] font-normal">
                 Project can access memories from outside chats, and vice versa.
               </p>
             </button>
@@ -205,7 +206,7 @@ function ProjectSettingsModal({
               className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
                 memoryOption === "project-only"
                   ? "bg-foundation-accent-green/20 border-foundation-accent-green/40"
-                  : "bg-transparent border-foundation-bg-light-3 dark:border-white/10 hover:border-foundation-bg-light-3/70 dark:hover:border-white/20"
+                  : "bg-transparent border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 hover:border-foundation-bg-light-3/70 dark:hover:border-white/20"
               }`}
             >
               <div className="flex items-start justify-between mb-2">
@@ -213,23 +214,23 @@ function ProjectSettingsModal({
                   Project-only
                 </span>
               </div>
-              <p className="text-[13px] text-foundation-text-light-tertiary dark:text-white/50 leading-[18px] tracking-[-0.32px] font-normal">
+              <p className="text-[13px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary leading-[18px] tracking-[-0.32px] font-normal">
                 Project can only access its own memories. Its memories are hidden from outside
                 chats.
               </p>
             </button>
           </div>
         </div>
-        <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-foundation-bg-light-3 dark:border-white/10">
+        <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-foundation-bg-light-3 dark:border-foundation-bg-dark-3">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-[14px] text-foundation-text-light-secondary dark:text-white/70 hover:text-foundation-text-light-primary dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 rounded-lg transition-colors font-normal leading-[20px] tracking-[-0.3px]"
+            className="px-4 py-2 text-[14px] text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary hover:text-foundation-text-light-primary dark:hover:text-white hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-2 rounded-lg transition-colors font-normal leading-[20px] tracking-[-0.3px]"
           >
             Cancel
           </button>
           <button
             onClick={onDone}
-            className="px-4 py-2 text-[14px] bg-foundation-bg-light-1 dark:bg-white text-foundation-text-light-primary dark:text-foundation-text-dark-primary hover:bg-foundation-bg-light-1/90 dark:hover:bg-white/90 rounded-lg transition-colors font-semibold leading-[20px] tracking-[-0.3px]"
+            className="px-4 py-2 text-[14px] bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 text-foundation-text-light-primary dark:text-foundation-text-dark-primary hover:bg-foundation-bg-light-1/90 dark:hover:bg-foundation-bg-dark-2 rounded-lg transition-colors font-semibold leading-[20px] tracking-[-0.3px]"
           >
             Done
           </button>
@@ -280,15 +281,6 @@ export function ChatSidebar({
   // Ref to track if we've initialized from props (prevents overwriting local edits)
   const didInitProjectsRef = useRef(false);
 
-  // Color key to class mapping (matches IconPickerModal colors)
-  const colorClassMap: Record<string, string> = {
-    gray: "text-foundation-icon-light-tertiary dark:text-white/60",
-    blue: "text-foundation-accent-blue",
-    green: "text-foundation-accent-green",
-    orange: "text-foundation-accent-orange",
-    red: "text-foundation-accent-red",
-  };
-  const newProjectColor = colorClassMap[newProjectColorId] || colorClassMap.gray;
   const [memoryOption, setMemoryOption] = useState<"default" | "project-only">("default");
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
@@ -344,7 +336,8 @@ export function ChatSidebar({
       id: `project-${Date.now()}`,
       label: projectName,
       icon: getProjectIcon(newProjectIcon),
-      color: newProjectColor,
+      colorId: newProjectColorId,
+      color: getColorClass(newProjectColorId),
     };
 
     // Use functional update to avoid stale state
@@ -352,15 +345,16 @@ export function ChatSidebar({
     setProjectName("");
     setSelectedCategories([]);
     // Note: Popover closing would require controlled state - this is left as exercise for implementer
-  }, [projectName, newProjectIcon, newProjectColor]);
+  }, [projectName, newProjectIcon, newProjectColorId]);
 
   const handleIconChange = useCallback((iconId: string, colorId: string) => {
     if (selectedProjectForIcon) {
       const newIcon = getProjectIcon(iconId);
-      const colorClass = colorClassMap[colorId] || colorClassMap.gray;
       setProjectsData((prev) =>
         prev.map((project) =>
-          project.id === selectedProjectForIcon.id ? { ...project, icon: newIcon, color: colorClass } : project,
+          project.id === selectedProjectForIcon.id
+            ? { ...project, icon: newIcon, colorId, color: getColorClass(colorId) }
+            : project,
         ),
       );
     }
@@ -384,7 +378,9 @@ export function ChatSidebar({
 
   const renderProjectIcon = (project: SidebarItem) => {
     if (!project.icon) return null;
-    return project.color ? <span className={project.color}>{project.icon}</span> : project.icon;
+    // Prefer colorId, fall back to legacy color for backwards compatibility
+    const colorClass = project.colorId ? getColorClass(project.colorId) : project.color;
+    return colorClass ? <span className={colorClass}>{project.icon}</span> : project.icon;
   };
 
   const renderProjectActions = (projectId: string) =>
@@ -392,7 +388,7 @@ export function ChatSidebar({
       <button
         type="button"
         aria-label="Project options"
-        className="p-1.5 hover:bg-black/5 dark:hover:bg-white/10 rounded-md transition-colors"
+        className="p-1.5 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3 rounded-md transition-colors"
         onClick={(e) => {
           e.stopPropagation();
           console.log("Project options");
@@ -409,7 +405,7 @@ export function ChatSidebar({
   return (
     <>
       <div
-        className={`bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 text-foundation-text-light-primary dark:text-foundation-text-dark-primary flex flex-col h-full border-r border-foundation-bg-light-3 dark:border-white/10 transition-all duration-300 ${
+        className={`bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 text-foundation-text-light-primary dark:text-foundation-text-dark-primary flex flex-col h-full border-r border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 transition-all duration-300 ${
           isCollapsed ? "w-[60px]" : "w-64"
         }`}
       >
@@ -427,7 +423,7 @@ export function ChatSidebar({
             onClick={() => setIsCollapsed(!isCollapsed)}
             type="button"
             aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-            className="size-8 flex items-center justify-center rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+            className="size-8 flex items-center justify-center rounded-lg hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-2 transition-colors"
             title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
             <IconSidebar className="size-5 text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary" />
@@ -503,7 +499,7 @@ export function ChatSidebar({
               }}
             />
 
-            <div className="mx-2 my-2 border-t border-foundation-bg-light-3 dark:border-white/10" />
+            <div className="mx-2 my-2 border-t border-foundation-bg-light-3 dark:border-foundation-bg-dark-3" />
 
             {/* Projects */}
             <div role="group" aria-label="Projects">
@@ -520,7 +516,7 @@ export function ChatSidebar({
 
             {resolvedGroupChats.length > 0 ? (
               <>
-                <div className="mx-2 my-2 border-t border-foundation-bg-light-3 dark:border-white/10" />
+                <div className="mx-2 my-2 border-t border-foundation-bg-light-3 dark:border-foundation-bg-dark-3" />
                 <div role="group" aria-label="Group chats">
                   {resolvedGroupChats.map((chat) => (
                     <RailButton
@@ -574,7 +570,7 @@ export function ChatSidebar({
                 label={isCollapsed ? "" : "Images"}
                 right={
                   !isCollapsed && (
-                    <span className="text-[10px] font-semibold leading-[14px] tracking-[0.5px] px-1.5 py-0.5 bg-black/10 dark:bg-white/10 rounded text-foundation-text-light-primary dark:text-white uppercase">
+                    <span className="text-[10px] font-semibold leading-[14px] tracking-[0.5px] px-1.5 py-0.5 bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-3 rounded text-foundation-text-light-primary dark:text-foundation-text-dark-primary uppercase">
                       NEW
                     </span>
                   )
@@ -622,7 +618,7 @@ export function ChatSidebar({
             <>
               <div className="px-2 pb-1">
                 <Popover>
-                  <Popover.Trigger asChild>
+                  <Popover.Trigger>
                     <div className="w-full">
                       <ListItem icon={<IconFolder className="size-4" />} label="New project" />
                     </div>
@@ -631,10 +627,10 @@ export function ChatSidebar({
                     side="right"
                     align="start"
                     sideOffset={12}
-                    className="z-[60] w-[420px] rounded-2xl border border-foundation-bg-light-3 dark:border-white/10 bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 shadow-2xl outline-none"
+                    className="z-[60] w-[420px] rounded-2xl border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 shadow-2xl outline-none"
                   >
                     <div className="px-6 pt-6 pb-5">
-                      <p className="text-[13px] text-foundation-text-light-tertiary dark:text-white/50 leading-[18px] tracking-[-0.32px] font-normal text-center">
+                      <p className="text-[13px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary leading-[18px] tracking-[-0.32px] font-normal text-center">
                         Projects give ChatGPT shared context
                         <br />
                         across chats and files, all in one place.
@@ -650,7 +646,7 @@ export function ChatSidebar({
                           }}
                           aria-label="Choose project icon"
                           title="Choose project icon"
-                          className={`absolute left-3 top-1/2 -translate-y-1/2 hover:opacity-70 transition-opacity ${newProjectColor}`}
+                          className={`absolute left-3 top-1/2 -translate-y-1/2 hover:opacity-70 transition-opacity ${getColorClass(newProjectColorId)}`}
                         >
                           {getProjectIcon(newProjectIcon)}
                         </button>
@@ -660,7 +656,7 @@ export function ChatSidebar({
                           aria-label="Project Name"
                           value={projectName}
                           onChange={(e) => setProjectName(e.target.value)}
-                          className="w-full bg-foundation-bg-light-3 dark:bg-foundation-bg-dark-3 border border-foundation-bg-light-3 dark:border-white/10 rounded-lg pl-10 pr-3 py-3 text-[14px] text-foundation-text-light-primary dark:text-white placeholder:text-foundation-text-light-tertiary dark:placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20 transition-all font-normal leading-[20px] tracking-[-0.3px]"
+                          className="w-full bg-foundation-bg-light-3 dark:bg-foundation-bg-dark-3 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-lg pl-10 pr-3 py-3 text-[14px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary placeholder:text-foundation-text-light-tertiary dark:placeholder:text-foundation-text-dark-tertiary focus:outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-foundation-bg-dark-3 transition-all font-normal leading-[20px] tracking-[-0.3px]"
                         />
                       </div>
                       {resolvedCategories.length > 0 ? (
@@ -680,7 +676,7 @@ export function ChatSidebar({
                                       ? resolvedCategoryColors[
                                           category as keyof typeof resolvedCategoryColors
                                         ]
-                                      : "bg-foundation-bg-light-3 dark:bg-foundation-bg-dark-3 text-foundation-text-light-tertiary dark:text-white/60 border-foundation-bg-light-3 dark:border-white/10 hover:bg-foundation-bg-light-3/80 dark:hover:bg-foundation-bg-dark-3/80"
+                                      : "bg-foundation-bg-light-3 dark:bg-foundation-bg-dark-3 text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 hover:bg-foundation-bg-light-3/80 dark:hover:bg-foundation-bg-dark-3/80"
                                   }`}
                                 >
                                   {resolvedCategoryIcons[category] ? (
@@ -714,7 +710,7 @@ export function ChatSidebar({
                       </button>
                       <button
                         onClick={() => setShowMoreOptions(true)}
-                        className="w-full bg-foundation-bg-light-3 dark:bg-foundation-bg-dark-3 hover:bg-foundation-bg-light-3/80 dark:hover:bg-foundation-bg-dark-3/80 text-foundation-text-light-secondary dark:text-white/70 py-3 rounded-lg mt-2 transition-colors text-[14px] font-normal leading-[20px] tracking-[-0.3px]"
+                        className="w-full bg-foundation-bg-light-3 dark:bg-foundation-bg-dark-3 hover:bg-foundation-bg-light-3/80 dark:hover:bg-foundation-bg-dark-3/80 text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary py-3 rounded-lg mt-2 transition-colors text-[14px] font-normal leading-[20px] tracking-[-0.3px]"
                       >
                         More options
                       </button>
@@ -795,12 +791,12 @@ export function ChatSidebar({
 
         {sidebarFooter && !isCollapsed ? <div className="px-2 pb-2">{sidebarFooter}</div> : null}
 
-        <div className="p-2 border-t border-foundation-bg-light-3 dark:border-white/10 relative">
+        <div className="p-2 border-t border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 relative">
           <button
             onClick={() => setShowUserMenu(!showUserMenu)}
             aria-haspopup="menu"
             aria-expanded={showUserMenu}
-            className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors ${
+            className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-2 transition-colors ${
               isCollapsed ? "justify-center" : ""
             }`}
             title={isCollapsed ? resolvedUser.name : ""}
@@ -820,16 +816,16 @@ export function ChatSidebar({
             )}
           </button>
           {showUserMenu && !isCollapsed && (
-            <div role="menu" className="absolute bottom-full left-3 right-3 mb-2 bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-white/20 rounded-xl shadow-2xl py-1 z-50">
-              <div className="px-3 py-2.5 border-b border-foundation-bg-light-3 dark:border-white/10">
+            <div role="menu" className="absolute bottom-full left-3 right-3 mb-2 bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-xl shadow-2xl py-1 z-50">
+              <div className="px-3 py-2.5 border-b border-foundation-bg-light-3 dark:border-foundation-bg-dark-3">
                 <div className="flex items-center gap-2 text-[13px]">
                   <div className="size-2 rounded-full bg-foundation-accent-green" />
-                  <span className="text-foundation-text-light-secondary dark:text-white/70 font-normal">{resolvedUser.planLabel}</span>
+                  <span className="text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary font-normal">{resolvedUser.planLabel}</span>
                 </div>
               </div>
-              <button className="w-full text-left px-3 py-2.5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors flex items-center gap-2">
+              <button className="w-full text-left px-3 py-2.5 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-2 transition-colors flex items-center gap-2">
                 <svg
-                  className="size-4 text-foundation-text-light-secondary dark:text-white/70"
+                  className="size-4 text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -847,15 +843,15 @@ export function ChatSidebar({
                   setShowUserMenu(false);
                   setShowSettingsModal(true);
                 }}
-                className="w-full text-left px-3 py-2.5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors flex items-center gap-2"
+                className="w-full text-left px-3 py-2.5 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-2 transition-colors flex items-center gap-2"
               >
-                <IconSettings className="size-4 text-foundation-text-light-secondary dark:text-white/70" />
+                <IconSettings className="size-4 text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary" />
                 <span className="text-[14px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary font-normal leading-[20px] tracking-[-0.3px]">
                   Settings
                 </span>
               </button>
-              <div className="my-1 border-t border-foundation-bg-light-3 dark:border-white/10" />
-              <button className="w-full text-left px-3 py-2.5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+              <div className="my-1 border-t border-foundation-bg-light-3 dark:border-foundation-bg-dark-3" />
+              <button className="w-full text-left px-3 py-2.5 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-2 transition-colors">
                 <span className="text-[14px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary font-normal leading-[20px] tracking-[-0.3px]">
                   Log Out
                 </span>
@@ -873,7 +869,7 @@ export function ChatSidebar({
             }}
             onSave={handleIconChange}
             currentIconId={selectedProjectForIcon.id}
-            currentColorId={getColorIdFromClass(selectedProjectForIcon.color)}
+            currentColorId={selectedProjectForIcon.colorId ?? "gray"}
             projectName={selectedProjectForIcon.label}
           />
         )}

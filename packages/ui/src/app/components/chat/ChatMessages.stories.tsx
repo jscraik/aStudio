@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { sampleMessages } from "../data/sample-data";
+import { sampleMessages } from "../../data/sample-data";
 
 import { ChatMessages } from "./ChatMessages";
 

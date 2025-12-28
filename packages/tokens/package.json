@@ -1,6 +1,6 @@
 {
   "name": "@chatui/tokens",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "type": "module",
   "license": "MIT",
   "exports": {
@@ -29,6 +29,10 @@
     "clean": "rm -rf dist",
     "generate": "tsx scripts/generate-tokens.ts",
     "generate:watch": "tsx watch scripts/generate-tokens.ts",
+    "dev": "tsx scripts/dev-tools.ts",
+    "dev:verbose": "tsx scripts/dev-tools.ts --verbose",
+    "dev:hot-reload": "tsx scripts/watch-tokens.ts",
+    "dev:hot-reload:verbose": "tsx scripts/watch-tokens.ts --verbose",
     "test": "vitest --run",
     "test:watch": "vitest"
   },

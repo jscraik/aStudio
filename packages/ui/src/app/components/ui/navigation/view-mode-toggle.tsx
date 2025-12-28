@@ -47,7 +47,7 @@ export function ViewModeToggle({
   return (
     <button
       className={cn(
-        "flex items-center gap-2 px-4 py-2 border border-white/10 rounded-xl hover:bg-white/5 transition-colors",
+        "flex items-center gap-2 px-4 py-2 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-xl hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3 transition-colors",
         disabled && "opacity-50 cursor-not-allowed",
         className,
       )}
@@ -56,10 +56,10 @@ export function ViewModeToggle({
     >
       {value === "compose" ? (
         <>
-          <div className="size-4 text-foundation-text-dark-secondary">
+          <div className="size-4 text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary">
             <IconChat />
           </div>
-          <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-dark-secondary">
+          <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary">
             {labels.chat}
           </span>
         </>

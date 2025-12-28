@@ -50,7 +50,7 @@ export function SettingDropdown({
               type="button"
               className="flex items-center gap-1.5 px-3 py-1.5 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3 rounded-md transition-colors"
             >
-              <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary">
+              <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary">
                 {selectedOption?.label || value}
               </span>
               <IconChevronDownMd className="size-3.5 text-foundation-icon-light-secondary dark:text-foundation-icon-dark-secondary" />

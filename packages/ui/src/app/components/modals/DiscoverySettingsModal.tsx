@@ -86,7 +86,7 @@ export function DiscoverySettingsModal({
     <button
       type="button"
       onClick={handleReset}
-      className="px-3 py-1.5 text-[13px] font-normal leading-[18px] text-foundation-accent-green hover:bg-black/5 dark:hover:bg-white/5 rounded-lg transition-colors flex items-center gap-1.5"
+      className="px-3 py-1.5 text-[13px] font-normal leading-[18px] text-foundation-accent-green hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3 rounded-lg transition-colors flex items-center gap-1.5"
       aria-label="Reset all settings to defaults"
     >
       <svg className="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -116,7 +116,7 @@ export function DiscoverySettingsModal({
           <SectionHeader
             title="Token Budgets"
             description="Sets the target size for your final prompt. Use 60k for ChatGPT (lite Pro context), higher for CLIAPI tools with larger context windows."
-            descriptionClassName="text-[13px] font-normal leading-[18px] text-foundation-text-light-tertiary dark:text-white/60 mb-4"
+            descriptionClassName="text-[13px] font-normal leading-[18px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary mb-4"
           />
           <RangeSlider
             label="Target size"
@@ -130,7 +130,7 @@ export function DiscoverySettingsModal({
             <button
               type="button"
               onClick={() => setShowAutoPlanBudget(!showAutoPlanBudget)}
-              className="flex items-center gap-2 text-[13px] font-normal leading-[18px] text-foundation-text-light-secondary dark:text-white/80 hover:text-foundation-text-light-primary dark:hover:text-white transition-colors w-full"
+              className="flex items-center gap-2 text-[13px] font-normal leading-[18px] text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary hover:text-foundation-text-light-primary dark:hover:text-foundation-text-dark-primary transition-colors w-full"
             >
               <svg
                 className={`size-3 transition-transform ${showAutoPlanBudget ? "rotate-90" : ""}`}
@@ -153,12 +153,12 @@ export function DiscoverySettingsModal({
                 <path d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
               <span>Auto Plan Budget</span>
-              <span className="ml-auto text-foundation-text-light-tertiary dark:text-white/60">{autoPlanBudget}k</span>
+              <span className="ml-auto text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary">{autoPlanBudget}k</span>
             </button>
 
             {showAutoPlanBudget && (
               <div className="mt-3 ml-5 space-y-3">
-                <p className="text-[12px] font-normal leading-[16px] text-foundation-text-light-tertiary dark:text-white/50">
+                <p className="text-[12px] font-normal leading-[16px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary">
                   Auto Plan runs use CLI/API calls which support larger context windows.
                 </p>
                 <RangeSlider
@@ -188,7 +188,7 @@ export function DiscoverySettingsModal({
             ]}
             onChange={handlePromptEnhancementChange}
           />
-          <p className="text-[12px] font-normal leading-[16px] text-foundation-text-light-tertiary dark:text-white/50">
+          <p className="text-[12px] font-normal leading-[16px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary">
             {getEnhancementDescription()}
           </p>
         </div>
@@ -197,7 +197,7 @@ export function DiscoverySettingsModal({
           <SectionHeader
             title="Clarifying Questions"
             description="Allow the agent to ask you questions during discovery to better understand your intent."
-            descriptionClassName="text-[13px] font-normal leading-[18px] text-foundation-text-light-tertiary dark:text-white/60 mb-4"
+            descriptionClassName="text-[13px] font-normal leading-[18px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary mb-4"
           />
           <div className="space-y-4">
             <div className="flex items-start justify-between">
@@ -212,10 +212,10 @@ export function DiscoverySettingsModal({
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <div className="text-[13px] font-medium leading-[18px] text-foundation-text-light-primary dark:text-white mb-0.5">
+                  <div className="text-[13px] font-medium leading-[18px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary mb-0.5">
                     Manual Runs (UI)
                   </div>
-                  <div className="text-[12px] font-normal leading-[16px] text-foundation-text-light-tertiary dark:text-white/50">
+                  <div className="text-[12px] font-normal leading-[16px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary">
                     When you click Run Discovery
                   </div>
                 </div>
@@ -234,10 +234,10 @@ export function DiscoverySettingsModal({
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <div className="text-[13px] font-medium leading-[18px] text-foundation-text-light-primary dark:text-white mb-0.5">
+                  <div className="text-[13px] font-medium leading-[18px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary mb-0.5">
                     MCP Runs
                   </div>
-                  <div className="text-[12px] font-normal leading-[16px] text-foundation-text-light-tertiary dark:text-white/50">
+                  <div className="text-[12px] font-normal leading-[16px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary">
                     When called via context_builder
                   </div>
                 </div>
@@ -313,10 +313,10 @@ export function DiscoverySettingsModal({
                 </svg>
               </div>
               <div className="flex-1">
-                <div className="text-[13px] font-medium leading-[18px] text-foundation-text-light-primary dark:text-white mb-0.5">
+                <div className="text-[13px] font-medium leading-[18px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary mb-0.5">
                   Store Logs
                 </div>
-                <div className="text-[12px] font-normal leading-[16px] text-foundation-text-light-tertiary dark:text-white/50">
+                <div className="text-[12px] font-normal leading-[16px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary">
                   Enable logging for debugging and analysis
                 </div>
               </div>
@@ -326,8 +326,8 @@ export function DiscoverySettingsModal({
         </div>
       </ModalBody>
 
-      <div className="border-t border-foundation-bg-light-3 dark:border-white/10 px-6 py-4 flex items-center justify-center">
-        <div className="flex items-center gap-2 bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 border border-foundation-bg-light-3 dark:border-white/10 rounded-lg px-4 py-2">
+      <div className="border-t border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 px-6 py-4 flex items-center justify-center">
+        <div className="flex items-center gap-2 bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-lg px-4 py-2">
           <svg
             className="size-5 text-foundation-accent-blue"
             fill="currentColor"
@@ -335,7 +335,7 @@ export function DiscoverySettingsModal({
           >
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
           </svg>
-          <span className="text-[14px] font-medium leading-[20px] text-foundation-text-light-primary dark:text-white">{targetSize}k</span>
+          <span className="text-[14px] font-medium leading-[20px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary">{targetSize}k</span>
           <span className="text-[13px] font-normal leading-[18px] text-foundation-accent-green capitalize">
             {promptEnhancement}
           </span>

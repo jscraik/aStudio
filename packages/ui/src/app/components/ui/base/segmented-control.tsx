@@ -62,7 +62,7 @@ export function SegmentedControl<T extends string = string>({
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-0 bg-foundation-bg-dark-2 rounded-lg p-1",
+        "inline-flex items-center gap-0 bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 rounded-lg p-1",
         fullWidth && "w-full",
         className,
       )}
@@ -79,7 +79,9 @@ export function SegmentedControl<T extends string = string>({
               "rounded-md transition-all font-normal leading-[20px] tracking-[-0.3px] flex items-center gap-1.5",
               sizes[size],
               fullWidth && "flex-1 justify-center",
-              isSelected ? "text-white" : "text-white/60 hover:text-white",
+              isSelected
+                ? "text-foundation-text-light-primary dark:text-foundation-text-dark-primary"
+                : "text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary hover:text-foundation-text-light-primary dark:hover:text-foundation-text-dark-primary",
               option.disabled && "opacity-50 cursor-not-allowed",
             )}
             style={{

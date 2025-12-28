@@ -83,28 +83,28 @@ export function ModeSelector({
   };
 
   const triggerClasses = {
-    default: "bg-foundation-bg-dark-2 border border-white/10 rounded-lg px-3 py-1.5",
+    default: "bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-lg px-3 py-1.5",
     compact: "px-2 py-1 rounded-md",
-    pill: "bg-foundation-bg-dark-2 border border-white/10 rounded-full px-4 py-1.5",
+    pill: "bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-full px-4 py-1.5",
   };
 
   return (
     <>
       <div className={cn("relative", className)}>
         {label && (
-          <span className="text-[12px] leading-[18px] text-foundation-text-dark-primary/70 mr-2">
+          <span className="text-[12px] leading-[18px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary mr-2">
             {label}
           </span>
         )}
         <button
           onClick={handleOpen}
           className={cn(
-            "text-[12px] leading-[18px] text-foundation-text-dark-primary flex items-center gap-2 hover:bg-foundation-bg-dark-3 transition-colors",
+            "text-[12px] leading-[18px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary flex items-center gap-2 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3 transition-colors",
             triggerClasses[variant],
           )}
         >
           {value?.name ?? modes[0]?.name}
-          <IconChevronDownMd className="size-3 text-foundation-text-dark-primary/70" />
+          <IconChevronDownMd className="size-3 text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary" />
         </button>
       </div>
 
@@ -114,7 +114,7 @@ export function ModeSelector({
 
           <div
             className={cn(
-              "fixed z-50 bg-foundation-bg-dark-1 border border-white/10 rounded-[16px] shadow-2xl overflow-hidden",
+              "fixed z-50 bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-[16px] shadow-2xl overflow-hidden",
               showPreview
                 ? "top-16 right-4 w-[960px]"
                 : "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px]",
@@ -125,15 +125,15 @@ export function ModeSelector({
               {showPreview && previewMode && (
                 <div className="flex-1 p-8 overflow-y-auto">
                   <div className="flex items-start gap-3 mb-6">
-                    <div className="p-2 bg-white/5 rounded-lg">
-                      {previewMode.icon ?? <IconSettings className="size-5 text-white/60" />}
+                    <div className="p-2 bg-foundation-bg-light-3 dark:bg-foundation-bg-dark-3 rounded-lg">
+                      {previewMode.icon ?? <IconSettings className="size-5 text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary" />}
                     </div>
                     <div>
-                      <h2 className="text-[18px] font-semibold leading-[26px] tracking-[-0.45px] text-white">
+                      <h2 className="text-[18px] font-semibold leading-[26px] tracking-[-0.45px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary">
                         {previewMode.name}
                       </h2>
                       {previewMode.subtitle && (
-                        <p className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white/60">
+                        <p className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary">
                           {previewMode.subtitle}
                         </p>
                       )}
@@ -142,17 +142,17 @@ export function ModeSelector({
 
                   {previewMode.config && (
                     <div className="mb-8">
-                      <h3 className="text-[14px] font-semibold leading-[20px] tracking-[-0.3px] text-white/60 mb-4">
+                      <h3 className="text-[14px] font-semibold leading-[20px] tracking-[-0.3px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary mb-4">
                         Configuration
                       </h3>
                       <div className="grid grid-cols-2 gap-3">
                         {Object.entries(previewMode.config).map(([key, val]) => (
                           <div
                             key={key}
-                            className="px-4 py-3 bg-white/5 border border-white/10 rounded-lg"
+                            className="px-4 py-3 bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-lg"
                           >
-                            <div className="text-[12px] font-normal leading-[18px] tracking-[-0.32px] text-white/60">
-                              {key} · <span className="text-white">{val}</span>
+                            <div className="text-[12px] font-normal leading-[18px] tracking-[-0.32px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary">
+                              {key} · <span className="text-foundation-text-light-primary dark:text-foundation-text-dark-primary">{val}</span>
                             </div>
                           </div>
                         ))}
@@ -162,16 +162,16 @@ export function ModeSelector({
 
                   {previewMode.whenToUse && previewMode.whenToUse.length > 0 && (
                     <div className="mb-8">
-                      <h3 className="text-[14px] font-semibold leading-[20px] tracking-[-0.3px] text-white/60 mb-3">
+                      <h3 className="text-[14px] font-semibold leading-[20px] tracking-[-0.3px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary mb-3">
                         When to use
                       </h3>
                       <ul className="space-y-2">
                         {previewMode.whenToUse?.map((item, index) => (
                           <li
                             key={index}
-                            className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white/80 flex items-start gap-2"
+                            className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary flex items-start gap-2"
                           >
-                            <span className="text-white/60">•</span>
+                            <span className="text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary">•</span>
                             <span>{item}</span>
                           </li>
                         ))}
@@ -181,10 +181,10 @@ export function ModeSelector({
 
                   {previewMode.about && (
                     <div>
-                      <h3 className="text-[14px] font-semibold leading-[20px] tracking-[-0.3px] text-white/60 mb-3">
+                      <h3 className="text-[14px] font-semibold leading-[20px] tracking-[-0.3px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary mb-3">
                         About this mode
                       </h3>
-                      <p className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-white/80">
+                      <p className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary">
                         {previewMode.about}
                       </p>
                     </div>
@@ -195,11 +195,11 @@ export function ModeSelector({
               {/* Mode List */}
               <div
                 className={cn(
-                  "bg-foundation-bg-dark-1 p-6",
-                  showPreview ? "w-[360px] border-l border-white/10" : "w-full",
+                  "bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 p-6",
+                  showPreview ? "w-[360px] border-l border-foundation-bg-light-3 dark:border-foundation-bg-dark-3" : "w-full",
                 )}
               >
-                <h3 className="text-[14px] font-semibold leading-[20px] tracking-[-0.3px] text-white/60 mb-4">
+                <h3 className="text-[14px] font-semibold leading-[20px] tracking-[-0.3px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary mb-4">
                   Available Modes
                 </h3>
                 <div className="space-y-2">
@@ -211,14 +211,16 @@ export function ModeSelector({
                       className={cn(
                         "w-full px-4 py-3 rounded-lg text-left transition-all flex items-center justify-between",
                         value?.id === mode.id
-                          ? "bg-foundation-accent-green/10 border border-foundation-accent-green/30 text-white"
-                          : "bg-white/5 border border-transparent text-white/80 hover:bg-white/10",
+                          ? "bg-foundation-accent-green/10 border border-foundation-accent-green/30 text-foundation-text-light-primary dark:text-foundation-text-dark-primary"
+                          : "bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-transparent text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3",
                       )}
                     >
                       <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px]">
                         {mode.name}
                       </span>
-                      {value?.id === mode.id && <IconCheckmark className="size-4 text-white" />}
+                      {value?.id === mode.id && (
+                        <IconCheckmark className="size-4 text-foundation-text-light-primary dark:text-foundation-text-dark-primary" />
+                      )}
                     </button>
                   ))}
                 </div>

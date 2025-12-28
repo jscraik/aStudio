@@ -31,7 +31,48 @@ case "$1" in
     "build")
         print_status "Building ChatUISwift package..."
         swift build
+        
+        # Generate documentation if in development mode
+        if [ "${CHATUI_DEV_MODE:-false}" = "true" ]; then
+            print_status "Generating component documentation..."
+            if [ -f "scripts/generate-docs.swift" ]; then
+                swift scripts/generate-docs.swift . docs/components.md
+                print_status "Documentation generated at docs/components.md"
+            else
+                print_warning "Documentation generator not found, skipping..."
+            fi
+        fi
+        
         print_status "Build completed successfully!"
+        ;;
+    "dev")
+        print_status "Starting development mode with tools..."
+        export CHATUI_DEV_MODE=true
+        export CHATUI_PERFORMANCE_MONITORING=true
+        
+        # Generate initial documentation
+        if [ -f "scripts/generate-docs.swift" ]; then
+            print_status "Generating initial documentation..."
+            swift scripts/generate-docs.swift . docs/components.md
+        fi
+        
+        print_status "Development mode enabled!"
+        print_status "  - Documentation generation: ✅"
+        print_status "  - Performance monitoring: ✅"
+        print_status "  - Debug tools: ✅"
+        print_status ""
+        print_status "Start token hot reload with: cd ../tokens && pnpm dev:hot-reload"
+        print_status "Open playground: ./build.sh playground"
+        ;;
+    "docs")
+        print_status "Generating component documentation..."
+        if [ -f "scripts/generate-docs.swift" ]; then
+            swift scripts/generate-docs.swift . docs/components.md
+            print_status "Documentation generated at docs/components.md"
+        else
+            print_error "Documentation generator not found at scripts/generate-docs.swift"
+            exit 1
+        fi
         ;;
     "test")
         print_status "Running tests for ChatUISwift package..."
@@ -58,6 +99,8 @@ case "$1" in
         echo ""
         echo "Commands:"
         echo "  build      Build the Swift package"
+        echo "  dev        Start development mode with tools"
+        echo "  docs       Generate component documentation"
         echo "  test       Run package tests"
         echo "  clean      Clean build artifacts"
         echo "  playground Open playground app in Xcode"

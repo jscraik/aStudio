@@ -74,7 +74,7 @@ export function Toggle({
       className={cn(
         "relative rounded-full transition-colors",
         track,
-        !checked && "bg-foundation-bg-dark-3",
+        !checked && "bg-foundation-bg-light-3 dark:bg-foundation-bg-dark-3",
         disabled && "opacity-50 cursor-not-allowed",
         className,
       )}
@@ -82,7 +82,7 @@ export function Toggle({
     >
       <div
         className={cn(
-          "absolute top-0.5 left-0.5 bg-white rounded-full transition-transform shadow-sm",
+          "absolute top-0.5 left-0.5 bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 rounded-full transition-transform shadow-sm",
           thumb,
           checked && translate,
         )}
@@ -131,13 +131,17 @@ export function ToggleRow({
   return (
     <div className={cn("flex items-center justify-between", className)}>
       <div className="flex items-center gap-3">
-        {icon && <div className="text-foundation-text-dark-tertiary">{icon}</div>}
+        {icon && (
+          <div className="text-foundation-icon-light-secondary dark:text-foundation-icon-dark-secondary">
+            {icon}
+          </div>
+        )}
         <div>
-          <div className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-dark-primary">
+          <div className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary">
             {label}
           </div>
           {description && (
-            <div className="text-[12px] leading-[18px] text-foundation-text-dark-primary/70">
+            <div className="text-[12px] leading-[18px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary">
               {description}
             </div>
           )}

@@ -111,13 +111,13 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
       <div className="flex-1 flex flex-col bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 text-foundation-text-light-primary dark:text-foundation-text-dark-primary">
         <div className="flex-1 overflow-y-auto">
           <div className="w-full px-8 py-8 space-y-4 overflow-y-auto">
-            <div className="bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 border border-foundation-bg-light-3 dark:border-white/10 rounded-lg overflow-hidden">
+            <div className="bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-lg overflow-hidden">
               <div className="flex items-center justify-between px-4 py-3 bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2">
                 <div className="flex items-center gap-2">
                   <span className="text-[15px] leading-6 text-foundation-text-light-primary dark:text-foundation-text-dark-primary font-medium">
                     Prompt Instructions
                   </span>
-                  <button className="p-1.5 hover:bg-black/10 dark:hover:bg-white/10 rounded-md transition-colors" aria-label="Copy to clipboard">
+                  <button className="p-1.5 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-2 rounded-md transition-colors" aria-label="Copy to clipboard">
                     <svg
                       className="size-4 text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary"
                       fill="none"
@@ -133,7 +133,7 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
                     </svg>
                   </button>
                 </div>
-                <button className="flex items-center gap-2 px-3 py-1.5 bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3 border border-foundation-bg-light-3 dark:border-white/10 text-foundation-text-light-primary dark:text-foundation-text-dark-primary rounded-lg transition-colors text-[13px] leading-5">
+                <button className="flex items-center gap-2 px-3 py-1.5 bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 text-foundation-text-light-primary dark:text-foundation-text-dark-primary rounded-lg transition-colors text-[13px] leading-5">
                   <svg
                     className="size-4 text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary"
                     fill="none"
@@ -158,10 +158,10 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
                 className="w-full h-[187px] bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 px-4 py-3 text-[15px] leading-6 text-foundation-text-light-primary dark:text-foundation-text-dark-primary placeholder:text-foundation-text-light-primary/40 dark:placeholder:text-foundation-text-dark-primary/40 focus:outline-none resize-none border-0"
               />
 
-              <div className="flex items-center justify-between px-4 py-2 bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 border-t border-foundation-bg-light-3 dark:border-white/10">
+              <div className="flex items-center justify-between px-4 py-2 bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 border-t border-foundation-bg-light-3 dark:border-foundation-bg-dark-3">
                 <div className="flex items-center gap-1">
                   <button
-                    className="p-1.5 hover:bg-black/10 dark:hover:bg-white/10 rounded-md transition-colors"
+                    className="p-1.5 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-2 rounded-md transition-colors"
                     title="Add"
                     aria-label="Add"
                   >
@@ -178,7 +178,7 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
                   <button
                     onClick={() => setIsWebSearchActive(!isWebSearchActive)}
                     className={`p-1.5 rounded-md transition-colors relative ${
-                      isWebSearchActive ? "bg-foundation-accent-blue/10" : "hover:bg-black/10 dark:hover:bg-white/10"
+                      isWebSearchActive ? "bg-foundation-accent-blue/10" : "hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-2"
                     }`}
                     title="Web"
                     aria-label="Toggle web search"
@@ -217,7 +217,7 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
                     )}
                   </button>
                   <button
-                    className="p-1.5 hover:bg-black/10 dark:hover:bg-white/10 rounded-md transition-colors"
+                    className="p-1.5 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-2 rounded-md transition-colors"
                     title="Link"
                     aria-label="Link"
                   >
@@ -236,7 +236,7 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
                     </svg>
                   </button>
                   <button
-                    className="p-1.5 hover:bg-black/10 dark:hover:bg-white/10 rounded-md transition-colors"
+                    className="p-1.5 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-2 rounded-md transition-colors"
                     title="Refresh"
                     aria-label="Refresh"
                   >
@@ -256,11 +256,11 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
                   </button>
                   <button
                     type="button"
-                    className="flex items-center gap-1.5 px-2 py-1 rounded-lg transition-colors group hover:bg-black/5 dark:hover:bg-white/5"
+                    className="flex items-center gap-1.5 px-2 py-1 rounded-lg transition-colors group hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-2"
                     title="Tools"
                     aria-label="Tools"
                   >
-                    <IconOperator className="size-4 text-foundation-text-light-tertiary dark:text-white/60 group-hover:text-foundation-text-light-primary dark:text-white" />
+                    <IconOperator className="size-4 text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary group-hover:text-foundation-text-light-primary dark:group-hover:text-foundation-text-dark-primary" />
                     <span className="hidden text-[14px] font-normal leading-[20px] tracking-[-0.3px]">
                       Apps
                     </span>
@@ -273,7 +273,7 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
                 </div>
 
                 <div className="flex items-center gap-1">
-                  <button className="flex items-center gap-1.5 px-2 py-1 hover:bg-black/10 dark:hover:bg-white/10 rounded-md transition-colors">
+                  <button className="flex items-center gap-1.5 px-2 py-1 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-2 rounded-md transition-colors">
                     <svg
                       className="size-3.5 text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary"
                       fill="none"
@@ -292,7 +292,7 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
                     </span>
                   </button>
                   <button
-                    className="p-1.5 hover:bg-black/10 dark:hover:bg-white/10 rounded-md transition-colors"
+                    className="p-1.5 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-2 rounded-md transition-colors"
                     title="Voice"
                     aria-label="Voice"
                   >
@@ -316,7 +316,7 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
                     className="w-6 h-6 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 ml-1 flex items-center justify-center hover:opacity-80 transition-opacity"
                   >
                     <svg
-                      className="size-3 text-foundation-text-light-primary dark:text-white"
+                      className="size-3 text-white"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -333,17 +333,17 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
               </div>
             </div>
 
-            <div className="border-b border-foundation-bg-light-3 dark:border-white/10"></div>
+            <div className="border-b border-foundation-bg-light-3 dark:border-foundation-bg-dark-3"></div>
 
             <div className="min-h-[200px]">
-              <div className="bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 border border-foundation-bg-light-3 dark:border-white/10 rounded-lg overflow-hidden">
+              <div className="bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-lg overflow-hidden">
                   <div className="flex items-center justify-between px-4 py-3 bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2">
                     <div className="flex items-center gap-2">
                       <span className="text-[15px] leading-6 text-foundation-text-light-primary dark:text-foundation-text-dark-primary font-medium">
                         Prompt Builder
                       </span>
                     </div>
-                    <button aria-label="Run discovery" className="flex items-center gap-2 px-3 py-1.5 bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3 border border-foundation-bg-light-3 dark:border-white/10 text-foundation-text-light-primary dark:text-foundation-text-dark-primary rounded-lg transition-colors text-[13px] leading-5">
+                    <button aria-label="Run discovery" className="flex items-center gap-2 px-3 py-1.5 bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 text-foundation-text-light-primary dark:text-foundation-text-dark-primary rounded-lg transition-colors text-[13px] leading-5">
                       <svg
                         className="size-[18px]"
                         fill="none"
@@ -391,7 +391,7 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
                             value={systemMessage}
                             onChange={(e) => setSystemMessage(e.target.value)}
                             placeholder="Describe desired modal behavior (tone, tool usage, response style)"
-                            className="w-full h-[60px] bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-white/10 rounded-lg px-3 py-2.5 text-[13px] leading-5 text-foundation-text-light-primary dark:text-foundation-text-dark-primary placeholder:text-foundation-text-light-primary/50 dark:placeholder:text-foundation-text-dark-primary/50 focus:outline-none focus:border-foundation-bg-light-3/70 dark:focus:border-white/20 resize-none"
+                            className="w-full h-[60px] bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-lg px-3 py-2.5 text-[13px] leading-5 text-foundation-text-light-primary dark:text-foundation-text-dark-primary placeholder:text-foundation-text-light-primary/50 dark:placeholder:text-foundation-text-dark-primary/50 focus:outline-none focus:border-foundation-bg-light-3/70 dark:focus:border-foundation-bg-dark-3 resize-none"
                             aria-label="System message input"
                           />
                         </div>
@@ -426,7 +426,7 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
                               </button>
 
                               {showTooltip && (
-                                <div className="absolute right-0 top-8 w-[320px] bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-white/10 rounded-lg p-4 shadow-xl z-50">
+                                <div className="absolute right-0 top-8 w-[320px] bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-lg p-4 shadow-xl z-50">
                                   <div className="text-[13px] leading-5 text-foundation-text-light-primary dark:text-foundation-text-dark-primary space-y-3">
                                     {promptEnhancement === "rewrite" && (
                                       <>
@@ -506,7 +506,7 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
                             value={taskDescription}
                             onChange={(e) => setTaskDescription(e.target.value)}
                             placeholder={taskConfig.placeholder}
-                            className="flex-1 h-[120px] bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-white/10 rounded-lg px-3 py-2.5 text-[13px] leading-5 text-foundation-text-light-primary dark:text-foundation-text-dark-primary placeholder:text-foundation-text-light-primary/50 dark:placeholder:text-foundation-text-dark-primary/50 focus:outline-none focus:border-foundation-bg-light-3/70 dark:focus:border-white/20 resize-none"
+                            className="flex-1 h-[120px] bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-lg px-3 py-2.5 text-[13px] leading-5 text-foundation-text-light-primary dark:text-foundation-text-dark-primary placeholder:text-foundation-text-light-primary/50 dark:placeholder:text-foundation-text-dark-primary/50 focus:outline-none focus:border-foundation-bg-light-3/70 dark:focus:border-foundation-bg-dark-3 resize-none"
                             aria-label={taskConfig.label}
                           />
 
@@ -514,7 +514,7 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
                             <button
                               onClick={() => setShowDiscoverySettings(true)}
                               aria-label={`Run discovery: ${taskConfig.buttonText}`}
-                              className="px-4 py-2 bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3 border border-foundation-bg-light-3 dark:border-white/10 text-foundation-text-light-primary dark:text-foundation-text-dark-primary rounded-lg transition-all text-[13px] leading-5 whitespace-nowrap flex items-center gap-2"
+                              className="px-4 py-2 bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 text-foundation-text-light-primary dark:text-foundation-text-dark-primary rounded-lg transition-all text-[13px] leading-5 whitespace-nowrap flex items-center gap-2"
                             >
                               <span className="flex items-center gap-1.5">
                                 <span className="text-foundation-accent-green">{targetSize}k</span>
@@ -525,7 +525,7 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between pt-5 border-t border-foundation-bg-light-3 dark:border-white/10">
+                      <div className="flex items-center justify-between pt-5 border-t border-foundation-bg-light-3 dark:border-foundation-bg-dark-3">
                         <div className="flex items-center gap-4">
                           <div>
                             <div className="text-[13px] leading-5 text-foundation-text-light-primary dark:text-foundation-text-dark-primary">
@@ -589,7 +589,7 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
             onClick={() => setShowProEditConfig(false)}
           />
 
-          <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[60] w-[720px] bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-white/10 rounded-[12px] shadow-2xl p-8">
+          <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[60] w-[720px] bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-[12px] shadow-2xl p-8">
             <h2 className="text-[18px] font-semibold leading-[26px] tracking-[-0.45px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary mb-4">
               Pro Edit Settings
             </h2>
@@ -601,7 +601,7 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
               </span>
             </div>
 
-            <p className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-primary dark:text-white/70 mb-6">
+            <p className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-primary dark:text-foundation-text-dark-secondary mb-6">
               Pro Edit mode uses your selected AI model to plan edits, while delegate edit agents or
               models apply those edits simultaneously.
             </p>
@@ -634,44 +634,44 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
                 <h3 className="text-[16px] font-semibold leading-[24px] tracking-[-0.32px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary mb-2">
                   Agent Configuration
                 </h3>
-                <p className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-primary dark:text-white/70 mb-4">
+                <p className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-primary dark:text-foundation-text-dark-secondary mb-4">
                   Runs a headless agent for each file to apply edits in parallel within a sandbox.
                 </p>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-primary dark:text-white/70 mb-2">
+                    <label className="block text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-primary dark:text-foundation-text-dark-secondary mb-2">
                       Agent
                     </label>
                     <div className="relative">
                       <select
                         value={selectedAgent}
                         onChange={(e) => setSelectedAgent(e.target.value)}
-                        className="w-full bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-white/10 rounded-lg px-4 py-2.5 text-[14px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary font-normal leading-[20px] tracking-[-0.3px] appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20"
+                        className="w-full bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-lg px-4 py-2.5 text-[14px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary font-normal leading-[20px] tracking-[-0.3px] appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-foundation-bg-dark-3"
                       >
                         <option value="Codex CLI">Codex CLI</option>
                         <option value="Aider">Aider</option>
                         <option value="Custom">Custom</option>
                       </select>
-                      <IconChevronDownMd className="absolute right-3 top-1/2 -translate-y-1/2 size-4 text-foundation-text-light-primary dark:text-white/60 pointer-events-none" />
+                      <IconChevronDownMd className="absolute right-3 top-1/2 -translate-y-1/2 size-4 text-foundation-text-light-primary dark:text-foundation-text-dark-tertiary pointer-events-none" />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-primary dark:text-white/70 mb-2">
+                    <label className="block text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-light-primary dark:text-foundation-text-dark-secondary mb-2">
                       Model
                     </label>
                     <div className="relative">
                       <select
                         value={selectedModelConfig}
                         onChange={(e) => setSelectedModelConfig(e.target.value)}
-                        className="w-full bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-white/10 rounded-lg px-4 py-2.5 text-[14px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary font-normal leading-[20px] tracking-[-0.3px] appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-white/20"
+                        className="w-full bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-lg px-4 py-2.5 text-[14px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary font-normal leading-[20px] tracking-[-0.3px] appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-black/20 dark:focus:ring-foundation-bg-dark-3"
                       >
                         <option value="GPT-5.2 Codex Medium">GPT-5.2 Codex Medium</option>
                         <option value="GPT-5.2 Codex Large">GPT-5.2 Codex Large</option>
                         <option value="Claude 3.5 Sonnet">Claude 3.5 Sonnet</option>
                       </select>
-                      <IconChevronDownMd className="absolute right-3 top-1/2 -translate-y-1/2 size-4 text-foundation-text-light-primary dark:text-white/60 pointer-events-none" />
+                      <IconChevronDownMd className="absolute right-3 top-1/2 -translate-y-1/2 size-4 text-foundation-text-light-primary dark:text-foundation-text-dark-tertiary pointer-events-none" />
                     </div>
                   </div>
                 </div>

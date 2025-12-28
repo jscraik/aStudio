@@ -119,7 +119,7 @@ export function SettingsModal({ isOpen, onClose, account, appInfo }: SettingsMod
   const [keyboardShortcut, setKeyboardShortcut] = useState("⌘Space");
 
   const [enableWorkWithApps, setEnableWorkWithApps] = useState(true);
-  const [togglePairing] = useState("⌘⌥1");
+  const [togglePairing, setTogglePairing] = useState("⌘⌥1");
   const [linearApps] = useState("Never");
   const [autoPairWithApps, setAutoPairWithApps] = useState(true);
   const [generateSuggestedEdits, setGenerateSuggestedEdits] = useState(false);
@@ -164,7 +164,7 @@ export function SettingsModal({ isOpen, onClose, account, appInfo }: SettingsMod
   const mainContent = (
     <>
       {/* Header with traffic light buttons */}
-      <div className="px-6 py-4 border-b border-foundation-text-light-primary/10 dark:border-foundation-text-dark-primary/10 flex items-center gap-3">
+      <div className="px-6 py-4 border-b border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 flex items-center gap-3">
         <div className="flex gap-2">
           <button
             type="button"

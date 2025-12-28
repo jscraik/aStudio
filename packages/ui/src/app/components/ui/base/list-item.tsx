@@ -69,8 +69,8 @@ export function ListItem({
         "w-full flex items-center justify-between rounded-lg transition-colors text-left",
         sizes[size],
         onClick &&
-          "hover:bg-foundation-bg-light-2 dark:hover:bg-white/5 cursor-pointer",
-        selected && "bg-foundation-bg-light-2 dark:bg-white/10",
+          "hover:bg-foundation-bg-light-2 dark:hover:bg-foundation-bg-dark-2 cursor-pointer",
+        selected && "bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-3",
         disabled && "opacity-50 cursor-not-allowed",
         className,
       )}

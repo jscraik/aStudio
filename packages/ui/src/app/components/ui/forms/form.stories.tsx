@@ -2,8 +2,8 @@ import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useForm } from "react-hook-form";
 
-import { Button } from "./button";
-import { Input } from "./input";
+import { Button } from "../base/button";
+import { Input } from "../base/input";
 import {
   Form,
   FormControl,

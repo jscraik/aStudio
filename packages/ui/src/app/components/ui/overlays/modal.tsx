@@ -98,7 +98,7 @@ export function ModalDialog({
         className={cn(
           "relative z-10 outline-none",
           "bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2",
-          "border border-foundation-bg-light-3 dark:border-white/10",
+          "border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3",
           "rounded-xl shadow-2xl",
           "max-h-[90vh] overflow-y-auto",
           className,
@@ -147,18 +147,18 @@ export function ModalHeader({
   return (
     <div className={cn(
       "flex items-center justify-between px-6 py-4",
-      "border-b border-foundation-bg-light-3 dark:border-white/10",
+      "border-b border-foundation-bg-light-3 dark:border-foundation-bg-dark-3",
       className,
     )}>
       <div className="flex-1">
         <h2
           id={generatedTitleId}
-          className="text-[16px] font-semibold leading-[24px] tracking-[-0.32px] text-foundation-text-light-primary dark:text-white"
+          className="text-[16px] font-semibold leading-[24px] tracking-[-0.32px] text-foundation-text-light-primary dark:text-foundation-text-dark-primary"
         >
           {title}
         </h2>
         {subtitle && (
-          <p className="text-[13px] font-normal leading-[18px] tracking-[-0.32px] text-foundation-text-light-tertiary dark:text-white/60 mt-0.5">
+          <p className="text-[13px] font-normal leading-[18px] tracking-[-0.32px] text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary mt-0.5">
             {subtitle}
           </p>
         )}
@@ -170,9 +170,9 @@ export function ModalHeader({
           onClick={onClose}
           aria-label="Close dialog"
           title="Close dialog"
-          className="p-1 hover:bg-black/10 dark:hover:bg-white/10 rounded-lg transition-colors"
+          className="p-1 hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3 rounded-lg transition-colors"
         >
-          <svg className="size-4 text-foundation-text-light-tertiary dark:text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="size-4 text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
@@ -217,7 +217,7 @@ export function ModalFooter({ children, className }: ModalFooterProps) {
   return (
     <div className={cn(
       "flex items-center justify-end gap-3 px-6 py-4",
-      "border-t border-foundation-bg-light-3 dark:border-white/10",
+      "border-t border-foundation-bg-light-3 dark:border-foundation-bg-dark-3",
       className,
     )}>
       {children}

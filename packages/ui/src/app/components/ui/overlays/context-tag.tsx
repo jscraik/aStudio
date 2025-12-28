@@ -39,9 +39,9 @@ const variantStyles = {
     hover: "hover:bg-foundation-accent-red/30",
   },
   default: {
-    bg: "bg-white/10",
-    text: "text-white",
-    hover: "hover:bg-white/20",
+    bg: "bg-foundation-bg-light-3 dark:bg-foundation-bg-dark-3",
+    text: "text-foundation-text-light-primary dark:text-foundation-text-dark-primary",
+    hover: "hover:bg-foundation-bg-light-2 dark:hover:bg-foundation-bg-dark-2",
   },
 };
 

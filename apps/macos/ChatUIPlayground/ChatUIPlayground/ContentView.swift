@@ -33,6 +33,10 @@ enum ComponentType: String, CaseIterable {
     case button = "button"
     case input = "input"
     case card = "card"
+    case modal = "modal"
+    case navigation = "navigation"
+    case toast = "toast"
+    case dataDisplay = "dataDisplay"
     case tokens = "tokens"
 
     var displayName: String {
@@ -43,6 +47,14 @@ enum ComponentType: String, CaseIterable {
             return "Input"
         case .card:
             return "Card"
+        case .modal:
+            return "Modal & Dialogs"
+        case .navigation:
+            return "Navigation"
+        case .toast:
+            return "Toast & Notifications"
+        case .dataDisplay:
+            return "Data Display"
         case .tokens:
             return "Design Tokens"
         }
@@ -56,6 +68,14 @@ enum ComponentType: String, CaseIterable {
             return "textfield"
         case .card:
             return "rectangle"
+        case .modal:
+            return "macwindow"
+        case .navigation:
+            return "sidebar.left"
+        case .toast:
+            return "bell"
+        case .dataDisplay:
+            return "tablecells"
         case .tokens:
             return "paintpalette"
         }

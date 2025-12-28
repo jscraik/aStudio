@@ -9,7 +9,7 @@ import {
   sampleGroupChats,
   sampleProjects,
   sampleUser,
-} from "../data/sample-data";
+} from "../../data/sample-data";
 
 import { ChatSidebar } from "./ChatSidebar";
 

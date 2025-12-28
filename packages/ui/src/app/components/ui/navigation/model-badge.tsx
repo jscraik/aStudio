@@ -15,7 +15,7 @@ const variantStyles = {
   blue: "text-foundation-accent-blue bg-foundation-accent-blue/10",
   green: "text-foundation-accent-green bg-foundation-accent-green/10",
   orange: "text-foundation-accent-orange bg-foundation-accent-orange/10",
-  default: "text-white/80 bg-foundation-bg-dark-2",
+  default: "text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary bg-foundation-bg-light-3 dark:bg-foundation-bg-dark-3",
 };
 
 /**

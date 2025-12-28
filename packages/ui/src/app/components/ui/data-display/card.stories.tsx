@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "./card";
-import { Button } from "./button";
+import { Button } from "../base/button";
 
 const meta: Meta<typeof Card> = {
   title: "UI/Card",

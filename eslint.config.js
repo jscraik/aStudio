@@ -4,6 +4,7 @@ import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import importPlugin from "eslint-plugin-import";
 import jsxA11y from "eslint-plugin-jsx-a11y";
+import noDarkOnlyTokensRule from "./packages/ui/eslint-rules-no-dark-only-tokens.js";
 
 export default [
   {
@@ -26,6 +27,7 @@ export default [
       "react-hooks": reactHooks,
       import: importPlugin,
       "jsx-a11y": jsxA11y,
+      "@chatui-dark-only-tokens": noDarkOnlyTokensRule,
     },
     languageOptions: {
       ecmaVersion: "latest",
@@ -56,6 +58,14 @@ export default [
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
       "@typescript-eslint/no-explicit-any": "warn",
+      // Prevent dark-only token usage (media mode)
+      "@chatui-dark-only-tokens/no-dark-only-tokens": [
+        "error",
+        {
+          // Optional: allow specific patterns if needed
+          allowedPatterns: [],
+        },
+      ],
     },
   },
   {

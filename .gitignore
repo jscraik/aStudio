@@ -48,6 +48,9 @@ xcuserdata/
 *.xcodeproj/project.xcworkspace/
 *.xcodeproj/xcuserdata/
 
+# Embedded git repositories
+platforms/apple/apps/macos/ChatUIPlayground/
+
 # Tooling
 .kiro/
 

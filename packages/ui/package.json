@@ -150,7 +150,7 @@
     "vaul": "^1.1.0"
   },
   "devDependencies": {
-    "@storybook/react-vite": "^8.6.15",
+    "@storybook/react-vite": "^10.1.11",
     "@storybook/test": "^8.6.15",
     "storybook": "^8.6.15",
     "@testing-library/jest-dom": "^6.6.3",

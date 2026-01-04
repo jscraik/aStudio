@@ -1,5 +1,15 @@
 # ChatUI Cloudflare Workers Deployment Template
 
+Last updated: 2026-01-04
+
+## Doc requirements
+- Audience: Developers (intermediate)
+- Scope: Overview and essential workflows for this area
+- Non-scope: Deep API reference or internal design rationale
+- Owner: Infrastructure Team (confirm)
+- Review cadence: Each release (confirm)
+
+
 Deploy your ChatUI widgets to Cloudflare Workers with automatic widget discovery and MCP server integration.
 
 ## Table of contents

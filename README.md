@@ -1,6 +1,14 @@
 # Developer Design UI Library
 
-Last updated: 2026-01-02
+Last updated: 2026-01-04
+
+## Doc requirements
+- Audience: Developers (intermediate)
+- Scope: Overview and essential workflows for this area
+- Non-scope: Deep API reference or internal design rationale
+- Owner: Platform Team (confirm)
+- Review cadence: Quarterly (confirm)
+
 
 This repository is a **library-first monorepo** for building consistent UI across ChatGPT widgets and standalone React applications.
 
@@ -124,6 +132,7 @@ pnpm lint                   # ESLint
 pnpm format                 # Prettier (write)
 pnpm format:check           # Prettier (check only)
 pnpm lint:compliance        # Check compliance rules
+pnpm doc:lint               # Vale sync + markdown linting + link check
 
 # Building
 pnpm build                  # Full build pipeline
@@ -521,3 +530,18 @@ The repository supports both **React** (web/ChatGPT widgets) and **Swift** (macO
 - **React**: Uses `@chatui/ui`, `@chatui/runtime`, and `@chatui/tokens` packages
 - **Swift**: Uses modular Swift packages (`ChatUIFoundation`, `ChatUIComponents`, `ChatUIThemes`, etc.)
 - **Design Parity**: Both platforms share the same design tokens and visual language from Apps SDK UI
+
+---
+
+<img
+  src="./brand/brand-mark.webp"
+  srcset="./brand/brand-mark.webp 1x, ./brand/brand-mark@2x.webp 2x"
+  alt="brAInwav"
+  height="28"
+  align="left"
+/>
+
+<br clear="left" />
+
+**brAInwav**  
+_from demo to duty_

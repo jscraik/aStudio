@@ -1,5 +1,15 @@
 # @chatui/widgets
 
+Last updated: 2026-01-04
+
+## Doc requirements
+- Audience: Developers (intermediate)
+- Scope: Overview and essential workflows for this area
+- Non-scope: Deep API reference or internal design rationale
+- Owner: Widgets Team (confirm)
+- Review cadence: Each release (confirm)
+
+
 Standalone ChatUI widget bundles used by the MCP server and Cloudflare Workers deployment template.
 
 ## Table of contents

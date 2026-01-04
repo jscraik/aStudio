@@ -1,5 +1,15 @@
 # @chatui/tokens
 
+Last updated: 2026-01-04
+
+## Doc requirements
+- Audience: Developers (intermediate)
+- Scope: Overview and essential workflows for this area
+- Non-scope: Deep API reference or internal design rationale
+- Owner: Design Systems Team (confirm)
+- Review cadence: Each release (confirm)
+
+
 Design tokens for ChatUI. This package provides CSS variables, a Tailwind preset, and TypeScript exports used by Storybook and audits.
 
 Note: For production UI code, prefer Apps SDK UI components and tokens. Use these foundations as an audit/extension layer.

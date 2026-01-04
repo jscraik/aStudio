@@ -1,5 +1,28 @@
 # ChatUI Widget Gallery (platforms/web/apps/web)
 
+Last updated: 2026-01-04
+
+## Doc requirements
+- Audience: Developers (intermediate)
+- Scope: Overview and essential workflows for this area
+- Non-scope: Deep API reference or internal design rationale
+- Owner: Web Platform Team (confirm)
+- Review cadence: Each release (confirm)
+
+## Contents
+
+- [Doc requirements](#doc-requirements)
+- [What this app is for](#what-this-app-is-for)
+- [Quick Start](#quick-start)
+- [Widget Gallery Features](#widget-gallery-features)
+- [Build Widget for MCP](#build-widget-for-mcp)
+- [Environment Variables](#environment-variables)
+- [Key Files](#key-files)
+- [Verify](#verify)
+- [Troubleshooting](#troubleshooting)
+- [Routes](#routes)
+
+
 **Simplified app for visual widget testing and MCP widget build.**
 
 ## What this app is for

@@ -4,6 +4,16 @@ inclusion: always
 
 # Page Development Guide
 
+Last updated: 2026-01-04
+
+## Doc requirements
+- Audience: Developers (intermediate)
+- Scope: Topic defined by this document
+- Non-scope: Anything not explicitly covered here
+- Owner: TBD (confirm)
+- Review cadence: TBD (confirm)
+
+
 This guide explains how to create and integrate new page views in the ChatUI application. Follow these patterns for consistency and maintainability.
 
 ## 📁 Project Structure for Pages

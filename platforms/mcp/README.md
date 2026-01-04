@@ -1,5 +1,15 @@
 # MCP Server (platforms/mcp)
 
+Last updated: 2026-01-04
+
+## Doc requirements
+- Audience: Developers (intermediate)
+- Scope: Overview and essential workflows for this area
+- Non-scope: Deep API reference or internal design rationale
+- Owner: MCP Integrations Team (confirm)
+- Review cadence: Each release (confirm)
+
+
 Local MCP server used to expose ChatUI widgets and tool contracts for ChatGPT integration.
 
 ## Table of contents

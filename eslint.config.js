@@ -1,18 +1,18 @@
 import js from "@eslint/js";
-import tseslint from "typescript-eslint";
-import react from "eslint-plugin-react";
-import reactHooks from "eslint-plugin-react-hooks";
+import complexity from "eslint-plugin-complexity";
 import importPlugin from "eslint-plugin-import";
 import jsxA11y from "eslint-plugin-jsx-a11y";
+import react from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
 import sonarjs from "eslint-plugin-sonarjs";
-import complexity from "eslint-plugin-complexity";
+import tseslint from "typescript-eslint";
 
-import noDarkOnlyTokensRule from "./packages/ui/eslint-rules-no-dark-only-tokens.js";
-import uiSubpathImportsRule from "./packages/ui/eslint-rules-ui-subpath-imports.js";
-import noLucideDirectImportsRule from "./packages/ui/eslint-rules-no-lucide-direct-imports.js";
 import noConsoleInProductionRule from "./packages/ui/eslint-rules-no-console-in-production.js";
-import noWindowOpenaiDirectAccessRule from "./packages/ui/eslint-rules-no-window-openai-direct-access.js";
+import noDarkOnlyTokensRule from "./packages/ui/eslint-rules-no-dark-only-tokens.js";
 import noDeprecatedImportsRule from "./packages/ui/eslint-rules-no-deprecated-imports.js";
+import noLucideDirectImportsRule from "./packages/ui/eslint-rules-no-lucide-direct-imports.js";
+import noWindowOpenaiDirectAccessRule from "./packages/ui/eslint-rules-no-window-openai-direct-access.js";
+import uiSubpathImportsRule from "./packages/ui/eslint-rules-ui-subpath-imports.js";
 
 export default [
   {
@@ -313,7 +313,6 @@ export default [
   {
     files: [
       "platforms/web/apps/storybook/**/*.{js,jsx,ts,tsx}",
-      "platforms/web/apps/web/src/pages/TemplatesGalleryPage.tsx",
       "platforms/web/apps/web/src/pages/TemplateWidgetPage.tsx",
     ],
     rules: {

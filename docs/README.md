@@ -1,8 +1,9 @@
 # Documentation index for developers
 
-Last updated: 2026-01-04
+Last updated: 2026-01-07
 
 ## Doc requirements
+
 - Audience: Developers (intermediate)
 - Scope: Overview and essential workflows for this area
 - Non-scope: Deep API reference or internal design rationale
@@ -20,7 +21,6 @@ Last updated: 2026-01-04
 - [Guides](#guides)
 - [Root documentation](#root-documentation)
 - [Workflow docs](#workflow-docs)
-
 
 This index helps you find the right doc fast. Start here, then jump into the category you need.
 

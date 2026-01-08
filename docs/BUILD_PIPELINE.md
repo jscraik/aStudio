@@ -1,14 +1,14 @@
 # Enhanced Monorepo Build Pipeline
 
-Last updated: 2026-01-04
+Last updated: 2026-01-07
 
 ## Doc requirements
+
 - Audience: Developers (intermediate)
 - Scope: Topic defined by this document
 - Non-scope: Anything not explicitly covered here
 - Owner: TBD (confirm)
 - Review cadence: TBD (confirm)
-
 
 The enhanced build pipeline provides unified build orchestration for both npm (React/web) and Swift Package Manager (macOS/iOS) platforms with version synchronization, incremental builds, and comprehensive validation.
 
@@ -27,7 +27,7 @@ The enhanced build pipeline provides unified build orchestration for both npm (R
 ## Prerequisites
 
 - Node.js 18+
-- pnpm 9.15.0
+- pnpm 10.27.0
 - macOS 13+ + Xcode 15+ for Swift builds (if running `pnpm build:macos` / `pnpm test:swift`)
 
 ## Overview
@@ -388,7 +388,7 @@ rm -rf platforms/apple/swift/*/.build/
 - [Version Synchronization](./VERSION_SYNC.md)
 
 ## Risks and assumptions
+
 - Assumptions: TBD (confirm)
 - Failure modes and blast radius: TBD (confirm)
 - Rollback or recovery guidance: TBD (confirm)
-

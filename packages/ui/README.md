@@ -1,16 +1,16 @@
 # @chatui/ui
 
-Last updated: 2026-01-04
+Last updated: 2026-01-07
 
 ## Doc requirements
+
 - Audience: Developers (intermediate)
 - Scope: Overview and essential workflows for this area
 - Non-scope: Deep API reference or internal design rationale
 - Owner: Design Systems Team (confirm)
 - Review cadence: Each release (confirm)
 
-
-A comprehensive React UI component library built for ChatGPT Apps SDK and standalone applications.
+A comprehensive React UI component library built for ChatGPT Apps SDK and standalone applications. Part of the aStudio cross-platform UI workbench.
 
 ## Table of contents
 

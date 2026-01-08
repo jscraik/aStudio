@@ -1,16 +1,16 @@
 # @chatui/tokens
 
-Last updated: 2026-01-04
+Last updated: 2026-01-07
 
 ## Doc requirements
+
 - Audience: Developers (intermediate)
 - Scope: Overview and essential workflows for this area
 - Non-scope: Deep API reference or internal design rationale
 - Owner: Design Systems Team (confirm)
 - Review cadence: Each release (confirm)
 
-
-Design tokens for ChatUI. This package provides CSS variables, a Tailwind preset, and TypeScript exports used by Storybook and audits.
+Design tokens for aStudio. This package provides CSS variables, a Tailwind preset, and TypeScript exports used by Storybook and audits.
 
 Note: For production UI code, prefer Apps SDK UI components and tokens. Use these foundations as an audit/extension layer.
 
@@ -28,7 +28,7 @@ Note: For production UI code, prefer Apps SDK UI components and tokens. Use thes
 ## Prerequisites
 
 - Node.js 18+
-- pnpm 9.15.0 (for repo scripts)
+- pnpm 10.27.0 (for repo scripts)
 
 ## What this package contains
 

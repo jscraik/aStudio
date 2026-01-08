@@ -63,6 +63,7 @@
     "test:coverage": "pnpm -C packages/ui test:coverage",
     "test:embed": "node ./platforms/mcp/scripts/smoke.mjs",
     "lint:compliance": "node ./scripts/compliance.mjs",
+    "doc:lint": "vale sync && vale . && node scripts/check-doc-links.mjs",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -87,13 +88,13 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.4",
-    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-sonarjs": "^3.0.5",
     "fast-check": "^3.15.1",
     "playwright": "^1.57.0",
     "prettier": "^3.7.4",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.24.1",
+    "typescript-eslint": "^8.51.0",
     "vitest": "^4.0.16"
   },
   "pnpm": {

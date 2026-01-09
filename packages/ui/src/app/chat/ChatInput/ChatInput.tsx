@@ -202,6 +202,9 @@ export function ChatInput({
               )}
               style={{ minHeight: "26px", maxHeight: "200px" }}
               onKeyDown={(e) => {
+                if (e.nativeEvent.isComposing) {
+                  return;
+                }
                 if (e.key === "Enter" && !e.shiftKey && !e.metaKey) {
                   e.preventDefault();
                   handleSubmit(e);
@@ -235,6 +238,8 @@ export function ChatInput({
                 type="button"
                 onClick={handleSearchToggle}
                 title="Web search"
+                aria-label="Toggle web search"
+                aria-pressed={isSearchEnabled}
                 className={cn(
                   "flex items-center gap-1.5 px-2 py-1.5 rounded-lg transition-all duration-200",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foundation-accent-blue-light dark:focus-visible:ring-foundation-accent-blue focus-visible:ring-offset-1",
@@ -258,6 +263,8 @@ export function ChatInput({
                 type="button"
                 onClick={handleResearchToggle}
                 title="Research"
+                aria-label="Toggle research"
+                aria-pressed={isResearchEnabled}
                 className={cn(
                   "flex items-center gap-1.5 px-2 py-1.5 rounded-lg transition-all duration-200",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foundation-accent-blue-light dark:focus-visible:ring-foundation-accent-blue focus-visible:ring-offset-1",
@@ -319,6 +326,7 @@ export function ChatInput({
               {/* History */}
               <button
                 type="button"
+                aria-label="History"
                 className={cn(
                   "p-2 rounded-lg transition-all duration-200",
                   "text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary",
@@ -335,6 +343,8 @@ export function ChatInput({
               <button
                 type="button"
                 onClick={() => setIsRecording(!isRecording)}
+                aria-label="Toggle voice input"
+                aria-pressed={isRecording}
                 className={cn(
                   "p-2 rounded-lg transition-all duration-200",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foundation-accent-blue-light dark:focus-visible:ring-foundation-accent-blue focus-visible:ring-offset-1",
@@ -354,10 +364,10 @@ export function ChatInput({
               <button
                 type="button"
                 title="Advanced features"
+                aria-label="Advanced features"
                 className={cn(
                   "flex items-center gap-1.5 p-2 rounded-full transition-all duration-200",
-                  "bg-gradient-to-br from-foundation-accent-purple-light via-foundation-accent-purple to-foundation-accent-pink",
-                  "dark:from-foundation-accent-purple dark:via-foundation-accent-purple dark:to-foundation-accent-pink",
+                  "bg-gradient-to-br from-foundation-accent-purple-light via-foundation-accent-purple-light to-foundation-accent-pink-light dark:from-foundation-accent-purple dark:via-foundation-accent-purple dark:to-foundation-accent-pink",
                   "hover:opacity-90 hover:scale-105 active:scale-95",
                   "shadow-lg shadow-foundation-accent-purple-light/25 dark:shadow-foundation-accent-purple/25",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foundation-accent-blue-light dark:focus-visible:ring-foundation-accent-blue focus-visible:ring-offset-1",
@@ -371,6 +381,7 @@ export function ChatInput({
                 type="submit"
                 disabled={!message.trim() || disabled}
                 title="Send message (Enter)"
+                aria-label="Send message"
                 className={cn(
                   "flex items-center gap-1.5 p-2 rounded-full ml-1 transition-all duration-200",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foundation-accent-blue-light dark:focus-visible:ring-foundation-accent-blue focus-visible:ring-offset-1",

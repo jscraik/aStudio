@@ -14,6 +14,14 @@ import { useRef } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../../../components/ui/base/Collapsible";
 import { Input } from "../../../components/ui/base/Input";
 import { ListItem } from "../../../components/ui/base/ListItem";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../../../components/ui/overlays";
 import { cn } from "../../../components/ui/utils";
 import {
   IconChat,
@@ -397,74 +405,88 @@ export function ChatSidebar({
           )}
         </div>
 
-        <div className="p-2 border-t border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 relative">
-          <button
-            ref={userMenuButtonRef}
-            onClick={() => setShowUserMenu(!showUserMenu)}
-            className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-foundation-bg-light-2 dark:hover:bg-foundation-bg-dark-2 transition-colors ${railItemClassName}`}
-            title={isCollapsed ? "Jamie Scott Craik" : ""}
-            data-testid="chat-sidebar-user-menu"
-          >
-            <div className="size-7 rounded-full bg-foundation-accent-purple-light dark:bg-foundation-accent-purple text-foundation-text-dark-primary flex items-center justify-center flex-shrink-0">
-              <IconCloseBold className="size-5" />
-            </div>
-            {!isCollapsed && (
-              <div className="flex flex-col items-start flex-1 min-w-0">
-                <span className="text-body-small truncate font-normal text-foundation-text-light-primary dark:text-foundation-text-dark-primary">
-                  Jamie Scott Craik
-                </span>
-                <span className="text-caption font-normal text-foundation-text-light-primary dark:text-foundation-text-dark-primary">
-                  Personal account
-                </span>
-              </div>
-            )}
-          </button>
-          {showUserMenu && !isCollapsed && (
-            <div className="absolute bottom-full left-3 right-3 mb-2 bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-xl shadow-2xl py-1 z-50">
-              <div className="px-3 py-2.5 border-b border-foundation-bg-light-3 dark:border-foundation-bg-dark-3">
-                <div className="flex items-center gap-2 text-body-small">
-                  <div className="size-2 rounded-full bg-[var(--accent-green)]" />
-                  <span className="text-foundation-text-light-primary dark:text-foundation-text-dark-primary font-normal">
-                    PRO/Veteran/Lik
-                  </span>
-                </div>
-              </div>
-              <button className="w-full text-left px-3 py-2.5 hover:bg-foundation-bg-light-2 dark:hover:bg-foundation-bg-dark-2 transition-colors flex items-center gap-2">
-                <svg
-                  className="size-4 text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                  <circle cx="12" cy="7" r="4" />
-                </svg>
-                <span className="text-body-small text-foundation-text-light-primary dark:text-foundation-text-dark-primary font-normal">
-                  Personal account
-                </span>
-              </button>
+        <div className="p-2 border-t border-foundation-bg-light-3 dark:border-foundation-bg-dark-3">
+          <DropdownMenu open={showUserMenu} onOpenChange={setShowUserMenu}>
+            <DropdownMenuTrigger asChild>
               <button
-                onClick={() => {
-                  setShowUserMenu(false);
-                  setShowSettingsModal(true);
-                }}
-                data-testid="chat-sidebar-settings"
-                className="w-full text-left px-3 py-2.5 hover:bg-foundation-bg-light-2 dark:hover:bg-foundation-bg-dark-2 transition-colors flex items-center gap-2"
+                ref={userMenuButtonRef}
+                disabled={isCollapsed}
+                className={cn(
+                  "w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors",
+                  "hover:bg-foundation-bg-light-2 dark:hover:bg-foundation-bg-dark-2",
+                  "disabled:opacity-60 disabled:hover:bg-transparent",
+                  railItemClassName,
+                )}
+                title={isCollapsed ? "Jamie Scott Craik" : ""}
+                aria-label="User menu"
+                data-testid="chat-sidebar-user-menu"
               >
-                <IconSettings className="size-4 text-foundation-icon-light-secondary dark:text-foundation-icon-dark-secondary" />
-                <span className="text-body-small text-foundation-text-light-primary dark:text-foundation-text-dark-primary font-normal">
-                  Settings
-                </span>
+                <div className="size-7 rounded-full bg-foundation-accent-purple-light dark:bg-foundation-accent-purple text-foundation-text-dark-primary flex items-center justify-center flex-shrink-0">
+                  <IconCloseBold className="size-5" />
+                </div>
+                {!isCollapsed && (
+                  <div className="flex flex-col items-start flex-1 min-w-0">
+                    <span className="text-body-small truncate font-normal text-foundation-text-light-primary dark:text-foundation-text-dark-primary">
+                      Jamie Scott Craik
+                    </span>
+                    <span className="text-caption font-normal text-foundation-text-light-primary dark:text-foundation-text-dark-primary">
+                      Personal account
+                    </span>
+                  </div>
+                )}
               </button>
-              <div className="my-1 border-t border-foundation-bg-light-3 dark:border-foundation-bg-dark-3" />
-              <button className="w-full text-left px-3 py-2.5 hover:bg-foundation-bg-light-2 dark:hover:bg-foundation-bg-dark-2 transition-colors">
-                <span className="text-body-small text-foundation-text-light-primary dark:text-foundation-text-dark-primary font-normal">
-                  Log Out
-                </span>
-              </button>
-            </div>
-          )}
+            </DropdownMenuTrigger>
+            {!isCollapsed && (
+              <DropdownMenuContent
+                align="start"
+                side="top"
+                sideOffset={8}
+                className="min-w-[220px] bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-2 border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 rounded-xl shadow-2xl py-1"
+              >
+                <DropdownMenuLabel className="px-3 py-2.5 border-b border-foundation-bg-light-3 dark:border-foundation-bg-dark-3">
+                  <div className="flex items-center gap-2 text-body-small">
+                    <div className="size-2 rounded-full bg-[var(--accent-green)]" />
+                    <span className="text-foundation-text-light-primary dark:text-foundation-text-dark-primary font-normal">
+                      PRO/Veteran/Lik
+                    </span>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuItem className="px-3 py-2.5 flex items-center gap-2">
+                  <svg
+                    className="size-4 text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  <span className="text-body-small text-foundation-text-light-primary dark:text-foundation-text-dark-primary font-normal">
+                    Personal account
+                  </span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  data-testid="chat-sidebar-settings"
+                  onSelect={() => {
+                    setShowSettingsModal(true);
+                  }}
+                  className="px-3 py-2.5 flex items-center gap-2"
+                >
+                  <IconSettings className="size-4 text-foundation-icon-light-secondary dark:text-foundation-icon-dark-secondary" />
+                  <span className="text-body-small text-foundation-text-light-primary dark:text-foundation-text-dark-primary font-normal">
+                    Settings
+                  </span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator className="my-1 bg-foundation-bg-light-3 dark:bg-foundation-bg-dark-3" />
+                <DropdownMenuItem className="px-3 py-2.5">
+                  <span className="text-body-small text-foundation-text-light-primary dark:text-foundation-text-dark-primary font-normal">
+                    Log Out
+                  </span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            )}
+          </DropdownMenu>
         </div>
 
         {showIconPicker && selectedProjectForIcon && (

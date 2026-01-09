@@ -1,1 +1,1 @@
-export * from "./Menubar";
+export * from "./fallback/Menubar";

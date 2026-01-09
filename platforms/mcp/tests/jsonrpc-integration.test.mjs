@@ -45,7 +45,7 @@ async function jsonRpcRequest(method, params = {}, id = 1) {
 				try {
 					const response = JSON.parse(data);
 					resolve(response);
-				} catch (err) {
+				} catch {
 					reject(new Error(`Invalid JSON response: ${data}`));
 				}
 			});

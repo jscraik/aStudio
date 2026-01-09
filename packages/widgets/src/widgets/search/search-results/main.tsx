@@ -1,6 +1,5 @@
 import { HostProvider, createEmbeddedHost, ensureMockOpenAI, useToolOutput } from "@chatui/runtime";
-import { AppsSDKUIProvider } from "@chatui/ui";
-import { Badge } from "@openai/apps-sdk-ui/components/Badge";
+import { AppsSDKBadge, AppsSDKUIProvider } from "@chatui/ui";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "../../../styles.css";
@@ -88,9 +87,9 @@ function SearchResultsWidget() {
             {result.tags && (
               <div className="flex flex-wrap gap-1 mt-2">
                 {result.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary" className="text-[11px]">
+                  <AppsSDKBadge key={tag} variant="secondary" className="text-[11px]">
                     {tag}
-                  </Badge>
+                  </AppsSDKBadge>
                 ))}
               </div>
             )}

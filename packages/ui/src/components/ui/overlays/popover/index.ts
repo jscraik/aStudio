@@ -1,1 +1,1 @@
-export * from "./Popover";
+export * from "./fallback/Popover";

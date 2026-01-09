@@ -10,7 +10,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "./Select";
+} from "./fallback/Select";
 
 type SelectStoryArgs = React.ComponentProps<typeof Select> & {
   triggerSize: "sm" | "default";

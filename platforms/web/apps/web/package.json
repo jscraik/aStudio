@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "build:widget": "vite build && node ./scripts/inline-widget.mjs"
+    "build:widget": "vite build && node ./scripts/inline-widget.mjs",
+    "registry:generate": "tsx scripts/generate-template-registry.ts",
+    "registry:check": "tsx scripts/generate-template-registry.ts --check"
   },
   "dependencies": {
     "@chatui/runtime": "workspace:*",
@@ -20,6 +22,7 @@
     "@tailwindcss/vite": "4.1.12",
     "@vitejs/plugin-react": "5.1.2",
     "tailwindcss": "4.1.12",
-    "vite": "7.3.0"
+    "tsx": "^4.7.0",
+    "vite": "6.4.1"
   }
 }

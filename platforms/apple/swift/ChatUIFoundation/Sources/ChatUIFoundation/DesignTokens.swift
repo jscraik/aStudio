@@ -13,10 +13,8 @@ public enum DesignTokens {
     
     // MARK: - Colors
     
-    /// Color tokens grouped by semantic usage.
     public enum Colors {
         
-        /// Background surface colors.
         public enum Background {
             public static let lightPrimary = Color(hex: "#FFFFFF")
             public static let lightSecondary = Color(hex: "#E8E8E8")
@@ -43,7 +41,6 @@ public enum DesignTokens {
             )
         }
         
-        /// Text foreground colors.
         public enum Text {
             public static let lightPrimary = Color(hex: "#0D0D0D")
             public static let lightSecondary = Color(hex: "#5D5D5D")
@@ -77,7 +74,6 @@ public enum DesignTokens {
             )
         }
         
-        /// Icon foreground colors.
         public enum Icon {
             public static let lightPrimary = Color(hex: "#0D0D0D")
             public static let lightSecondary = Color(hex: "#5D5D5D")
@@ -139,12 +135,13 @@ public enum DesignTokens {
             )
         }
 
-        /// Border and divider colors.
         public enum Border {
             public static let lightLight = Color(hex: "#0D0D0D0D")
+            public static let lightDefault = Color(hex: "#0D0D0D26")
             public static let lightHeavy = Color(hex: "#0D0D0D26")
 
             public static let darkDefault = Color(hex: "#FFFFFF26")
+            public static let darkHeavy = Color(hex: "#FFFFFF26")
             public static let darkLight = Color(hex: "#FFFFFF0D")
 
             // Dynamic colors that adapt to system appearance
@@ -159,7 +156,6 @@ public enum DesignTokens {
             )
         }
         
-        /// Accent colors for statuses and semantic accents.
         public enum Accent {
             public static let lightGray = Color(hex: "#8F8F8F")
             public static let lightRed = Color(hex: "#E02E2A")
@@ -228,7 +224,6 @@ public enum DesignTokens {
             )
         }
 
-        /// Interactive element colors.
         public enum Interactive {
             public static let lightRing = Color(hex: "#0285FF")
             public static let darkRing = Color(hex: "#0285FF")
@@ -243,12 +238,9 @@ public enum DesignTokens {
     
     // MARK: - Typography
     
-    /// Typography scale and font tokens.
     public enum Typography {
-        /// Default font family name.
         public static let fontFamily = "SF Pro"
         
-        /// Heading level 1 typography tokens.
         public enum Heading1 {
             public static let size: CGFloat = 36
             public static let lineHeight: CGFloat = 40
@@ -256,7 +248,6 @@ public enum DesignTokens {
             public static let tracking: CGFloat = -0.1
         }
 
-        /// Heading level 2 typography tokens.
         public enum Heading2 {
             public static let size: CGFloat = 24
             public static let lineHeight: CGFloat = 28
@@ -264,7 +255,6 @@ public enum DesignTokens {
             public static let tracking: CGFloat = -0.25
         }
 
-        /// Heading level 3 typography tokens.
         public enum Heading3 {
             public static let size: CGFloat = 18
             public static let lineHeight: CGFloat = 26
@@ -272,7 +262,6 @@ public enum DesignTokens {
             public static let tracking: CGFloat = -0.45
         }
 
-        /// Body typography tokens.
         public enum Body {
             public static let size: CGFloat = 16
             public static let lineHeight: CGFloat = 26
@@ -281,7 +270,6 @@ public enum DesignTokens {
             public static let tracking: CGFloat = -0.4
         }
 
-        /// Small body typography tokens.
         public enum BodySmall {
             public static let size: CGFloat = 14
             public static let lineHeight: CGFloat = 18
@@ -290,7 +278,6 @@ public enum DesignTokens {
             public static let tracking: CGFloat = -0.3
         }
 
-        /// Caption typography tokens.
         public enum Caption {
             public static let size: CGFloat = 12
             public static let lineHeight: CGFloat = 16
@@ -299,7 +286,6 @@ public enum DesignTokens {
             public static let tracking: CGFloat = -0.1
         }
 
-        /// Card title typography tokens.
         public enum CardTitle {
             public static let size: CGFloat = 17
             public static let lineHeight: CGFloat = 23
@@ -307,7 +293,6 @@ public enum DesignTokens {
             public static let tracking: CGFloat = -0.43
         }
 
-        /// List title typography tokens.
         public enum ListTitle {
             public static let size: CGFloat = 17
             public static let lineHeight: CGFloat = 24
@@ -315,7 +300,6 @@ public enum DesignTokens {
             public static let tracking: CGFloat = -0.4
         }
 
-        /// List subtitle typography tokens.
         public enum ListSubtitle {
             public static let size: CGFloat = 14
             public static let lineHeight: CGFloat = 20
@@ -323,7 +307,6 @@ public enum DesignTokens {
             public static let tracking: CGFloat = -0.18
         }
 
-        /// Button label typography tokens.
         public enum ButtonLabel {
             public static let size: CGFloat = 15
             public static let lineHeight: CGFloat = 24
@@ -331,7 +314,6 @@ public enum DesignTokens {
             public static let tracking: CGFloat = -0.24
         }
 
-        /// Small button label typography tokens.
         public enum ButtonLabelSmall {
             public static let size: CGFloat = 14
             public static let lineHeight: CGFloat = 20
@@ -343,7 +325,6 @@ public enum DesignTokens {
     
     // MARK: - Spacing
     
-    /// Spacing scale tokens.
     public enum Spacing {
         public static let scale: [CGFloat] = [128, 64, 48, 40, 32, 24, 16, 12, 8, 4, 2, 0]
         
@@ -364,7 +345,6 @@ public enum DesignTokens {
     
     // MARK: - Corner Radius
     
-    /// Corner radius tokens.
     public enum CornerRadius {
         public static let small: CGFloat = 6
         public static let medium: CGFloat = 8
@@ -385,7 +365,6 @@ public enum DesignTokens {
 
     // MARK: - Sizes
 
-    /// Standard component size tokens.
     public enum Size {
         public static let controlHeight: CGFloat = 44
         public static let cardHeaderHeight: CGFloat = 56
@@ -394,26 +373,13 @@ public enum DesignTokens {
 
     // MARK: - Shadows
 
-    /// Shadow token value definition.
     public struct ShadowToken {
-        /// Shadow color.
         public let color: Color
-        /// Horizontal offset.
         public let x: CGFloat
-        /// Vertical offset.
         public let y: CGFloat
-        /// Blur radius.
         public let blur: CGFloat
-        /// Spread radius.
         public let spread: CGFloat
 
-        /// Creates a shadow token definition.
-        /// - Parameters:
-        ///   - color: Shadow color.
-        ///   - x: Horizontal offset.
-        ///   - y: Vertical offset.
-        ///   - blur: Blur radius.
-        ///   - spread: Spread radius.
         public init(color: Color, x: CGFloat, y: CGFloat, blur: CGFloat, spread: CGFloat) {
             self.color = color
             self.x = x
@@ -423,7 +389,6 @@ public enum DesignTokens {
         }
     }
 
-    /// Shadow tokens for common surfaces.
     public enum Shadow {
         public static let card = ShadowToken(
             color: Color(hex: "0000000D"),
@@ -460,7 +425,6 @@ public enum DesignTokens {
     
     // MARK: - Accessibility
     
-    /// Accessibility-related tokens and helpers.
     public enum Accessibility {
         /// Focus ring color for keyboard navigation
         public static let focusRing = Color(hex: "#0285FF")

@@ -3,7 +3,7 @@ import { expect, within } from "@storybook/test";
 
 import { Button } from "../../base/Button";
 
-import { Tooltip, TooltipContent, TooltipTrigger } from "./Tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./fallback/Tooltip";
 
 const meta: Meta<typeof Tooltip> = {
   title: "Components/UI/Overlays/Tooltip",

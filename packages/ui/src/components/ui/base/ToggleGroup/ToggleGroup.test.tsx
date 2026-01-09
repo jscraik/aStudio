@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import { expectFocused, render, screen } from "../../../../testing/utils";
 
-import { ToggleGroup, ToggleGroupItem } from "./ToggleGroup";
+import { ToggleGroup, ToggleGroupItem } from "./fallback/ToggleGroup";
 
 describe("ToggleGroup", () => {
   describe("rendering", () => {

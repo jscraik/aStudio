@@ -1,5 +1,5 @@
 import { createEmbeddedHost, ensureMockOpenAI, HostProvider } from "@chatui/runtime";
-import { AppsSDKUIProvider, Button, Card } from "@chatui/ui";
+import { AppsSDKButton, AppsSDKUIProvider, Card } from "@chatui/ui";
 import { useState } from "react";
 
 import type { ExampleToolOutput } from "../../../src/shared/tool-output-types";
@@ -157,15 +157,15 @@ function EnhancedExampleCore() {
       <Card className="p-4">
         <h2 className="text-lg font-semibold text-white mb-3">Interactive Elements</h2>
         <div className="flex flex-wrap items-center gap-3 mb-4">
-          <Button onClick={() => setLocalCount((c) => c + 1)} variant="primary">
+          <AppsSDKButton onClick={() => setLocalCount((c) => c + 1)} variant="solid" color="primary">
             Local Count: {localCount}
-          </Button>
-          <Button onClick={handleCallTool} variant="secondary" disabled={!callTool}>
+          </AppsSDKButton>
+          <AppsSDKButton onClick={handleCallTool} variant="ghost" color="secondary" disabled={!callTool}>
             Call Tool
-          </Button>
-          <Button onClick={handleToggleFullscreen} variant="outline" disabled={!requestMode}>
+          </AppsSDKButton>
+          <AppsSDKButton onClick={handleToggleFullscreen} variant="outline" color="secondary" disabled={!requestMode}>
             Toggle Fullscreen
-          </Button>
+          </AppsSDKButton>
         </div>
 
         <div className="text-sm text-gray-400">Widget state count: {currentState.localCount}</div>
@@ -177,15 +177,16 @@ function EnhancedExampleCore() {
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-gray-300">Notifications</span>
-            <Button
+            <AppsSDKButton
               onClick={() =>
                 updatePreferences("notifications", !currentState.preferences.notifications)
               }
-              variant={currentState.preferences.notifications ? "primary" : "outline"}
+              variant={currentState.preferences.notifications ? "solid" : "outline"}
+              color={currentState.preferences.notifications ? "primary" : "secondary"}
               size="sm"
             >
               {currentState.preferences.notifications ? "On" : "Off"}
-            </Button>
+            </AppsSDKButton>
           </div>
 
           <div className="flex items-center justify-between">

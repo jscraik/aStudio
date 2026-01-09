@@ -11,7 +11,10 @@ import noConsoleInProductionRule from "./packages/ui/eslint-rules-no-console-in-
 import noDarkOnlyTokensRule from "./packages/ui/eslint-rules-no-dark-only-tokens.js";
 import noDeprecatedImportsRule from "./packages/ui/eslint-rules-no-deprecated-imports.js";
 import noLucideDirectImportsRule from "./packages/ui/eslint-rules-no-lucide-direct-imports.js";
+import noRawTokensRule from "./packages/ui/eslint-rules-no-raw-tokens.js";
 import noWindowOpenaiDirectAccessRule from "./packages/ui/eslint-rules-no-window-openai-direct-access.js";
+import appsSdkFirstRule from "./packages/ui/eslint-rules-apps-sdk-first.js";
+import radixFallbackOnlyRule from "./packages/ui/eslint-rules-radix-fallback-only.js";
 import uiSubpathImportsRule from "./packages/ui/eslint-rules-ui-subpath-imports.js";
 
 export default [
@@ -24,6 +27,7 @@ export default [
       "scripts/new-component.mjs",
       "**/.*/**",
       "_temp/**",
+      "**/_temp_import/**",
       "**/docs/examples/**",
       "**/src/**/generated/**",
       "pnpm-lock.yaml",
@@ -43,9 +47,12 @@ export default [
       "@chatui-dark-only-tokens": noDarkOnlyTokensRule,
       "@chatui-ui-subpaths": uiSubpathImportsRule,
       "@chatui-no-lucide-direct-imports": noLucideDirectImportsRule,
+      "@chatui-no-raw-tokens": noRawTokensRule,
       "@chatui-no-console": noConsoleInProductionRule,
       "@chatui-no-window-openai": noWindowOpenaiDirectAccessRule,
       "@chatui-no-deprecated": noDeprecatedImportsRule,
+      "@chatui-apps-sdk-first": appsSdkFirstRule,
+      "@chatui-radix-fallback": radixFallbackOnlyRule,
     },
     languageOptions: {
       ecmaVersion: "latest",
@@ -159,6 +166,28 @@ export default [
           },
         },
       ],
+      // Restrict Radix primitives to fallback components
+      "@chatui-radix-fallback/radix-fallback-only": "error",
+      // Prefer Apps SDK UI re-exports where available
+      "@chatui-apps-sdk-first/apps-sdk-first": [
+        "error",
+        {
+          allowInPatterns: [
+            "**/packages/ui/src/components/**",
+            "**/packages/ui/src/templates/**",
+            "**/packages/ui/src/design-system/**",
+            "**/packages/ui/src/storybook/**",
+            "**/packages/ui/src/app/**",
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ["packages/ui/src/components/**/*.{ts,tsx}"],
+    ignores: ["**/*.stories.*", "**/*.test.*", "**/dev/**"],
+    rules: {
+      "@chatui-no-raw-tokens/no-raw-tokens": "error",
     },
   },
   {

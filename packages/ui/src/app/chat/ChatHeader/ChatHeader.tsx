@@ -1,6 +1,6 @@
-import * as Popover from "@radix-ui/react-popover";
 import { useState } from "react";
 
+import { Popover, PopoverContent, PopoverTrigger } from "../../../components/ui/overlays/Popover";
 import { cn } from "../../../components/ui/utils";
 import {
   IconChat,
@@ -193,8 +193,8 @@ export function ChatHeader({
 
         {/* Model Selector */}
         {viewMode !== "compose" && (
-          <Popover.Root open={isModelSelectorOpen} onOpenChange={setIsModelSelectorOpen}>
-            <Popover.Trigger asChild>
+          <Popover open={isModelSelectorOpen} onOpenChange={setIsModelSelectorOpen}>
+            <PopoverTrigger asChild>
               <button
                 type="button"
                 className={cn(
@@ -219,21 +219,20 @@ export function ChatHeader({
                   )}
                 />
               </button>
-            </Popover.Trigger>
-            <Popover.Portal>
-              <Popover.Content
-                forceMount
-                side="bottom"
-                align="start"
-                sideOffset={8}
-                className={cn(
-                  "z-50 w-[320px] rounded-2xl overflow-hidden",
-                  "border border-foundation-border-light dark:border-foundation-border-dark",
-                  "bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-2",
-                  "shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.24)]",
-                  "animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-200",
-                )}
-              >
+            </PopoverTrigger>
+            <PopoverContent
+              forceMount
+              side="bottom"
+              align="start"
+              sideOffset={8}
+              className={cn(
+                "z-50 w-[320px] rounded-2xl overflow-hidden",
+                "border border-foundation-border-light dark:border-foundation-border-dark",
+                "bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-2",
+                "shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.24)]",
+                "animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-200",
+              )}
+            >
                 <div className="p-2">
                   {/* Available Models */}
                   <div className="space-y-0.5">
@@ -285,8 +284,8 @@ export function ChatHeader({
                   <div className="h-px bg-foundation-border-light dark:bg-foundation-border-dark my-2" />
 
                   {/* Legacy Models Submenu */}
-                  <Popover.Root open={isLegacyOpen} onOpenChange={setIsLegacyOpen}>
-                    <Popover.Trigger asChild>
+                  <Popover open={isLegacyOpen} onOpenChange={setIsLegacyOpen}>
+                    <PopoverTrigger asChild>
                       <button
                         type="button"
                         className={cn(
@@ -308,21 +307,20 @@ export function ChatHeader({
                           )}
                         />
                       </button>
-                    </Popover.Trigger>
-                    <Popover.Portal>
-                      <Popover.Content
-                        forceMount
-                        side="right"
-                        align="start"
-                        sideOffset={8}
-                        className={cn(
-                          "z-50 w-[280px] rounded-2xl overflow-hidden",
-                          "border border-foundation-border-light dark:border-foundation-border-dark",
-                          "bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-2",
-                          "shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.24)]",
-                          "animate-in fade-in-0 zoom-in-95 slide-in-from-left-2 duration-200",
-                        )}
-                      >
+                    </PopoverTrigger>
+                    <PopoverContent
+                      forceMount
+                      side="right"
+                      align="start"
+                      sideOffset={8}
+                      className={cn(
+                        "z-50 w-[280px] rounded-2xl overflow-hidden",
+                        "border border-foundation-border-light dark:border-foundation-border-dark",
+                        "bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-2",
+                        "shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.24)]",
+                        "animate-in fade-in-0 zoom-in-95 slide-in-from-left-2 duration-200",
+                      )}
+                    >
                         <div className="p-2 max-h-[320px] overflow-y-auto scrollbar-thin scrollbar-thumb-foundation-bg-light-3 dark:scrollbar-thumb-foundation-bg-dark-3 scrollbar-track-transparent">
                           <div className="space-y-0.5">
                             {legacyModels.map((model) => (
@@ -350,13 +348,11 @@ export function ChatHeader({
                             ))}
                           </div>
                         </div>
-                      </Popover.Content>
-                    </Popover.Portal>
-                  </Popover.Root>
+                    </PopoverContent>
+                  </Popover>
                 </div>
-              </Popover.Content>
-            </Popover.Portal>
-          </Popover.Root>
+            </PopoverContent>
+          </Popover>
         )}
       </div>
 

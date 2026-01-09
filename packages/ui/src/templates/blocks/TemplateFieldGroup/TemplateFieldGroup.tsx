@@ -448,7 +448,7 @@ export function TemplateFieldGroupDivider({ label, className }: TemplateFieldGro
         <span className="text-[11px] font-medium uppercase tracking-wider text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary">
           {label}
         </span>
-        <div className="flex-1 h-px bg-foundation-bg-light-3 dark:border-foundation-bg-dark-3" />
+        <div className="flex-1 h-px bg-foundation-bg-light-3 dark:bg-foundation-bg-dark-3" />
       </div>
     );
   }

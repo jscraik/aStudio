@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { render, screen } from "../../../../testing/utils";
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./Accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./fallback/Accordion";
 
 describe("Accordion", () => {
   it("renders with data-slot attributes", () => {

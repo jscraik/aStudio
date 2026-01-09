@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import { expectFocused, render, screen } from "../../../../testing/utils";
 
-import { Button } from "./Button";
+import { Button } from "./fallback/Button";
 
 describe("Button", () => {
   describe("rendering", () => {
@@ -143,7 +143,9 @@ describe("Button", () => {
 
     it("has visible focus indicator styles", () => {
       render(<Button>Click me</Button>);
-      expect(screen.getByRole("button")).toHaveClass("focus-visible:ring-foundation-accent-blue");
+      expect(screen.getByRole("button")).toHaveClass(
+        "focus-visible:ring-foundation-text-light-primary",
+      );
     });
   });
 

@@ -1,4 +1,4 @@
-import { Button, ModalBody, ModalDialog, ModalFooter, ModalHeader } from "@chatui/ui";
+import { AppsSDKButton, ModalBody, ModalDialog, ModalFooter, ModalHeader } from "@chatui/ui";
 import { DiscoverySettingsModal, IconPickerModal, SettingsModal } from "@chatui/ui/modals";
 import { useState } from "react";
 
@@ -139,38 +139,38 @@ export function HarnessPage() {
             Modal Test Controls
           </h3>
           <div className="space-y-2">
-            <Button
+            <AppsSDKButton
               size="sm"
               variant="outline"
               className="w-full justify-start"
               onClick={() => setIsModalOpen(true)}
             >
               Open Modal
-            </Button>
-            <Button
+            </AppsSDKButton>
+            <AppsSDKButton
               size="sm"
               variant="outline"
               className="w-full justify-start"
               onClick={() => setIsSettingsOpen(true)}
             >
               Open Settings
-            </Button>
-            <Button
+            </AppsSDKButton>
+            <AppsSDKButton
               size="sm"
               variant="outline"
               className="w-full justify-start"
               onClick={() => setIsIconPickerOpen(true)}
             >
               Choose Icon
-            </Button>
-            <Button
+            </AppsSDKButton>
+            <AppsSDKButton
               size="sm"
               variant="outline"
               className="w-full justify-start"
               onClick={() => setIsDiscoveryOpen(true)}
             >
               Discovery Settings
-            </Button>
+            </AppsSDKButton>
           </div>
         </div>
       </div>
@@ -183,7 +183,7 @@ export function HarnessPage() {
           </h1>
           <p className="text-foundation-text-light-secondary mt-1">{selectedWidget.description}</p>
           <div className="mt-2 flex gap-2">
-            <Button
+            <AppsSDKButton
               size="sm"
               variant="outline"
               onClick={() =>
@@ -191,7 +191,7 @@ export function HarnessPage() {
               }
             >
               Open in New Tab
-            </Button>
+            </AppsSDKButton>
           </div>
         </div>
 
@@ -230,18 +230,18 @@ export function HarnessPage() {
             />
           </label>
           <div className="flex items-center gap-2">
-            <Button size="sm" variant="outline" onClick={() => setIsModalOpen(false)}>
+            <AppsSDKButton size="sm" variant="outline" onClick={() => setIsModalOpen(false)}>
               Cancel
-            </Button>
-            <Button size="sm" onClick={() => setIsModalOpen(false)}>
+            </AppsSDKButton>
+            <AppsSDKButton size="sm" onClick={() => setIsModalOpen(false)}>
               Confirm
-            </Button>
+            </AppsSDKButton>
           </div>
         </ModalBody>
         <ModalFooter>
-          <Button variant="ghost" size="sm" onClick={() => setIsModalOpen(false)}>
+          <AppsSDKButton variant="ghost" size="sm" onClick={() => setIsModalOpen(false)}>
             Close
-          </Button>
+          </AppsSDKButton>
         </ModalFooter>
       </ModalDialog>
 

@@ -19,6 +19,7 @@ Last updated: 2026-01-07
 - [Architecture docs](#architecture-docs)
 - [Audit reports](#audit-reports)
 - [Guides](#guides)
+- [Design system governance](#design-system-governance)
 - [Root documentation](#root-documentation)
 - [Workflow docs](#workflow-docs)
 
@@ -30,6 +31,7 @@ This index helps you find the right doc fast. Start here, then jump into the cat
 docs/
 ├── architecture/    # System design and architecture documents
 ├── audits/          # Design system audits and compliance reports
+├── design-system/   # Design system governance and coverage artifacts
 ├── guides/          # How-to guides and quick starts
 ├── features/        # Feature design specs and parity notes
 ├── foundations/     # Source reference materials (PDFs, specs)
@@ -90,6 +92,13 @@ Step-by-step guides for common tasks.
 - **[CLOUDFLARE_DEPLOYMENT.md](./guides/CLOUDFLARE_DEPLOYMENT.md)** - Deploy widgets to Cloudflare Workers
 - **[repo-structure-migration.md](./guides/repo-structure-migration.md)** - Path changes from the 2026 restructure
 - **[RELEASE_CHECKLIST.md](./guides/RELEASE_CHECKLIST.md)** - Release checklist
+
+## Design system governance
+
+- **[CHARTER.md](./design-system/CHARTER.md)** - Design system charter and rules
+- **[UPSTREAM_ALIGNMENT.md](./design-system/UPSTREAM_ALIGNMENT.md)** - Apps SDK UI alignment log
+- **[CONTRACT.md](./design-system/CONTRACT.md)** - Index of governing artifacts
+- **[COVERAGE_MATRIX.md](./design-system/COVERAGE_MATRIX.md)** - Generated component coverage map
 
 ## Root documentation
 

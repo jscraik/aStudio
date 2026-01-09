@@ -37,14 +37,12 @@ Import this file into Figma using a plugin like:
 
 **File**: `packages/tokens/src/foundations.css`
 
-Contains all tokens as CSS variables with accessibility features.
+Contains all tokens as CSS variables for design-token consumption.
 
 **Includes**:
 
 - All color, spacing, and typography tokens as CSS custom properties
-- High contrast mode support
-- Reduced motion support
-- Focus ring utilities
+- Foundation-only variables (no media-query behavior in this file)
 
 ### 3. TypeScript Token Objects (For Reference)
 

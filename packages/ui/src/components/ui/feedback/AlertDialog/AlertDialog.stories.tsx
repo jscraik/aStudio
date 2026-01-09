@@ -12,7 +12,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "./AlertDialog";
+} from "./fallback/AlertDialog";
 
 const meta: Meta<typeof AlertDialog> = {
   title: "Components/UI/Feedback/Alert Dialog",

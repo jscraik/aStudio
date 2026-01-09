@@ -1,1 +1,1 @@
-export * from "./Slider";
+export * from "./fallback/Slider";

@@ -1,1 +1,1 @@
-export * from "./ToggleGroup";
+export * from "./fallback/ToggleGroup";

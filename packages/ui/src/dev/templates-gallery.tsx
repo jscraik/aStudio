@@ -4,7 +4,7 @@ import { blockRegistry } from "../templates/blocks/registry";
 import { DashboardTemplate } from "../templates/DashboardTemplate";
 import { ChatFullWidthTemplate } from "../templates/ChatFullWidthTemplate";
 import { ChatTwoPaneTemplate } from "../templates/ChatTwoPaneTemplate";
-import { NewComponentsShowcase } from "../templates/_temp_import/components/templates/NewComponentsShowcase";
+import { NewComponentsShowcase } from "../templates/NewComponentsShowcase";
 import {
   categories as templateCategories,
   getTemplatesByCategory,

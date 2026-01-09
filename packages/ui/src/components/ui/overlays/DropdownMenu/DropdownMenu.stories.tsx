@@ -11,7 +11,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./DropdownMenu";
+} from "./fallback/DropdownMenu";
 
 const meta: Meta<typeof DropdownMenu> = {
   title: "Components/UI/Overlays/Dropdown Menu",

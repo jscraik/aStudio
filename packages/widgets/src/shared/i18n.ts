@@ -10,6 +10,8 @@
  * For production apps, prefer a full i18n library (for example, react-intl).
  */
 
+import { getOpenAiGlobal } from "@chatui/runtime";
+
 // Default locale
 const DEFAULT_LOCALE = "en-US";
 
@@ -18,10 +20,7 @@ const DEFAULT_LOCALE = "en-US";
  * @returns The resolved locale string.
  */
 export function getLocale(): string {
-  if (typeof window !== "undefined" && window.openai?.locale) {
-    return window.openai.locale;
-  }
-  return DEFAULT_LOCALE;
+  return getOpenAiGlobal("locale") ?? DEFAULT_LOCALE;
 }
 
 /**

@@ -3,7 +3,7 @@ import { expect, fn, userEvent, within } from "@storybook/test";
 
 import { IconChevronRightMd, IconEmail, IconPlusLg, IconRefresh } from "../../../../icons";
 
-import { Button } from "./Button";
+import { Button } from "./fallback/Button";
 
 /**
  * Button component following Apps SDK UI patterns.

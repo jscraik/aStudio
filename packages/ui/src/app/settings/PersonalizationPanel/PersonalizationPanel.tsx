@@ -126,10 +126,15 @@ export function PersonalizationPanel({ onBack }: SettingsPanelProps) {
 
         {/* Custom instructions */}
         <div className="mb-5">
-          <h3 className="text-[14px] font-semibold leading-[20px] tracking-[-0.3px] text-foundation-text-dark-primary mb-2 px-3">
+          <label
+            htmlFor="personalization-instructions"
+            className="text-[14px] font-semibold leading-[20px] tracking-[-0.3px] text-foundation-text-dark-primary mb-2 px-3"
+          >
             Custom instructions
-          </h3>
+          </label>
           <textarea
+            id="personalization-instructions"
+            aria-label="Custom instructions"
             className="w-full px-3 py-2 text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-dark-primary bg-foundation-bg-dark-2 border border-foundation-text-dark-primary/10 rounded-lg resize-none focus:outline-none focus:ring-1 focus:ring-foundation-text-dark-primary/20 transition-all"
             rows={2}
             defaultValue="Be habitual and conversational"
@@ -139,11 +144,16 @@ export function PersonalizationPanel({ onBack }: SettingsPanelProps) {
 
         {/* Your nickname */}
         <div className="mb-5">
-          <h3 className="text-[14px] font-semibold leading-[20px] tracking-[-0.3px] text-foundation-text-dark-primary mb-2 px-3">
+          <label
+            htmlFor="personalization-nickname"
+            className="text-[14px] font-semibold leading-[20px] tracking-[-0.3px] text-foundation-text-dark-primary mb-2 px-3"
+          >
             Your nickname
-          </h3>
+          </label>
           <input
+            id="personalization-nickname"
             type="text"
+            aria-label="Your nickname"
             className="w-full px-3 py-2 text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-dark-primary bg-foundation-bg-dark-2 border border-foundation-text-dark-primary/10 rounded-lg focus:outline-none focus:ring-1 focus:ring-foundation-text-dark-primary/20 transition-all"
             defaultValue="Jamie"
             placeholder="Enter your nickname..."
@@ -152,11 +162,16 @@ export function PersonalizationPanel({ onBack }: SettingsPanelProps) {
 
         {/* Your occupation */}
         <div className="mb-5">
-          <h3 className="text-[14px] font-semibold leading-[20px] tracking-[-0.3px] text-foundation-text-dark-primary mb-2 px-3">
+          <label
+            htmlFor="personalization-occupation"
+            className="text-[14px] font-semibold leading-[20px] tracking-[-0.3px] text-foundation-text-dark-primary mb-2 px-3"
+          >
             Your occupation
-          </h3>
+          </label>
           <input
+            id="personalization-occupation"
             type="text"
+            aria-label="Your occupation"
             className="w-full px-3 py-2 text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-dark-primary bg-foundation-bg-dark-2 border border-foundation-text-dark-primary/10 rounded-lg focus:outline-none focus:ring-1 focus:ring-foundation-text-dark-primary/20 transition-all"
             defaultValue="AI System Architect & Dev"
             placeholder="Enter your occupation..."
@@ -165,11 +180,16 @@ export function PersonalizationPanel({ onBack }: SettingsPanelProps) {
 
         {/* More about you */}
         <div className="mb-5">
-          <h3 className="text-[14px] font-semibold leading-[20px] tracking-[-0.3px] text-foundation-text-dark-primary mb-2 px-3">
+          <label
+            htmlFor="personalization-about"
+            className="text-[14px] font-semibold leading-[20px] tracking-[-0.3px] text-foundation-text-dark-primary mb-2 px-3"
+          >
             More about you
-          </h3>
+          </label>
           <input
+            id="personalization-about"
             type="text"
+            aria-label="More about you"
             className="w-full px-3 py-2 text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-foundation-text-dark-primary bg-foundation-bg-dark-2 border border-foundation-text-dark-primary/10 rounded-lg focus:outline-none focus:ring-1 focus:ring-foundation-text-dark-primary/20 transition-all"
             defaultValue="Ai, Dev"
             placeholder="Tell us more about yourself..."

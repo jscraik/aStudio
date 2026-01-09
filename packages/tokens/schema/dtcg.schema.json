@@ -1,0 +1,227 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://astudio.local/schema/dtcg.schema.json",
+  "title": "aStudio DTCG Token Schema (2024-01)",
+  "type": "object",
+  "required": ["$schema", "meta", "color", "space", "radius", "size", "shadow", "type"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "meta": {
+      "type": "object",
+      "required": ["name", "version", "source"],
+      "properties": {
+        "name": { "type": "string" },
+        "version": { "type": "string" },
+        "source": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "color": {
+      "type": "object",
+      "required": ["background", "text", "icon", "border", "accent", "interactive"],
+      "properties": {
+        "background": { "$ref": "#/$defs/colorModeSet" },
+        "text": { "$ref": "#/$defs/colorModeSet" },
+        "icon": { "$ref": "#/$defs/colorModeSet" },
+        "border": { "$ref": "#/$defs/colorBorderModeSet" },
+        "accent": { "$ref": "#/$defs/colorAccentModeSet" },
+        "interactive": { "$ref": "#/$defs/colorInteractiveModeSet" }
+      },
+      "additionalProperties": false
+    },
+    "space": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": { "$ref": "#/$defs/tokenNumber" }
+      },
+      "additionalProperties": false
+    },
+    "radius": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]+$": { "$ref": "#/$defs/tokenNumber" }
+      },
+      "additionalProperties": false
+    },
+    "size": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]+$": { "$ref": "#/$defs/tokenNumber" }
+      },
+      "additionalProperties": false
+    },
+    "shadow": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]+$": { "$ref": "#/$defs/tokenShadow" }
+      },
+      "additionalProperties": false
+    },
+    "type": {
+      "type": "object",
+      "required": ["fontFamily"],
+      "properties": {
+        "fontFamily": { "$ref": "#/$defs/tokenString" }
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/tokenTypography"
+      }
+    }
+  },
+  "$defs": {
+    "tokenString": {
+      "type": "object",
+      "required": ["value"],
+      "properties": {
+        "value": { "type": "string" },
+        "type": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "tokenNumber": {
+      "type": "object",
+      "required": ["value"],
+      "properties": {
+        "value": { "type": "number" },
+        "type": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "tokenColor": {
+      "type": "object",
+      "required": ["value"],
+      "properties": {
+        "value": { "type": "string", "pattern": "^#([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$" },
+        "type": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "colorModeSet": {
+      "type": "object",
+      "required": ["light", "dark"],
+      "properties": {
+        "light": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": { "$ref": "#/$defs/tokenColor" }
+          },
+          "additionalProperties": false
+        },
+        "dark": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": { "$ref": "#/$defs/tokenColor" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "colorBorderModeSet": {
+      "type": "object",
+      "required": ["light", "dark"],
+      "properties": {
+        "light": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": { "$ref": "#/$defs/tokenColor" }
+          },
+          "additionalProperties": false
+        },
+        "dark": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": { "$ref": "#/$defs/tokenColor" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "colorAccentModeSet": {
+      "type": "object",
+      "required": ["light", "dark"],
+      "properties": {
+        "light": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": { "$ref": "#/$defs/tokenColor" }
+          },
+          "additionalProperties": false
+        },
+        "dark": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": { "$ref": "#/$defs/tokenColor" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "colorInteractiveModeSet": {
+      "type": "object",
+      "required": ["light", "dark"],
+      "properties": {
+        "light": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": { "$ref": "#/$defs/tokenColor" }
+          },
+          "additionalProperties": false
+        },
+        "dark": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": { "$ref": "#/$defs/tokenColor" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "tokenShadow": {
+      "type": "object",
+      "required": ["value"],
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["color", "offsetX", "offsetY", "blur", "spread"],
+            "properties": {
+              "color": { "type": "string" },
+              "offsetX": { "type": "number" },
+              "offsetY": { "type": "number" },
+              "blur": { "type": "number" },
+              "spread": { "type": "number" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "type": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "tokenTypography": {
+      "type": "object",
+      "required": ["value"],
+      "properties": {
+        "value": {
+          "type": "object",
+          "required": ["size", "lineHeight", "weight", "tracking"],
+          "properties": {
+            "size": { "type": "number" },
+            "lineHeight": { "type": "number" },
+            "weight": { "type": "number" },
+            "tracking": { "type": "number" },
+            "emphasisWeight": { "type": "number" }
+          },
+          "additionalProperties": false
+        },
+        "type": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  }
+}

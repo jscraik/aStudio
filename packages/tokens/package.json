@@ -33,6 +33,7 @@
     "generate": "tsx scripts/sync-dtcg.ts && tsx scripts/generate-tokens.ts",
     "tokens:sync": "tsx scripts/sync-dtcg.ts",
     "generate:watch": "tsx watch scripts/generate-tokens.ts",
+    "validate": "tsx scripts/validate-tokens.ts",
     "dev": "tsx scripts/dev-tools.ts",
     "dev:verbose": "tsx scripts/dev-tools.ts --verbose",
     "dev:hot-reload": "tsx scripts/watch-tokens.ts",

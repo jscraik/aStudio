@@ -1,5 +1,6 @@
 import React, { ReactNode, StrictMode } from "react";
 import { createRoot, type Root } from "react-dom/client";
+import { HostProvider, createHostAdapter, ensureMockOpenAI } from "@chatui/runtime";
 
 /**
  * Props for the base widget wrapper.
@@ -49,8 +50,20 @@ export function mountWidget(component: ReactNode) {
     return;
   }
 
+  const host = createHostAdapter({
+    apiBase: import.meta.env?.VITE_WIDGETS_API_BASE,
+  });
+
+  if (host.mode !== "embedded") {
+    ensureMockOpenAI();
+  }
+
   const root = getOrCreateRoot(rootElement);
-  root.render(<StrictMode>{component}</StrictMode>);
+  root.render(
+    <StrictMode>
+      <HostProvider host={host}>{component}</HostProvider>
+    </StrictMode>,
+  );
 }
 
 const rootCache = new WeakMap<Element, Root>();
@@ -115,14 +128,6 @@ export class WidgetErrorBoundary extends React.Component<
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     if (import.meta.env.DEV) {
       console.error("Widget error:", error, errorInfo);
-    }
-
-    // Report to error tracking service in production
-    if (typeof window !== "undefined" && window.openai) {
-      // Could send error reports via OpenAI API if needed
-      if (import.meta.env.DEV) {
-        console.warn("Widget error boundary caught:", { error, errorInfo });
-      }
     }
   }
 

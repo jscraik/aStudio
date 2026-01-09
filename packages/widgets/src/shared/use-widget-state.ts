@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState, type SetStateAction } from "react";
 import { useHost, useOpenAiGlobal as useOpenAiGlobalRuntime } from "@chatui/runtime";
 
 import type { UnknownObject } from "./types";
+import { validateWidgetStateBudget } from "./widget-state-budget";
 
 /**
  * Reads and writes widget state, syncing with the host when available.
@@ -56,9 +57,8 @@ export function useWidgetState<T extends UnknownObject>(
 
         if (newState !== undefined) {
           if (host.setState) {
+            validateWidgetStateBudget(newState);
             host.setState(newState);
-          } else if (typeof window !== "undefined") {
-            void window.openai?.setWidgetState?.(newState ?? null);
           }
         }
 

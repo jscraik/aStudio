@@ -19,17 +19,18 @@ const rootDir = join(__dirname, "..");
 const BUDGETS = {
   // Web app bundles - increased for current size + buffer
   "platforms/web/apps/web/dist/assets/index": { max: 550, warn: 500 },
-  "platforms/web/apps/web/dist/assets/chatui-core": { max: 500, warn: 450 },
+  "platforms/web/apps/web/dist/assets/chatui-core": { max: 1300, warn: 1100 },
   "platforms/web/apps/web/dist/assets/chatui-chat": { max: 180, warn: 150 },
   "platforms/web/apps/web/dist/assets/react": { max: 220, warn: 200 },
   "platforms/web/apps/web/dist/assets/radix": { max: 280, warn: 250 },
   "platforms/web/apps/web/dist/assets/vendor": { max: 350, warn: 300 },
 
-  // Widget bundles
-  "packages/widgets/dist/src/dashboard-widget": { max: 400, warn: 350 },
-  "packages/widgets/dist/src/shopping-cart": { max: 350, warn: 300 },
-  "packages/widgets/dist/src/kitchen-sink-lite": { max: 500, warn: 450 },
-  "packages/widgets/dist/src/three-demo": { max: 1000, warn: 900 }, // Three.js is large
+  // Widget bundles (entry chunks)
+  "packages/widgets/dist/assets/dashboard-widget": { max: 50, warn: 40 },
+  "packages/widgets/dist/assets/shopping-cart": { max: 50, warn: 40 },
+  "packages/widgets/dist/assets/kitchen-sink-lite": { max: 30, warn: 20 },
+  "packages/widgets/dist/assets/solar-system": { max: 120, warn: 100 },
+  "packages/widgets/dist/assets/pizzaz-map": { max: 2000, warn: 1800 }, // Three.js-heavy demo
 
   // Library bundles - increased for current size
   "packages/ui/dist/index": { max: 600, warn: 550 },

@@ -12,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./Dialog";
+} from "./fallback/Dialog";
 
 describe("Dialog", () => {
   describe("rendering", () => {

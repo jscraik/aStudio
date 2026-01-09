@@ -1,4 +1,4 @@
-import * as Popover from "@radix-ui/react-popover";
+import { Popover, PopoverContent, PopoverTrigger } from "../../../components/ui/overlays/Popover";
 import type { FormEvent, ReactNode } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -396,8 +396,8 @@ export function ChatInputReference({
               {composerLeft}
 
               {/* Attachment Menu */}
-              <Popover.Root open={attachmentMenuOpen} onOpenChange={setAttachmentMenuOpen}>
-                <Popover.Trigger asChild>
+              <Popover open={attachmentMenuOpen} onOpenChange={setAttachmentMenuOpen}>
+                <PopoverTrigger asChild>
                   <button
                     type="button"
                     aria-label="Add attachment"
@@ -415,9 +415,9 @@ export function ChatInputReference({
                   >
                     <IconPlus className="size-5" />
                   </button>
-                </Popover.Trigger>
-                <Popover.Portal>
-                  <Popover.Content
+                </PopoverTrigger>
+                
+                  <PopoverContent
                     side="top"
                     align="start"
                     sideOffset={8}
@@ -482,9 +482,9 @@ export function ChatInputReference({
                         <span>Create image</span>
                       </button>
                     </div>
-                  </Popover.Content>
-                </Popover.Portal>
-              </Popover.Root>
+                  </PopoverContent>
+                
+              </Popover>
 
               {/* Search Toggle */}
               <button
@@ -616,8 +616,7 @@ export function ChatInputReference({
                 title="Advanced features"
                 className={cn(
                   "flex items-center gap-1.5 p-2 rounded-full transition-all duration-200",
-                  "bg-gradient-to-br from-foundation-accent-purple-light via-foundation-accent-purple to-foundation-accent-pink",
-                  "dark:from-foundation-accent-purple dark:via-foundation-accent-purple dark:to-foundation-accent-pink",
+                  "bg-gradient-to-br from-foundation-accent-purple-light via-foundation-accent-purple-light to-foundation-accent-pink-light dark:from-foundation-accent-purple dark:via-foundation-accent-purple dark:to-foundation-accent-pink",
                   "hover:opacity-90 hover:scale-105 active:scale-95",
                   "shadow-lg shadow-foundation-accent-purple-light/25 dark:shadow-foundation-accent-purple/25",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foundation-accent-blue-light dark:focus-visible:ring-foundation-accent-blue focus-visible:ring-offset-1",

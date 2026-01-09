@@ -1,4 +1,3 @@
-import * as Popover from "@radix-ui/react-popover";
 import * as React from "react";
 
 import {
@@ -19,6 +18,7 @@ import {
   TeamsIcon,
 } from "../../../icons";
 import { getSizeClass } from "../../../icons";
+import { Popover, PopoverContent, PopoverTrigger } from "../../../components/ui/overlays/Popover";
 import { cn } from "../../../components/ui/utils";
 
 /**
@@ -197,8 +197,8 @@ export function AttachmentMenu({
   };
 
   return (
-    <Popover.Root modal={false} open={open} onOpenChange={onOpenChange}>
-      <Popover.Trigger asChild>
+    <Popover modal={false} open={open} onOpenChange={onOpenChange}>
+      <PopoverTrigger asChild>
         <button
           type="button"
           className={cn(
@@ -219,10 +219,10 @@ export function AttachmentMenu({
             )}
           />
         </button>
-      </Popover.Trigger>
+      </PopoverTrigger>
 
-      <Popover.Portal>
-        <Popover.Content
+      
+        <PopoverContent
           side="top"
           align="start"
           sideOffset={10}
@@ -260,8 +260,8 @@ export function AttachmentMenu({
           </MenuItem>
 
           {/* More submenu with nested popover */}
-          <Popover.Root modal={false}>
-            <Popover.Trigger asChild>
+          <Popover modal={false}>
+            <PopoverTrigger asChild>
               <MenuItem className="justify-between data-[state=open]:bg-foundation-bg-light-3 dark:data-[state=open]:bg-foundation-bg-dark-3">
                 <div className="flex items-center gap-3">
                   <IconDotsVertical className="size-5 text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary group-hover:text-foundation-text-light-primary dark:group-hover:text-foundation-text-dark-primary transition-colors" />
@@ -269,10 +269,10 @@ export function AttachmentMenu({
                 </div>
                 <ChevronRightIcon className="size-4 text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary group-hover:text-foundation-text-light-secondary dark:group-hover:text-foundation-text-dark-secondary transition-colors" />
               </MenuItem>
-            </Popover.Trigger>
+            </PopoverTrigger>
 
-            <Popover.Portal>
-              <Popover.Content
+            
+              <PopoverContent
                 side="right"
                 align="start"
                 sideOffset={8}
@@ -433,11 +433,11 @@ export function AttachmentMenu({
                   <IconSearch className="size-5 text-foundation-text-light-tertiary dark:text-foundation-text-dark-tertiary group-hover:text-foundation-text-light-primary dark:group-hover:text-foundation-text-dark-primary transition-colors" />
                   <span>Explore apps</span>
                 </MenuItem>
-              </Popover.Content>
-            </Popover.Portal>
-          </Popover.Root>
-        </Popover.Content>
-      </Popover.Portal>
-    </Popover.Root>
+              </PopoverContent>
+            
+          </Popover>
+        </PopoverContent>
+      
+    </Popover>
   );
 }

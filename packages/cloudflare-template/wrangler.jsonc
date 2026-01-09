@@ -5,21 +5,7 @@
   "compatibility_date": "2025-12-28",
   "compatibility_flags": ["nodejs_compat"],
   "observability": {
-    "enabled": true,
-  },
-  "migrations": [
-    {
-      "tag": "v1",
-      "new_sqlite_classes": ["ChatUIWidgetServer"],
-    },
-  ],
-  "durable_objects": {
-    "bindings": [
-      {
-        "class_name": "ChatUIWidgetServer",
-        "name": "WIDGET_SERVER",
-      },
-    ],
+    "enabled": true
   },
   "assets": {
     "binding": "ASSETS",

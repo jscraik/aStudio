@@ -1,1 +1,1 @@
-export * from "./Tooltip";
+export * from "./fallback/Tooltip";

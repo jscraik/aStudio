@@ -67,10 +67,12 @@ type DtcgRoot = {
     border: {
       light: {
         light: DtcgToken;
+        default: DtcgToken;
         heavy: DtcgToken;
       };
       dark: {
         default: DtcgToken;
+        heavy: DtcgToken;
         light: DtcgToken;
       };
     };
@@ -243,10 +245,12 @@ function buildColors(dtcg: DtcgRoot) {
     border: {
       light: {
         light: getValue(c.border.light.light, "color.border.light.light"),
+        default: getValue(c.border.light.default, "color.border.light.default"),
         heavy: getValue(c.border.light.heavy, "color.border.light.heavy"),
       },
       dark: {
         default: getValue(c.border.dark.default, "color.border.dark.default"),
+        heavy: getValue(c.border.dark.heavy, "color.border.dark.heavy"),
         light: getValue(c.border.dark.light, "color.border.dark.light"),
       },
     },

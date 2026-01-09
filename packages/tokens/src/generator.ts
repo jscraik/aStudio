@@ -1,5 +1,5 @@
 import { createHash } from "crypto";
-import { mkdir, rm, writeFile } from "fs/promises";
+import { mkdir, readFile, rm, writeFile } from "fs/promises";
 import { dirname, join } from "path";
 
 import { colorTokens } from "./colors.js";
@@ -26,6 +26,17 @@ export interface DesignTokens {
  */
 export interface GenerationManifest {
   version: string;
+  schemaVersion: string;
+  appsSdkUiVersion: string;
+  tokenCount: {
+    total: number;
+    colors: number;
+    spacing: number;
+    typography: number;
+    radius: number;
+    shadows: number;
+    sizes: number;
+  };
   sha256: {
     swift: string;
     css: string;
@@ -715,15 +726,66 @@ ${this.generateCSSTypography()}
     const swiftHash = createHash("sha256").update(swiftContent).digest("hex");
     const cssHash = createHash("sha256").update(cssContent).digest("hex");
     const assetCatalogHash = createHash("sha256").update(assetCatalogContent).digest("hex");
+    const schemaVersion = await this.readSchemaVersion();
+    const appsSdkUiVersion = await this.readAppsSdkUiVersion();
+    const tokenCount = this.countTokens();
 
     return {
       version: "1.0.0",
+      schemaVersion,
+      appsSdkUiVersion,
+      tokenCount,
       sha256: {
         swift: swiftHash,
         css: cssHash,
         assetCatalog: assetCatalogHash,
       },
       generated: MANIFEST_GENERATED_AT,
+    };
+  }
+
+  private async readSchemaVersion(): Promise<string> {
+    const schemaPath = new URL("../SCHEMA_VERSION", import.meta.url);
+    try {
+      const raw = await readFile(schemaPath, "utf8");
+      return raw.trim() || "unknown";
+    } catch {
+      return "unknown";
+    }
+  }
+
+  private async readAppsSdkUiVersion(): Promise<string> {
+    const packagePath = new URL("../../ui/package.json", import.meta.url);
+    try {
+      const raw = await readFile(packagePath, "utf8");
+      const parsed = JSON.parse(raw) as { dependencies?: Record<string, string> };
+      return parsed.dependencies?.["@openai/apps-sdk-ui"] ?? "unknown";
+    } catch {
+      return "unknown";
+    }
+  }
+
+  private countTokens(): GenerationManifest["tokenCount"] {
+    const colorCategories = ["background", "text", "icon", "border", "accent", "interactive"] as const;
+    const colors = colorCategories.reduce((count, category) => {
+      const keys = Object.keys(this.tokens.colors[category].light);
+      return count + keys.length;
+    }, 0);
+    const spacing = this.tokens.spacing.length;
+    const typography = Object.keys(this.tokens.typography).length;
+    const radius = Object.keys(this.tokens.radius).length;
+    const shadows = Object.keys(this.tokens.shadows).length;
+    const sizes = Object.keys(this.tokens.sizes).length;
+    const total = colors + spacing + typography + radius + shadows + sizes;
+
+    return {
+      total,
+      colors,
+      spacing,
+      typography,
+      radius,
+      shadows,
+      sizes,
     };
   }
 
@@ -735,12 +797,14 @@ ${this.generateCSSTypography()}
     const r = parseInt(cleanHex.substring(0, 2), 16) / 255;
     const g = parseInt(cleanHex.substring(2, 4), 16) / 255;
     const b = parseInt(cleanHex.substring(4, 6), 16) / 255;
+    const a =
+      cleanHex.length >= 8 ? parseInt(cleanHex.substring(6, 8), 16) / 255 : 1;
 
     return {
       red: r.toFixed(3),
       green: g.toFixed(3),
       blue: b.toFixed(3),
-      alpha: "1.000",
+      alpha: a.toFixed(3),
     };
   }
 

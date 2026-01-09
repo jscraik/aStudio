@@ -54,6 +54,18 @@ This will launch the MCP Inspector, which provides a web-based UI for testing MC
 - Open `http://localhost:8787` (or your `PORT`) and confirm the server responds.
 - Run a widget harness in `platforms/web/apps/web` and verify widgets render.
 
+### Widget preview tools
+
+The MCP server auto-generates one tool per widget for preview/testing. Tool names use the
+`widget_preview_<widgetName>` pattern. Each preview tool renders the widget and can accept
+an optional `payload` object that is exposed to the widget via `structuredContent`.
+
+Example (from `platforms/mcp`):
+
+```bash
+pnpm test:cli tools/call '{"name":"widget_preview_chat-view","arguments":{"payload":{"seedMessage":"Hello"}}}'
+```
+
 ## Tests
 
 ### Tool Contract Tests

@@ -11,7 +11,7 @@
  * Styling uses Apps SDK UI components/tokens with minimal custom CSS for code sizing.
  */
 import React, { useEffect, useMemo, useState } from "react";
-import { Badge, Button, Checkbox, Input, Textarea } from "@chatui/ui";
+import { AppsSDKBadge, AppsSDKButton, AppsSDKCheckbox, AppsSDKInput, AppsSDKTextarea } from "@chatui/ui";
 
 import { CodeBlock } from "../../../src/shared/code-block";
 import { useOpenAiGlobal } from "../../../src/shared/use-openai-global";
@@ -84,7 +84,7 @@ function PillRow({ label, value }: { label: string; value: string | number | und
 
 export default function KitchenSinkLite() {
   const toolOutput = (useOpenAiGlobal("toolOutput") ?? null) as DemoContent | null;
-  const toolInput = useOpenAiGlobal("toolInput") as Record<string, unknown>;
+  const toolAppsSDKInput = useOpenAiGlobal("toolAppsSDKInput") as Record<string, unknown>;
   const toolResponseMetadata = useOpenAiGlobal("toolResponseMetadata") as Record<
     string,
     unknown
@@ -290,15 +290,15 @@ export default function KitchenSinkLite() {
       </header>
 
       <div className="flex flex-wrap gap-2 text-xs">
-        <Badge variant="soft" color="secondary" pill className="uppercase tracking-wide">
+        <AppsSDKBadge variant="soft" color="secondary" pill className="uppercase tracking-wide">
           Reads window.openai.*
-        </Badge>
-        <Badge variant="soft" color="info" pill className="uppercase tracking-wide">
+        </AppsSDKBadge>
+        <AppsSDKBadge variant="soft" color="info" pill className="uppercase tracking-wide">
           Calls window.openai.*()
-        </Badge>
-        <Badge variant="soft" color="primary" pill className="uppercase tracking-wide">
+        </AppsSDKBadge>
+        <AppsSDKBadge variant="soft" color="primary" pill className="uppercase tracking-wide">
           From MCP tool (structuredContent)
-        </Badge>
+        </AppsSDKBadge>
       </div>
 
       <div className="border border-default rounded-2xl bg-surface p-3 flex flex-col gap-3">
@@ -314,7 +314,7 @@ export default function KitchenSinkLite() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <Card
             title="Tool input"
-            apiLabel="window.openai.toolInput"
+            apiLabel="window.openai.toolAppsSDKInput"
             description="What the model sent your MCP tool."
           >
             <CodeBlock
@@ -323,7 +323,7 @@ export default function KitchenSinkLite() {
               showLineNumbers={false}
               wrapLongLines
             >
-              {JSON.stringify(toolInput ?? {}, null, 2)}
+              {JSON.stringify(toolAppsSDKInput ?? {}, null, 2)}
             </CodeBlock>
             <p className="text-xs text-secondary">Source: model to MCP tool</p>
           </Card>
@@ -355,19 +355,19 @@ export default function KitchenSinkLite() {
               ) : null}
               <div className="flex flex-wrap gap-2">
                 {widgetState?.highlight ? (
-                  <Badge variant="solid" color="primary" pill>
+                  <AppsSDKBadge variant="solid" color="primary" pill>
                     Highlight on
-                  </Badge>
+                  </AppsSDKBadge>
                 ) : null}
-                <Badge variant="soft" color="secondary" pill>
+                <AppsSDKBadge variant="soft" color="secondary" pill>
                   from tool: {content.fromTool ?? "n/a"}
-                </Badge>
-                <Badge variant="soft" color="info" pill>
+                </AppsSDKBadge>
+                <AppsSDKBadge variant="soft" color="info" pill>
                   display: {displayMode}
-                </Badge>
-                <Badge variant="soft" color="info" pill>
+                </AppsSDKBadge>
+                <AppsSDKBadge variant="soft" color="info" pill>
                   theme: {theme}
-                </Badge>
+                </AppsSDKBadge>
               </div>
             </div>
           </Card>
@@ -422,9 +422,9 @@ export default function KitchenSinkLite() {
           <div className="flex flex-col gap-3">
             <label className="flex flex-col gap-1 text-sm">
               <span className="text-secondary">Note (saved on host)</span>
-              <Textarea value={noteDraft} onChange={(e) => setNoteDraft(e.target.value)} rows={3} />
+              <AppsSDKTextarea value={noteDraft} onChange={(e) => setNoteDraft(e.target.value)} rows={3} />
             </label>
-            <Checkbox
+            <AppsSDKCheckbox
               checked={highlightDraft}
               onCheckedChange={(next) => {
                 const nextValue = Boolean(next);
@@ -439,17 +439,17 @@ export default function KitchenSinkLite() {
               }}
               label="Highlight the message"
             />
-            <Button color="primary" onClick={handleSaveWidgetState} className="w-fit">
+            <AppsSDKButton color="primary" onClick={handleSaveWidgetState} className="w-fit">
               Save widget state
-            </Button>
-            <Button
+            </AppsSDKButton>
+            <AppsSDKButton
               variant="outline"
               color="secondary"
               onClick={handleRefreshWidgetStateView}
               className="w-fit"
             >
               Refresh widgetState view
-            </Button>
+            </AppsSDKButton>
             <div className="text-xs text-secondary">
               Reads: window.openai.widgetState - Writes: setWidgetState()
             </div>
@@ -493,7 +493,7 @@ export default function KitchenSinkLite() {
           <div className="flex flex-col gap-3">
             <label className="flex flex-col gap-1 text-sm">
               <span className="text-secondary">message to send</span>
-              <Input value={refreshText} onChange={(e) => setRefreshText(e.target.value)} />
+              <AppsSDKInput value={refreshText} onChange={(e) => setRefreshText(e.target.value)} />
             </label>
             <div className="flex flex-col gap-1 text-sm">
               <span className="text-secondary uppercase tracking-[0.08em] text-[11px]">
@@ -506,9 +506,9 @@ export default function KitchenSinkLite() {
                 wrapLongLines
               >{`window.openai.callTool("kitchen-sink-refresh", {\n  message: "${refreshText}"\n})`}</CodeBlock>
             </div>
-            <Button color="primary" onClick={handleCallTool} disabled={isCalling} className="w-fit">
+            <AppsSDKButton color="primary" onClick={handleCallTool} disabled={isCalling} className="w-fit">
               {isCalling ? "Calling..." : "Call kitchen-sink-refresh"}
-            </Button>
+            </AppsSDKButton>
             {callResult ? (
               <div className="flex flex-col gap-1">
                 <span className="text-secondary uppercase tracking-[0.08em] text-[11px]">
@@ -535,24 +535,24 @@ export default function KitchenSinkLite() {
           <div className="flex flex-col gap-3">
             <label className="flex flex-col gap-1 text-sm">
               <span className="text-secondary">tool name</span>
-              <Input value={anyToolName} onChange={(e) => setAnyToolName(e.target.value)} />
+              <AppsSDKInput value={anyToolName} onChange={(e) => setAnyToolName(e.target.value)} />
             </label>
             <label className="flex flex-col gap-1 text-sm">
               <span className="text-secondary">arguments (JSON)</span>
-              <Textarea
+              <AppsSDKTextarea
                 rows={4}
                 value={anyToolArgs}
                 onChange={(e) => setAnyToolArgs(e.target.value)}
               />
             </label>
-            <Button
+            <AppsSDKButton
               color="primary"
               onClick={handleCallAnyTool}
               disabled={anyToolLoading}
               className="w-fit"
             >
               {anyToolLoading ? "Calling..." : "Call tool"}
-            </Button>
+            </AppsSDKButton>
             {anyToolResult ? (
               <CodeBlock
                 className="ks-code-block"
@@ -585,16 +585,16 @@ export default function KitchenSinkLite() {
             description="Ask ChatGPT to change layout or send a follow-up."
           >
             <div className="flex flex-wrap gap-2">
-              <Button
+              <AppsSDKButton
                 variant="outline"
                 color="secondary"
                 onClick={() => handleRequestDisplayMode("fullscreen")}
               >
                 requestDisplayMode("fullscreen")
-              </Button>
-              <Button variant="outline" color="secondary" onClick={handleSendFollowUp}>
+              </AppsSDKButton>
+              <AppsSDKButton variant="outline" color="secondary" onClick={handleSendFollowUp}>
                 sendFollowUpMessage()
-              </Button>
+              </AppsSDKButton>
             </div>
             {displayModeResult ? (
               <p className="text-xs text-secondary">Host granted mode: {displayModeResult}</p>
@@ -608,17 +608,17 @@ export default function KitchenSinkLite() {
             apiLabel="openExternal()"
             description="Open a link in the host."
           >
-            <Button
+            <AppsSDKButton
               variant="outline"
               color="secondary"
               onClick={handleOpenExternal}
               className="w-fit"
             >
               openExternal({"{ href }"})
-            </Button>
+            </AppsSDKButton>
             <p className="text-xs text-secondary">Example: platform.openai.com/docs/guides/apps</p>
             <div className="flex flex-wrap gap-2">
-              <Button
+              <AppsSDKButton
                 variant="outline"
                 color="secondary"
                 onClick={() =>
@@ -628,8 +628,8 @@ export default function KitchenSinkLite() {
                 }
               >
                 Deep link (Maps)
-              </Button>
-              <Button
+              </AppsSDKButton>
+              <AppsSDKButton
                 variant="outline"
                 color="secondary"
                 onClick={() =>
@@ -639,7 +639,7 @@ export default function KitchenSinkLite() {
                 }
               >
                 Open Spotify
-              </Button>
+              </AppsSDKButton>
             </div>
           </Card>
         </div>
@@ -655,7 +655,7 @@ export default function KitchenSinkLite() {
           </div>
           <div className="flex flex-col gap-1 text-sm">
             <span className="text-secondary uppercase tracking-[0.08em] text-[11px]">
-              toolInput
+              toolAppsSDKInput
             </span>
             <CodeBlock
               className="ks-code-block ks-code-block--compact"
@@ -663,7 +663,7 @@ export default function KitchenSinkLite() {
               showLineNumbers={false}
               wrapLongLines
             >
-              {JSON.stringify(toolInput ?? {}, null, 2)}
+              {JSON.stringify(toolAppsSDKInput ?? {}, null, 2)}
             </CodeBlock>
           </div>
           <div className="flex flex-col gap-1 text-sm">
@@ -686,16 +686,16 @@ export default function KitchenSinkLite() {
           description="Open a modal from the host or close this widget."
         >
           <div className="flex flex-wrap gap-2">
-            <Button variant="outline" color="secondary" onClick={handleRequestModal}>
+            <AppsSDKButton variant="outline" color="secondary" onClick={handleRequestModal}>
               requestModal()
-            </Button>
-            <Button
+            </AppsSDKButton>
+            <AppsSDKButton
               variant="outline"
               color="secondary"
               onClick={() => window.openai?.requestClose?.()}
             >
               requestClose()
-            </Button>
+            </AppsSDKButton>
           </div>
           {modalResult ? (
             <CodeBlock
@@ -742,12 +742,12 @@ export default function KitchenSinkLite() {
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Button variant="outline" color="secondary" onClick={handleFetchDemo}>
+          <AppsSDKButton variant="outline" color="secondary" onClick={handleFetchDemo}>
             Fetch sample JSON
-          </Button>
-          <Button variant="outline" color="danger" onClick={handleThrowError}>
+          </AppsSDKButton>
+          <AppsSDKButton variant="outline" color="danger" onClick={handleThrowError}>
             Throw error
-          </Button>
+          </AppsSDKButton>
         </div>
         {fetchResult ? (
           <CodeBlock

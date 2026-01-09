@@ -13,6 +13,7 @@
 import { ShoppingCart as CartIcon, Minus, Package, Plus, Trash2 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
+import { useSendMessage } from "../../../shared/openai-hooks";
 import type { DisplayMode } from "../../../shared/types";
 import { useOpenAiGlobal } from "../../../shared/use-openai-global";
 import { useWidgetState } from "../../../shared/use-widget-state";
@@ -68,6 +69,7 @@ export function ShoppingCart() {
     unknown
   > | null;
   const displayMode = (useOpenAiGlobal("displayMode") ?? "inline") as DisplayMode;
+  const sendMessage = useSendMessage();
 
   const [widgetState, setWidgetState] = useWidgetState<CartWidgetState>(createDefaultState);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -159,17 +161,17 @@ export function ShoppingCart() {
 
   // Checkout action - could call another tool
   const handleCheckout = useCallback(async () => {
-    if (!window.openai?.sendFollowUpMessage) {
+    if (!sendMessage) {
       if (isDev) {
         console.warn("sendFollowUpMessage not available");
       }
       return;
     }
 
-    await window.openai.sendFollowUpMessage({
-      prompt: `I'd like to checkout with my cart containing ${itemCount} items totaling $${subtotal.toFixed(2)}`,
-    });
-  }, [itemCount, subtotal]);
+    await sendMessage(
+      `I'd like to checkout with my cart containing ${itemCount} items totaling $${subtotal.toFixed(2)}`,
+    );
+  }, [itemCount, sendMessage, subtotal]);
 
   return (
     <div

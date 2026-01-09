@@ -1,1 +1,1 @@
-export * from "./Switch";
+export * from "./fallback/Switch";

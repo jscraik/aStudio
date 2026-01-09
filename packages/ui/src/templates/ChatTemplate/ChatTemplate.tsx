@@ -1,8 +1,8 @@
 import { useState } from "react";
 
+import { ChatHeader } from "../../app/chat/ChatHeader";
+import { ChatInput } from "../../app/chat/ChatInput";
 import { ChatVariantSplitSidebar } from "../../app/chat/ChatVariants";
-import { ChatHeader as TempChatHeader } from "../_temp_import/components/ChatHeader";
-import { ChatInput as TempChatInput } from "../_temp_import/components/ChatInput";
 import {
   sampleCategories,
   sampleCategoryColors,
@@ -70,7 +70,7 @@ export function ChatTemplate({ initialViewMode = "chat" }: ChatTemplateProps) {
         user={sampleUser}
         slots={{
           header: (
-            <TempChatHeader
+            <ChatHeader
               isSidebarOpen={isSidebarOpen}
               onSidebarToggle={() => setIsSidebarOpen((prev) => !prev)}
               showSidebarToggle={true}
@@ -82,8 +82,7 @@ export function ChatTemplate({ initialViewMode = "chat" }: ChatTemplateProps) {
               onViewModeChange={setViewMode}
             />
           ),
-          composer:
-            viewMode === "compose" ? null : <TempChatInput selectedModel={selectedModel} />,
+          composer: viewMode === "compose" ? null : <ChatInput selectedModel={selectedModel} />,
         }}
       />
     </div>

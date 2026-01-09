@@ -1,6 +1,5 @@
 import { HostProvider, createEmbeddedHost, ensureMockOpenAI } from "@chatui/runtime";
-import { AppsSDKUIProvider } from "@chatui/ui";
-import { Button } from "@openai/apps-sdk-ui/components/Button";
+import { AppsSDKButton, AppsSDKUIProvider } from "@chatui/ui";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
@@ -29,9 +28,9 @@ function KitchenSinkWidget() {
           <p className="text-sm text-gray-600">Comprehensive Apps SDK API demo widget</p>
 
           <div className="space-y-2">
-            <Button onClick={() => host.callTool?.("demo_tool", { action: "test" })}>
+            <AppsSDKButton onClick={() => host.callTool?.("demo_tool", { action: "test" })} variant="solid" color="primary">
               Call Tool
-            </Button>
+            </AppsSDKButton>
 
             <CodeBlock language="json">{JSON.stringify(host.toolOutput, null, 2)}</CodeBlock>
           </div>

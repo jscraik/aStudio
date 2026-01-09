@@ -1,10 +1,8 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
-import { createServer } from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
@@ -14,60 +12,16 @@ import {
   createResourceMeta,
   createWidgetTools,
 } from "../../packages/widgets/src/shared/widget-registry.js";
+import { startMcpHttpServer } from "./lib/http-server.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Rate limiting configuration
-const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
-const RATE_LIMIT_MAX_REQUESTS = 100; // 100 requests per minute per IP
-const rateLimitStore = new Map();
-
-// Rate limiting middleware
-function checkRateLimit(ip) {
-  const now = Date.now();
-  const key = ip || "unknown";
-  const record = rateLimitStore.get(key) || { count: 0, resetAt: now + RATE_LIMIT_WINDOW_MS };
-
-  // Reset if window expired
-  if (now > record.resetAt) {
-    record.count = 0;
-    record.resetAt = now + RATE_LIMIT_WINDOW_MS;
-  }
-
-  // Check limit
-  if (record.count >= RATE_LIMIT_MAX_REQUESTS) {
-    return false;
-  }
-
-  // Increment counter
-  record.count++;
-  rateLimitStore.set(key, record);
-
-  // Cleanup old entries periodically
-  if (Math.random() < 0.01) {
-    // 1% chance to cleanup
-    for (const [k, v] of rateLimitStore.entries()) {
-      if (now > v.resetAt + RATE_LIMIT_WINDOW_MS) {
-        rateLimitStore.delete(k);
-      }
-    }
-  }
-
-  return true;
-}
 const widgetHtmlPath = process.env.WEB_WIDGET_HTML
   ? path.resolve(process.env.WEB_WIDGET_HTML)
   : path.resolve(__dirname, "../web/apps/web/dist/widget.html");
 const widgetsDistPath = process.env.WIDGETS_DIST
   ? path.resolve(process.env.WIDGETS_DIST)
   : path.resolve(__dirname, "../../packages/widgets/dist/src");
-const CORS_ORIGIN = process.env.MCP_CORS_ORIGIN ?? "*";
-const DNS_REBINDING_PROTECTION = process.env.MCP_DNS_REBINDING_PROTECTION === "true";
-const ALLOWED_HOSTS = (process.env.MCP_ALLOWED_HOSTS ?? "")
-  .split(",")
-  .map((host) => host.trim())
-  .filter(Boolean);
-
 // Environment configuration for resource metadata
 const WORKER_DOMAIN = process.env.WORKER_DOMAIN;
 const WIDGET_DOMAIN = process.env.WIDGET_DOMAIN;
@@ -188,6 +142,14 @@ try {
 
 // Tool input schemas (keeping existing schemas)
 const emptyInputSchema = z.object({}).strict();
+const widgetPreviewInputSchema = z
+  .object({
+    payload: z
+      .record(z.unknown())
+      .optional()
+      .describe("Optional widget payload data for preview/testing"),
+  })
+  .strict();
 
 const displayChatInputSchema = z
   .object({
@@ -322,6 +284,14 @@ const displayTableOutputSchema = z
 const displayDemoOutputSchema = z
   .object({
     demo: z.boolean(),
+  })
+  .strict();
+
+const widgetPreviewOutputSchema = z
+  .object({
+    widgetName: z.string(),
+    payload: z.record(z.unknown()).optional(),
+    locale: z.string(),
   })
   .strict();
 
@@ -1086,6 +1056,50 @@ function createEnhancedChatUiServer() {
     );
   });
 
+  // Auto-generate widget preview tools for testing all widgets
+  Object.entries(widgetManifest.widgetManifest).forEach(([widgetName, widgetInfo]) => {
+    const toolName = `widget_preview_${widgetName}`;
+    server.registerTool(
+      toolName,
+      {
+        title: `Preview Widget: ${widgetName}`,
+        description: `Renders the ${widgetName} widget for preview and testing.`,
+        inputSchema: widgetPreviewInputSchema,
+        outputSchema: widgetPreviewOutputSchema,
+        securitySchemes: [{ type: "noauth" }],
+        annotations: {
+          readOnlyHint: true,
+          destructiveHint: false,
+          openWorldHint: false,
+          idempotentHint: true,
+        },
+        _meta: {
+          securitySchemes: [{ type: "noauth" }],
+          "openai/outputTemplate": `ui://widget/${widgetInfo.uri}`,
+          "openai/widgetAccessible": false,
+          "openai/visibility": "public",
+          "openai/toolInvocation/invoking": `Loading ${widgetName} preview...`,
+          "openai/toolInvocation/invoked": `${widgetName} preview ready`,
+          "openai/fileParams": [],
+        },
+      },
+      async (args, { _meta } = {}) => {
+        const payload = args?.payload;
+        const locale = _meta?.["openai/locale"] ?? "en";
+        const structuredContent = {
+          widgetName,
+          ...(payload ? { payload } : {}),
+          locale,
+        };
+
+        return {
+          content: contentWithJsonFallback(`Previewing ${widgetName}`, structuredContent),
+          structuredContent,
+        };
+      },
+    );
+  });
+
   installListToolsHandler(server);
 
   return server;
@@ -1167,99 +1181,15 @@ const isDirectRun =
   process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 
 if (isDirectRun) {
-  const port = Number(process.env.PORT ?? 8787);
-  const host = process.env.MCP_BIND_HOST ?? "127.0.0.1";
-  const MCP_PATH = "/mcp";
-
-  const httpServer = createServer(async (req, res) => {
-    if (!req.url) {
-      res.writeHead(400).end("Missing URL");
-      return;
-    }
-
-    // Rate limiting check
-    const clientIp =
-      req.headers["x-forwarded-for"]?.toString().split(",")[0] ||
-      req.headers["x-real-ip"]?.toString() ||
-      req.socket.remoteAddress ||
-      "unknown";
-
-    if (!checkRateLimit(clientIp)) {
-      res.writeHead(429, {
-        "Content-Type": "application/json",
-        "Retry-After": "60",
-        "Access-Control-Allow-Origin": CORS_ORIGIN,
-      });
-      res.end(JSON.stringify({ error: "Rate limit exceeded. Please try again later." }));
-      return;
-    }
-
-    const url = new URL(req.url, `http://${req.headers.host ?? "localhost"}`);
-
-    if (req.method === "OPTIONS" && url.pathname === MCP_PATH) {
-      res.writeHead(204, {
-        "Access-Control-Allow-Origin": CORS_ORIGIN,
-        "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-        "Access-Control-Allow-Headers": "content-type, mcp-session-id, mcp-protocol-version",
-        "Access-Control-Expose-Headers": "Mcp-Session-Id",
-      });
-      res.end();
-      return;
-    }
-
-    if (req.method === "GET" && url.pathname === "/") {
-      res
-        .writeHead(200, { "content-type": "text/plain" })
-        .end("ChatUI Enhanced MCP server - Auto-discovery enabled");
-      return;
-    }
-
-    const MCP_METHODS = new Set(["POST", "GET"]);
-    if (url.pathname === MCP_PATH && req.method && MCP_METHODS.has(req.method)) {
-      res.setHeader("Access-Control-Allow-Origin", CORS_ORIGIN);
-      res.setHeader("Access-Control-Expose-Headers", "Mcp-Session-Id");
-
-      const server = createEnhancedChatUiServer();
-      const transport = new StreamableHTTPServerTransport({
-        sessionIdGenerator: undefined,
-        enableJsonResponse: true,
-        ...(DNS_REBINDING_PROTECTION
-          ? {
-              enableDnsRebindingProtection: true,
-              allowedHosts: ALLOWED_HOSTS.length > 0 ? ALLOWED_HOSTS : ["127.0.0.1", "localhost"],
-            }
-          : {}),
-      });
-
-      res.on("close", () => {
-        transport.close();
-        server.close();
-      });
-
-      try {
-        await server.connect(transport);
-        await transport.handleRequest(req, res);
-      } catch (error) {
-        console.error("Error handling MCP request:", error);
-        if (!res.headersSent) {
-          res.writeHead(500).end("Internal server error");
-        }
-      }
-
-      return;
-    }
-
-    res.writeHead(404).end("Not Found");
-  });
-
-  httpServer.listen(port, host, () => {
-    console.log(
-      `ChatUI Enhanced MCP server listening on http://${host}:${port}${MCP_PATH}`,
-    );
-    console.log(`Widget source: ${widgetHtmlPath}`);
-    console.log(`Widget bundles: ${widgetsDistPath}`);
-    console.log(
-      `Auto-discovery: ${Object.keys(widgetManifest.widgetManifest).length} widgets found`,
-    );
+  startMcpHttpServer({
+    createServerInstance: createEnhancedChatUiServer,
+    rootMessage: "ChatUI Enhanced MCP server - Auto-discovery enabled",
+    onListen: () => {
+      console.log(`Widget source: ${widgetHtmlPath}`);
+      console.log(`Widget bundles: ${widgetsDistPath}`);
+      console.log(
+        `Auto-discovery: ${Object.keys(widgetManifest.widgetManifest).length} widgets found`,
+      );
+    },
   });
 }

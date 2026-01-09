@@ -12,7 +12,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "./Sheet";
+} from "./fallback/Sheet";
 
 const meta: Meta<typeof Sheet> = {
   title: "Components/UI/Overlays/Sheet",

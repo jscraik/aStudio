@@ -1,1 +1,1 @@
-export * from "./Accordion";
+export * from "./fallback/Accordion";

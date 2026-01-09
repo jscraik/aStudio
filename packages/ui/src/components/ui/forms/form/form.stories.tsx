@@ -14,7 +14,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./Form";
+} from "./fallback/Form";
 
 const meta: Meta<typeof Form> = {
   title: "Components/UI/Forms/Form",

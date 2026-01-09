@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import { expectFocused, render, screen } from "../../../../testing/utils";
 
-import { RadioGroup, RadioGroupItem } from "./RadioGroup";
+import { RadioGroup, RadioGroupItem } from "./fallback/RadioGroup";
 
 describe("RadioGroup", () => {
   describe("rendering", () => {

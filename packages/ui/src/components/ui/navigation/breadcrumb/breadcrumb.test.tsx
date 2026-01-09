@@ -10,7 +10,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "./Breadcrumb";
+} from "./fallback/Breadcrumb";
 
 describe("Breadcrumb", () => {
   describe("rendering", () => {

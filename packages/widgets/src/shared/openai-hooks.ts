@@ -1,8 +1,14 @@
 import type { SetStateAction } from "react";
-import { useCallback, useSyncExternalStore } from "react";
+import { useCallback } from "react";
+import {
+  useHost,
+  useOpenAiGlobal as useRuntimeOpenAiGlobal,
+  type OpenAiDisplayMode,
+  type OpenAiGlobals as RuntimeOpenAiGlobals,
+  type OpenAiTheme,
+} from "@chatui/runtime";
 
-const hasWindow = typeof window !== "undefined";
-const isDev = typeof import.meta !== "undefined" && Boolean((import.meta as ImportMeta).env?.DEV);
+import { validateWidgetStateBudget } from "./widget-state-budget";
 
 // Enhanced OpenAI types based on Toolbase-AI template
 /**
@@ -28,7 +34,7 @@ export type DefaultGlobalOutputs = {
 /**
  * Host-provided theme mode.
  */
-export type Theme = "light" | "dark";
+export type Theme = OpenAiTheme;
 /**
  * Device type classification from the host.
  */
@@ -36,7 +42,7 @@ export type DeviceType = "mobile" | "tablet" | "desktop" | "unknown";
 /**
  * Display mode for widget rendering.
  */
-export type DisplayMode = "pip" | "inline" | "fullscreen";
+export type DisplayMode = OpenAiDisplayMode;
 
 /**
  * Safe-area inset values in pixels.
@@ -114,17 +120,6 @@ export type CallTool = (name: string, args: Record<string, unknown>) => Promise<
 /**
  * DOM event type emitted when globals are updated.
  */
-export const SET_GLOBALS_EVENT_TYPE = "openai:set_globals";
-
-/**
- * Custom event used to notify listeners of OpenAI global updates.
- */
-export class SetGlobalsEvent<T extends GlobalOutput> extends CustomEvent<{
-  globals: Partial<OpenAiGlobals<T>>;
-}> {
-  readonly type = SET_GLOBALS_EVENT_TYPE;
-}
-
 /**
  * Return a global OpenAI property with reactive updates.
  * @param key - The OpenAI globals key to read.
@@ -133,31 +128,7 @@ export class SetGlobalsEvent<T extends GlobalOutput> extends CustomEvent<{
 export function useOpenAIGlobal<T extends GlobalOutput, K extends keyof OpenAiGlobals<T>>(
   key: K,
 ): OpenAiGlobals<T>[K] | undefined {
-  return useSyncExternalStore(
-    (onChange) => {
-      if (!hasWindow) {
-        return () => {};
-      }
-
-      const handleSetGlobal = (event: SetGlobalsEvent<T>) => {
-        const value = event.detail.globals[key];
-        if (value === undefined) {
-          return;
-        }
-        onChange();
-      };
-
-      window.addEventListener(SET_GLOBALS_EVENT_TYPE, handleSetGlobal, {
-        passive: true,
-      });
-
-      return () => {
-        window.removeEventListener(SET_GLOBALS_EVENT_TYPE, handleSetGlobal);
-      };
-    },
-    () => (hasWindow ? (window.openai as OpenAiGlobals<T>)?.[key] : undefined),
-    () => undefined,
-  );
+  return useRuntimeOpenAiGlobal(key as keyof RuntimeOpenAiGlobals) as OpenAiGlobals<T>[K] | undefined;
 }
 
 /**
@@ -172,28 +143,22 @@ export function useWidgetState<T extends Record<string, unknown>>(): readonly [
   (state: SetStateAction<T | null | undefined>) => void,
 ] {
   const currentState = useOpenAIGlobal<{ State: T }, "widgetState">("widgetState");
-  const globalSetter = useOpenAIGlobal<{ State: T }, "setWidgetState">("setWidgetState");
+  const host = useHost();
 
   const setState = useCallback(
     (action: SetStateAction<T | null | undefined>) => {
-      if (!globalSetter) {
-        if (isDev) {
-          console.warn("setWidgetState is not available on window.openai");
-        }
+      if (!host.setState) {
         return;
       }
 
       const newState = typeof action === "function" ? action(currentState) : action;
 
       if (newState != null) {
-        globalSetter(newState).catch((err) => {
-          if (isDev) {
-            console.warn("setWidgetState could not be set on window.openai", err);
-          }
-        });
+        validateWidgetStateBudget(newState);
+        host.setState(newState);
       }
     },
-    [globalSetter, currentState],
+    [host, currentState],
   );
 
   return [currentState, setState] as const;
@@ -216,7 +181,8 @@ export function useDisplayMode(): {
   requestMode: RequestDisplayMode | undefined;
 } {
   const mode = useOpenAIGlobal("displayMode");
-  const requestMode = hasWindow ? window.openai?.requestDisplayMode : undefined;
+  const host = useHost();
+  const requestMode = host.requestDisplayMode;
 
   return { mode, requestMode };
 }
@@ -274,7 +240,8 @@ export function useToolMetadata<T = Record<string, unknown>>(): T | null | undef
  * @returns The callTool function or undefined if unavailable.
  */
 export function useCallTool(): CallTool | undefined {
-  return hasWindow ? window.openai?.callTool : undefined;
+  const host = useHost();
+  return host.callTool as CallTool | undefined;
 }
 
 /**
@@ -299,4 +266,12 @@ export function useDeviceCapabilities() {
  */
 export function useLocale(): string | undefined {
   return useOpenAIGlobal("locale");
+}
+
+/**
+ * Return a helper to send follow-up messages via the host.
+ */
+export function useSendMessage(): ((text: string) => Promise<void>) | undefined {
+  const host = useHost();
+  return host.sendMessage;
 }

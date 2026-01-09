@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { useCallback, useMemo } from "react";
 
+import { useDisplayMode, useSendMessage } from "../../../shared/openai-hooks";
 import { useOpenAiGlobal } from "../../../shared/use-openai-global";
 import { useWidgetState } from "../../../shared/use-widget-state";
 import type { CartItem, ShopView, ShopWidgetState } from "../../../shared/tool-output-types";
@@ -94,12 +95,15 @@ export function PizzazShop() {
   const view = widgetState?.view ?? "cart";
   const deliveryOption = widgetState?.deliveryOption ?? "standard";
   const tipPercent = widgetState?.tipPercent ?? 10;
-  const displayMode = useOpenAiGlobal("displayMode") ?? "inline";
+  const { mode: displayMode, requestMode } = useDisplayMode();
+  const sendMessage = useSendMessage();
 
   // Request fullscreen for better checkout experience
   const handleExpandToFullscreen = useCallback(async () => {
-    await window.openai?.requestDisplayMode?.({ mode: "fullscreen" });
-  }, []);
+    if (requestMode) {
+      await requestMode({ mode: "fullscreen" });
+    }
+  }, [requestMode]);
 
   // Calculations
   const subtotal = useMemo(
@@ -156,10 +160,10 @@ export function PizzazShop() {
     }));
 
     // Notify the model about the order
-    window.openai?.sendFollowUpMessage?.({
-      prompt: `Order ${orderId} placed successfully! Total: $${total.toFixed(2)}`,
-    });
-  }, [setWidgetState, total]);
+    if (sendMessage) {
+      void sendMessage(`Order ${orderId} placed successfully! Total: $${total.toFixed(2)}`);
+    }
+  }, [sendMessage, setWidgetState, total]);
 
   const baseClasses = "bg-surface text-primary border-subtle";
 

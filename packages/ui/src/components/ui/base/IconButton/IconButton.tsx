@@ -123,9 +123,9 @@ export function IconButton({
       aria-label={ariaLabelledBy ? undefined : accessibleLabel}
       aria-labelledby={ariaLabelledBy}
       className={cn(
-        "rounded-md transition-colors flex items-center justify-center font-foundation",
+        "rounded-md transition-colors flex items-center justify-center font-foundation min-h-[var(--foundation-size-hit-target)] min-w-[var(--foundation-size-hit-target)]",
         "focus-visible:outline-none focus-visible:ring-2",
-        "focus-visible:ring-foundation-accent-blue-light dark:focus-visible:ring-foundation-accent-blue",
+        "focus-visible:ring-foundation-text-light-primary dark:focus-visible:ring-foundation-text-dark-primary",
         "focus-visible:ring-offset-2",
         "focus-visible:ring-offset-foundation-bg-light-1 dark:focus-visible:ring-offset-foundation-bg-dark-2",
         "motion-reduce:transition-none",

@@ -1,45 +1,48 @@
 import type { ComponentType } from "react";
 import * as React from "react";
 
-import { FoundationsShowcase as TempFoundationsShowcase } from "./_temp_import/components/FoundationsShowcase";
-import { ColorShowcase as TempColorShowcase } from "./_temp_import/components/ColorShowcase";
-import { TypographyShowcase as TempTypographyShowcase } from "./_temp_import/components/TypographyShowcase";
-import { SpacingShowcase as TempSpacingShowcase } from "./_temp_import/components/SpacingShowcase";
-import { IconographyShowcase as TempIconographyShowcase } from "./_temp_import/components/IconographyShowcase";
-import { DesignSystemDocs as TempDesignSystemDocs } from "./_temp_import/components/DesignSystemDocs";
-import { ComposeTemplate } from "./ComposeTemplate";
-import { ChatTemplate } from "./ChatTemplate";
-import { ChatSidebarTemplate } from "./ChatSidebarTemplate";
-import { ChatMessagesTemplate } from "./ChatMessagesTemplate";
-import { ChatVariantsTemplate } from "./ChatVariantsTemplate";
-import { ChatHeader as TempChatHeader } from "./_temp_import/components/ChatHeader";
-import { ChatInput as TempChatInput } from "./_temp_import/components/ChatInput";
-import { AppsPanel as TempAppsPanel } from "./_temp_import/components/AppsPanel";
-import { ArchivedChatsPanel as TempArchivedChatsPanel } from "./_temp_import/components/ArchivedChatsPanel";
+import {
+  ColorShowcase as TempColorShowcase,
+  DesignSystemDocs as TempDesignSystemDocs,
+  FoundationsShowcase as TempFoundationsShowcase,
+  IconographyShowcase as TempIconographyShowcase,
+  SpacingShowcase as TempSpacingShowcase,
+  TypographyShowcase as TempTypographyShowcase,
+} from "../design-system/showcase";
+import { ChatHeader as TempChatHeader } from "../app/chat/ChatHeader";
+import { ChatInput as TempChatInput } from "../app/chat/ChatInput";
+import { AppsPanel as TempAppsPanel } from "../app/settings/AppsPanel";
+import { ArchivedChatsPanel as TempArchivedChatsPanel } from "../app/settings/ArchivedChatsPanel";
+import { DataControlsPanel as TempDataControlsPanel } from "../app/settings/DataControlsPanel";
+import { ManageAppsPanel as TempManageAppsPanel } from "../app/settings/ManageAppsPanel";
+import { NotificationsPanel as TempNotificationsPanel } from "../app/settings/NotificationsPanel";
+import { PersonalizationPanel as TempPersonalizationPanel } from "../app/settings/PersonalizationPanel";
+import { SecurityPanel as TempSecurityPanel } from "../app/settings/SecurityPanel";
+
+import { ChatGPTIconCatalog as TempChatGPTIconCatalog } from "./ChatGPTIconCatalog";
 import { AudioSettingsPanelTemplate } from "./AudioSettingsPanelTemplate";
+import { ChatMessagesTemplate } from "./ChatMessagesTemplate";
+import { ChatSidebarTemplate } from "./ChatSidebarTemplate";
+import { ChatTemplate } from "./ChatTemplate";
+import { ChatVariantsTemplate } from "./ChatVariantsTemplate";
 import { CheckForUpdatesPanelTemplate } from "./CheckForUpdatesPanelTemplate";
-import { DataControlsPanel as TempDataControlsPanel } from "./_temp_import/components/DataControlsPanel";
-import { ManageAppsPanel as TempManageAppsPanel } from "./_temp_import/components/ManageAppsPanel";
-import { NotificationsPanel as TempNotificationsPanel } from "./_temp_import/components/NotificationsPanel";
-import { PersonalizationPanel as TempPersonalizationPanel } from "./_temp_import/components/PersonalizationPanel";
-import { SecurityPanel as TempSecurityPanel } from "./_temp_import/components/SecurityPanel";
-import TempChatGPTIconCatalog from "./_temp_import/components/icons/ChatGPTIconCatalog";
-import { TemplateShellDemo as TempTemplateShellDemo } from "./_temp_import/components/demos/TemplateShellDemo";
-import { TemplatePanelDemo as TempTemplatePanelDemo } from "./_temp_import/components/demos/TemplatePanelDemo";
-import { TemplateHeaderBarDemo as TempTemplateHeaderBarDemo } from "./_temp_import/components/demos/TemplateHeaderBarDemo";
-import { TemplateFormFieldDemo as TempTemplateFormFieldDemo } from "./_temp_import/components/demos/TemplateFormFieldDemo";
-import { TemplateFooterBarDemo as TempTemplateFooterBarDemo } from "./_temp_import/components/demos/TemplateFooterBarDemo";
-import { TemplateFieldGroupDemo as TempTemplateFieldGroupDemo } from "./_temp_import/components/demos/TemplateFieldGroupDemo";
-import { SettingToggleBlockDemo as TempSettingToggleBlockDemo } from "./_temp_import/components/demos/SettingToggleBlockDemo";
-import { SettingRowBlockDemo as TempSettingRowBlockDemo } from "./_temp_import/components/demos/SettingRowBlockDemo";
-import { SettingDropdownBlockDemo as TempSettingDropdownBlockDemo } from "./_temp_import/components/demos/SettingDropdownBlockDemo";
-import { ChatHeaderDemo as TempChatHeaderDemo } from "./_temp_import/components/demos/ChatHeaderDemo";
-import { ModelSelectorDemo as TempModelSelectorDemo } from "./_temp_import/components/demos/ModelSelectorDemo";
-import { ChatInputDemo as TempChatInputDemo } from "./_temp_import/components/demos/ChatInputDemo";
-import { AttachmentMenuDemo as TempAttachmentMenuDemo } from "./_temp_import/components/demos/AttachmentMenuDemo";
-import { IconPickerModalDemo as TempIconPickerModalDemo } from "./_temp_import/components/demos/IconPickerModalDemo";
-import { DiscoverySettingsModalDemo as TempDiscoverySettingsModalDemo } from "./_temp_import/components/demos/DiscoverySettingsModalDemo";
-import { SettingsModalDemo as TempSettingsModalDemo } from "./_temp_import/components/demos/SettingsModalDemo";
+import { ComposeTemplate } from "./ComposeTemplate";
+import { TemplateShellDemo as TempTemplateShellDemo } from "./demos/TemplateShellDemo";
+import { TemplatePanelDemo as TempTemplatePanelDemo } from "./demos/TemplatePanelDemo";
+import { TemplateHeaderBarDemo as TempTemplateHeaderBarDemo } from "./demos/TemplateHeaderBarDemo";
+import { TemplateFormFieldDemo as TempTemplateFormFieldDemo } from "./demos/TemplateFormFieldDemo";
+import { TemplateFooterBarDemo as TempTemplateFooterBarDemo } from "./demos/TemplateFooterBarDemo";
+import { TemplateFieldGroupDemo as TempTemplateFieldGroupDemo } from "./demos/TemplateFieldGroupDemo";
+import { SettingToggleBlockDemo as TempSettingToggleBlockDemo } from "./demos/SettingToggleBlockDemo";
+import { SettingRowBlockDemo as TempSettingRowBlockDemo } from "./demos/SettingRowBlockDemo";
+import { SettingDropdownBlockDemo as TempSettingDropdownBlockDemo } from "./demos/SettingDropdownBlockDemo";
+import { ChatHeaderDemo as TempChatHeaderDemo } from "./demos/ChatHeaderDemo";
+import { ModelSelectorDemo as TempModelSelectorDemo } from "./demos/ModelSelectorDemo";
+import { ChatInputDemo as TempChatInputDemo } from "./demos/ChatInputDemo";
+import { AttachmentMenuDemo as TempAttachmentMenuDemo } from "./demos/AttachmentMenuDemo";
+import { IconPickerModalDemo as TempIconPickerModalDemo } from "./demos/IconPickerModalDemo";
+import { DiscoverySettingsModalDemo as TempDiscoverySettingsModalDemo } from "./demos/DiscoverySettingsModalDemo";
+import { SettingsModalDemo as TempSettingsModalDemo } from "./demos/SettingsModalDemo";
 
 const TempChatInputPreview: ComponentType = () =>
   React.createElement(TempChatInput, {
@@ -49,6 +52,27 @@ const TempChatInputPreview: ComponentType = () =>
       description: "Most capable model",
     },
   });
+
+const TempAppsPanelPreview: ComponentType = () =>
+  React.createElement(TempAppsPanel, { onBack: () => {} });
+
+const TempArchivedChatsPanelPreview: ComponentType = () =>
+  React.createElement(TempArchivedChatsPanel, { onBack: () => {} });
+
+const TempDataControlsPanelPreview: ComponentType = () =>
+  React.createElement(TempDataControlsPanel, { onBack: () => {} });
+
+const TempManageAppsPanelPreview: ComponentType = () =>
+  React.createElement(TempManageAppsPanel, { onBack: () => {} });
+
+const TempNotificationsPanelPreview: ComponentType = () =>
+  React.createElement(TempNotificationsPanel, { onBack: () => {} });
+
+const TempPersonalizationPanelPreview: ComponentType = () =>
+  React.createElement(TempPersonalizationPanel, { onBack: () => {} });
+
+const TempSecurityPanelPreview: ComponentType = () =>
+  React.createElement(TempSecurityPanel, { onBack: () => {} });
 
 // ============================================================================
 // TEMPLATE DEFINITIONS
@@ -223,7 +247,7 @@ export const templateRegistry: TemplateDefinition[] = [
     title: "Settings: Apps",
     description: "Apps settings panel template.",
     category: "panels",
-    Component: TempAppsPanel,
+    Component: TempAppsPanelPreview,
     tags: ["settings", "apps"],
   },
   {
@@ -231,7 +255,7 @@ export const templateRegistry: TemplateDefinition[] = [
     title: "Settings: Archived Chats",
     description: "Archived chats panel template.",
     category: "panels",
-    Component: TempArchivedChatsPanel,
+    Component: TempArchivedChatsPanelPreview,
     tags: ["settings", "chats"],
   },
   {
@@ -255,7 +279,7 @@ export const templateRegistry: TemplateDefinition[] = [
     title: "Settings: Data Controls",
     description: "Data controls panel template.",
     category: "panels",
-    Component: TempDataControlsPanel,
+    Component: TempDataControlsPanelPreview,
     tags: ["settings", "data"],
   },
   {
@@ -263,7 +287,7 @@ export const templateRegistry: TemplateDefinition[] = [
     title: "Settings: Manage Apps",
     description: "Manage apps panel template.",
     category: "panels",
-    Component: TempManageAppsPanel,
+    Component: TempManageAppsPanelPreview,
     tags: ["settings", "apps"],
   },
   {
@@ -271,7 +295,7 @@ export const templateRegistry: TemplateDefinition[] = [
     title: "Settings: Notifications",
     description: "Notifications panel template.",
     category: "panels",
-    Component: TempNotificationsPanel,
+    Component: TempNotificationsPanelPreview,
     tags: ["settings", "notifications"],
   },
   {
@@ -279,7 +303,7 @@ export const templateRegistry: TemplateDefinition[] = [
     title: "Settings: Personalization",
     description: "Personalization panel template.",
     category: "panels",
-    Component: TempPersonalizationPanel,
+    Component: TempPersonalizationPanelPreview,
     tags: ["settings", "personalization"],
   },
   {
@@ -287,7 +311,7 @@ export const templateRegistry: TemplateDefinition[] = [
     title: "Settings: Security",
     description: "Security panel template.",
     category: "panels",
-    Component: TempSecurityPanel,
+    Component: TempSecurityPanelPreview,
     tags: ["settings", "security"],
   },
   {

@@ -26,8 +26,9 @@ This is a pnpm workspace monorepo. Key locations:
 Common commands (from root `package.json`):
 
 - `pnpm install` — install workspace dependencies.
-- `pnpm dev` — run web app + Storybook.
+- `pnpm dev` — run web app and open iOS Simulator (Safari).
 - `pnpm dev:web` / `pnpm dev:storybook` — run only one surface.
+- `pnpm dev:ios` / `pnpm storybook:ios` — run web/Storybook and open iOS Simulator (Safari).
 - `pnpm build` / `pnpm build:web` / `pnpm build:widgets` / `pnpm build:macos` — build pipeline targets.
 - `pnpm lint` / `pnpm format` / `pnpm format:check` — lint and formatting.
 - `pnpm test` — UI unit tests.

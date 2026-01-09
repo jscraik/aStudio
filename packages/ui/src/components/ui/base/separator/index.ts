@@ -1,1 +1,1 @@
-export * from "./Separator";
+export * from "./fallback/Separator";

@@ -163,7 +163,7 @@ export function ModelSelector({
         className={cn(
           "flex items-center rounded-lg transition-all duration-150",
           "hover:bg-foundation-bg-light-2 dark:hover:bg-foundation-bg-dark-3",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foundation-accent-blue",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foundation-text-light-primary dark:focus-visible:ring-foundation-text-dark-primary",
           isOpen && "bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-3",
           disabled && "opacity-50 cursor-not-allowed",
           sizeClasses[size],
@@ -234,7 +234,7 @@ export function ModelSelector({
                       className={cn(
                         "w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-colors duration-150",
                         "hover:bg-foundation-bg-light-2 dark:hover:bg-foundation-bg-dark-3",
-                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-foundation-accent-blue",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-foundation-text-light-primary dark:focus-visible:ring-foundation-text-dark-primary",
                         "text-left",
                       )}
                     >
@@ -311,7 +311,7 @@ function ModelOption({ model, isSelected, onSelect }: ModelOptionProps) {
       className={cn(
         "w-full flex items-center justify-between px-3 py-3 rounded-xl transition-colors duration-150",
         "hover:bg-foundation-bg-light-2 dark:hover:bg-foundation-bg-dark-3",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-foundation-accent-blue",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-foundation-text-light-primary dark:focus-visible:ring-foundation-text-dark-primary",
         "text-left group",
         isSelected && "bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-3",
       )}
@@ -358,7 +358,7 @@ function LegacyModelOption({ model, isSelected, onSelect }: ModelOptionProps) {
       className={cn(
         "w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-colors duration-150",
         "hover:bg-foundation-bg-light-2 dark:hover:bg-foundation-bg-dark-3",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-foundation-accent-blue",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-foundation-text-light-primary dark:focus-visible:ring-foundation-text-dark-primary",
         "text-left",
         isSelected && "bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-3",
       )}

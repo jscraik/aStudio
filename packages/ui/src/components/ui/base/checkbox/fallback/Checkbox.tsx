@@ -1,0 +1,49 @@
+// Radix fallback component.
+// why_missing_upstream: Apps SDK UI lacks this component or required API parity.
+// migration_trigger: Replace with Apps SDK UI component when available with matching props and behavior.
+// a11y_contract_ref: docs/KEYBOARD_NAVIGATION_TESTS.md
+
+"use client";
+
+import * as React from "react";
+import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+
+import { IconCheckmark } from "../../../../../icons";
+import { cn } from "../../../utils";
+
+/**
+ * Renders a styled checkbox using Radix primitives.
+ *
+ * Accessibility contract:
+ * - Provide a visible label or `aria-label`/`aria-labelledby`.
+ * - Supports keyboard toggling via Space/Enter per Radix behavior.
+ *
+ * @param props - Radix checkbox root props.
+ * @returns A styled checkbox element.
+ *
+ * @example
+ * ```tsx
+ * <Checkbox checked={checked} onCheckedChange={setChecked} />
+ * ```
+ */
+function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
+  return (
+    <CheckboxPrimitive.Root
+      data-slot="checkbox"
+      className={cn(
+        "peer border bg-input-background dark:bg-input/30 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground dark:data-[state=checked]:bg-primary data-[state=checked]:border-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-4 shrink-0 rounded-[4px] border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
+        className,
+      )}
+      {...props}
+    >
+      <CheckboxPrimitive.Indicator
+        data-slot="checkbox-indicator"
+        className="flex items-center justify-center text-current transition-none"
+      >
+        <IconCheckmark className="size-3.5" />
+      </CheckboxPrimitive.Indicator>
+    </CheckboxPrimitive.Root>
+  );
+}
+
+export { Checkbox };

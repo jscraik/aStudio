@@ -1,13 +1,42 @@
 import { describe, expect, it } from "vitest";
 
 import { colorTokens } from "../src/colors.js";
+import { sizeTokens } from "../src/sizes.js";
 import { spacingScale } from "../src/spacing.js";
 import { typographyTokens } from "../src/typography.js";
 
 describe("Token Validation", () => {
-  describe("Color Tokens", () => {
-    const hexPattern = /^#[0-9A-Fa-f]{6}$/;
+  const hexPattern = /^#[0-9A-Fa-f]{6}$/;
 
+  function hexToRgb(hex: string) {
+    const clean = hex.replace("#", "");
+    const r = parseInt(clean.slice(0, 2), 16);
+    const g = parseInt(clean.slice(2, 4), 16);
+    const b = parseInt(clean.slice(4, 6), 16);
+    return { r, g, b };
+  }
+
+  function relativeLuminance({ r, g, b }: { r: number; g: number; b: number }) {
+    const [rs, gs, bs] = [r, g, b].map((value) => {
+      const normalized = value / 255;
+      return normalized <= 0.03928
+        ? normalized / 12.92
+        : Math.pow((normalized + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+  }
+
+  function contrastRatio(foreground: string, background: string) {
+    const fg = hexToRgb(foreground);
+    const bg = hexToRgb(background);
+    const l1 = relativeLuminance(fg);
+    const l2 = relativeLuminance(bg);
+    const lighter = Math.max(l1, l2);
+    const darker = Math.min(l1, l2);
+    return (lighter + 0.05) / (darker + 0.05);
+  }
+
+  describe("Color Tokens", () => {
     it("should have valid hex colors for background.light", () => {
       Object.entries(colorTokens.background.light).forEach(([_key, value]) => {
         expect(value).toMatch(hexPattern);
@@ -73,6 +102,19 @@ describe("Token Validation", () => {
       const accentDarkKeys = Object.keys(colorTokens.accent.dark).sort();
       expect(accentLightKeys).toEqual(accentDarkKeys);
     });
+
+    it("should meet focus ring contrast against primary backgrounds", () => {
+      const lightRing = colorTokens.interactive.light.ring;
+      const darkRing = colorTokens.interactive.dark.ring;
+      expect(lightRing).toMatch(hexPattern);
+      expect(darkRing).toMatch(hexPattern);
+
+      const lightContrast = contrastRatio(lightRing, colorTokens.background.light.primary);
+      const darkContrast = contrastRatio(darkRing, colorTokens.background.dark.primary);
+
+      expect(lightContrast).toBeGreaterThanOrEqual(3);
+      expect(darkContrast).toBeGreaterThanOrEqual(3);
+    });
   });
 
   describe("Spacing Tokens", () => {
@@ -91,6 +133,12 @@ describe("Token Validation", () => {
 
     it("should have at least 10 values", () => {
       expect(spacingScale.length).toBeGreaterThanOrEqual(10);
+    });
+  });
+
+  describe("Touch Target Tokens", () => {
+    it("should enforce minimum hit target size", () => {
+      expect(sizeTokens.hitTarget).toBeGreaterThanOrEqual(44);
     });
   });
 

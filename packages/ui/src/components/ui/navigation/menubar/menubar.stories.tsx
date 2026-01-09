@@ -9,7 +9,7 @@ import {
   MenubarSeparator,
   MenubarShortcut,
   MenubarTrigger,
-} from "./Menubar";
+} from "./fallback/Menubar";
 
 const meta: Meta<typeof Menubar> = {
   title: "Components/UI/Navigation/Menubar",

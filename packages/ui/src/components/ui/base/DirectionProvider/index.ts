@@ -1,1 +1,1 @@
-export * from "./DirectionProvider";
+export * from "./fallback/DirectionProvider";

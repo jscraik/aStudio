@@ -317,6 +317,42 @@ export function createMockHost(overrides: Partial<Host> = {}): Host {
   };
 }
 
+export type HostAdapterOptions = {
+  mode?: "embedded" | "standalone" | "mock";
+  apiBase?: string;
+  mockOverrides?: Partial<Host>;
+};
+
+/**
+ * Create the best available host adapter for the current environment.
+ * @param options - Optional configuration for host selection.
+ * @returns A host adapter implementation.
+ */
+export function createHostAdapter(options: HostAdapterOptions = {}): Host {
+  const isBrowser = typeof window !== "undefined";
+
+  if (options.mode === "mock") {
+    return createMockHost(options.mockOverrides);
+  }
+
+  if (options.mode === "standalone") {
+    if (!options.apiBase) {
+      throw new Error("createHostAdapter requires apiBase for standalone mode");
+    }
+    return createStandaloneHost(options.apiBase);
+  }
+
+  if (isBrowser && window.openai) {
+    return createEmbeddedHost();
+  }
+
+  if (options.apiBase) {
+    return createStandaloneHost(options.apiBase);
+  }
+
+  return createMockHost(options.mockOverrides);
+}
+
 /**
  * Subscribe to `window.openai` global changes dispatched by the host.
  * @param key - Global key to read.
@@ -346,6 +382,18 @@ export function useOpenAiGlobal<K extends keyof OpenAiGlobals>(key: K): OpenAiGl
     () => (isBrowser ? window.openai?.[key] : undefined),
     () => undefined,
   );
+}
+
+/**
+ * Read a `window.openai` global value outside React.
+ * @param key - Global key to read.
+ * @returns The value for the key, or undefined when unavailable.
+ */
+export function getOpenAiGlobal<K extends keyof OpenAiGlobals>(
+  key: K,
+): OpenAiGlobals[K] | undefined {
+  if (typeof window === "undefined") return undefined;
+  return window.openai?.[key];
 }
 
 // Convenience hooks for common globals

@@ -54,10 +54,12 @@ export const colorTokens = {
   "border": {
     "light": {
       "light": "#0D0D0D0D",
+      "default": "#0D0D0D26",
       "heavy": "#0D0D0D26"
     },
     "dark": {
       "default": "#FFFFFF26",
+      "heavy": "#FFFFFF26",
       "light": "#FFFFFF0D"
     }
   },

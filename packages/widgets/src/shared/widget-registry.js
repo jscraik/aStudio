@@ -23,8 +23,11 @@ export function createWidgetTool(widgetName, meta, handler, toolName) {
   let widgetInfo = widgetManifest[widgetName];
   if (!widgetInfo) {
     const message = `Widget "${widgetName}" not found in manifest`;
-    if (process.env.NODE_ENV === "production") {
-      console.warn(message);
+    const isProduction =
+      typeof globalThis.process !== "undefined" &&
+      globalThis.process?.env?.NODE_ENV === "production";
+    if (isProduction) {
+      globalThis.console?.warn(message);
       widgetInfo = { uri: `${widgetName}.missing` };
     } else {
       throw new Error(message);

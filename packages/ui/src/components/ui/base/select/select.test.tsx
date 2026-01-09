@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import { render, screen } from "../../../../testing/utils";
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./Select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./fallback/Select";
 
 describe("Select", () => {
   it("renders with default value", () => {

@@ -4,7 +4,7 @@ import { Button } from "../Button";
 import { Input } from "../Input";
 import { Label } from "../Label";
 
-import { DirectionProvider, useDirection } from "./DirectionProvider";
+import { DirectionProvider, useDirection } from "./fallback/DirectionProvider";
 
 const meta: Meta<typeof DirectionProvider> = {
   title: "Components/UI/Base/Direction Provider",

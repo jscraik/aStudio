@@ -21,10 +21,19 @@ for (const variant of serverVariants) {
     const registeredNames = Object.keys(tools).sort();
     const contractNames = Object.keys(toolContracts).sort();
 
+    for (const name of contractNames) {
+      assert.ok(
+        registeredNames.includes(name),
+        `Tool contracts mismatch (${variant.label}). Missing registered tool: ${name}`,
+      );
+    }
+
+    const extraNames = registeredNames.filter((name) => !contractNames.includes(name));
+    const unexpectedExtras = extraNames.filter((name) => !name.startsWith("widget_preview_"));
     assert.deepEqual(
-      registeredNames,
-      contractNames,
-      `Tool contracts mismatch (${variant.label}). Registered: ${registeredNames.join(", ")}, Contracts: ${contractNames.join(", ")}`,
+      unexpectedExtras,
+      [],
+      `Unexpected extra tools (${variant.label}): ${unexpectedExtras.join(", ")}`,
     );
   });
 
@@ -69,6 +78,43 @@ for (const variant of serverVariants) {
       assert.ok(
         Array.isArray(contract.goldenPrompts) && contract.goldenPrompts.length > 0,
         `${name} (${variant.label}): goldenPrompts must be defined`,
+      );
+    }
+  });
+
+  test(`widget preview tools validate required metadata (${variant.label})`, () => {
+    const tools = getRegisteredTools(variant.factory);
+
+    for (const [name, tool] of Object.entries(tools)) {
+      if (!name.startsWith("widget_preview_")) {
+        continue;
+      }
+
+      const meta = tool._meta ?? {};
+      const annotations = tool.annotations ?? {};
+      const widgetName = name.replace("widget_preview_", "");
+
+      assert.equal(
+        annotations.readOnlyHint,
+        true,
+        `${name} (${variant.label}): readOnlyHint should be true`,
+      );
+      assert.equal(
+        meta["openai/widgetAccessible"],
+        false,
+        `${name} (${variant.label}): openai/widgetAccessible should be false`,
+      );
+      assert.equal(
+        meta["openai/visibility"],
+        "public",
+        `${name} (${variant.label}): openai/visibility should be public`,
+      );
+
+      const outputTemplate = meta["openai/outputTemplate"];
+      assert.ok(typeof outputTemplate === "string", `${name} (${variant.label}): openai/outputTemplate missing`);
+      assert.ok(
+        outputTemplate.includes(widgetName),
+        `${name} (${variant.label}): openai/outputTemplate should include ${widgetName}`,
       );
     }
   });

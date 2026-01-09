@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { DiscoverySettingsModal } from "../../modals/DiscoverySettingsModal";
 import {
@@ -20,9 +20,15 @@ import {
  * @returns A compose mode panel layout.
  */
 export function ComposeView({ models, modes }: ComposeViewProps) {
-  const resolvedModels = models && models.length > 0 ? models : [fallbackModel];
-  const resolvedModes = modes && modes.length > 0 ? modes : [fallbackMode];
-  const [selectedModel] = useState(resolvedModels[0] ?? fallbackModel);
+  const resolvedModels = useMemo(
+    () => (models && models.length > 0 ? models : [fallbackModel]),
+    [models],
+  );
+  const resolvedModes = useMemo(
+    () => (modes && modes.length > 0 ? modes : [fallbackMode]),
+    [modes],
+  );
+  const [selectedModel, setSelectedModel] = useState(resolvedModels[0] ?? fallbackModel);
   const [instructions, setInstructions] = useState("");
   const [promptEnhancement, setPromptEnhancement] = useState<"rewrite" | "augment" | "preserve">("rewrite");
   const [isWebSearchActive, setIsWebSearchActive] = useState(false);
@@ -38,6 +44,20 @@ export function ComposeView({ models, modes }: ComposeViewProps) {
   const [proEditMode, setProEditMode] = useState<ProEditMode>("agent");
   const [selectedAgent, setSelectedAgent] = useState("Codex CLI");
   const [selectedModelConfig, setSelectedModelConfig] = useState("GPT-5.2 Codex Medium");
+
+  useEffect(() => {
+    const nextModel = resolvedModels[0] ?? fallbackModel;
+    if (!resolvedModels.includes(selectedModel)) {
+      setSelectedModel(nextModel);
+    }
+  }, [resolvedModels, selectedModel]);
+
+  useEffect(() => {
+    const nextMode = resolvedModes[5] ?? resolvedModes[0] ?? fallbackMode;
+    if (!resolvedModes.includes(previewMode)) {
+      setPreviewMode(nextMode);
+    }
+  }, [previewMode, resolvedModes]);
 
   const taskConfig = getTaskSectionConfig(promptEnhancement);
 

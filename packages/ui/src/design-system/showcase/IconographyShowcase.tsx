@@ -467,27 +467,37 @@ export function IconographyShowcase() {
         <div className="rounded-xl p-6 bg-foundation-bg-dark-2 border border-foundation-bg-dark-3 space-y-4">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
-              <label className="block text-sm font-medium text-foundation-text-dark-primary mb-2">
+              <label
+                htmlFor="iconography-search"
+                className="block text-sm font-medium text-foundation-text-dark-primary mb-2"
+              >
                 Search Icons
               </label>
               <div className="relative">
                 <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-foundation-text-dark-tertiary" />
                 <input
+                  id="iconography-search"
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search by name or keyword..."
+                  aria-label="Search icons"
                   className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-foundation-bg-dark-3 bg-foundation-bg-dark-1 text-foundation-text-dark-primary placeholder:text-foundation-text-dark-tertiary focus:outline-none focus:ring-2 focus:ring-foundation-accent-blue"
                 />
               </div>
             </div>
             <div className="md:w-64">
-              <label className="block text-sm font-medium text-foundation-text-dark-primary mb-2">
+              <label
+                htmlFor="iconography-category"
+                className="block text-sm font-medium text-foundation-text-dark-primary mb-2"
+              >
                 Category
               </label>
               <select
+                id="iconography-category"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
+                aria-label="Icon category"
                 className="w-full px-4 py-2.5 rounded-lg border border-foundation-bg-dark-3 bg-foundation-bg-dark-1 text-foundation-text-dark-primary focus:outline-none focus:ring-2 focus:ring-foundation-accent-blue"
               >
                 {Object.keys(categories).map((category) => (

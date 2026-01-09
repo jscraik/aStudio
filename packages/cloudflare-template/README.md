@@ -54,6 +54,8 @@ pnpm dev
 # http://localhost:8787/mcp
 ```
 
+> **Note:** `pnpm dev` runs `prebuild` to copy widget assets and generate the worker manifest. If you skip `dev`, run `pnpm -C packages/widgets build` before invoking `pnpm run prebuild` so the manifest/assets exist.
+
 ### 3. Deployment
 
 ```bash

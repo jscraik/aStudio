@@ -202,7 +202,7 @@ describe("Input", () => {
     it("has visible focus indicator styles", () => {
       render(<Input aria-label="Test input" />);
       expect(screen.getByRole("textbox")).toHaveClass(
-        "focus-visible:ring-foundation-accent-blue/50",
+        "focus-visible:ring-foundation-text-light-primary",
       );
     });
 

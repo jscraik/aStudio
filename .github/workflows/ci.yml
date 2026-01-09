@@ -23,7 +23,9 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -56,9 +58,33 @@ jobs:
       - name: Install deps
         run: pnpm install --frozen-lockfile
 
+      - name: Fetch base ref (PR only)
+        if: github.event_name == 'pull_request'
+        run: git fetch origin ${{ github.base_ref }} --depth=1
+
+      - name: Detect apps-sdk-ui version change
+        id: apps-sdk-change
+        run: node scripts/check-apps-sdk-ui-version.mjs
+
+      - name: Run Apps SDK UI drift tests
+        if: steps.apps-sdk-change.outputs.changed == 'true'
+        run: pnpm test:drift
+
+      - name: Stamp upstream alignment log
+        if: steps.apps-sdk-change.outputs.changed == 'true'
+        run: pnpm ds:alignment:stamp
+
+      - name: Ensure alignment stamp committed
+        if: steps.apps-sdk-change.outputs.changed == 'true'
+        run: git diff --exit-code docs/design-system/UPSTREAM_ALIGNMENT.md
+
       - name: Lint (web platform only)
         if: matrix.platform == 'web'
         run: pnpm lint
+
+      - name: Design system coverage matrix check (web platform only)
+        if: matrix.platform == 'web'
+        run: pnpm ds:matrix:check
 
       - name: Format check (web platform only)
         if: matrix.platform == 'web'
@@ -75,8 +101,20 @@ jobs:
           pnpm -C packages/runtime type-check
           pnpm -C packages/tokens type-check
 
+      - name: Icon generation property tests (web platform only)
+        if: matrix.platform == 'web'
+        run: pnpm test:astudio-icons
+
+      - name: Runtime host adapter contract tests (web platform only)
+        if: matrix.platform == 'web'
+        run: pnpm test:runtime
+
       - name: Enhanced build pipeline
         run: node scripts/build-pipeline.mjs --platforms ${{ matrix.platform }}
+
+      - name: Bundle size budgets (web platform only)
+        if: matrix.platform == 'web'
+        run: pnpm bundle:monitor:strict
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v6

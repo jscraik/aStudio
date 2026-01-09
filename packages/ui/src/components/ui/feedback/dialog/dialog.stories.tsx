@@ -15,7 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./Dialog";
+} from "./fallback/Dialog";
 
 /**
  * Dialog component built on Radix UI primitives.
@@ -83,6 +83,17 @@ export const Default: Story = {
       </DialogContent>
     </Dialog>
   ),
+  play: async ({ canvasElement }) => {
+    const body = within(canvasElement.ownerDocument.body);
+    const trigger = body.getByRole("button", { name: /open dialog/i });
+
+    await userEvent.click(trigger);
+    const dialog = await body.findByRole("dialog");
+    await expect(dialog).toBeInTheDocument();
+
+    await userEvent.keyboard("{Escape}");
+    await expect(body.queryByRole("dialog")).not.toBeInTheDocument();
+  },
 };
 
 export const WithForm: Story = {

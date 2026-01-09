@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { ToggleGroup, ToggleGroupItem } from "./ToggleGroup";
+import { ToggleGroup, ToggleGroupItem } from "./fallback/ToggleGroup";
 
 const meta: Meta<typeof ToggleGroup> = {
   title: "Components/UI/Base/Toggle Group",

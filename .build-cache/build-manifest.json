@@ -2,8 +2,8 @@
   "version": "1.0.0",
   "builds": {},
   "lastBuild": {
-    "timestamp": "2026-01-02T00:35:21.694Z",
-    "duration": 71445,
+    "timestamp": "2026-01-09T01:01:49.671Z",
+    "duration": 17480,
     "results": [
       {
         "step": "version-sync",
@@ -11,9 +11,17 @@
         "version": "0.0.0"
       },
       {
+        "step": "token-validation",
+        "success": true
+      },
+      {
         "step": "token-generation",
-        "success": true,
-        "skipped": true
+        "success": true
+      },
+      {
+        "step": "web-build",
+        "package": "packages/ui",
+        "success": true
       },
       {
         "step": "web-build",
@@ -26,58 +34,8 @@
         "success": true
       },
       {
-        "step": "test",
-        "suite": "Unit Tests",
-        "success": true
-      },
-      {
-        "step": "test",
-        "suite": "MCP Contract Tests",
-        "success": true
-      },
-      {
-        "step": "test",
-        "suite": "E2E Tests",
-        "success": true
-      },
-      {
-        "step": "test",
-        "suite": "A11y Tests",
-        "success": true
-      },
-      {
-        "step": "test",
-        "suite": "Swift Tests (ChatUIFoundation)",
-        "success": true
-      },
-      {
-        "step": "test",
-        "suite": "Swift Tests (ChatUIComponents)",
-        "success": true
-      },
-      {
-        "step": "test",
-        "suite": "Swift Tests (ChatUIThemes)",
-        "success": true
-      },
-      {
-        "step": "test",
-        "suite": "Swift Tests (ChatUIShellChatGPT)",
-        "success": true
-      },
-      {
-        "step": "test",
-        "suite": "Swift Tests (ChatUISystemIntegration)",
-        "success": true
-      },
-      {
-        "step": "test",
-        "suite": "Swift Tests (ChatUIMCP)",
-        "success": true
-      },
-      {
-        "step": "test",
-        "suite": "Swift Tests (ChatUIApp)",
+        "step": "web-build",
+        "package": "packages/widgets",
         "success": true
       }
     ],

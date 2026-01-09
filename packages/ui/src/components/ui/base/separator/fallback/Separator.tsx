@@ -1,0 +1,39 @@
+// Radix fallback component.
+// why_missing_upstream: Apps SDK UI lacks this component or required API parity.
+// migration_trigger: Replace with Apps SDK UI component when available with matching props and behavior.
+// a11y_contract_ref: docs/KEYBOARD_NAVIGATION_TESTS.md
+
+"use client";
+
+import * as React from "react";
+import * as SeparatorPrimitive from "@radix-ui/react-separator";
+
+import { cn } from "../../../utils";
+
+/**
+ * Renders a visual separator line.
+ *
+ * @param props - Radix separator props.
+ * @returns A separator element.
+ */
+function Separator({
+  className,
+  orientation = "horizontal",
+  decorative = true,
+  ...props
+}: React.ComponentProps<typeof SeparatorPrimitive.Root>) {
+  return (
+    <SeparatorPrimitive.Root
+      data-slot="separator-root"
+      decorative={decorative}
+      orientation={orientation}
+      className={cn(
+        "bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+export { Separator };

@@ -104,25 +104,35 @@ describe("Token Generation Properties", () => {
                   .map((h) => `#${h.toUpperCase()}`),
               }),
             }),
-            accent: fc.record({
+            border: fc.record({
               light: fc.record({
-                blue: fc
+                light: fc
                   .hexaString({ minLength: 6, maxLength: 6 })
                   .map((h) => `#${h.toUpperCase()}`),
-                red: fc
+                default: fc
                   .hexaString({ minLength: 6, maxLength: 6 })
                   .map((h) => `#${h.toUpperCase()}`),
-                orange: fc
-                  .hexaString({ minLength: 6, maxLength: 6 })
-                  .map((h) => `#${h.toUpperCase()}`),
-                green: fc
-                  .hexaString({ minLength: 6, maxLength: 6 })
-                  .map((h) => `#${h.toUpperCase()}`),
-                purple: fc
+                heavy: fc
                   .hexaString({ minLength: 6, maxLength: 6 })
                   .map((h) => `#${h.toUpperCase()}`),
               }),
               dark: fc.record({
+                light: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
+                default: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
+                heavy: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
+              }),
+            }),
+            accent: fc.record({
+              light: fc.record({
+                gray: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
                 blue: fc
                   .hexaString({ minLength: 6, maxLength: 6 })
                   .map((h) => `#${h.toUpperCase()}`),
@@ -132,10 +142,60 @@ describe("Token Generation Properties", () => {
                 orange: fc
                   .hexaString({ minLength: 6, maxLength: 6 })
                   .map((h) => `#${h.toUpperCase()}`),
+                yellow: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
                 green: fc
                   .hexaString({ minLength: 6, maxLength: 6 })
                   .map((h) => `#${h.toUpperCase()}`),
                 purple: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
+                pink: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
+                foreground: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
+              }),
+              dark: fc.record({
+                gray: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
+                blue: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
+                red: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
+                orange: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
+                yellow: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
+                green: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
+                purple: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
+                pink: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
+                foreground: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
+              }),
+            }),
+            interactive: fc.record({
+              light: fc.record({
+                ring: fc
+                  .hexaString({ minLength: 6, maxLength: 6 })
+                  .map((h) => `#${h.toUpperCase()}`),
+              }),
+              dark: fc.record({
+                ring: fc
                   .hexaString({ minLength: 6, maxLength: 6 })
                   .map((h) => `#${h.toUpperCase()}`),
               }),
@@ -183,6 +243,73 @@ describe("Token Generation Properties", () => {
               emphasisWeight: fc.constantFrom(500, 600, 700),
               tracking: fc.float({ min: -1, max: 1 }),
             }),
+          }),
+          radius: fc.record({
+            r6: fc.integer({ min: 2, max: 12 }),
+            r8: fc.integer({ min: 4, max: 16 }),
+            r10: fc.integer({ min: 6, max: 20 }),
+            r12: fc.integer({ min: 8, max: 24 }),
+            r16: fc.integer({ min: 12, max: 32 }),
+            r18: fc.integer({ min: 14, max: 36 }),
+            r21: fc.integer({ min: 16, max: 42 }),
+            r24: fc.integer({ min: 18, max: 48 }),
+            r30: fc.integer({ min: 20, max: 60 }),
+            round: fc.constant(999),
+          }),
+          sizes: fc.record({
+            controlHeight: fc.integer({ min: 32, max: 64 }),
+            cardHeaderHeight: fc.integer({ min: 40, max: 80 }),
+            hitTarget: fc.integer({ min: 32, max: 64 }),
+          }),
+          shadows: fc.record({
+            card: fc.array(
+              fc.record({
+                color: fc
+                  .hexaString({ minLength: 6, maxLength: 8 })
+                  .map((h) => `#${h.toUpperCase()}`),
+                offsetX: fc.integer({ min: -10, max: 10 }),
+                offsetY: fc.integer({ min: -10, max: 10 }),
+                blur: fc.integer({ min: 0, max: 40 }),
+                spread: fc.integer({ min: -10, max: 10 }),
+              }),
+              { minLength: 1, maxLength: 3 },
+            ),
+            pip: fc.array(
+              fc.record({
+                color: fc
+                  .hexaString({ minLength: 6, maxLength: 8 })
+                  .map((h) => `#${h.toUpperCase()}`),
+                offsetX: fc.integer({ min: -10, max: 10 }),
+                offsetY: fc.integer({ min: -10, max: 10 }),
+                blur: fc.integer({ min: 0, max: 40 }),
+                spread: fc.integer({ min: -10, max: 10 }),
+              }),
+              { minLength: 1, maxLength: 3 },
+            ),
+            pill: fc.array(
+              fc.record({
+                color: fc
+                  .hexaString({ minLength: 6, maxLength: 8 })
+                  .map((h) => `#${h.toUpperCase()}`),
+                offsetX: fc.integer({ min: -10, max: 10 }),
+                offsetY: fc.integer({ min: -10, max: 10 }),
+                blur: fc.integer({ min: 0, max: 40 }),
+                spread: fc.integer({ min: -10, max: 10 }),
+              }),
+              { minLength: 1, maxLength: 3 },
+            ),
+            close: fc.array(
+              fc.record({
+                color: fc
+                  .hexaString({ minLength: 6, maxLength: 8 })
+                  .map((h) => `#${h.toUpperCase()}`),
+                offsetX: fc.integer({ min: -10, max: 10 }),
+                offsetY: fc.integer({ min: -10, max: 10 }),
+                blur: fc.integer({ min: 0, max: 40 }),
+                spread: fc.integer({ min: -10, max: 10 }),
+              }),
+              { minLength: 1, maxLength: 3 },
+            ),
           }),
         }),
         async (generatedTokens) => {
@@ -309,6 +436,22 @@ describe("Token Generation Properties", () => {
     expect(manifest.sha256.css).toHaveLength(64);
     expect(manifest.sha256.assetCatalog).toHaveLength(64);
     expect(new Date(manifest.generated)).toBeInstanceOf(Date);
+  });
+
+  test("Manifest includes schema and upstream metadata", async () => {
+    const generator = new TokenGenerator();
+    const swiftOutput = await generator.generateSwift();
+    const cssOutput = await generator.generateCSS();
+    const assetCatalogOutput = await generator.generateAssetCatalog();
+    const manifest = await generator.generateManifest(
+      swiftOutput,
+      cssOutput,
+      assetCatalogOutput,
+    );
+
+    expect(manifest.schemaVersion).toBeTruthy();
+    expect(manifest.appsSdkUiVersion).toBeTruthy();
+    expect(manifest.tokenCount.total).toBeGreaterThan(0);
   });
 
   test("Deterministic Output", async () => {

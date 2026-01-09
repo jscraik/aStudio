@@ -1,5 +1,5 @@
 import { createEmbeddedHost, ensureMockOpenAI, HostProvider, useToolOutput } from "@chatui/runtime";
-import { AppsSDKUIProvider, Button, Card } from "@chatui/ui";
+import { AppsSDKButton, AppsSDKUIProvider, Card } from "@chatui/ui";
 import { useState } from "react";
 
 import type { ExampleToolOutput } from "../../../src/shared/tool-output-types";
@@ -57,12 +57,12 @@ function ExampleWidgetCore() {
       <Card className="p-4">
         <h2 className="text-lg font-semibold text-white mb-2">Interactive Elements</h2>
         <div className="flex items-center gap-4 mb-4">
-          <Button onClick={() => setLocalCount((c) => c + 1)} variant="primary">
+          <AppsSDKButton onClick={() => setLocalCount((c) => c + 1)} variant="solid" color="primary">
             Local Count: {localCount}
-          </Button>
-          <Button onClick={handleCallTool} variant="secondary">
+          </AppsSDKButton>
+          <AppsSDKButton onClick={handleCallTool} variant="ghost" color="secondary">
             Call Tool
-          </Button>
+          </AppsSDKButton>
         </div>
       </Card>
 

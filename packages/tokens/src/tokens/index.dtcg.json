@@ -1,5 +1,5 @@
 {
-  "$schema": "https://design-tokens.github.io/community-group/format/2024-01.json",
+  "$schema": "../../schema/dtcg.schema.json",
   "meta": {
     "name": "ChatUI",
     "version": "1.0.0",
@@ -150,6 +150,10 @@
           "value": "#0D0D0D0D",
           "type": "color"
         },
+        "default": {
+          "value": "#0D0D0D26",
+          "type": "color"
+        },
         "heavy": {
           "value": "#0D0D0D26",
           "type": "color"
@@ -157,6 +161,10 @@
       },
       "dark": {
         "default": {
+          "value": "#FFFFFF26",
+          "type": "color"
+        },
+        "heavy": {
           "value": "#FFFFFF26",
           "type": "color"
         },

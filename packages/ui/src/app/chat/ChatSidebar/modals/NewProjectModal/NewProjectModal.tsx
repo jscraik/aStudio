@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { ModalDialog } from "../../../../components/ui/overlays/Modal/Modal";
+import { ModalDialog } from "../../../../../components/ui/overlays/Modal/Modal";
 import { getProjectIcon } from "../../data/projectData";
 
 /**

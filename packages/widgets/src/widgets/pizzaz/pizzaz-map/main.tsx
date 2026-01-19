@@ -14,11 +14,12 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import "../../../styles.css";
 import markersData from "./markers.json";
 
-// Set your Mapbox token here or via environment variable
-mapboxgl.accessToken =
-  import.meta.env.VITE_MAPBOX_TOKEN ||
-  "pk.eyJ1IjoiZXJpY25pbmciLCJhIjoiY21icXlubWM1MDRiczJvb2xwM2p0amNyayJ9.n-3O6JI5nOp_Lw96ZO5vJQ";
-
+// Token guard - require VITE_MAPBOX_TOKEN for Mapbox initialization
+const token = import.meta.env.VITE_MAPBOX_TOKEN;
+if (!token) {
+  throw new Error("VITE_MAPBOX_TOKEN environment variable is required for the Pizzaz map widget.");
+}
+mapboxgl.accessToken = token;
 interface Place {
   id: string;
   name: string;

@@ -174,6 +174,57 @@ export const Default: Story = {
 };
 `;
 
+// Test template
+const testTemplate =
+  category === "primitive"
+    ? `import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+import { ${componentName} } from "./${componentName}";
+
+describe("${componentName}", () => {
+  it("renders without crashing", () => {
+    render(<${componentName} />);
+    expect(screen.getByRole("generic")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(
+      <${componentName} className="custom-class" />
+    );
+    expect(container.firstChild).toHaveClass("custom-class");
+  });
+
+  it("handles click events", () => {
+    const handleClick = vi.fn();
+    render(<${componentName} onClick={handleClick} />);
+    // Add click interaction test based on component implementation
+  });
+
+  it("renders children correctly", () => {
+    render(<${componentName}>Test content</${componentName}>);
+    expect(screen.getByText("Test content")).toBeInTheDocument();
+  });
+});
+`
+    : `import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+import { ${componentName} } from "./${componentName}";
+
+describe("${componentName}", () => {
+  it("renders without crashing", () => {
+    render(<${componentName}>Test content</${componentName}>);
+    expect(screen.getByText("Test content")).toBeInTheDocument();
+  });
+
+  it("applies custom className", () => {
+    const { container } = render(
+      <${componentName} className="custom-class">Test</${componentName}>
+    );
+    expect(container.firstChild).toHaveClass("custom-class");
+  });
+});
+`;
+
 // Create directories if needed
 mkdirSync(dirname(fullComponentPath), { recursive: true });
 
@@ -181,9 +232,32 @@ mkdirSync(dirname(fullComponentPath), { recursive: true });
 writeFileSync(fullComponentPath, componentTemplate);
 writeFileSync(fullStoryPath, storyTemplate);
 
+// Write test file
+const testPath = fullComponentPath.replace(".tsx", ".test.tsx");
+writeFileSync(testPath, testTemplate);
+
 console.log(`✅ Created component: ${componentPath}`);
 console.log(`✅ Created story: ${storyPath}`);
+console.log(`✅ Created test: ${componentPath.replace(".tsx", ".test.tsx")}`);
 console.log(`\nNext steps:`);
 console.log(`1. Edit the component: ${componentPath}`);
 console.log(`2. Add to exports in packages/ui/src/index.ts`);
 console.log(`3. Run: pnpm storybook:dev`);
+
+// Parity checklist prompt
+const tableCategory =
+  category === "primitive"
+    ? "UI Primitives"
+    : category === "chat"
+      ? "Chat Components"
+      : category === "template"
+        ? "Templates"
+        : "Pages";
+
+const parityEntry = `| ${componentName} | \`${componentName}.tsx\` | ⏳ | ${new Date().toISOString().split("T")[0]} | New component |`;
+
+console.log(`\n📊 Parity Checklist Update:`);
+console.log(`The following entry should be added to platforms/apple/swift/PARITY_CHECKLIST.md:\n`);
+console.log(parityEntry);
+console.log(`\nAdd this to the "${tableCategory}" section of the parity checklist.`);
+console.log(`See docs/guides/COMPONENT_CREATION.md Phase 4 for details on Swift parity workflow.`);

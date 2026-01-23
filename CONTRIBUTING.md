@@ -42,8 +42,8 @@ pnpm dev
 
 ## Code style
 
-- Run `pnpm lint` before pushing.
-- Run `pnpm format` to auto-format if needed.
+- Run `pnpm lint` (Biome) before pushing.
+- Run `pnpm format` (Biome) to auto-format if needed.
 
 ## Tests
 
@@ -65,8 +65,8 @@ Use Conventional Commits where possible:
 
 ## PR checklist
 
-- [ ] Lint passes (`pnpm lint`)
-- [ ] Format check passes (`pnpm format:check`)
+- [ ] Lint passes (`pnpm lint` - Biome)
+- [ ] Format check passes (`pnpm format:check` - Biome)
 - [ ] Build succeeds (`pnpm build`)
 - [ ] Tests run for the area you changed
 - [ ] Smoke tests pass (`pnpm test:agent-browser:ci`)

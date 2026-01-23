@@ -459,7 +459,7 @@ export class ChatUIWidgetServer {
               type: "enhanced_demo",
               mode: demoMode,
               features: [
-                "Persistent state management with window.openai.setWidgetState",
+                "Persistent state management with host.setWidgetState",
                 "Theme detection and adaptation (light/dark/auto)",
                 "Device capability detection and responsive design",
                 "Display mode control (inline/fullscreen/popup)",

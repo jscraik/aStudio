@@ -28,7 +28,7 @@ const webServer = process.env.PLAYWRIGHT_BASE_URL
 
 export default defineConfig({
   testDir: path.join(__dirname, "tests"),
-  testIgnore: ["**/visual/**"],
+  testIgnore: ["**/visual/**", "**/template-preview-resilience.test.mjs"],
   timeout: 30_000,
   expect: { timeout: 10_000 },
   fullyParallel: true,

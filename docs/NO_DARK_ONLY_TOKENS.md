@@ -1,4 +1,4 @@
-# No Dark-Only Tokens (ESLint Rule)
+# No Dark-Only Tokens (Policy Check)
 
 Last updated: 2026-01-09
 
@@ -38,7 +38,7 @@ Last updated: 2026-01-09
 
 ## Overview
 
-This ESLint rule prevents dark-only token usage when using **media mode** for dark mode (`darkMode: "media"` in Tailwind config).
+This policy check prevents dark-only token usage when using **media mode** for dark mode (`darkMode: "media"` in Tailwind config). Run `pnpm test:policy`.
 
 When using media mode, **all dark mode classes must have a light mode counterpart**. Dark-only classes will break the UI in light mode.
 
@@ -82,27 +82,8 @@ In light mode, these elements have **no styling at all** - they'll appear unstyl
 
 ## Rule Configuration
 
-```js
-// eslint.config.js
-import noDarkOnlyTokens from "./packages/ui/eslint-rules-no-dark-only-tokens.js";
-
-export default [
-  {
-    plugins: {
-      "@astudio/no-dark-only-tokens": noDarkOnlyTokens,
-    },
-    rules: {
-      "@astudio/no-dark-only-tokens/no-dark-only-tokens": [
-        "error",
-        {
-          // Optional: allow specific patterns if needed
-          allowedPatterns: [],
-        },
-      ],
-    },
-  },
-];
-```
+This check is enforced by the policy script in `scripts/policy/run.mjs`.
+Run `pnpm test:policy` to validate.
 
 ## Rule Behavior
 
@@ -264,8 +245,8 @@ If you need to allow specific patterns (not recommended):
 To test the rule locally:
 
 ```bash
-# Run ESLint
-pnpm lint
+# Run policy checks
+pnpm test:policy
 
 # Or lint a specific folder
 pnpm lint -- packages/ui/src
@@ -275,7 +256,7 @@ pnpm lint -- packages/ui/src
 
 - [Tailwind CSS Dark Mode](https://tailwindcss.com/docs/dark-mode)
 - [Modal Boundaries](./MODAL_BOUNDARIES.md)
-- [ESLint Modal Rules](./ESLINT_MODAL_RULES.md)
+- [Modal boundary policy checks](./ESLINT_MODAL_RULES.md)
 
 ## Risks and assumptions
 

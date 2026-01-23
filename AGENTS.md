@@ -37,7 +37,7 @@ Common commands (from root `package.json`):
 
 ## Coding Style & Naming Conventions
 
-- JS/TS: ESLint (`eslint.config.js`) + Prettier (`prettier.config.cjs`). Keep files formatted via `pnpm format`.
+- JS/TS: Biome (`biome.json`) + policy checks (`pnpm test:policy`). Keep files formatted via `pnpm format`.
 - React components live in `packages/ui/src/components/**`; Storybook stories use `*.stories.tsx`.
 - Swift: follow existing patterns in `platforms/apple/swift/*`; centralize platform differences in `Platform.swift` where used.
 

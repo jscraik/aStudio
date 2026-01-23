@@ -1,4 +1,4 @@
-# ESLint "Do Not Import" Rules for Modal Boundaries
+# ESLint "Do Not Import" Rules for Modal Boundaries (Legacy)
 
 Last updated: 2026-01-04
 
@@ -13,8 +13,8 @@ Last updated: 2026-01-04
 ## Contents
 
 - [Doc requirements](#doc-requirements)
-- [Approach: `eslint-plugin-import`](#approach-eslint-plugin-import)
-- [ESLint Configuration](#eslint-configuration)
+- [Approach: `policy check`](#approach-policy check)
+- [Policy Check Configuration](#eslint-configuration)
   - [Using flat config (ESLint 9+)](#using-flat-config-eslint-9)
   - [Using legacy config (ESLint 8)](#using-legacy-config-eslint-8)
 - [Complete Zone List (Copy-Paste Ready)](#complete-zone-list-copy-paste-ready)
@@ -31,24 +31,24 @@ Last updated: 2026-01-04
   - [Too many false positives?](#too-many-false-positives)
 - [Summary Table](#summary-table)
 
-This document defines ESLint rules to enforce the module boundaries established in `docs/MODAL_BOUNDARIES.md`.
+This document is retained for historical reference. ESLint has been replaced by policy checks in `scripts/policy/run.mjs`. Use `pnpm test:policy` to enforce modal boundary rules now.
 
 ---
 
-## Approach: `eslint-plugin-import`
+## Approach: `policy check`
 
-We use the `import/no-restricted-paths` rule from `eslint-plugin-import` to prevent circular dependencies and enforce layer separation.
+We use the `import/no-restricted-paths` rule from `policy check` to prevent circular dependencies and enforce layer separation.
 
 ---
 
-## ESLint Configuration
+## Policy Check Configuration
 
 Add to your `.eslintrc.cjs` or `eslint.config.js`:
 
 ### Using flat config (ESLint 9+)
 
 ```js
-const importPlugin = require("eslint-plugin-import");
+const importPlugin = require("policy check");
 
 module.exports = [
   {
@@ -345,7 +345,7 @@ error  Panels MUST NOT import ModalDialog directly. Use parent SettingsModal ins
 ### 1. Verify rules are loaded
 
 ```bash
-pnpm lint --debug
+pnpm test:policy --debug
 ```
 
 Look for `import/no-restricted-paths` in the loaded rules.
@@ -367,7 +367,7 @@ export function BadModal() {
 Run:
 
 ```bash
-pnpm lint packages/ui/src/components/ui/overlays/Modal/Modal-bad-test.tsx
+pnpm test:policy packages/ui/src/components/ui/overlays/Modal/Modal-bad-test.tsx
 ```
 
 ### 3. Test allowed imports
@@ -398,7 +398,7 @@ import { SettingToggle } from "./SettingToggle";
 1. **Check plugin is installed:**
 
    ```bash
-   pnpm list eslint-plugin-import
+   pnpm list policy check
    ```
 
 2. **Check paths match your file structure:**

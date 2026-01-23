@@ -135,9 +135,9 @@ pnpm test:swift             # Run all Swift package tests
 pnpm test:mcp-contract      # MCP tool contract tests
 
 # Code Quality
-pnpm lint                   # ESLint
-pnpm format                 # Prettier (write)
-pnpm format:check           # Prettier (check only)
+pnpm lint                   # Biome
+pnpm format                 # Biome (write)
+pnpm format:check           # Biome (check only)
 pnpm lint:compliance        # Check compliance rules
 pnpm doc:lint               # Vale sync + markdown linting + link check
 
@@ -481,6 +481,8 @@ pnpm new:component SettingsPage page
 ```
 
 This creates the component file and a Storybook story.
+
+**📖 For the complete component creation workflow** including planning, testing, Swift parity, and release, see [docs/guides/COMPONENT_CREATION.md](docs/guides/COMPONENT_CREATION.md).
 
 ## Development Workflow
 

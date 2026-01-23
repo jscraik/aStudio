@@ -250,7 +250,11 @@ class VersionSynchronizer {
         const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8"));
         if (packageJson.version !== this.rootVersion) {
           console.log(`  ❌ ${packagePath}: ${packageJson.version} (expected ${this.rootVersion})`);
-          mismatches.push({ packagePath, current: packageJson.version, expected: this.rootVersion });
+          mismatches.push({
+            packagePath,
+            current: packageJson.version,
+            expected: this.rootVersion,
+          });
         } else {
           console.log(`  ✓  ${packagePath}: ${packageJson.version}`);
         }
@@ -266,8 +270,14 @@ class VersionSynchronizer {
         const currentVersion = versionMatch ? versionMatch[1] : null;
 
         if (currentVersion !== this.rootVersion) {
-          console.log(`  ❌ ${packagePath}: ${currentVersion || "no version"} (expected ${this.rootVersion})`);
-          mismatches.push({ packagePath, current: currentVersion || "none", expected: this.rootVersion });
+          console.log(
+            `  ❌ ${packagePath}: ${currentVersion || "no version"} (expected ${this.rootVersion})`,
+          );
+          mismatches.push({
+            packagePath,
+            current: currentVersion || "none",
+            expected: this.rootVersion,
+          });
         } else {
           console.log(`  ✓  ${packagePath}: ${currentVersion}`);
         }
@@ -276,7 +286,9 @@ class VersionSynchronizer {
 
     console.log("=".repeat(50));
     if (mismatches.length > 0) {
-      console.log(`❌ Found ${mismatches.length} version mismatch${mismatches.length > 1 ? "es" : ""}`);
+      console.log(
+        `❌ Found ${mismatches.length} version mismatch${mismatches.length > 1 ? "es" : ""}`,
+      );
       return true;
     } else {
       console.log(`✅ All packages synchronized to v${this.rootVersion}`);

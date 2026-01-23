@@ -1,6 +1,6 @@
 # Keyboard Navigation & Accessibility Testing
 
-Last updated: 2026-01-04
+**Last updated:** 2026-01-19
 
 ## Doc requirements
 
@@ -290,14 +290,17 @@ test("passes accessibility scan", async ({ page }) => {
 });
 ```
 
-## WCAG 2.1 Compliance
+## WCAG 2.2 Compliance
 
-These tests verify WCAG 2.1 Level AA compliance:
+These tests verify WCAG 2.2 Level AA compliance:
 
-### Focus Visible (2.4.7)
+### Focus Visible (2.4.7) & Focus Not Obscured (2.4.11, 2.4.12)
 
 - All interactive elements have visible focus indicator
 - Focus indicator has contrast ratio ≥ 3:1
+- Focus indicator never fully hidden by overlays (2.4.11)
+- No part of focus indicator hidden (2.4.12 - stricter AA requirement)
+- Test with modals, tooltips, and dynamic content
 
 ### Focus Order (2.4.3)
 
@@ -309,6 +312,17 @@ These tests verify WCAG 2.1 Level AA compliance:
 - All functionality available via keyboard
 - No keyboard trap (except modals intentionally)
 - Focus indicator always visible
+
+### Dragging Movements (2.5.7)
+
+- All draggable elements have non-drag alternatives
+- Examples: Sliders with +/- buttons, sortable lists with move controls
+
+### Target Size (2.5.8)
+
+- All clickable/tappable targets minimum 24x24px
+- Includes padding, not just visible element
+- Verified with touch and mouse interaction
 
 ### Modal Pattern (ARIA Authoring Practices)
 
@@ -400,7 +414,8 @@ These tests run in CI on every PR:
 - [Playwright Documentation](https://playwright.dev)
 - [Axe-Core Documentation](https://www.deque.com/axe/)
 - [WAI-ARIA Dialog Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog/)
-- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+- [WCAG 2.2 Guidelines](https://www.w3.org/WAI/WCAG22/quickref/)
+- [WCAG 2.2 New Success Criteria](https://www.w3.org/WAI/WCAG22/quickref/#new-success-criteria-in-wcag-2-2)
 - [Modal Boundaries](./MODAL_BOUNDARIES.md)
 
 ## Risks and assumptions

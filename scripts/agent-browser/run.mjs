@@ -58,9 +58,7 @@ function runAgentBrowser(args) {
         resolve({ stdout, stderr });
       } else {
         reject(
-          new Error(
-            `agent-browser exited with code ${code}\nstdout: ${stdout}\nstderr: ${stderr}`,
-          ),
+          new Error(`agent-browser exited with code ${code}\nstdout: ${stdout}\nstderr: ${stderr}`),
         );
       }
     });
@@ -77,13 +75,7 @@ async function openUrl(url) {
 }
 
 async function captureSnapshot(name) {
-  const { stdout } = await runAgentBrowser([
-    "--session",
-    SESSION_NAME,
-    "snapshot",
-    "-i",
-    "--json",
-  ]);
+  const { stdout } = await runAgentBrowser(["--session", SESSION_NAME, "snapshot", "-i", "--json"]);
 
   const data = JSON.parse(stdout.trim());
   const snapshotPath = join(SNAPSHOTS_DIR, `${name}.json`);
@@ -130,7 +122,13 @@ async function flowChatShell() {
   requireRef(textboxRef, "Textbox not found on ChatShell");
   requireRef(sendButtonRef, "Send button not found on ChatShell");
 
-  await runAgentBrowser(["--session", SESSION_NAME, "fill", `@${textboxRef}`, "Smoke test message"]);
+  await runAgentBrowser([
+    "--session",
+    SESSION_NAME,
+    "fill",
+    `@${textboxRef}`,
+    "Smoke test message",
+  ]);
   await runAgentBrowser(["--session", SESSION_NAME, "click", `@${sendButtonRef}`]);
   await runAgentBrowser(["--session", SESSION_NAME, "wait", "500"]);
   await captureSnapshot("chatshell-after-send");
@@ -173,14 +171,7 @@ async function flowWidgetSwitch() {
   await captureSnapshot("widget-chat-view");
   await takeScreenshot("widget-chat-view");
 
-  await runAgentBrowser([
-    "--session",
-    SESSION_NAME,
-    "find",
-    "text",
-    "Dashboard Widget",
-    "click",
-  ]);
+  await runAgentBrowser(["--session", SESSION_NAME, "find", "text", "Dashboard Widget", "click"]);
   await runAgentBrowser(["--session", SESSION_NAME, "wait", "500"]);
   await captureSnapshot("widget-dashboard");
   await takeScreenshot("widget-dashboard");

@@ -36,6 +36,8 @@ Last updated: 2026-01-04
 
 This guide maps the approved UI tooling to this repo in the order you should use it.
 
+**📖 For complete component creation workflow**, see [COMPONENT_CREATION.md](./COMPONENT_CREATION.md) for the end-to-end process from planning to release.
+
 ## Web (React + Tailwind + Vite)
 
 ### 1) Author components + stories

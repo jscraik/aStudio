@@ -85,6 +85,10 @@ jobs:
         if: matrix.platform == 'web'
         run: pnpm lint
 
+      - name: Policy checks (web platform only)
+        if: matrix.platform == 'web'
+        run: pnpm test:policy
+
       - name: Design system coverage matrix check (web platform only)
         if: matrix.platform == 'web'
         run: pnpm ds:matrix:check
@@ -111,6 +115,10 @@ jobs:
       - name: Runtime host adapter contract tests (web platform only)
         if: matrix.platform == 'web'
         run: pnpm test:runtime
+
+      - name: MCP tool contract tests (web platform only)
+        if: matrix.platform == 'web'
+        run: pnpm test:mcp-contract
 
       - name: Enhanced build pipeline
         run: node scripts/build-pipeline.mjs --platforms ${{ matrix.platform }}

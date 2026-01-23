@@ -21,7 +21,7 @@ This index links all governing artifacts for the UI design system.
 - Coverage matrix (JSON): `docs/design-system/COVERAGE_MATRIX.json`
 - Coverage matrix (MD): `docs/design-system/COVERAGE_MATRIX.md`
 - Matrix generator: `scripts/generate-coverage-matrix.ts`
-- ESLint enforcement rules: `packages/ui/eslint-rules-*.js`
+- Policy enforcement rules: `scripts/policy/run.mjs`
 
 ## Export Naming Policy
 
@@ -35,7 +35,7 @@ This index links all governing artifacts for the UI design system.
 - Token generation: `pnpm generate:tokens`
 - Token parity checks: `pnpm tokens:validate`
 - Coverage matrix check: `pnpm ds:matrix:check`
-- Linting: `pnpm lint`
+- Linting: `pnpm lint` (Biome) + `pnpm test:policy`
 - Drift suite: `pnpm test:drift`
 - Storybook a11y: `pnpm storybook:test`
 - Widget a11y: `pnpm test:a11y:widgets:ci`

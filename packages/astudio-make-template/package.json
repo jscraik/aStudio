@@ -13,6 +13,6 @@
     "@astudio/ui": "workspace:*",
     "@astudio/icons": "workspace:*",
     "react": ">=18",
-    "react-dom": ">=18"
+    "react-dom": ">=19"
   }
 }

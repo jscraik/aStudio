@@ -243,21 +243,3 @@ console.log(`\nNext steps:`);
 console.log(`1. Edit the component: ${componentPath}`);
 console.log(`2. Add to exports in packages/ui/src/index.ts`);
 console.log(`3. Run: pnpm storybook:dev`);
-
-// Parity checklist prompt
-const tableCategory =
-  category === "primitive"
-    ? "UI Primitives"
-    : category === "chat"
-      ? "Chat Components"
-      : category === "template"
-        ? "Templates"
-        : "Pages";
-
-const parityEntry = `| ${componentName} | \`${componentName}.tsx\` | ⏳ | ${new Date().toISOString().split("T")[0]} | New component |`;
-
-console.log(`\n📊 Parity Checklist Update:`);
-console.log(`The following entry should be added to platforms/apple/swift/PARITY_CHECKLIST.md:\n`);
-console.log(parityEntry);
-console.log(`\nAdd this to the "${tableCategory}" section of the parity checklist.`);
-console.log(`See docs/guides/COMPONENT_CREATION.md Phase 4 for details on Swift parity workflow.`);

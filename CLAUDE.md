@@ -28,7 +28,6 @@ packages/
 
 platforms/
 ├── web/         # Web apps (reference app + Storybook + templates gallery)
-├── apple/       # macOS apps + Swift packages
 └── mcp/         # MCP server for ChatGPT integration
 ```
 
@@ -38,7 +37,7 @@ platforms/
 
 ```bash
 pnpm install              # Install dependencies
-pnpm dev                  # Web (localhost:5173) + Storybook (localhost:6006)
+pnpm dev                  # Web (localhost:5173)
 pnpm dev:web              # Web only
 pnpm dev:storybook        # Storybook only
 ```
@@ -46,7 +45,7 @@ pnpm dev:storybook        # Storybook only
 ### Building
 
 ```bash
-pnpm build                # Build pipeline (web + macOS packages)
+pnpm build                # Build pipeline (web packages)
 pnpm build:widget         # Build single-file widget HTML (for MCP)
 pnpm build:lib            # Build all library packages (ui, runtime, tokens)
 pnpm build:widgets        # Build widget bundles
@@ -73,9 +72,9 @@ pnpm test:visual:update   # Update visual snapshots
 ### Linting/Formatting
 
 ```bash
-pnpm lint                 # ESLint
+pnpm lint                 # Biome
 pnpm lint:compliance      # Check compliance rules (set COMPLIANCE_STRICT=1 for errors)
-pnpm format               # Prettier
+pnpm format               # Biome
 pnpm format:check         # Check formatting
 ```
 
@@ -219,12 +218,6 @@ For embedded ChatGPT apps, use `createEmbeddedHost()` which wraps `window.openai
 - **TypeScript**: 5.9+
 - **Node.js**: 18+
 - **Apps SDK UI**: ^0.2.1
-- **Swift**: 5.9+ (for Swift packages under `platforms/apple/swift/`)
-
-### Swift (modular packages)
-
-- `platforms/apple/swift/AStudioFoundation`, `platforms/apple/swift/AStudioComponents`, `platforms/apple/swift/AStudioThemes`, `platforms/apple/swift/AStudioShellChatGPT`
-- `platforms/apple/apps/macos/ComponentGallery` for development and accessibility checks
 
 ## Page System
 

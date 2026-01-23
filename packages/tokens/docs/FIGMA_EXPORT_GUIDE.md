@@ -24,7 +24,7 @@ This is the single source of truth for all design tokens in DTCG (Design Tokens 
 
 - Color tokens (light/dark modes, accents, interactive states)
 - Spacing scale (0-128px)
-- Typography system (web, iOS, Android platforms)
+- Typography system (web platform)
 - Proper semantic naming and metadata
 
 **How to use**:
@@ -60,11 +60,9 @@ These are generated from the DTCG JSON and provide type-safe access in TypeScrip
 
 Shows how tokens map to Tailwind utilities.
 
-## Typography Platform Differences
+## Typography (Web)
 
-The typography system includes platform-specific values:
-
-### Web (Default)
+The typography system is optimized for web usage:
 
 - heading1: 36px / 600 / 40px line / -0.1px tracking
 - heading2: 24px / 600 / 28px line / -0.25px tracking
@@ -72,14 +70,6 @@ The typography system includes platform-specific values:
 - body: 16px / 400-600 / 26px line / -0.4px tracking
 - bodySmall: 14px / 400-600 / 18px line / -0.3px tracking
 - caption: 12px / 400-600 / 16px line / -0.1px tracking
-
-### iOS & Android
-
-- heading1: 32px (smaller than web)
-- heading3: 16px (smaller than web)
-- body/bodySmall/caption: 0px tracking (no negative tracking)
-
-The DTCG JSON file includes all platform variants. The generated TypeScript uses web values as the default.
 
 ## Token Structure
 
@@ -103,7 +93,7 @@ space.{s0|s2|s4|s8|s12|s16|s24|s32|s40|s48|s64|s128}
 
 ```
 type.fontFamily
-type.{web|ios|android}.{heading1|heading2|heading3|body|bodySmall|caption}.{size|lineHeight|weight|tracking}
+type.web.{heading1|heading2|heading3|body|bodySmall|caption}.{size|lineHeight|weight|tracking}
 ```
 
 ## Regenerating Tokens
@@ -118,13 +108,10 @@ This will:
 
 1. Sync the DTCG JSON to TypeScript token objects
 2. Generate CSS custom properties
-3. Generate Swift design tokens
-4. Generate Xcode asset catalogs
-5. Update the manifest
+3. Update the manifest
 
 ## Notes
 
 - The DTCG format is the industry standard for design tokens
 - All tokens use semantic naming (not hardcoded values)
-- Platform-specific values are documented in the DTCG JSON
-- The web platform values are used as defaults in the codebase
+- The web platform values are used in the codebase

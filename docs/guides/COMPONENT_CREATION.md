@@ -13,8 +13,7 @@ This guide explains the end-to-end workflow for creating UI components in the AS
 
 1. Run: `pnpm new:component MyComponent [category]`
 2. Follow the checklist below
-3. Update parity checklist
-4. Run tests and release
+3. Run tests and release
 
 ---
 
@@ -24,7 +23,6 @@ This guide explains the end-to-end workflow for creating UI components in the AS
 
 Before writing code, understand what you're building.
 
-- [ ] **Check if component exists** in `platforms/apple/swift/PARITY_CHECKLIST.md`
 - [ ] **Review design tokens** in `packages/tokens/README.md` for patterns
 - [ ] **Identify UX states required:**
   - Loading state
@@ -222,71 +220,7 @@ Review any visual diffs in Playwright.
 
 ---
 
-### Phase 4: Swift Parity (variable time)
-
-**Step 1: Assess Parity Requirements**
-
-- [ ] Review component in context of macOS app usage
-- [ ] Check if component is needed in SwiftUI (platform-specific?)
-- [ ] If needed, determine priority (immediate vs deferred)
-
-**Step 2: Update Parity Checklist**
-
-```bash
-# Edit parity checklist
-vim platforms/apple/swift/PARITY_CHECKLIST.md
-
-# Add entry in appropriate section:
-# | ComponentName | `ComponentName.tsx` | ⏳ | YYYY-MM-DD | Notes |
-```
-
-**Lifecycle States:**
-- ⏳ **Planned**: Assessment complete, implementation pending
-- 🚧 **In Progress**: Active development
-- ✅ **Complete**: Parity achieved and tested
-- ➖ **Not Applicable**: Platform-specific, no parity needed
-- 🔄 **Intentionally Diverged**: Platform differences documented
-
-**Step 3: Create Swift Counterpart (if needed)**
-
-```bash
-# Navigate to Swift package
-cd platforms/apple/swift/AStudioComponents
-
-# Create new component file
-# Follow SwiftUI conventions and match React API
-
-# Add SwiftUI preview
-# Test in Component Gallery
-```
-
-**Time Estimates:**
-- Simple components (buttons, inputs): 30-60 minutes
-- Complex components (forms, tables): 2-4 hours
-- Full templates/layouts: 4-8 hours
-
-**Step 4: Verify Parity**
-
-- [ ] Props match React interface
-- [ ] Behavior matches React component
-- [ ] Design tokens applied correctly
-- [ ] Test in Component Gallery app
-
-**Step 5: Update Parity Status**
-
-```bash
-# Change status from ⏳ to ✅ when complete
-# Or mark as ➖ if not applicable
-# Or mark as 🔄 if intentionally diverged with notes
-```
-
-**Note:** Not all React components require Swift parity. Focus on components used in macOS apps.
-
-**See:** `platforms/apple/swift/PARITY_CHECKLIST.md` for detailed lifecycle states and workflow.
-
----
-
-### Phase 5: Release (15 minutes)
+### Phase 4: Release (15 minutes)
 
 **Step 1: Run linter and tests**
 
@@ -436,9 +370,7 @@ Common issues:
 
 ## Related Documentation
 
-- **Parity Checklist:** `platforms/apple/swift/PARITY_CHECKLIST.md`
 - **UX Patterns:** `docs/guides/DESIGN_GUIDELINES.md`
-- **Accessibility:** `platforms/apple/swift/ACCESSIBILITY_TESTING.md`
 - **Tooling:** `docs/guides/UI_COMPONENT_TOOLING.md`
 - **Design Tokens:** `packages/tokens/README.md`
 - **Component Standards:** `CODESTYLE.md`
@@ -454,9 +386,5 @@ Based on the spec targets:
 | Plan | 5 minutes |
 | Create React Component | 30 minutes |
 | Test | 30 minutes |
-| Swift Parity | Variable (0-60 minutes) |
 | Release | 15 minutes |
-| **Total (without Swift)** | **~80 minutes** |
-| **Total (with Swift)** | **~2 hours** |
-
-The goal is ≤2 hours for a complete component including Swift parity.
+| **Total** | **~80 minutes** |

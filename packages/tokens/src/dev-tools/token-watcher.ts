@@ -318,7 +318,7 @@ export class TokenWatcher {
       // Generate all outputs
       await this.runGeneration();
 
-      console.log("✨ Token generation complete! Xcode previews will refresh automatically.\n");
+      console.log("✨ Token generation complete! Web previews will refresh automatically.\n");
     } catch (error) {
       console.error("\n❌ Token generation failed:");
       console.error(error);
@@ -347,7 +347,7 @@ export class TokenWatcher {
     console.log("👀 Token watcher started");
     console.log("   Watching:");
     tokenFiles.forEach((file) => console.log(`   - ${file}`));
-    console.log("\n💡 Edit token files to see instant updates in Xcode previews\n");
+    console.log("\n💡 Edit token files to see instant updates in web previews\n");
 
     // Initial generation
     await this.regenerateTokens();

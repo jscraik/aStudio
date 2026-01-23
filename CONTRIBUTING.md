@@ -16,7 +16,6 @@ Thanks for helping improve aStudio. This repo is a library-first monorepo with A
 
 - Node.js 18+
 - pnpm 10.28.0 (see `packageManager` in `package.json`)
-- macOS app work (optional): macOS 13+ + Xcode 15+
 
 ## Development setup
 
@@ -50,7 +49,6 @@ pnpm dev
 - `pnpm test` (UI unit tests)
 - `pnpm test:agent-browser` (Built-preview smoke tests - local)
 - `pnpm test:agent-browser:ci` (Built-preview smoke tests - CI)
-- `pnpm test:swift` (all Swift packages + macOS app)
 - `pnpm test:mcp-contract` (MCP tool contract test)
 - `pnpm test:visual:web` (Playwright visual tests for web)
 

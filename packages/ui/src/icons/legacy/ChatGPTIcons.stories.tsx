@@ -27,7 +27,7 @@ const meta: Meta<typeof Icons.IconOpenAILogo> = {
     docs: {
       description: {
         component:
-          "Recommended sizes: xs 12, sm 16, md 20, lg 24, key 32, toggle 44x24. React export: chatGPTIconSizes. Swift: ChatGPTIconSize.",
+          "Recommended sizes: xs 12, sm 16, md 20, lg 24, key 32, toggle 44x24. React export: chatGPTIconSizes.",
       },
     },
   },

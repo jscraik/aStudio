@@ -34,7 +34,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - UI package now exposes dev/demo exports via `@astudio/ui/dev`.
 - Runtime host interface extended to cover display mode and external actions.
 - MCP server accepts configurable widget build paths and clearer build errors.
-- Swift packages and macOS apps renamed from ChatUI* to aStudio* with updated docs and scripts.
 
 ### Fixed
 

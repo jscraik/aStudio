@@ -12,11 +12,10 @@ Last updated: 2026-01-09
 
 ## Tokens are the single source of truth
 
-All UI styling (React + Swift) is driven from one canonical DTCG token bundle:
+All UI styling (React + widgets) is driven from one canonical DTCG token bundle:
 
 - Canonical: `packages/tokens/src/tokens/index.dtcg.json`
 - Generated web: `packages/ui/src/styles/ui.css`, `packages/ui/src/styles/theme.css` (imports `@astudio/tokens/tokens.css`)
-- Generated swift: `platforms/apple/swift/AStudioFoundation/Sources/AStudioFoundation/DesignTokens.swift`
 - Token reference (authoritative mapping): `docs/theming/token-reference.md`
 
 ### Drift prevention

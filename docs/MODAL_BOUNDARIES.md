@@ -182,7 +182,7 @@ DEPENDENCIES: None (only React, internal utilities)
 │  SettingToggle.tsx                                                          │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
 │  │ RESPONSIBILITIES:                                                    │   │
-│  │ • Toggle switch UI (iOS-style)                                      │   │
+│  │ • Toggle switch UI (mobile-style)                                  │   │
 │  │ • Calls onCheckedChange on user interaction                         │   │
 │  │                                                                  │   │
 │  │ STATE: None (stateless, controlled by parent)                        │   │

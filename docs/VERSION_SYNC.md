@@ -10,7 +10,7 @@ Last updated: 2026-01-04
 - Owner: TBD (confirm)
 - Review cadence: TBD (confirm)
 
-This guide explains how versions are synchronized across npm packages and Swift packages.
+This guide explains how versions are synchronized across npm packages.
 
 ## Table of contents
 
@@ -23,7 +23,6 @@ This guide explains how versions are synchronized across npm packages and Swift 
 ## Why this exists
 
 - NPM packages need matching versions for releases.
-- Swift packages track the same version in `Package.swift` comments.
 - The build pipeline depends on a single source of truth: the root `package.json` version.
 
 ## Commands
@@ -37,40 +36,22 @@ pnpm sync:versions
 This script updates:
 
 - `packages/*/package.json` versions
-- Swift `Package.swift` version comments
-
-### Sync Swift only
-
-```bash
-pnpm sync:swift-versions
-```
-
-Use this when you only need to refresh the Swift package comments.
 
 ## How it works
 
 The scripts read the version from the root `package.json` and update:
 
 - NPM packages: `packages/ui`, `packages/runtime`, `packages/tokens`, `packages/widgets`, `packages/cloudflare-template`
-- Swift packages: `platforms/apple/swift/AStudioFoundation`, `platforms/apple/swift/AStudioComponents`, `platforms/apple/swift/AStudioThemes`, `platforms/apple/swift/AStudioShellChatGPT`, `platforms/apple/swift/AStudioMCP`
-
-If `agvtool` is available, it is used for Swift packages. Otherwise the scripts update the `// Version:` comment in `Package.swift`.
 
 ## Verify
 
 ```bash
 pnpm sync:versions
 rg -n \"\\\"version\\\"\" packages/*/package.json
-rg -n \"// Version:\" platforms/apple/swift/*/Package.swift
 ```
 
 ## Troubleshooting
 
-**agvtool errors**
+**Missing package version**
 
-- Ensure Xcode is installed and on PATH.
-- If unavailable, the script falls back to updating the `Package.swift` comment.
-
-**Missing Package.swift**
-
-- The script skips packages that do not have a `Package.swift`.
+- Ensure the package exists under `packages/` and has a `package.json`.

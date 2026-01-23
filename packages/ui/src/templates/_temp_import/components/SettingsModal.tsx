@@ -712,7 +712,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                     icon={
                       <IconInfo className="size-4 text-[var(--foundation-icon-dark-secondary)]" />
                     }
-                    label="ChatGPT for macOS"
+                    label="App version"
                     right={
                       <span className="text-[14px] font-normal leading-[20px] tracking-[-0.3px] text-[var(--foundation-text-dark-secondary)]">
                         1.2025.350 (1766813062)

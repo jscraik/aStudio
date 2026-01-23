@@ -15,7 +15,6 @@ Last updated: 2026-01-09
 - [Doc requirements](#doc-requirements)
 - [Summary](#summary)
 - [Path map (old → new)](#path-map-old-new)
-  - [Apple platform](#apple-platform)
   - [Apps](#apps)
   - [Tokens](#tokens)
   - [UI library](#ui-library)
@@ -28,7 +27,6 @@ This guide documents the 2026 restructure that improved discoverability and norm
 
 ## Summary
 
-- Apple platform code moved under `platforms/apple/`.
 - `packages/tokens/outputs` moved to `packages/tokens/docs/outputs`.
 - UI library app-level surfaces moved under `packages/ui/src/app/`.
 - Design system demos consolidated under `packages/ui/src/design-system/`.
@@ -44,12 +42,6 @@ This guide documents the 2026 restructure that improved discoverability and norm
 - `packages/runtime`, `packages/tokens`, and `packages/widgets` now follow `src/ /tests/ /docs/` conventions.
 
 ## Path map (old → new)
-
-### Apple platform
-
-- `apps/macos/*` → `platforms/apple/apps/macos/*`
-- `swift/*` → `platforms/apple/swift/*`
-- `swift/ui-swift/*` → `platforms/apple/swift/ui-swift/*`
 
 ### Apps
 
@@ -113,15 +105,12 @@ Use the published subpaths for UI primitives and app surfaces:
 
 ## Tooling updates to check
 
-- Local scripts or CI steps that reference `apps/macos/` or `swift/` paths.
-- Xcode project local package references (now relative to `platforms/apple/`).
+- Local scripts or CI steps that reference legacy `apps/` paths.
 - Token generation scripts that previously read from `packages/tokens/outputs/`.
 
 ## Verification checklist
 
 - Build pipeline completes: `pnpm build`.
-- Swift packages build: `pnpm test:swift:foundation` (and other variants).
-- macOS apps open: `platforms/apple/apps/macos/ComponentGallery/Package.swift`.
 - Token generation writes manifest to `packages/tokens/docs/outputs/manifest.json`.
 
 ## Risks and assumptions

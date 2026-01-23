@@ -42,10 +42,10 @@ This third adversarial review challenged every major claim by:
 - ✅ Covers Storybook, testing, visual regression
 
 **BUT Missing What PRD Requires:**
-- ❌ No end-to-end workflow (React + Swift parity)
+- ❌ No end-to-end workflow (React + Apps SDK UI surface coverage)
 - ❌ No design token integration
 - ❌ No definition of done
-- ❌ No parity checklist linkage
+- ❌ No coverage checklist linkage
 - ❌ No release steps
 
 **Refined Statement:** Tooling guidance exists but lacks the **integrated workflow** the PRD requires. The gap is process/workflow, not basic tooling knowledge.
@@ -78,10 +78,10 @@ This third adversarial review challenged every major claim by:
 - Covers Storybook workflow
 - Visual regression testing
 - Accessibility testing
-- iOS simulator testing
+- Device testing
 
 **The Gap:** It doesn't connect to:
-- Parity tracking (`platforms/apple/swift/PARITY_CHECKLIST.md`)
+- Coverage tracking (`docs/architecture/cross-platform-design.md`)
 - Design tokens (`packages/tokens/`)
 - Release process (`docs/guides/RELEASE_CHECKLIST.md`)
 
@@ -90,9 +90,9 @@ This third adversarial review challenged every major claim by:
 **Discovery:** `scripts/new-component.mjs` (190 lines)
 - Generates React components
 - Generates Storybook stories
-- No Swift parity generation
+- No coverage checklist update automation
 
-**Implication:** The tooling itself reinforces React-first workflow rather than parity-first workflow.
+**Implication:** The tooling itself reinforces React-first workflow rather than coverage-first workflow.
 
 ### Insight 3: WCAG 2.1 vs 2.2 Is a Real Gap
 
@@ -193,7 +193,7 @@ The original audit:
 ### Recommended Corrections to Report:
 
 1. **Mapbox Widget:** Change from "86% aligned" to "0% - completely non-functional"
-2. **Component Governance:** Change from "no guide" to "tooling guide exists but lacks integrated parity workflow"
+2. **Component Governance:** Change from "no guide" to "tooling guide exists but lacks integrated coverage workflow"
 3. **Overall Alignment:** Change from "65%" to "~60%"
 
 ### Core Findings Unchanged:

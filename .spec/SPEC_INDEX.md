@@ -11,7 +11,7 @@ This directory contains all product requirements, technical specifications, and 
 
 | Status | Documents |
 |--------|------------|
-| **Active** | Component Creation & Parity Governance (PRD + Tech Spec) |
+| **Active** | Component Creation & Coverage Governance (PRD + Tech Spec) |
 | **Review** | Modal Accessibility & Mapbox Token Guard |
 | **Reference** | Project Review Report, Adversarial Reviews, Alignment Reports |
 
@@ -21,7 +21,7 @@ This directory contains all product requirements, technical specifications, and 
 
 | Document | Date | Status | Description |
 |----------|------|--------|-------------|
-| [spec-2026-01-15-component-creation-governance.md](./spec-2026-01-15-component-creation-governance.md) | 2026-01-15 | ✅ Active | Component creation workflow and parity governance |
+| [spec-2026-01-15-component-creation-governance.md](./spec-2026-01-15-component-creation-governance.md) | 2026-01-15 | ✅ Active | Component creation workflow and coverage governance |
 | [spec-2026-01-19-modal-a11y-mapbox-token.md](./spec-2026-01-19-modal-a11y-mapbox-token.md) | 2026-01-19 | 🔄 Review | Modal accessibility fixes and Mapbox token guard |
 
 ### Technical Specifications
@@ -127,7 +127,7 @@ See [SPEC_REVIEW_CHECKLIST.md](./SPEC_REVIEW_CHECKLIST.md) for review criteria.
 
 - [docs/guides/COMPONENT_CREATION.md](../docs/guides/COMPONENT_CREATION.md) - Component creation workflow
 - [docs/operations/](../docs/operations/) - Operational artifacts (SLOs, runbooks, incident response)
-- [platforms/apple/swift/PARITY_CHECKLIST.md](../platforms/apple/swift/PARITY_CHECKLIST.md) - React/Swift parity tracking
+- [docs/architecture/cross-platform-design.md](../docs/architecture/cross-platform-design.md) - Surface coverage tracking
 - [CODESTYLE.md](../CODESTYLE.md) - Coding standards
 
 ## License

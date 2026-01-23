@@ -62,7 +62,7 @@ export function AboutSection({ appInfo }: AboutSectionProps) {
           icon={
             <IconInfo className="size-4 text-foundation-icon-light-secondary dark:text-foundation-icon-dark-secondary" />
           }
-          label="ChatGPT for macOS"
+          label="App version"
           right={
             <span className="text-body-small font-normal text-foundation-text-dark-secondary">
               {appInfo?.versionLabel ?? "—"}

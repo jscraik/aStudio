@@ -30,10 +30,5 @@ Last updated: 2026-01-09
   - Removed hardcoded line-heights and letter-spacing to use token defaults
   - Fixed 40+ UI components across base, navigation, overlays, forms, chat, and settings categories
 
-  **Cross-Platform:**
-  - Swift: Added `FColor.accentForeground` and `FColor.ring` tokens
-  - Updated Swift components (ListItemView, BadgeView) to use new tokens
-  - Regenerated Swift DesignTokens with new token categories
-
   **Breaking Changes:**
   None - this is a minor version bump for new tokens and internal improvements

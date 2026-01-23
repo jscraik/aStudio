@@ -221,7 +221,7 @@ After deployment, add your MCP server to ChatGPT:
 
 - Wrangler can exceed file watch / open file limits in some environments.
 - Try raising the file descriptor limit before starting dev: `ulimit -n 8192`, then run `pnpm -C packages/cloudflare-template dev`.
-- On macOS, you can also raise limits via `launchctl limit maxfiles` if needed.
+- If you hit file descriptor limits, raise them at the OS level (for example via `ulimit` or platform-specific tools).
 
 ### Development Tips
 

@@ -16,13 +16,12 @@ Last updated: 2026-01-09
 - [Overall Structure](#overall-structure)
 - [Component Structure Details](#component-structure-details)
   - [React Components Structure](#react-components-structure)
-  - [Swift Components Structure](#swift-components-structure)
 - [Cross-Platform Considerations](#cross-platform-considerations)
   - [Shared Design Tokens](#shared-design-tokens)
   - [Platform-Specific Implementations](#platform-specific-implementations)
   - [Documentation](#documentation)
 
-This document outlines the folder structure for a cross-platform components library supporting both React and Swift implementations.
+This document outlines the folder structure for a component library supporting React and Apps SDK surfaces.
 
 ## Overall Structure
 
@@ -139,7 +138,6 @@ components-library/
 │       │       └── index.ts
 │       ├── package.json
 │       └── tsconfig.json
-├── platforms/apple/swift/
 │   ├── AStudioComponents/
 │   │   ├── Sources/
 │   │   │   ├── AStudioComponents/
@@ -287,14 +285,6 @@ Each React component follows the same pattern:
 - `ComponentName.test.tsx` - Unit tests for component
 - `ComponentName.types.ts` - Type definitions (if needed)
 
-### Swift Components Structure
-
-Each Swift component follows the same pattern:
-
-- `ComponentName.swift` - Main component implementation
-- `ComponentName+Configuration.swift` - Configuration and styling options
-- `ComponentNameTests.swift` - Unit tests for component
-
 ## Cross-Platform Considerations
 
 ### Shared Design Tokens
@@ -307,9 +297,9 @@ Each Swift component follows the same pattern:
 
 ### Platform-Specific Implementations
 
-- React components leverage web-specific APIs
-- Swift components leverage native iOS/macOS APIs
-- Common behavior patterns maintained across platforms
+- React components leverage web APIs and are reused in Tauri shells and Apps SDK surfaces.
+- Desktop integrations live outside the UI library; UI components stay platform-agnostic.
+- Common behavior patterns are maintained across web and desktop shells.
 
 ### Documentation
 

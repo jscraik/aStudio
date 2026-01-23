@@ -12,14 +12,14 @@ Last updated: 2026-01-09
 
 ## Purpose
 
-This charter defines the governance and non-negotiable rules for the aStudio UI design system. It establishes Apps SDK UI as the canonical foundation for all embedded ChatGPT surfaces and as the baseline contract for web foundations and parity across SwiftUI.
+This charter defines the governance and non-negotiable rules for the aStudio UI design system. It establishes Apps SDK UI as the canonical foundation for all embedded ChatGPT surfaces and as the baseline contract for web UI and desktop shells (Tauri).
 
 ## Scope
 
 In scope:
 
 - Web UI built with React/Vite/Tailwind and `@astudio/ui`.
-- SwiftUI packages and macOS/iOS/visionOS applications under `platforms/apple/swift` and `platforms/apple/apps`.
+- Tauri desktop shells that host the web UI.
 - Embedded ChatGPT Apps SDK widgets under `packages/widgets`.
 - Design tokens, component APIs, interaction patterns, and QA gates.
 
@@ -32,8 +32,8 @@ Out of scope:
 ## Supported Surfaces
 
 - Web (React/Vite/Tailwind)
+- Tauri desktop shells
 - Embedded ChatGPT Apps SDK widgets
-- SwiftUI (iOS, macOS, visionOS)
 
 ## Foundation Rule (Non-Negotiable)
 
@@ -62,7 +62,7 @@ Radix primitives may be used only when Apps SDK UI lacks the required component.
 Any proposal that adds or changes tokens, components, or UX patterns must include:
 
 - Design review and accessibility signoff.
-- Impact analysis on web + SwiftUI + widgets.
+- Impact analysis on web + Tauri + widgets.
 - Migration plan for breaking changes.
 
 ## Component Lifecycle
@@ -72,7 +72,7 @@ Proposal → Alpha → Beta → Stable → Deprecated → Removed
 Each transition requires:
 
 - Documented criteria and testing evidence.
-- Compatibility notes for web + SwiftUI + widgets.
+- Compatibility notes for web + Tauri + widgets.
 - Release notes for breaking changes.
 
 ## Release Rules
@@ -92,7 +92,6 @@ PRs that change the design system must include evidence of:
 ## Accessibility and Inclusive Design
 
 - WCAG 2.2 AA baseline for web and widgets.
-- Dynamic Type and VoiceOver for SwiftUI.
 - Keyboard-only and screen-reader support for all interactive components.
 
 ## Security and Privacy

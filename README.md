@@ -22,7 +22,6 @@ A cross-platform UI workbench for building ChatGPT-style interfaces across multi
 
 - **ChatGPT Widgets** - Embedded widgets via OpenAI Apps SDK
 - **React Applications** - Standalone web applications using `@astudio/ui`
-- **macOS Applications** - Native SwiftUI apps with aStudio Swift packages
 - **MCP Integration** - Model Context Protocol server for ChatGPT tool integration
 
 ## Primary Products
@@ -38,9 +37,6 @@ A cross-platform UI workbench for building ChatGPT-style interfaces across multi
 - `platforms/web/apps/web` - Widget Gallery for visual testing and MCP widget builds
 - `platforms/web/apps/storybook` - Component documentation and interactive development
 - `platforms/mcp` - MCP server for ChatGPT integration
-- `platforms/apple/apps/macos/AStudioApp` - Production macOS application with MCP integration
-- `platforms/apple/apps/macos/AStudioPlayground` - SwiftUI experimentation harness
-- `platforms/apple/apps/macos/ComponentGallery` - Visual component browser for Swift packages
 
 ## Contents
 
@@ -70,9 +66,6 @@ A cross-platform UI workbench for building ChatGPT-style interfaces across multi
 
 - Node.js 18+
 - pnpm 10.28.0 (see `packageManager` in `package.json`)
-- **For macOS app development** (optional): macOS 13+ with Xcode 15+
-
-> Note: Web and widget development works on all platforms. macOS/Xcode is only required for Swift package and native macOS app work.
 
 ## Compatibility matrix
 
@@ -80,9 +73,6 @@ A cross-platform UI workbench for building ChatGPT-style interfaces across multi
 - **TypeScript**: 5.9+ (workspace devDependency)
 - **Node.js**: 18+ (runtime baseline)
 - **Apps SDK UI**: ^0.2.1 (from `@astudio/ui` dependencies)
-- **Swift**: 5.9+ with Xcode 15+ (for macOS/iOS development)
-- **macOS**: 13+ (deployment target for macOS apps)
-- **iOS**: 15+ (deployment target for Swift packages)
 
 ## 🚀 Quick Start
 
@@ -91,12 +81,12 @@ A cross-platform UI workbench for building ChatGPT-style interfaces across multi
 pnpm install
 
 # Start development
-pnpm dev                    # Widget Gallery at http://localhost:5173 + Storybook at http://localhost:6006
+pnpm dev                    # Widget Gallery at http://localhost:5173
 pnpm dev:web                # Widget Gallery only (http://localhost:5173)
 pnpm dev:storybook          # Storybook only (http://localhost:6006)
 
 # Build for production
-pnpm build                 # Build pipeline (web + macOS packages)
+pnpm build                 # Build pipeline (web packages)
 pnpm build:web             # Web-only build
 pnpm build:widgets         # Widget bundles
 pnpm build:widget          # Single-file widget HTML (for MCP harness)
@@ -113,7 +103,7 @@ Core scripts you'll use frequently:
 
 ```bash
 # Development
-pnpm dev                    # Widget Gallery + Storybook concurrently
+pnpm dev                    # Widget Gallery only
 pnpm dev:web                # Widget Gallery only
 pnpm dev:storybook          # Storybook only
 pnpm dev:widgets            # Widget development mode
@@ -131,7 +121,6 @@ pnpm test:e2e:web           # End-to-end tests (Playwright)
 pnpm test:a11y:widgets      # Accessibility tests for widgets
 pnpm test:visual:web        # Visual regression tests (web)
 pnpm test:visual:storybook  # Visual regression tests (Storybook)
-pnpm test:swift             # Run all Swift package tests
 pnpm test:mcp-contract      # MCP tool contract tests
 
 # Code Quality
@@ -147,7 +136,6 @@ pnpm build:web              # Web-only build
 pnpm build:widgets          # Widget bundles for production
 pnpm build:widget           # Single-file widget HTML for MCP
 pnpm build:lib              # Build @astudio packages only
-pnpm build:macos            # macOS app build
 
 # Utilities
 pnpm new:component          # Component generator
@@ -207,12 +195,7 @@ Use this table to jump to the canonical doc surface. For more detail, see
 | Architecture            | `docs/architecture/README.md`                            |
 | Repo map                | `docs/architecture/repo-map.md`                          |
 | Build pipeline          | `docs/BUILD_PIPELINE.md`                                 |
-| Swift integration       | `docs/SWIFT_INTEGRATION.md`                              |
 | Restructure migration   | `docs/guides/repo-structure-migration.md`                |
-| Swift packages overview | `platforms/apple/swift/README.md`                        |
-| macOS aStudio app       | `platforms/apple/apps/macos/AStudioApp/README.md`        |
-| macOS Playground        | `platforms/apple/apps/macos/AStudioPlayground/README.md` |
-| macOS Component Gallery | `platforms/apple/apps/macos/ComponentGallery/README.md`  |
 | Web Widget Gallery      | `platforms/web/apps/web/README.md`                       |
 | Storybook               | `platforms/web/apps/storybook/README.md`                 |
 | MCP server              | `platforms/mcp/README.md`                                |
@@ -241,7 +224,7 @@ Fix:
 pnpm mcp:start
 ```
 
-Then confirm the MCP URL in the aStudio macOS app Settings panel (default `http://localhost:8787`).
+Then confirm the MCP URL in the aStudio app settings panel (default `http://localhost:8787`).
 
 ### Symptom: Storybook or Widget Gallery doesn't start
 
@@ -482,7 +465,7 @@ pnpm new:component SettingsPage page
 
 This creates the component file and a Storybook story.
 
-**📖 For the complete component creation workflow** including planning, testing, Swift parity, and release, see [docs/guides/COMPONENT_CREATION.md](docs/guides/COMPONENT_CREATION.md).
+**📖 For the complete component creation workflow** including planning, testing, and release, see [docs/guides/COMPONENT_CREATION.md](docs/guides/COMPONENT_CREATION.md).
 
 ## Development Workflow
 
@@ -490,31 +473,30 @@ This creates the component file and a Storybook story.
 2. **Test in Widget Gallery** - `pnpm dev:web` - Visual testing of widget bundles in isolation
 3. **Build Widgets** - `pnpm build:widgets` - Create production widget bundles
 4. **Test in ChatGPT** - `pnpm mcp:start` - Run MCP server for ChatGPT integration
-5. **Test in macOS** - Open `platforms/apple/apps/macos/AStudioApp` in Xcode for native app testing
 
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                     Your Projects                            │
-├─────────────────────────────────────────────────────────────┤
-│  React App    │  ChatGPT Widget  │  macOS App    │  ...     │
-│  (Standalone) │  (Embedded)      │  (Native)     │          │
-└───────┬───────┴────────┬─────────┴────────┬──────┴──────────┘
-        │                │                  │
-        ├────────────────┘                  │
-        │                                   │
-┌───────▼──────────────────┐    ┌───────────▼────────────────┐
-│   @astudio/ui (React)     │    │  aStudio Swift Packages     │
-│  Component Library       │    │  (SwiftUI)                 │
-├──────────────────────────┤    ├────────────────────────────┤
-│  • Chat Components       │    │  • AStudioFoundation        │
-│  • UI Primitives         │    │  • AStudioComponents        │
-│  • Templates             │    │  • AStudioThemes            │
-│  • Pages                 │    │  • AStudioShellChatGPT      │
-└───────┬──────────────────┘    │  • AStudioMCP               │
-        │                       │  • AStudioSystemIntegration │
-┌───────▼──────────────────┐    └────────────────────────────┘
+┌──────────────────────────────────────────────────────────┐
+│                     Your Projects                         │
+├──────────────────────────────────────────────────────────┤
+│  React App    │  ChatGPT Widget │  ...                   │
+│  (Standalone) │  (Embedded)     │                        │
+└───────┬───────┴────────┬────────┴────────────────────────┘
+        │                │
+        ├────────────────┘
+        │
+┌───────▼──────────────────┐
+│   @astudio/ui (React)     │
+│  Component Library       │
+├──────────────────────────┤
+│  • Chat Components       │
+│  • UI Primitives         │
+│  • Templates             │
+│  • Pages                 │
+└───────┬──────────────────┘
+        │
+┌───────▼──────────────────┐
 │   @astudio/runtime        │
 │  (Host Abstraction)      │
 ├──────────────────────────┤
@@ -535,11 +517,10 @@ This creates the component file and a Storybook story.
 
 ### Cross-Platform Architecture
 
-The repository supports both **React** (web/ChatGPT widgets) and **Swift** (macOS/iOS) implementations:
+The repository supports **React** implementations across web, widgets, and Tauri shells:
 
-- **React**: Uses `@astudio/ui`, `@astudio/runtime`, and `@astudio/tokens` packages
-- **Swift**: Uses modular Swift packages (`AStudioFoundation`, `AStudioComponents`, `AStudioThemes`, etc.)
-- **Design Parity**: Both platforms share the same design tokens and visual language from Apps SDK UI
+- **React**: Uses `@astudio/ui`, `@astudio/runtime`, and `@astudio/tokens`
+- **Design Parity**: All surfaces share the same design tokens and visual language from Apps SDK UI
 
 ---
 

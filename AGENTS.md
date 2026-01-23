@@ -16,8 +16,6 @@ This is a pnpm workspace monorepo. Key locations:
 
 - `platforms/mcp/` — MCP server + tool contracts for ChatGPT integration.
 - `packages/` — reusable libraries (`ui`, `runtime`, `tokens`, `widgets`, `cloudflare-template`, `cli`, `astudio-icons`, `astudio-make-template`, `skill-ingestion`).
-- `platforms/apple/apps/macos/` — macOS apps (Xcode/SwiftPM).
-- `platforms/apple/swift/` — Swift packages and macOS/iOS components; legacy Swift package lives in `platforms/apple/swift/ui-swift/`.
 - `docs/` — architecture, guides, audits, and build pipeline docs.
 - `scripts/` — build pipeline, version sync, and compliance tooling.
 
@@ -26,26 +24,21 @@ This is a pnpm workspace monorepo. Key locations:
 Common commands (from root `package.json`):
 
 - `pnpm install` — install workspace dependencies.
-- `pnpm dev` — run web app and open iOS Simulator (Safari).
+- `pnpm dev` — run web app.
 - `pnpm dev:web` / `pnpm dev:storybook` — run only one surface.
-- `pnpm dev:ios` / `pnpm storybook:ios` — run web/Storybook and open iOS Simulator (Safari).
-- `pnpm build` / `pnpm build:web` / `pnpm build:widgets` / `pnpm build:macos` — build pipeline targets.
+- `pnpm build` / `pnpm build:web` / `pnpm build:widgets` — build pipeline targets.
 - `pnpm lint` / `pnpm format` / `pnpm format:check` — lint and formatting.
 - `pnpm test` — UI unit tests.
 - `pnpm test:e2e:web` / `pnpm test:a11y:widgets` / `pnpm test:visual:web` / `pnpm test:visual:storybook` — Playwright suites.
-- `pnpm test:swift` (or `test:swift:*`) — Swift package + macOS app tests.
 
 ## Coding Style & Naming Conventions
 
 - JS/TS: Biome (`biome.json`) + policy checks (`pnpm test:policy`). Keep files formatted via `pnpm format`.
 - React components live in `packages/ui/src/components/**`; Storybook stories use `*.stories.tsx`.
-- Swift: follow existing patterns in `platforms/apple/swift/*`; centralize platform differences in `Platform.swift` where used.
 
 ## Testing Guidelines
 
 - Web/UI: Vitest in `packages/ui`, Playwright for e2e/a11y/visual.
-- Swift: XCTest via `swift test` in each Swift package (`platforms/apple/swift/*/Tests`).
-- macOS apps: see `platforms/apple/apps/macos/SETUP_GUIDE.md` for Xcode workflow.
 
 ## Commit & Pull Request Guidelines
 

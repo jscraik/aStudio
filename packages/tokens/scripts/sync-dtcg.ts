@@ -181,88 +181,6 @@ type DtcgRoot = {
         tracking: DtcgToken;
       };
     };
-    ios: {
-      heading1: {
-        size: DtcgToken;
-        lineHeight: DtcgToken;
-        weight: DtcgToken;
-        tracking: DtcgToken;
-      };
-      heading2: {
-        size: DtcgToken;
-        lineHeight: DtcgToken;
-        weight: DtcgToken;
-        tracking: DtcgToken;
-      };
-      heading3: {
-        size: DtcgToken;
-        lineHeight: DtcgToken;
-        weight: DtcgToken;
-        tracking: DtcgToken;
-      };
-      body: {
-        size: DtcgToken;
-        lineHeight: DtcgToken;
-        weight: DtcgToken;
-        emphasisWeight: DtcgToken;
-        tracking: DtcgToken;
-      };
-      bodySmall: {
-        size: DtcgToken;
-        lineHeight: DtcgToken;
-        weight: DtcgToken;
-        emphasisWeight: DtcgToken;
-        tracking: DtcgToken;
-      };
-      caption: {
-        size: DtcgToken;
-        lineHeight: DtcgToken;
-        weight: DtcgToken;
-        emphasisWeight: DtcgToken;
-        tracking: DtcgToken;
-      };
-    };
-    android: {
-      heading1: {
-        size: DtcgToken;
-        lineHeight: DtcgToken;
-        weight: DtcgToken;
-        tracking: DtcgToken;
-      };
-      heading2: {
-        size: DtcgToken;
-        lineHeight: DtcgToken;
-        weight: DtcgToken;
-        tracking: DtcgToken;
-      };
-      heading3: {
-        size: DtcgToken;
-        lineHeight: DtcgToken;
-        weight: DtcgToken;
-        tracking: DtcgToken;
-      };
-      body: {
-        size: DtcgToken;
-        lineHeight: DtcgToken;
-        weight: DtcgToken;
-        emphasisWeight: DtcgToken;
-        tracking: DtcgToken;
-      };
-      bodySmall: {
-        size: DtcgToken;
-        lineHeight: DtcgToken;
-        weight: DtcgToken;
-        emphasisWeight: DtcgToken;
-        tracking: DtcgToken;
-      };
-      caption: {
-        size: DtcgToken;
-        lineHeight: DtcgToken;
-        weight: DtcgToken;
-        emphasisWeight: DtcgToken;
-        tracking: DtcgToken;
-      };
-    };
   };
 };
 
@@ -444,7 +362,7 @@ function buildSizes(dtcg: DtcgRoot) {
 
 function buildTypography(dtcg: DtcgRoot) {
   const t = dtcg.type;
-  // Use web platform values as default
+  // Use web platform values
   const web = t.web;
   return {
     fontFamily: getValue(t.fontFamily, "type.fontFamily"),
@@ -520,57 +438,6 @@ function buildTypography(dtcg: DtcgRoot) {
   } as const;
 }
 
-function buildPlatformTypography(platform: "ios" | "android", dtcg: DtcgRoot) {
-  const type = dtcg.type[platform];
-  return {
-    heading1: {
-      size: getValue(type.heading1.size, `type.${platform}.heading1.size`),
-      lineHeight: getValue(type.heading1.lineHeight, `type.${platform}.heading1.lineHeight`),
-      weight: getValue(type.heading1.weight, `type.${platform}.heading1.weight`),
-      tracking: getValue(type.heading1.tracking, `type.${platform}.heading1.tracking`),
-    },
-    heading2: {
-      size: getValue(type.heading2.size, `type.${platform}.heading2.size`),
-      lineHeight: getValue(type.heading2.lineHeight, `type.${platform}.heading2.lineHeight`),
-      weight: getValue(type.heading2.weight, `type.${platform}.heading2.weight`),
-      tracking: getValue(type.heading2.tracking, `type.${platform}.heading2.tracking`),
-    },
-    heading3: {
-      size: getValue(type.heading3.size, `type.${platform}.heading3.size`),
-      lineHeight: getValue(type.heading3.lineHeight, `type.${platform}.heading3.lineHeight`),
-      weight: getValue(type.heading3.weight, `type.${platform}.heading3.weight`),
-      tracking: getValue(type.heading3.tracking, `type.${platform}.heading3.tracking`),
-    },
-    body: {
-      size: getValue(type.body.size, `type.${platform}.body.size`),
-      lineHeight: getValue(type.body.lineHeight, `type.${platform}.body.lineHeight`),
-      weight: getValue(type.body.weight, `type.${platform}.body.weight`),
-      emphasisWeight: getValue(type.body.emphasisWeight, `type.${platform}.body.emphasisWeight`),
-      tracking: getValue(type.body.tracking, `type.${platform}.body.tracking`),
-    },
-    bodySmall: {
-      size: getValue(type.bodySmall.size, `type.${platform}.bodySmall.size`),
-      lineHeight: getValue(type.bodySmall.lineHeight, `type.${platform}.bodySmall.lineHeight`),
-      weight: getValue(type.bodySmall.weight, `type.${platform}.bodySmall.weight`),
-      emphasisWeight: getValue(
-        type.bodySmall.emphasisWeight,
-        `type.${platform}.bodySmall.emphasisWeight`,
-      ),
-      tracking: getValue(type.bodySmall.tracking, `type.${platform}.bodySmall.tracking`),
-    },
-    caption: {
-      size: getValue(type.caption.size, `type.${platform}.caption.size`),
-      lineHeight: getValue(type.caption.lineHeight, `type.${platform}.caption.lineHeight`),
-      weight: getValue(type.caption.weight, `type.${platform}.caption.weight`),
-      emphasisWeight: getValue(
-        type.caption.emphasisWeight,
-        `type.${platform}.caption.emphasisWeight`,
-      ),
-      tracking: getValue(type.caption.tracking, `type.${platform}.caption.tracking`),
-    },
-  } as const;
-}
-
 const dtcgRaw = await readFile(dtcgPath, "utf8");
 const dtcg = JSON.parse(dtcgRaw);
 
@@ -581,8 +448,6 @@ const radiusTokens = buildRadius(dtcg);
 const shadowTokens = buildShadows(dtcg);
 const sizeTokens = buildSizes(dtcg);
 const typographyTokens = buildTypography(dtcg);
-const typographyTokensIos = buildPlatformTypography("ios", dtcg);
-const typographyTokensAndroid = buildPlatformTypography("android", dtcg);
 
 await writeFile(
   colorsPath,
@@ -603,8 +468,8 @@ await writeFile(
 await writeFile(
   typographyPath,
   formatTokenFile(
-    "Typography tokens for web, iOS, and Android usage. Sizes, line heights, and tracking are numeric values.",
-    `export const typographyTokens = ${JSON.stringify(typographyTokens, null, 2)} as const;\nexport const typographyTokensIos = ${JSON.stringify(typographyTokensIos, null, 2)} as const;\nexport const typographyTokensAndroid = ${JSON.stringify(typographyTokensAndroid, null, 2)} as const;`,
+    "Typography tokens for web usage. Sizes, line heights, and tracking are numeric values.",
+    `export const typographyTokens = ${JSON.stringify(typographyTokens, null, 2)} as const;`,
   ),
 );
 

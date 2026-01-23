@@ -30,8 +30,8 @@ export function ArchivedChatsPanel({ onBack }: SettingsPanelProps) {
     ],
     "Last month": [
       "Verp mean/std enquired",
-      "Apple SDK Figma PDF",
-      "Apple SDK Figma library",
+      "Apps SDK Figma PDF",
+      "Apps SDK Figma library",
       "Figma SDK Audit",
       "Rejection Iterative Dynamics",
       "Student set-class max value",

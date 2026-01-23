@@ -12,7 +12,7 @@ Last updated: 2026-01-04
 
 Scope: Full React surface (packages/ui, packages/widgets, platforms/web/apps/web, platforms/web/apps/storybook).
 Change policy: Breaking changes allowed.
-UX scope: ChatGPT widgets + React UI; record changes for SwiftUI parity.
+UX scope: ChatGPT widgets + React UI; record changes for desktop parity.
 
 ## Legend
 

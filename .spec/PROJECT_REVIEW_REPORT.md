@@ -10,7 +10,7 @@ project: aStudio
 **Date:** 2026-01-15  
 **Repo:** /Users/jamiecraik/dev/aStudio  
 **Audience:** solo dev  
-**Inputs reviewed:** README.md | docs/architecture/README.md | docs/architecture/WIDGET_ARCHITECTURE.md | docs/architecture/CROSS_PLATFORM.md | docs/BUILD_PIPELINE.md | docs/design-system/CHARTER.md | docs/SECURITY_HArdENING_COMPLETION_REPORT.md | docs/work/work_outstanding.md | package.json
+**Inputs reviewed:** README.md | docs/architecture/README.md | docs/architecture/WIDGET_ARCHITECTURE.md | docs/architecture/cross-platform-design.md | docs/architecture/repo-map.md | docs/BUILD_PIPELINE.md | docs/design-system/CHARTER.md | docs/work/work_outstanding.md | package.json
 
 ---
 
@@ -36,32 +36,32 @@ project: aStudio
 - **Biggest missing pieces:**
   - Real user demand evidence and success metrics instrumentation.
   - Operational readiness artifacts (SLOs, runbooks, on-call, incident response).
-  - Version baseline alignment (Node/Swift) with the gold standard policy.
+  - Version baseline alignment (Node) with the gold standard policy.
 - **Next 14 days:**
   - Define primary use cases for solo-dev UI consistency workflows; confirm success metrics.
   - Instrument core workflows (widget usage, embed success, MCP tool call success).
   - Establish SLOs + runbook for MCP server and widget delivery pipeline.
-  - Align toolchain baselines (Node 24 LTS, Swift 6 where applicable) and document plan.
+  - Align toolchain baselines (Node 24 LTS, pnpm, Biome) and document plan.
   - Resolve Storybook browser test failures by moving to Playwright component tests for Radix-heavy stories.
 
 ---
 
 ## 2) Original Vision (Reconstructed)
 
-- **Vision statement (then):** Build a cross-platform UI workbench that enables consistent UI and reusable components for a solo developer across embedded widgets, web apps, and native SwiftUI apps.
-- **Problem statement:** A solo developer needs consistent, accessible, and maintainable UI across multiple surfaces (ChatGPT widgets, web apps, macOS/iOS) without duplicating component logic and tokens.
+- **Vision statement (then):** Build a cross-platform UI workbench that enables consistent UI and reusable components for a solo developer across embedded widgets, web apps, and desktop surfaces.
+- **Problem statement:** A solo developer needs consistent, accessible, and maintainable UI across multiple surfaces (ChatGPT widgets, web apps, desktop) without duplicating component logic and tokens.
   -- **Target users/personas:**
   - Primary: Solo developer (Jamie) building ChatGPT widgets and web apps.
-  - Secondary: Solo SwiftUI developer needing parity with React components/tokens.
+  - Secondary: Desktop surface owner needing coverage across React and Apps SDK UI surfaces.
 - **Hypothesis:** A single design-system-first monorepo with shared tokens, runtime abstractions, and widget tooling will reduce duplication and accelerate UI delivery across platforms.
-- **Success metrics (intended):** Faster component delivery, parity across surfaces, fewer UI regressions, and streamlined widget builds.
+- **Success metrics (intended):** Faster component delivery, coverage across surfaces, fewer UI regressions, and streamlined widget builds.
 
 Sources:
 
 - README.md
 - docs/architecture/WIDGET_ARCHITECTURE.md
 - docs/design-system/CHARTER.md
-- docs/architecture/CROSS_PLATFORM.md
+- docs/architecture/cross-platform-design.md
 
 ---
 
@@ -69,7 +69,7 @@ Sources:
 
 - **What exists today:**
   - Library-first monorepo with `@astudio/ui`, `@astudio/runtime`, `@astudio/tokens`, widget bundles, and MCP server.
-  - Web Widget Gallery + Storybook; Swift packages and macOS apps; token sync and build pipeline.
+  - Web Widget Gallery + Storybook; widget build pipeline; token sync and build pipeline.
   - Security hardening report and extensive test suite documentation.
 - **Who is actually using it (if anyone):** Jamie (solo) for design system and component creation; no external usage metrics in reviewed docs.
 - **Evidence of pain (baseline):**
@@ -79,9 +79,9 @@ Sources:
   - Apps SDK UI–first design system, with Radix fallbacks where needed.
   - Host abstraction (`packages/runtime`) for embedded vs standalone environments.
   - Widget build pipeline producing standalone HTML for MCP consumption.
-- **React ↔ Swift component parity (current):**
-  - Parity is partial; many React components are complete while Swift counterparts are still in progress.
-  - Component parity is tracked in `docs/architecture/CROSS_PLATFORM.md` and should be treated as a roadmap rather than a completed mirror.
+- **Surface coverage (current):**
+  - Coverage is partial; many React components are complete while widget/desktop usage still lags.
+  - Surface coverage is tracked in `docs/architecture/cross-platform-design.md` and should be treated as a roadmap rather than a completed mirror.
 - **Component authoring guidance (current):**
   - Guidance exists but is scattered across docs; a single “component creation” guide for Jamie is not clearly centralized.
   - Relevant sources today:
@@ -90,8 +90,8 @@ Sources:
     - `docs/architecture/cross-platform-design.md` (token + state requirements)
 - **Known constraints/debt:**
   - Storybook browser tests partially failing due to Radix + Vitest browser runner limitations.
-  - Swift tests and local dev servers blocked in sandboxed environments.
-  - Toolchain baseline mismatch between docs (Node 18, Swift 5.9) and gold baseline (Node 24, Swift 6 for new modules).
+  - Local dev servers blocked in sandboxed environments.
+  - Toolchain baseline mismatch between docs (Node 18) and gold baseline (Node 24).
 
 ---
 
@@ -99,7 +99,7 @@ Sources:
 
 - **User feedback:** N/A — solo dev project; current feedback is owner experience.
 - **Behavioral signals:** Not found (no activation/usage/retention metrics).
-- **Competitive landscape:** Alternative UI kits and platform-specific UI stacks exist, but this repo differentiates via Apps SDK UI alignment + multi-surface parity.
+- **Competitive landscape:** Alternative UI kits and platform-specific UI stacks exist, but this repo differentiates via Apps SDK UI alignment + multi-surface coverage.
 
 If evidence is missing:
 
@@ -114,18 +114,18 @@ If evidence is missing:
 ### 5.1 Product gaps
 
 - Missing persona clarity: personas are implied but not explicitly documented.
-- Missing core user stories: no PRD-level user stories for widget, MCP, and Swift parity workflows.
+- Missing core user stories: no PRD-level user stories for widget, MCP, and desktop workflows.
 - Missing edge cases / failure UX: error/empty-state standards exist but are not consolidated into a product-level requirement set.
 - Missing success metrics instrumentation: no measurable KPI targets or telemetry plan.
-- Missing centralized component creation guide: no single, end-to-end component authoring checklist for Jamie (React + Swift parity + tokens + tests).
+- Missing centralized component creation guide: no single, end-to-end component authoring checklist for Jamie (React + Apps SDK UI surfaces + tokens + tests).
 
 ### 5.2 Engineering gaps
 
 - Missing API/schema definitions: MCP tool contracts are tested but no single source-of-truth spec found in reviewed docs.
-- Missing data model constraints/indexes: N/A — primarily UI and tooling repo, but any persistence in MCP/macOS apps should have explicit data models.
+- Missing data model constraints/indexes: N/A — primarily UI and tooling repo, but any persistence in MCP/Tauri apps should have explicit data models.
 - Missing security requirements: high-level security guidance exists; operational security requirements for MCP runtime (authz, rate limits, audit logs) need explicit, environment-specific definitions.
 - Missing error handling: cross-surface error-handling conventions should be consolidated into a single spec and enforced via lint/test.
-- Missing performance targets: no clear latency/size budgets for widgets, MCP tool responses, or SwiftUI render paths.
+- Missing performance targets: no clear latency/size budgets for widgets, MCP tool responses, or desktop render paths.
 
 ### 5.3 Operational readiness gaps
 
@@ -145,12 +145,12 @@ If evidence is missing:
   - Internal adoption by teams building ChatGPT widgets and embedded UIs.
   - Public-facing widget templates and MCP examples to drive adoption.
 - **Biggest assumptions:**
-  - Teams will adopt a unified UI system across React and SwiftUI.
+  - Teams will adopt a unified UI system across React and Apps SDK UI surfaces.
   - Widget demand will justify sustained maintenance.
   - Apps SDK UI alignment will remain stable enough to build on.
 - **Kill criteria:**
   - No active widget or UI package consumers after 2–3 quarters.
-  - High maintenance burden vs. value delivered (e.g., parity debt exceeds adoption).
+  - High maintenance burden vs. value delivered (e.g., coverage debt exceeds adoption).
   - Solo-dev time cost exceeds measurable time saved for 2 consecutive quarters (threshold: >25% time overhead vs baseline).
 
 ---
@@ -159,12 +159,12 @@ If evidence is missing:
 
 ### Updated vision statement (now)
 
-Provide a production-grade, Apps SDK UI–aligned cross-platform UI workbench with measurable adoption and operational readiness for ChatGPT widgets, React apps, and SwiftUI surfaces.
+Provide a production-grade, Apps SDK UI–aligned cross-platform UI workbench with measurable adoption and operational readiness for ChatGPT widgets, React apps, and desktop surfaces.
 
 ### Updated scope
 
 - In:
-  - Widget delivery pipeline, MCP integration, and UI parity via shared tokens.
+  - Widget delivery pipeline, MCP integration, and UI coverage via shared tokens.
   - Governance artifacts (SLOs, runbooks, release checklists, metrics).
   - Developer experience tooling and documentation.
   - Production-ready MCP allowlist authN/Z policy and tool capability scoping.
@@ -183,8 +183,8 @@ Provide a production-grade, Apps SDK UI–aligned cross-platform UI workbench wi
 | UI consistency regressions            |                      ≤ 2 visual diffs per release | per release | visual regression reports          |
 | Time to new component (idea → merged) | Baseline: 1 day median → Target: ≤ 2 hours median | 30d         | PR timestamps + changelog          |
 | Theme change rollout time             |                                         ≤ 2 hours | 30d         | CI build logs + release notes      |
-| React ↔ Swift parity lag              |                                         ≤ 30 days | quarterly   | parity matrix + release notes      |
-| UI parity coverage                    |                           ≥ 90% components mapped | quarterly   | design-system coverage matrix      |
+| Surface coverage lag                  |                                         ≤ 30 days | quarterly   | coverage matrix + release notes    |
+| UI surface coverage                   |                           ≥ 90% components mapped | quarterly   | design-system coverage matrix      |
 | Storybook test pass rate              |                                             ≥ 95% | 30d         | CI test reports                    |
 | MCP tool contract compliance          |                                              100% | 30d         | contract test suite                |
 | Accessibility regression rate         |          0 WCAG 2.2 AA violations in release gate | per release | a11y CI + manual audit notes       |
@@ -235,14 +235,14 @@ Provide a production-grade, Apps SDK UI–aligned cross-platform UI workbench wi
 
 ### Top priorities (next 14 days)
 
-1. Define the solo-dev workflows and top 5 user stories for widget dev + Swift parity (Owner: Jamie) — Done when: PRD draft exists with success metrics and edge cases.
+1. Define the solo-dev workflows and top 5 user stories for widget dev + surface coverage (Owner: Jamie) — Done when: PRD draft exists with success metrics and edge cases.
 2. Add telemetry events for widget render and MCP tool calls — Done when: dashboards show baseline metrics and error rates.
 3. Create MCP + widget runbook and rollback playbook — Done when: runbook has incident steps + owners + contact paths.
-4. Align toolchain baselines (Node 24 LTS, Swift 6 plan) — Done when: baseline decision recorded and updated in docs/tooling.
+4. Align toolchain baselines (Node 24 LTS, pnpm, Biome) — Done when: baseline decision recorded and updated in docs/tooling.
 5. Replace Vitest browser Storybook tests with Playwright component tests for Radix-heavy stories — Done when: CI green with new test target and documented rationale.
 6. Publish a minimal MCP auth policy (prod allowlist) — Done when: policy document exists and tooling enforces allowlist by default.
 7. Define canonical MCP tool contract spec + semver policy — Done when: spec file exists under `platforms/mcp/contracts/` and runbook references it.
-8. Create a centralized component creation guide for Jamie — Done when: a single doc covers React + Swift parity, tokens, tests, and release steps.
+8. Create a centralized component creation guide for Jamie — Done when: a single doc covers React + Apps SDK UI surfaces, tokens, tests, and release steps.
 
 ### Follow-up deliverables
 
@@ -260,10 +260,10 @@ Provide a production-grade, Apps SDK UI–aligned cross-platform UI workbench wi
   - README.md
   - docs/architecture/README.md
   - docs/architecture/WIDGET_ARCHITECTURE.md
-  - docs/architecture/CROSS_PLATFORM.md
+  - docs/architecture/cross-platform-design.md
+  - docs/architecture/repo-map.md
   - docs/BUILD_PIPELINE.md
   - docs/design-system/CHARTER.md
-  - docs/SECURITY_HArdENING_COMPLETION_REPORT.md
   - docs/work/work_outstanding.md
   - package.json
 - Commands run:

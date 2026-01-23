@@ -7,17 +7,17 @@ set -euo pipefail
 usage() {
   cat <<'EOF'
 Usage:
-  bin/ui-codex triage --issue "..." [--profile iphone_pro] [--path /] [--before <png>] [--schema codex/ui_report.schema.json]
-  bin/ui-codex fix    --issue "..." [--profile iphone_pro] [--path /] [--before <png>] [--after <png>] [--schema codex/ui_report.schema.json]
+  bin/ui-codex triage --issue "..." [--profile desktop] [--path /] [--before <png>] [--schema codex/ui_report.schema.json]
+  bin/ui-codex fix    --issue "..." [--profile desktop] [--path /] [--before <png>] [--after <png>] [--schema codex/ui_report.schema.json]
 
 Options:
-  --issue         Required. Short description of what's wrong (what you see on iOS).
-  --profile       Optional. Device profile label (freeform string). Default: iphone_pro
+  --issue         Required. Short description of what's wrong (what you see in the UI).
+  --profile       Optional. Device profile label (freeform string). Default: desktop
   --path          Optional. Route/path to open (e.g. /settings). Default: /
-  --before        Optional. Path to a BEFORE screenshot PNG. If omitted, tries to create one via bin/ios-web.
-  --after         Optional. Path to an AFTER screenshot PNG (fix mode). Default: .ios-web/after/<profile>.png
+  --before        Optional. Path to a BEFORE screenshot PNG. If omitted, you must provide one manually.
+  --after         Optional. Path to an AFTER screenshot PNG (fix mode). Default: .ui-codex/after/<profile>.png
   --schema        Optional. JSON Schema path. Default: codex/ui_report.schema.json
-  --out           Optional. Output report path. Default: .ios-web/reports/ui_report_<timestamp>_<profile>.json
+  --out           Optional. Output report path. Default: .ui-codex/reports/ui_report_<timestamp>_<profile>.json
 
 Codex options:
   --codex-profile Optional. Codex config profile name to pass to `codex exec --profile`.
@@ -27,8 +27,7 @@ Codex options:
   --skip-git-repo-check Optional. Pass through to `codex exec`.
 
 Notes:
-  - If you omit --before, you need an executable `bin/ios-web` that can take a screenshot via:
-      bin/ios-web --profile <profile> --path <path> --snap <file>
+  - Provide screenshots with --before and --after (fix mode) if you want image-based diffs.
 EOF
 }
 
@@ -47,7 +46,7 @@ if [[ "$SUBCOMMAND" != "triage" && "$SUBCOMMAND" != "fix" ]]; then
 fi
 
 ISSUE=""
-DEVICE_PROFILE="iphone_pro"
+DEVICE_PROFILE="desktop"
 ROUTE_PATH="/"
 BEFORE=""
 AFTER=""
@@ -85,27 +84,22 @@ if [[ -z "$ISSUE" ]]; then
   exit 2
 fi
 
-mkdir -p .ios-web/before .ios-web/after .ios-web/reports
+mkdir -p .ui-codex/before .ui-codex/after .ui-codex/reports
 
 if [[ -z "$BEFORE" ]]; then
-  BEFORE=".ios-web/before/${DEVICE_PROFILE}.png"
-  if [[ -x "bin/ios-web" ]]; then
-    echo "Capturing BEFORE screenshot via bin/ios-web → $BEFORE"
-    bin/ios-web --profile "$DEVICE_PROFILE" --path "$ROUTE_PATH" --snap "$BEFORE"
-  else
-    echo "ERROR: --before not provided and bin/ios-web not found/executable."
-    echo "Provide --before <png> or add bin/ios-web."
-    exit 2
-  fi
+  BEFORE=".ui-codex/before/${DEVICE_PROFILE}.png"
+  echo "ERROR: --before not provided."
+  echo "Provide --before <png> to run a screenshot-based report."
+  exit 2
 fi
 
 if [[ -z "$AFTER" ]]; then
-  AFTER=".ios-web/after/${DEVICE_PROFILE}.png"
+  AFTER=".ui-codex/after/${DEVICE_PROFILE}.png"
 fi
 
 if [[ -z "$OUT" ]]; then
   TS="$(date +%Y%m%d_%H%M%S)"
-  OUT=".ios-web/reports/ui_report_${TS}_${DEVICE_PROFILE}.json"
+OUT=".ui-codex/reports/ui_report_${TS}_${DEVICE_PROFILE}.json"
 fi
 
 if [[ ! -f "$SCHEMA" ]]; then
@@ -129,7 +123,7 @@ PROMPT=$(
 You are working in a React + Vite + Tailwind repository.
 
 Task mode: ${SUBCOMMAND}
-iOS UI issue: ${ISSUE}
+UI issue: ${ISSUE}
 Device profile label: ${DEVICE_PROFILE}
 Route path: ${ROUTE_PATH}
 
@@ -146,7 +140,7 @@ Instructions:
 - If mode is "fix":
   - Implement the smallest fix that resolves the issue.
   - Use existing scripts and project conventions.
-  - Reproduce + capture AFTER screenshot to the path above (use bin/ios-web if available).
+  - Reproduce + capture AFTER screenshot to the path above.
   - Run available checks from package.json (lint/typecheck/tests/build as appropriate).
 
 Output requirements:

@@ -20,7 +20,6 @@ export function ManageAppsPanel({ onBack }: SettingsPanelProps) {
     { name: "Terminal", status: "Enabled via Accessibility", color: "#2D3436" },
     { name: "TextEdit", status: "Enabled via Accessibility", color: "#4A90E2" },
     { name: "Warp", status: "Enabled via Accessibility", color: "#01D3A7" },
-    { name: "Xcode", status: "Enabled via Accessibility", color: "#147EFB" },
   ];
 
   const availableApps = [

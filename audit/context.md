@@ -35,7 +35,6 @@ dc163e9 Merge pull request #8 from jscraik/dependabot/npm_and_yarn/react-ecosyst
 
 **Status:**
 M AGENTS.md
-M platforms/apple/apps/macos/AStudioPlayground
 ?? audit/
 
 ## Repo structure (top-level)
@@ -59,7 +58,6 @@ drwxr-xr-x@ 4 jamiecraik staff 128 Dec 28 04:40 .kiro
 -rw-r--r-- 1 jamiecraik staff 232 Jan 9 16:08 .npmrc.figma.template
 drwxr-xr-x@ 3 jamiecraik staff 96 Dec 30 21:20 .playwright-mcp
 -rw-r--r--@ 1 jamiecraik staff 39 Jan 2 04:51 .prettierignore
--rw-------@ 1 jamiecraik staff 7330 Jan 2 01:09 .swiftlint.yml
 drwxr-xr-x@ 464 jamiecraik staff 14848 Jan 9 18:36 .tmp
 drwxr-xr-x 3 jamiecraik staff 96 Jan 9 15:46 .vale
 -rw-r--r--@ 1 jamiecraik staff 317 Jan 9 21:22 .vale.ini

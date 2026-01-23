@@ -3,11 +3,11 @@
 /**
  * Enhanced Monorepo Build Pipeline
  *
- * Supports cross-platform builds for both npm and Swift Package Manager
- * with version synchronization, incremental builds, and multi-platform testing.
+ * Supports web builds for npm packages with version synchronization,
+ * incremental builds, and automated testing.
  */
 
-import { execSync, spawn } from "child_process";
+import { spawn } from "child_process";
 import { existsSync, readFileSync, statSync, writeFileSync } from "fs";
 import { mkdir } from "fs/promises";
 import { createServer } from "net";
@@ -15,18 +15,9 @@ import { dirname, join } from "path";
 
 // Configuration
 const CONFIG = {
-  platforms: ["web", "macos"],
+  platforms: ["web"],
   packages: {
     npm: ["packages/ui", "packages/runtime", "packages/tokens", "packages/widgets"],
-    swift: [
-      "platforms/apple/swift/AStudioFoundation",
-      "platforms/apple/swift/AStudioComponents",
-      "platforms/apple/swift/AStudioThemes",
-      "platforms/apple/swift/AStudioShellChatGPT",
-      "platforms/apple/swift/AStudioSystemIntegration",
-      "platforms/apple/swift/AStudioMCP",
-      "platforms/apple/apps/macos/AStudioApp",
-    ],
   },
   outputs: {
     web: [
@@ -34,15 +25,6 @@ const CONFIG = {
       "packages/runtime/dist",
       "packages/tokens/dist",
       "packages/widgets/dist",
-    ],
-    macos: [
-      "platforms/apple/swift/AStudioFoundation/.build",
-      "platforms/apple/swift/AStudioComponents/.build",
-      "platforms/apple/swift/AStudioThemes/.build",
-      "platforms/apple/swift/AStudioShellChatGPT/.build",
-      "platforms/apple/swift/AStudioSystemIntegration/.build",
-      "platforms/apple/swift/AStudioMCP/.build",
-      "platforms/apple/apps/macos/AStudioApp/.build",
     ],
   },
   cacheDir: ".build-cache",
@@ -103,7 +85,7 @@ class BuildPipeline {
   }
 
   /**
-   * Synchronize versions across npm and Swift Package Manager using agvtool
+   * Synchronize versions across npm packages
    */
   async synchronizeVersions() {
     console.log("\n📋 Synchronizing versions...");
@@ -120,41 +102,6 @@ class BuildPipeline {
           packageJson.version = version;
           writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + "\n");
           console.log(`  ✅ Updated ${packagePath} to v${version}`);
-        }
-      }
-    }
-
-    // Update Swift packages using agvtool
-    for (const swiftPath of CONFIG.packages.swift) {
-      if (existsSync(join(swiftPath, "Package.swift"))) {
-        try {
-          // Use agvtool for version management (if available)
-          if (this.hasAgvtool()) {
-            execSync(`cd ${swiftPath} && agvtool new-marketing-version ${version}`, {
-              stdio: "pipe",
-            });
-            console.log(`  ✅ Updated ${swiftPath} to v${version} (agvtool)`);
-          } else {
-            // Fallback: update Package.swift version comment
-            const packageSwiftPath = join(swiftPath, "Package.swift");
-            let content = readFileSync(packageSwiftPath, "utf8");
-
-            // Add or update version comment
-            const versionComment = `// Version: ${version}`;
-            if (content.includes("// Version:")) {
-              content = content.replace(/\/\/ Version: .+/, versionComment);
-            } else {
-              content = content.replace(
-                /^(\/\/ swift-tools-version: .+)$/m,
-                `$1\n${versionComment}`,
-              );
-            }
-
-            writeFileSync(packageSwiftPath, content);
-            console.log(`  ✅ Updated ${swiftPath} to v${version} (Package.swift comment)`);
-          }
-        } catch (error) {
-          console.warn(`  ⚠️  Could not update Swift version for ${swiftPath}: ${error.message}`);
         }
       }
     }
@@ -183,7 +130,6 @@ class BuildPipeline {
       // Verify outputs exist
       const expectedOutputs = [
         "packages/tokens/src/foundations.css",
-        "platforms/apple/swift/AStudioFoundation/Sources/AStudioFoundation/Resources/Colors.xcassets",
         "packages/tokens/docs/outputs/manifest.json",
       ];
 
@@ -192,9 +138,6 @@ class BuildPipeline {
           throw new Error(`Expected token output not found: ${output}`);
         }
       }
-
-      // Validate Swift Asset Catalog colors match CSS custom properties
-      await this.validateTokenConsistency();
 
       console.log("  ✅ Token generation complete");
       this.results.push({ step: "token-generation", success: true });
@@ -213,9 +156,6 @@ class BuildPipeline {
     switch (platform) {
       case "web":
         await this.buildWebPlatform(incremental);
-        break;
-      case "macos":
-        await this.buildMacOSPlatform(incremental);
         break;
       default:
         throw new Error(`Unknown platform: ${platform}`);
@@ -248,44 +188,6 @@ class BuildPipeline {
 
         this.results.push({
           step: "web-build",
-          package: packagePath,
-          success: true,
-        });
-      } catch (error) {
-        console.error(`  ❌ ${packagePath} build failed:`, error.message);
-        throw error;
-      }
-    }
-  }
-
-  /**
-   * Build macOS platform (Swift Package Manager)
-   */
-  async buildMacOSPlatform(incremental = true) {
-    const swiftPackages = CONFIG.packages.swift;
-
-    for (const packagePath of swiftPackages) {
-      if (!existsSync(join(packagePath, "Package.swift"))) {
-        console.log(`  ⏭️  Skipping ${packagePath} (no Package.swift)`);
-        continue;
-      }
-
-      const needsBuild = incremental ? this.needsSwiftBuild(packagePath) : true;
-
-      if (!needsBuild) {
-        console.log(`  ⏭️  ${packagePath} up to date, skipping build`);
-        continue;
-      }
-
-      try {
-        console.log(`  🔨 Building ${packagePath}...`);
-
-        // Build Swift package
-        await this.runCommand("swift", ["build"], { cwd: packagePath });
-        console.log(`  ✅ ${packagePath} build complete`);
-
-        this.results.push({
-          step: "macos-build",
           package: packagePath,
           success: true,
         });
@@ -337,29 +239,6 @@ class BuildPipeline {
       );
     }
 
-    if (platforms.includes("macos")) {
-      // Swift tests for all four packages
-      const swiftPackages = [
-        "platforms/apple/swift/AStudioFoundation",
-        "platforms/apple/swift/AStudioComponents",
-        "platforms/apple/swift/AStudioThemes",
-        "platforms/apple/swift/AStudioShellChatGPT",
-        "platforms/apple/swift/AStudioSystemIntegration",
-        "platforms/apple/swift/AStudioMCP",
-        "platforms/apple/apps/macos/AStudioApp",
-      ];
-
-      for (const packagePath of swiftPackages) {
-        const packageName = packagePath.split("/").pop();
-        testSuites.push({
-          name: `Swift Tests (${packageName})`,
-          command: "swift",
-          args: ["test"],
-          cwd: packagePath,
-        });
-      }
-    }
-
     for (const suite of testSuites) {
       try {
         console.log(`  🧪 Running ${suite.name}...`);
@@ -392,27 +271,6 @@ class BuildPipeline {
     if (failedSuites.length > 0) {
       const failedList = failedSuites.map((suite) => suite.suite).join(", ");
       throw new Error(`Test failures: ${failedList}`);
-    }
-  }
-
-  /**
-   * Validate that Swift Asset Catalog colors match CSS custom properties
-   */
-  async validateTokenConsistency() {
-    console.log("  🔍 Validating token consistency...");
-
-    try {
-      execSync("node scripts/validate-token-consistency.mjs", {
-        stdio: "inherit",
-      });
-      this.results.push({
-        step: "token-validation",
-        success: true,
-      });
-      console.log("  ✅ Token consistency validation passed");
-    } catch (error) {
-      console.error("  ❌ Token validation failed:", error.message);
-      throw error;
     }
   }
 
@@ -474,8 +332,7 @@ class BuildPipeline {
 
     const outputFiles = [
       "packages/tokens/src/foundations.css",
-      "platforms/apple/swift/AStudioFoundation/Sources/AStudioFoundation/DesignTokens.swift",
-      "platforms/apple/swift/AStudioFoundation/Sources/AStudioFoundation/Resources/Colors.xcassets",
+      "packages/tokens/docs/outputs/manifest.json",
     ];
 
     return this.needsRebuild(sourceFiles, outputFiles);
@@ -499,31 +356,6 @@ class BuildPipeline {
 
     const newestSourceMtime = this.getNewestFileMtime(sourceGlobs);
     const newestOutputMtime = this.getNewestFileMtimeInDir(outputDir);
-
-    if (newestOutputMtime === null) {
-      return true;
-    }
-
-    return newestSourceMtime > newestOutputMtime;
-  }
-
-  /**
-   * Check if Swift package needs rebuild
-   */
-  needsSwiftBuild(packagePath) {
-    const sourceFiles = [
-      join(packagePath, "Sources/**/*.swift"),
-      join(packagePath, "Package.swift"),
-    ];
-
-    const buildDir = join(packagePath, ".build");
-
-    if (!existsSync(buildDir)) {
-      return true;
-    }
-
-    const newestSourceMtime = this.getNewestFileMtime(sourceFiles);
-    const newestOutputMtime = this.getNewestFileMtimeInDir(buildDir);
 
     if (newestOutputMtime === null) {
       return true;
@@ -658,19 +490,6 @@ class BuildPipeline {
   }
 
   /**
-   * Check if agvtool is available
-   */
-  hasAgvtool() {
-    try {
-      execSync("which agvtool", { stdio: "pipe" });
-      return true;
-    } catch (error) {
-      void error;
-      return false;
-    }
-  }
-
-  /**
    * Load build manifest
    */
   loadManifest() {
@@ -783,7 +602,7 @@ Enhanced Monorepo Build Pipeline
 Usage: node scripts/build-pipeline.mjs [options]
 
 Options:
-  --platforms <list>    Comma-separated list of platforms (web,macos)
+  --platforms <list>    Comma-separated list of platforms (web)
   --sync-versions       Synchronize versions before building
   --no-incremental      Disable incremental builds
   --skip-tests          Skip running tests

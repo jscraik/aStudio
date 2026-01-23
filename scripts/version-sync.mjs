@@ -3,42 +3,26 @@
 /**
  * Version Synchronization Script
  *
- * Synchronizes versions across npm packages and Swift Package Manager
- * using agvtool when available, with fallback to Package.swift comments.
+ * Synchronizes versions across npm packages.
  */
 
-import { execSync } from "child_process";
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 
 // Configuration
 const CONFIG = {
-  packages: {
-    npm: [
-      "packages/ui",
-      "packages/runtime",
-      "packages/tokens",
-      "packages/widgets",
-      "packages/cloudflare-template",
-    ],
-    swift: [
-      "platforms/apple/swift/AStudioFoundation",
-      "platforms/apple/swift/AStudioComponents",
-      "platforms/apple/swift/AStudioThemes",
-      "platforms/apple/swift/AStudioShellChatGPT",
-      "platforms/apple/swift/AStudioTestSupport",
-      "platforms/apple/swift/AStudioSystemIntegration",
-      "platforms/apple/swift/AStudioMCP",
-      "platforms/apple/swift/ui-swift",
-      "platforms/apple/apps/macos/AStudioApp",
-    ],
-  },
+  packages: [
+    "packages/ui",
+    "packages/runtime",
+    "packages/tokens",
+    "packages/widgets",
+    "packages/cloudflare-template",
+  ],
 };
 
 class VersionSynchronizer {
   constructor() {
     this.rootVersion = this.getRootVersion();
-    this.hasAgvtool = this.checkAgvtool();
   }
 
   /**
@@ -55,46 +39,19 @@ class VersionSynchronizer {
   }
 
   /**
-   * Check if agvtool is available
-   */
-  checkAgvtool() {
-    try {
-      execSync("which agvtool", { stdio: "pipe" });
-      return true;
-    } catch (error) {
-      console.warn("Warning: agvtool check failed", error);
-      return false;
-    }
-  }
-
-  /**
    * Synchronize all package versions
    */
   async synchronize() {
     console.log("🔄 Synchronizing versions...");
     console.log(`Target version: ${this.rootVersion}`);
-    console.log(`agvtool available: ${this.hasAgvtool ? "yes" : "no"}`);
     console.log("=".repeat(50));
 
     let updated = 0;
     let errors = 0;
 
-    // Update npm packages
-    for (const packagePath of CONFIG.packages.npm) {
+    for (const packagePath of CONFIG.packages) {
       try {
         if (await this.updateNpmPackage(packagePath)) {
-          updated++;
-        }
-      } catch (error) {
-        console.error(`❌ Failed to update ${packagePath}:`, error.message);
-        errors++;
-      }
-    }
-
-    // Update Swift packages
-    for (const packagePath of CONFIG.packages.swift) {
-      try {
-        if (await this.updateSwiftPackage(packagePath)) {
           updated++;
         }
       } catch (error) {
@@ -139,74 +96,13 @@ class VersionSynchronizer {
   }
 
   /**
-   * Update Swift package version
-   */
-  async updateSwiftPackage(packagePath) {
-    const packageSwiftPath = join(packagePath, "Package.swift");
-
-    if (!existsSync(packageSwiftPath)) {
-      console.log(`  ⏭️  Skipping ${packagePath} (no Package.swift)`);
-      return false;
-    }
-
-    // Try agvtool first
-    if (this.hasAgvtool) {
-      try {
-        execSync(`cd ${packagePath} && agvtool new-marketing-version ${this.rootVersion}`, {
-          stdio: "pipe",
-        });
-        console.log(`  ✅ Updated ${packagePath} to v${this.rootVersion} (agvtool)`);
-        return true;
-      } catch (error) {
-        console.warn(
-          `  ⚠️  agvtool failed for ${packagePath}, falling back to Package.swift comment`,
-          error,
-        );
-      }
-    }
-
-    // Fallback: update Package.swift version comment
-    let content = readFileSync(packageSwiftPath, "utf8");
-    const versionComment = `// Version: ${this.rootVersion}`;
-
-    if (content.includes("// Version:")) {
-      // Update existing version comment
-      const oldVersionMatch = content.match(/\/\/ Version: (.+)/);
-      if (oldVersionMatch && oldVersionMatch[1] === this.rootVersion) {
-        console.log(`  ✓  ${packagePath} already at v${this.rootVersion}`);
-        return false;
-      }
-
-      content = content.replace(/\/\/ Version: .+/, versionComment);
-    } else {
-      // Add version comment after swift-tools-version
-      content = content.replace(/^(\/\/ swift-tools-version: .+)$/m, `$1\n${versionComment}`);
-    }
-
-    writeFileSync(packageSwiftPath, content);
-    console.log(`  ✅ Updated ${packagePath} to v${this.rootVersion} (Package.swift comment)`);
-    return true;
-  }
-
-  /**
    * Get current version from package
    */
   getCurrentVersion(packagePath) {
-    // For npm packages
     const packageJsonPath = join(packagePath, "package.json");
     if (existsSync(packageJsonPath)) {
       const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8"));
       return packageJson.version;
-    }
-
-    // For Swift packages, try to extract from Package.swift comment
-    const packageSwiftPath = join(packagePath, "Package.swift");
-    if (existsSync(packageSwiftPath)) {
-      const content = readFileSync(packageSwiftPath, "utf8");
-      const versionMatch = content.match(/\/\/ Version: (.+)/);
-      if (versionMatch) {
-        return versionMatch[1];
-      }
     }
 
     return null;
@@ -219,9 +115,7 @@ class VersionSynchronizer {
     console.log("📋 Current package versions:");
     console.log("=".repeat(50));
 
-    const allPackages = [...CONFIG.packages.npm, ...CONFIG.packages.swift];
-
-    for (const packagePath of allPackages) {
+    for (const packagePath of CONFIG.packages) {
       const version = this.getCurrentVersion(packagePath);
       const status = version === this.rootVersion ? "✓" : "❌";
       console.log(`  ${status} ${packagePath}: ${version || "unknown"}`);
@@ -232,7 +126,6 @@ class VersionSynchronizer {
   }
 
   /**
-   * REPOMARK:SCOPE: 2 - Add checkVersions method for read-only version verification
    * Check for version mismatches without writing files
    * Returns true if mismatches found
    */
@@ -241,10 +134,9 @@ class VersionSynchronizer {
     console.log(`Target version: ${this.rootVersion}`);
     console.log("=".repeat(50));
 
-    let mismatches = [];
+    const mismatches = [];
 
-    // Check npm packages
-    for (const packagePath of CONFIG.packages.npm) {
+    for (const packagePath of CONFIG.packages) {
       const packageJsonPath = join(packagePath, "package.json");
       if (existsSync(packageJsonPath)) {
         const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8"));
@@ -261,39 +153,16 @@ class VersionSynchronizer {
       }
     }
 
-    // Check Swift packages
-    for (const packagePath of CONFIG.packages.swift) {
-      const packageSwiftPath = join(packagePath, "Package.swift");
-      if (existsSync(packageSwiftPath)) {
-        const content = readFileSync(packageSwiftPath, "utf8");
-        const versionMatch = content.match(/\/\/ Version: (.+)/);
-        const currentVersion = versionMatch ? versionMatch[1] : null;
-
-        if (currentVersion !== this.rootVersion) {
-          console.log(
-            `  ❌ ${packagePath}: ${currentVersion || "no version"} (expected ${this.rootVersion})`,
-          );
-          mismatches.push({
-            packagePath,
-            current: currentVersion || "none",
-            expected: this.rootVersion,
-          });
-        } else {
-          console.log(`  ✓  ${packagePath}: ${currentVersion}`);
-        }
-      }
-    }
-
     console.log("=".repeat(50));
     if (mismatches.length > 0) {
       console.log(
         `❌ Found ${mismatches.length} version mismatch${mismatches.length > 1 ? "es" : ""}`,
       );
       return true;
-    } else {
-      console.log(`✅ All packages synchronized to v${this.rootVersion}`);
-      return false;
     }
+
+    console.log(`✅ All packages synchronized to v${this.rootVersion}`);
+    return false;
   }
 }
 

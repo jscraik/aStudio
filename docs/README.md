@@ -41,7 +41,6 @@ docs/
 ## Start here
 
 - New to the repo? Read the root [README.md](../README.md) first.
-- Working on Swift? Start with [SWIFT_INTEGRATION.md](./SWIFT_INTEGRATION.md).
 - Releasing? Use [RELEASE_CHECKLIST.md](./guides/RELEASE_CHECKLIST.md).
 - Looking for the CLI? See [packages/cli/README.md](../packages/cli/README.md).
 
@@ -115,4 +114,3 @@ Key project documentation remains at the repository root:
 
 - **[BUILD_PIPELINE.md](./BUILD_PIPELINE.md)** - Build pipeline architecture and usage
 - **[VERSION_SYNC.md](./VERSION_SYNC.md)** - Version synchronization across packages
-- **[SWIFT_INTEGRATION.md](./SWIFT_INTEGRATION.md)** - Swift package and macOS app integration

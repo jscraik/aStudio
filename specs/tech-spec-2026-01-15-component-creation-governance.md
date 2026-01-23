@@ -2,7 +2,7 @@
 schema_version: 1
 ---
 
-# Technical Specification: aStudio Component Creation & Parity Governance
+# Technical Specification: aStudio Component Creation & Coverage Governance
 
 **Owner:** Jamie Scott Craik (@jscraik)  
 **Status:** Draft  
@@ -16,9 +16,9 @@ schema_version: 1
 
 ## 0) Summary
 
-- **One-liner:** Implement a unified component creation guide, parity governance, and MCP contract policy with gold-standard quality gates.
-- **Primary goal:** Cut component delivery time to ≤ 2 hours while maintaining parity and consistency.
-- **Key risks:** Documentation drift, parity checklist ignored, lack of measurable signals.
+- **One-liner:** Implement a unified component creation guide, coverage governance, and MCP contract policy with gold-standard quality gates.
+- **Primary goal:** Cut component delivery time to ≤ 2 hours while maintaining coverage and consistency.
+- **Key risks:** Documentation drift, coverage checklist ignored, lack of measurable signals.
 - **Rollout shape:** Incremental documentation updates + CI gate adoption.
 
 ---
@@ -27,18 +27,18 @@ schema_version: 1
 
 ### Context
 
-The aStudio repo has mature UI components and parity intent but scattered guidance and partial React↔Swift parity. This spec defines the concrete doc structure, validation points, and policy locations to standardize component creation, parity updates, and MCP tool contract governance.
+The aStudio repo has mature UI components and surface coverage intent but scattered guidance and partial coverage across surfaces. This spec defines the concrete doc structure, validation points, and policy locations to standardize component creation, coverage updates, and MCP tool contract governance.
 
 ### Constraints
 
-- Platform constraints: pnpm workspace, React/Vite/Tailwind, SwiftUI packages, Apps SDK UI.
+- Platform constraints: pnpm workspace, React/Vite/Tailwind, Apps SDK UI.
 - Integration constraints: Must align with existing build pipeline and tests.
 - Compliance constraints: None beyond WCAG 2.2 AA baseline.
 - Operating constraints: Solo-dev ownership, limited CI time budget.
 
 ### Glossary (only if needed)
 
-- Parity checklist: A single, versioned list showing React vs Swift component coverage and status.
+- Coverage checklist: A single, versioned list showing surface coverage and status.
 
 ---
 
@@ -47,19 +47,20 @@ The aStudio repo has mature UI components and parity intent but scattered guidan
 ### Goals
 
 - G1: Provide a single authoritative component creation guide.
-- G2: Define parity governance and lifecycle states for components.
+- G2: Define coverage governance and lifecycle states for components.
 - G3: Enforce MCP tool contract source-of-truth and allowlist auth policy.
 
 ### Non-Goals (required; RNIA — if N/A, say why)
 
-- NG1: Full parity completion across all components (out of scope for this phase).
+- NG1: Full surface coverage across all components (out of scope for this phase).
 - NG2: Redesign of existing UI components.
 
 ### Success criteria (engineering)
 
 - CI policy updated with new checks and documentation targets.
-- Parity checklist and component guide referenced from README/docs index.
-- MCP tool contracts validated via existing test command and referenced in runbook.
+- Coverage checklist and component guide referenced from README/docs index.
+- MCP tool contracts validated via existing test command, required in release checks, and referenced in runbook.
+- Runbook includes rollback steps for MCP + widgets and references the contract source-of-truth.
 
 ---
 
@@ -70,10 +71,10 @@ The aStudio repo has mature UI components and parity intent but scattered guidan
 ```mermaid
 flowchart LR
   Dev[Jamie] --> Guide[Component Creation Guide]
-  Guide --> Parity[Parity Checklist]
+  Guide --> Coverage[Coverage Checklist]
   Guide --> UX[UX State Standards]
   Guide --> A11y[Accessibility Checklist]
-  Parity --> CI[CI Validation]
+  Coverage --> CI[CI Validation]
   MCP[Tool Contracts: platforms/mcp/contracts] --> CI
   CI --> Release[Release + Runbook]
 ```
@@ -99,7 +100,7 @@ flowchart LR
 | Component                | Type       | Status  |
 | ------------------------ | ---------- | ------- |
 | Component Creation Guide | doc        | planned |
-| Parity Checklist         | doc        | planned |
+| Coverage Checklist       | doc        | planned |
 | MCP Contract Spec        | doc/schema | planned |
 | CI Validation            | pipeline   | current |
 
@@ -109,7 +110,7 @@ flowchart LR
 
 **Responsibilities**
 
-- Define end-to-end component creation steps (React + Swift parity).
+- Define end-to-end component creation steps (React + Apps SDK UI surfaces).
 - Define UX state and accessibility requirements.
 - Define definition-of-done checklist.
 
@@ -138,19 +139,19 @@ State machine: N/A (documentation component is stateless).
 #### Failure modes & recovery (Required)
 
 - Failure: Guide goes stale.
-  - Detection: Missing parity updates or broken links.
+  - Detection: Missing coverage updates or broken links.
   - Handling: Add doc review check to release checklist.
   - User impact: Slower component delivery.
   - Data impact: None.
 
-### Component: Parity Checklist
+### Component: Coverage Checklist
 
 **Status:** planned
 
 **Responsibilities**
 
-- Track React ↔ Swift component parity state.
-- Provide quick visibility into parity gaps.
+- Track component surface coverage state.
+- Provide quick visibility into coverage gaps.
 
 **Inputs**
 
@@ -162,7 +163,7 @@ State machine: N/A (documentation component is stateless).
 
 **Owned data**
 
-- Component parity status records.
+- Component coverage status records.
 
 **Dependencies**
 
@@ -175,7 +176,7 @@ stateDiagram-v2
   [*] --> UNKNOWN
   UNKNOWN --> PLANNED: new_component
   PLANNED --> IN_PROGRESS: work_started
-  IN_PROGRESS --> PARITY: parity_reached
+  IN_PROGRESS --> COVERED: coverage_reached
   IN_PROGRESS --> DIVERGED: intentional_divergence
   DIVERGED --> IN_PROGRESS: revisit
   PARITY --> [*]
@@ -183,10 +184,10 @@ stateDiagram-v2
 
 #### Failure modes & recovery (Required)
 
-- Failure: Parity status not updated.
+- Failure: Coverage status not updated.
   - Detection: Checklist unchanged while new components ship.
   - Handling: Require update in definition-of-done.
-  - User impact: Hidden parity gaps.
+  - User impact: Hidden coverage gaps.
   - Data impact: Inaccurate roadmap.
 
 ---
@@ -279,13 +280,13 @@ N/A — no database changes. The MCP contract spec is a versioned JSON file stor
 - Logging:
   - Required fields: component, version, result, latency_ms
 - Metrics:
-  - Counters: tool_calls_total, tool_errors_total
+  - Counters: tool_calls_total, tool_errors_total, widget_render_total, widget_render_errors_total
   - Histograms: tool_latency_ms
-  - Gauges: parity_gap_count
+  - Gauges: coverage_gap_count
 - Tracing: N/A (doc-only changes)
 - Dashboards:
   - MCP tool health dashboard
-  - Parity gap tracking dashboard (manual or lightweight)
+  - Coverage gap tracking dashboard (manual or lightweight)
 - Alerts:
   - Alert 1: error budget burn > 50% in 7 days → review and pause releases
 
@@ -294,7 +295,7 @@ N/A — no database changes. The MCP contract spec is a versioned JSON file stor
 ## 12) Testing Strategy (Required)
 
 - Unit tests: N/A (doc-only)
-- Integration tests: MCP contract validation (`pnpm test:mcp-contract`)
+- Integration tests: MCP contract validation (`pnpm test:mcp-contract`) required for release checks
 - E2E tests: N/A
 - Load tests: N/A
 - Security tests: existing CI security gates
@@ -316,16 +317,16 @@ N/A — no database changes. The MCP contract spec is a versioned JSON file stor
 ## 14) Migration Plan (if applicable)
 
 - Step 1: Create component guide doc
-- Step 2: Move parity checklist into the guide
+- Step 2: Move coverage checklist into the guide
 - Step 3: Add MCP contract spec and link in runbook
-- Step 4: Update release checklist to include parity + guide checks
+- Step 4: Update release checklist to include coverage + guide checks
 
 ---
 
 ## 15) Operational Notes (Recommended)
 
 - Runbook: include MCP tool allowlist policy and contract spec references
-- Manual operations: update parity checklist when a component ships
+- Manual operations: update coverage checklist when a component ships
 - Support playbook: N/A (solo project)
 - On-call readiness: solo dev checklist
 
@@ -336,11 +337,11 @@ N/A — no database changes. The MCP contract spec is a versioned JSON file stor
 ### Open questions
 
 - Q1: Where should the component guide live (docs root vs guides)? (Owner: Jamie, Due: 2026-01-22)
-- Q2: What minimal dashboard format best tracks parity gaps? (Owner: Jamie, Due: 2026-01-29)
+- Q2: What minimal dashboard format best tracks coverage gaps? (Owner: Jamie, Due: 2026-01-29)
 
 ### Future considerations
 
-- Add automated parity extraction from code to reduce manual checklist work.
+- Add automated coverage extraction from code to reduce manual checklist work.
 
 ---
 

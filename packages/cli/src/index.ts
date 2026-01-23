@@ -900,24 +900,6 @@ async function checkPnpm(
   };
 }
 
-async function checkXcode(
-  execAllowed: boolean,
-): Promise<{ name: string; status: "ok" | "warn" | "error"; details: string } | null> {
-  if (process.platform !== "darwin") return null;
-  if (!execAllowed) {
-    return { name: "xcode", status: "warn", details: "skipped (exec disabled)" };
-  }
-  try {
-    const xcodeResult = await runCommandCapture("xcodebuild", ["-version"]);
-    if (xcodeResult.code !== 0) {
-      throw new Error("xcodebuild not available");
-    }
-    return { name: "xcode", status: "ok", details: xcodeResult.stdout.trim().split("\n")[0] ?? "" };
-  } catch {
-    return { name: "xcode", status: "warn", details: "xcodebuild not available" };
-  }
-}
-
 async function checkMcp(
   opts: CliArgs,
 ): Promise<{ name: string; status: "ok" | "warn" | "error"; details: string } | null> {
@@ -961,9 +943,6 @@ async function doctor(opts: CliArgs): Promise<number> {
     status: repoRoot ? "ok" : "warn",
     details: repoRoot ?? "pnpm-workspace.yaml not found",
   });
-
-  const xcodeCheck = await checkXcode(execAllowed);
-  if (xcodeCheck) checks.push(xcodeCheck);
 
   const mcpCheck = await checkMcp(opts);
   if (mcpCheck) checks.push(mcpCheck);

@@ -103,9 +103,9 @@ class TokenWatcher {
   }
 
   private notifyHotReload(): void {
-    console.log("🔥 Hot reload: Swift previews will pick up changes automatically");
-    console.log("   • Xcode: Resume previews with ⌥⌘P");
-    console.log("   • Playground: Build with ⌘B to see changes");
+    console.log("🔥 Hot reload: your dev server should pick up CSS/token changes");
+    console.log("   • Vite: ensure HMR is running");
+    console.log("   • Storybook: restart if styles look stale");
   }
 
   private runGeneration(): Promise<void> {

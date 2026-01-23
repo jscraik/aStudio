@@ -448,7 +448,7 @@ See repository root for license information.
 
 ## Verify
 
-- **Commands work:** All commands tested on macOS and Linux
+- **Commands work:** All commands tested on Linux
 - **Health checks accurate:** All checks validated against actual service behavior
 - **Solutions correct:** All solutions tested against real incidents
 

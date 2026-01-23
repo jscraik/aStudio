@@ -290,13 +290,7 @@ Automated accessibility audits.
 - **Runtime**: ~2min
 - **Coverage**: WCAG 2.2 AA compliance for widgets
 
-### Tier 7: Swift Tests (Swift Test)
-Swift package and macOS app testing.
-- **Command**: `pnpm test:swift`
-- **Runtime**: ~5min
-- **Coverage**: Swift packages, macOS app functionality
-
-### Tier 8: MCP Contract Tests (Node.js native runner)
+### Tier 7: MCP Contract Tests (Node.js native runner)
 MCP tool contract validation.
 - **Command**: `pnpm test:mcp-contract`
 - **Runtime**: ~30s
@@ -337,10 +331,7 @@ pnpm test:visual:web
 # Tier 6: Accessibility
 pnpm test:a11y:widgets
 
-# Tier 7: Swift tests
-pnpm test:swift
-
-# Tier 8: MCP contract
+# Tier 7: MCP contract
 pnpm test:mcp-contract
 ```
 ## Documentation

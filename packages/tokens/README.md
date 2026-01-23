@@ -100,7 +100,7 @@ pnpm validate:tokens
 After generation:
 
 - `packages/tokens/src/foundations.css` updates
-- `platforms/apple/swift/AStudioFoundation/Sources/AStudioFoundation/Resources/Colors.xcassets/` updates
+- `packages/tokens/docs/outputs/manifest.json` updates
 
 ## Troubleshooting
 
@@ -109,7 +109,6 @@ After generation:
 - Check `packages/tokens/src/colors.ts` for invalid values.
 - Run `pnpm validate:tokens` for details.
 
-**Swift colors not updating**
+**CSS updates not reflected**
 
-- Ensure the Asset Catalog is committed.
-- Restart Xcode previews if changes are not reflected.
+- Restart your Vite/Storybook dev server so it reloads updated CSS.

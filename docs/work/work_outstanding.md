@@ -43,8 +43,6 @@ Short list of remaining tasks and known blockers after the latest docs/testing p
 ## Blocking
 
 - **Local dev servers (web/mcp/storybook)**: Sandbox blocks port binding (`EPERM` on 5173/8787/6006). Run locally outside sandbox.
-- **Swift tests**: Toolchain/SDK mismatch and cache permissions prevent `swift test` for all packages.
-  - Errors include `Operation not permitted` writing to `~/.cache/clang/ModuleCache` and SDK/compiler mismatch.
 
 ## Still to Verify (Requires Host Environment)
 
@@ -62,7 +60,6 @@ Built-preview smoke test layer using agent-browser CLI added to CI. Tests critic
 - Storybook smoke: `pnpm -C platforms/web/apps/storybook dev` (confirm port 6006 availability or alternate).
 - MCP harness: `pnpm mcp:start` and validate `/mcp` responds.
 - Widget a11y: `pnpm test:a11y:widgets` (blocked by dev server bind).
-- Swift packages: `pnpm test:swift:*` (blocked by toolchain/cache).
 - Visual regression tests: `pnpm test:visual:web` and `pnpm test:visual:storybook` (blocked by port binding).
 
 ## Follow-ups
@@ -74,5 +71,4 @@ Built-preview smoke test layer using agent-browser CLI added to CI. Tests critic
   4. Wait for Vitest browser mode improvements to handle non-optimized dependencies better
   5. The 65 passing test files (206 tests) cover all non-Radix UI components successfully
 - If port binding is restricted, set alternative ports or run tests on a host that allows local binding.
-- Align Swift toolchain with the installed SDK, and ensure cache directories are writable.
 - All non-blocking tests pass successfully - project is in good state for development work that doesn't require dev servers.

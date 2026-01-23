@@ -84,7 +84,7 @@ The following dependencies are needed in the web app but not currently present:
 | Category   | Source App               | Platform                                 | Resolution                               |
 | ---------- | ------------------------ | ---------------------------------------- | ---------------------------------------- |
 | Colors     | Basic set                | Extended with border, additional accents | Use platform tokens (superset)           |
-| Typography | Web/iOS/Android variants | Web/iOS/Android + additional styles      | Use platform tokens (more comprehensive) |
+| Typography | Web variants             | Web + additional styles                  | Use platform tokens (more comprehensive) |
 | Radius     | Not present              | Full radius scale                        | Use platform tokens                      |
 | Shadows    | Not present              | Card, pip, pill, close shadows           | Use platform tokens                      |
 | Sizes      | Not present              | Control heights, hit targets             | Use platform tokens                      |

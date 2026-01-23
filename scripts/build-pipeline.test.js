@@ -14,10 +14,9 @@ import { afterAll, beforeAll, describe, expect, test } from "vitest";
 // Test configuration
 const TEST_CONFIG = {
   testDir: ".test-build-pipeline",
-  platforms: ["web", "macos"],
+  platforms: ["web"],
   mockPackages: {
     npm: ["test-ui", "test-runtime", "test-tokens"],
-    swift: ["test-ui-swift"],
   },
 };
 
@@ -25,7 +24,7 @@ const TEST_CONFIG = {
  * Property 4: Build Pipeline Completeness
  * For any build execution, the monorepo pipeline should generate correct artifacts
  * for all target platforms, synchronize versions, and execute tests for both
- * React and Swift implementations
+ * React implementations
  */
 describe("Build Pipeline Completeness Property", () => {
   let originalCwd;
@@ -81,9 +80,6 @@ describe("Build Pipeline Completeness Property", () => {
                 { step: "token-generation", success: true },
                 ...(buildConfig.platforms.includes("web")
                   ? [{ step: "web-build", success: true }]
-                  : []),
-                ...(buildConfig.platforms.includes("macos")
-                  ? [{ step: "macos-build", success: true }]
                   : []),
               ],
             };
@@ -282,11 +278,6 @@ function setupMockProject(testDir, version, customPackages = null) {
     createMockNpmPackage(packagesDir, packageName, version);
   }
 
-  // Create mock Swift packages
-  for (const packageName of TEST_CONFIG.mockPackages.swift) {
-    createMockSwiftPackage(packagesDir, packageName, version);
-  }
-
   // Create tokens package structure
   createMockTokensPackage(packagesDir, version);
 }
@@ -320,50 +311,6 @@ function createMockNpmPackage(packagesDir, packageName, version) {
   const distDir = join(packageDir, "dist");
   mkdirSync(distDir, { recursive: true });
   writeFileSync(join(distDir, "index.js"), `export const ${packageName} = "${packageName}";`);
-}
-
-/**
- * Create mock Swift package
- */
-function createMockSwiftPackage(packagesDir, packageName, version) {
-  const packageDir = join(packagesDir, packageName);
-  mkdirSync(packageDir, { recursive: true });
-
-  // Package.swift
-  const packageSwift = `// swift-tools-version: 5.9
-// Version: ${version}
-
-import PackageDescription
-
-let package = Package(
-    name: "${packageName}",
-    platforms: [.macOS(.v13)],
-    products: [
-        .library(name: "${packageName}", targets: ["${packageName}"])
-    ],
-    targets: [
-        .target(name: "${packageName}"),
-        .testTarget(name: "${packageName}Tests", dependencies: ["${packageName}"])
-    ]
-)`;
-
-  writeFileSync(join(packageDir, "Package.swift"), packageSwift);
-
-  // Sources
-  const sourcesDir = join(packageDir, "Sources", packageName);
-  mkdirSync(sourcesDir, { recursive: true });
-  writeFileSync(
-    join(sourcesDir, `${packageName}.swift`),
-    `public struct ${packageName} {\n    public static let version = "${version}"\n}`,
-  );
-
-  // Tests
-  const testsDir = join(packageDir, "Tests", `${packageName}Tests`);
-  mkdirSync(testsDir, { recursive: true });
-  writeFileSync(
-    join(testsDir, `${packageName}Tests.swift`),
-    `import XCTest\n@testable import ${packageName}\n\nfinal class ${packageName}Tests: XCTestCase {\n    func testVersion() {\n        XCTAssertEqual(${packageName}.version, "${version}")\n    }\n}`,
-  );
 }
 
 /**
@@ -416,16 +363,10 @@ function validateBuildCompleteness(result, buildConfig) {
   expect(Array.isArray(result.results)).toBe(true);
 
   // Should have results for each requested platform
-  const platformResults = result.results.filter(
-    (r) => r.step === "web-build" || r.step === "macos-build",
-  );
+  const platformResults = result.results.filter((r) => r.step === "web-build");
 
   if (buildConfig.platforms.includes("web")) {
     expect(platformResults.some((r) => r.step === "web-build")).toBe(true);
-  }
-
-  if (buildConfig.platforms.includes("macos")) {
-    expect(platformResults.some((r) => r.step === "macos-build")).toBe(true);
   }
 
   const hasVersionSync = result.results.some((r) => r.step === "version-sync");
@@ -493,18 +434,6 @@ function validatePlatformArtifacts(platforms) {
         }
         break;
 
-      case "macos":
-        // Check that Swift packages have proper structure
-        const swiftPackages = ["test-ui-swift"];
-        for (const pkg of swiftPackages) {
-          const packageDir = join("packages", pkg);
-          if (existsSync(packageDir)) {
-            expect(existsSync(join(packageDir, "Package.swift"))).toBe(true);
-            expect(existsSync(join(packageDir, "Sources"))).toBe(true);
-            expect(existsSync(join(packageDir, "Tests"))).toBe(true);
-          }
-        }
-        break;
     }
   }
 }

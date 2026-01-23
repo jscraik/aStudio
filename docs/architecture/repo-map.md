@@ -20,17 +20,13 @@ This document provides a quick, task-oriented map of the repository so contribut
   - `platforms/web/apps/web/src/pages/TemplateBrowserPage.tsx`: templates gallery route (`/templates`)
   - `packages/ui/src/dev/templates-gallery.tsx`: canonical templates-gallery registry (consumed via `@astudio/ui/dev`)
   - `platforms/web/apps/storybook/.storybook/`: Storybook configuration + preview styles
+  - `platforms/mcp/`: MCP server (tool contracts + integration harness)
 - `packages/`: Reusable JS/TS packages (UI, tokens, runtime, widgets).
 - `docs/`: Architecture, guides, audits, and build pipeline documentation.
 - `scripts/`: Build pipeline, version sync, and compliance tooling.
 
 ## Platform surface
 
-- `platforms/apple/`
-  - `apps/macos/`: macOS apps (Xcode/SwiftPM projects)
-    - `platforms/apple/apps/macos/README.md`: macOS app overview + entry points
-  - `swift/`: Swift packages shared across macOS/iOS
-  - `platforms/apple/README.md`: Apple platform overview
 - `platforms/web/`
   - `platforms/web/apps/web/`: main web app
   - `platforms/web/apps/storybook/`: Storybook harness

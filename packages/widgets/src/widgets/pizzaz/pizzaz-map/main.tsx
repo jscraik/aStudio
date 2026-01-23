@@ -6,20 +6,32 @@
  *
  * Dependencies: mapbox-gl, embla-carousel-react, framer-motion
  */
-import { motion } from "framer-motion";
-import { Star, X } from "lucide-react";
+// React hooks
+import { useRef, useState, useMemo, useCallback, useEffect } from "react";
+
+// Framer Motion
+import { AnimatePresence, motion } from "framer-motion";
+
+// Icons (Settings/Maximize replace Settings2/Maximize2 which don't exist in lucide-react v0.562.0)
+import { Settings, Maximize, Star, X } from "lucide-react";
+
+// Mapbox
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+
+// Embla carousel
+import useEmblaCarousel from "embla-carousel-react";
+
+// Shared utilities
+import { useOpenAiGlobal } from "../../../shared/use-openai-global";
+import { useMaxHeight } from "../../../shared/use-max-height";
+import { WidgetErrorBoundary, mountWidget } from "../../../shared/widget-base";
 
 import "../../../styles.css";
 import markersData from "./markers.json";
 
-// Token guard - require VITE_MAPBOX_TOKEN for Mapbox initialization
-const token = import.meta.env.VITE_MAPBOX_TOKEN;
-if (!token) {
-  throw new Error("VITE_MAPBOX_TOKEN environment variable is required for the Pizzaz map widget.");
-}
-mapboxgl.accessToken = token;
+// Token guard - lazy initialization function
+const getMapboxToken = () => import.meta.env.VITE_MAPBOX_TOKEN;
 interface Place {
   id: string;
   name: string;
@@ -195,7 +207,7 @@ function Sidebar({
           <div className="flex justify-between flex-row items-center px-3 sticky bg-white top-0 py-4 text-md font-medium">
             {placesList.length} results
             <button aria-label="Filter" className="p-2 hover:bg-black/5 rounded-lg" type="button">
-              <Settings2 className="h-5 w-5" aria-hidden="true" />
+              <Settings className="h-5 w-5" aria-hidden="true" />
             </button>
           </div>
           <div>
@@ -256,6 +268,26 @@ function Sidebar({
 
 // Main Map Widget
 function PizzazMapWidget() {
+  const token = getMapboxToken();
+
+  // Show inline error UI if token is missing
+  if (!token) {
+    return (
+      <div className="flex items-center justify-center w-full h-full bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2 text-foundation-text-light-primary dark:text-foundation-text-dark-primary">
+        <div className="text-center p-6">
+          <div className="text-4xl mb-4">🗺️</div>
+          <h3 className="text-body font-semibold mb-2">Map Unavailable</h3>
+          <p className="text-body-small text-foundation-text-light-secondary dark:text-foundation-text-dark-secondary">
+            VITE_MAPBOX_TOKEN environment variable is required to use the map widget.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Set Mapbox token only when we have one
+  mapboxgl.accessToken = token;
+
   const mapRef = useRef<HTMLDivElement>(null);
   const mapObj = useRef<mapboxgl.Map | null>(null);
   const markerObjs = useRef<mapboxgl.Marker[]>([]);
@@ -428,7 +460,7 @@ function PizzazMapWidget() {
           onClick={requestFullscreen}
           type="button"
         >
-          <Maximize2 strokeWidth={1.5} className="h-4 w-4" aria-hidden="true" />
+          <Maximize strokeWidth={1.5} className="h-4 w-4" aria-hidden="true" />
         </button>
       )}
 

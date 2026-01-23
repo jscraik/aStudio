@@ -15,7 +15,7 @@ export const chatHistory = [
   "CRMO explanation and sensitivity",
   "Project governance complexity",
   "React Component Explorers",
-  "Clone SwiftUI macOS App",
+  "Clone Tauri App",
   "Apps SDK UI examples",
   "Governance framework expansion",
   "New chat",

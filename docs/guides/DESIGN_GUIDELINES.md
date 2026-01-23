@@ -1949,9 +1949,7 @@ THE TRAP:
 - Checkbox labels that don't work
 
 MINIMUM SIZES:
-iOS: 44x44 points
-Android: 48x48 dp
-Web: 44x44 CSS pixels
+Touch: 44x44 CSS pixels
 
 FIXES:
 1. Padding increases hit area

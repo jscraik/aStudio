@@ -341,6 +341,10 @@ This ensures:
 - Lucide icons are the fallback
 - Consistent icon rendering across platforms
 
+## Token API Mapping
+
+See `docs/theming/TOKEN_API_MAPPING.md` for the Tailwind v4 utility mapping and token layer notes.
+
 ### Styling
 
 Use Apps SDK UI classes via `@openai/apps-sdk-ui/css`:

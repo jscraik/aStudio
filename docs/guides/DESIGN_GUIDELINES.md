@@ -18,6 +18,7 @@ These guidelines keep the UI consistent across ChatGPT widgets and standalone ap
 - [Component usage](#component-usage)
 - [Layout and spacing](#layout-and-spacing)
 - [Colors and typography](#colors-and-typography)
+- [Theme switching](#theme-switching)
 - [Icons and imagery](#icons-and-imagery)
 - [Accessibility checklist](#accessibility-checklist)
 - [Review standard](#review-standard)
@@ -72,6 +73,12 @@ import { Button, SectionHeader } from "@astudio/ui/base";
 - Do not hardcode hex colors or raw CSS variables in new UI code.
 - If you need a token, add it to `@astudio/ui` or the Apps SDK UI layer, not directly in the page.
 
+## Theme switching
+
+- Theme switching is driven by `[data-theme]` attributes (for example, `[data-theme="dark"]`).
+- Token values should resolve through CSS variables; do not hardcode per-theme values in components.
+- Prefer `bg-bg`, `text-fg`, `border-border`, etc. so theme changes flow through tokens automatically.
+
 ## Icons and imagery
 
 - Use existing icons from the adapter before adding new SVGs.
@@ -109,6 +116,9 @@ Before merging, verify:
 - Component usage: `packages/ui/README.md`
 - Page patterns: `docs/guides/PAGES_QUICK_START.md`
 - Accessibility tests: `docs/KEYBOARD_NAVIGATION_TESTS.md`
+- Token API mapping: `docs/theming/TOKEN_API_MAPPING.md`
+- Storybook taxonomy: `docs/guides/STORYBOOK_TAXONOMY.md`
+- Desktop overrides: `docs/guides/DESKTOP_THEME_OVERRIDES.md`
 
 ---
 

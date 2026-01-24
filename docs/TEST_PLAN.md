@@ -231,7 +231,7 @@ Create shared test utilities in `packages/ui/src/testing/`:
 ### Phase 4: E2E & Accessibility (Week 6)
 
 - [ ] Write critical E2E tests
-- [ ] Complete accessibility audit
+- [ ] Complete accessibility audit (use `docs/operations/a11y-audit-template.md`)
 - [ ] Document testing guidelines
 
 ## Success Metrics
@@ -289,6 +289,7 @@ Automated accessibility audits.
 - **Command**: `pnpm test:a11y:widgets`
 - **Runtime**: ~2min
 - **Coverage**: WCAG 2.2 AA compliance for widgets
+- **Manual audit artifact**: `docs/operations/a11y-audit-template.md`
 
 ### Tier 7: MCP Contract Tests (Node.js native runner)
 MCP tool contract validation.
@@ -344,6 +345,6 @@ After implementing this test plan, update:
 
 ---
 
-**Owner**: TBD
+**Owner**: Jamie Scott Craik (@jscraik)
 **Review cadence**: Weekly during implementation, monthly after completion
 **Status**: 📋 Planning Phase - Ready for implementation

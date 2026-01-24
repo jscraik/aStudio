@@ -7,8 +7,8 @@ Last updated: 2026-01-04
 - Audience: Operators and maintainers
 - Scope: Operational steps and verification
 - Non-scope: Long-form design history
-- Owner: TBD (confirm)
-- Review cadence: TBD (confirm)
+- Owner: Jamie Scott Craik (@jscraik)
+- Review cadence: Every release or monthly (whichever is sooner)
 
 This repo uses Changesets + GitHub Actions for versioning and publishing.
 The `release` workflow runs on merges to `main` and will either open a
@@ -24,6 +24,8 @@ Changesets release PR or publish to npm when ready.
   - [ ] `pnpm test:a11y:widgets`
   - [ ] `pnpm test:visual:web`
 - [ ] Confirm any breaking changes are reflected in tool contracts and docs.
+- [ ] Confirm DoD checklist complete (coverage matrix updated or gap recorded).
+- [ ] Confirm a11y audit artifact exists in `docs/operations/` using `docs/operations/a11y-audit-template.md`.
 
 ## Create a changeset
 

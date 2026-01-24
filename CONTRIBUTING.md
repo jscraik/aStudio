@@ -8,7 +8,7 @@ Last updated: 2026-01-07
 - Scope: Topic defined by this document
 - Non-scope: Anything not explicitly covered here
 - Owner: TBD (confirm)
-- Review cadence: TBD (confirm)
+- Review cadence: Every release or monthly (whichever is sooner)
 
 Thanks for helping improve aStudio. This repo is a library-first monorepo with Apps SDK UI as the design system.
 
@@ -69,3 +69,5 @@ Use Conventional Commits where possible:
 - [ ] Tests run for the area you changed
 - [ ] Smoke tests pass (`pnpm test:agent-browser:ci`)
 - [ ] Docs updated if the public API or workflows changed
+- [ ] Coverage matrix updated or gap recorded (`docs/design-system/COVERAGE_MATRIX.md`)
+- [ ] A11y audit artifact saved (use `docs/operations/a11y-audit-template.md`) when UI changes

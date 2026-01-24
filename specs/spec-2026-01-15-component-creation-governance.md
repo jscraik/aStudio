@@ -16,17 +16,17 @@ schema_version: 1
 
 ## Acceptance Criteria
 
-- [ ] A single component creation guide exists that covers React + Apps SDK UI surfaces, tokens, tests, and release steps in one place.
-- [ ] Coverage checklist is linked from the component guide and updated for new components.
-- [ ] Guide and checklist ownership, review cadence, and definition-of-done linkage are documented.
-- [ ] A required list of UX states (loading, empty, error) is documented for new components with validation steps.
-- [ ] Accessibility checks are documented and required for new components with a manual audit cadence.
-- [ ] Definition of done includes coverage, UX states, test evidence, and release verification steps.
-- [ ] MCP tool contract source-of-truth location is documented and referenced in the runbook.
-- [ ] Rollback steps for MCP + widgets are documented in the operational runbook.
-- [ ] Telemetry events are defined for widget renders and MCP tool calls, with target KPIs.
-- [ ] SLO targets and error budget policy are documented for MCP + widget delivery.
-- [ ] MCP tool contracts are validated in CI via `pnpm test:mcp-contract` and referenced in release checks.
+- [ ] A single component creation guide exists at `docs/guides/COMPONENT_CREATION.md` and covers React + Apps SDK UI surfaces, tokens, tests, and release steps in one place.
+- [ ] Coverage checklist source-of-truth is `docs/design-system/COVERAGE_MATRIX.md` (generated) and is linked from the component guide; updates are required on new component PRs.
+- [ ] Guide and checklist ownership, review cadence, and definition-of-done linkage are documented in `docs/guides/COMPONENT_CREATION.md`.
+- [ ] A required UX state taxonomy is documented with validation steps (see Section 5.1).
+- [ ] Accessibility checks are documented and required for new components with a manual audit cadence and evidence artifact (see Section 6.3).
+- [ ] Definition of done includes coverage updates, UX states, test evidence, and release verification steps (see Section 6.1).
+- [ ] MCP tool contract source-of-truth location is documented and referenced in `docs/operations/RUNBOOK.md`.
+- [ ] Rollback steps for MCP + widgets are documented in `docs/operations/RUNBOOK.md`.
+- [ ] Telemetry events are defined for widget renders and MCP tool calls, with target KPIs and data governance (see Section 6.2).
+- [ ] SLO targets and error budget policy are documented in `docs/operations/SLOS.md`.
+- [ ] MCP tool contracts are validated in CI and referenced in release checks (implementation details in Tech Spec).
 
 ## 0) PRD Summary
 
@@ -156,6 +156,20 @@ Out of scope are non-UI backend services, unrelated product features, and any re
 - If a component lacks required UX states, the guide blocks release until states are defined.
 - If accessibility checks fail, the guide requires remediation before release.
 
+### 5.1 UX State Taxonomy (required)
+
+Minimum required states per component:
+
+- Initial loading (skeleton or spinner, defined by component)
+- Background refresh / stale data
+- Empty state with next action (if applicable)
+- No-results state (for search/filter contexts)
+- Error state with recovery path (retry, fallback, or contact)
+- Permission/entitlement denied (if applicable)
+- Offline or degraded mode (if applicable)
+- Success confirmation (for action components)
+
+Validation evidence must be captured in component stories or test artifacts (see Section 6.1).
 ---
 
 ## 6) Non-Functional Requirements
@@ -167,6 +181,31 @@ Out of scope are non-UI backend services, unrelated product features, and any re
 - **Accessibility:** WCAG 2.2 AA baseline for component guidance.
 - **Observability expectation:** Track component creation time and regressions via repo metrics and CI reports.
 
+### 6.1 Governance & Definition of Done (required)
+
+- **Owner:** Jamie (primary); **Backup owner:** TBD (record in guide when available).
+- **Review cadence:** every release or monthly (whichever is sooner).
+- **Gate:** PR template and release checklist must include DoD checklist; missing items block release.
+- **Definition of Done checklist (minimum):**
+  - Component guide updated or referenced
+  - Coverage matrix updated (or gap recorded)
+  - UX state stories or test artifacts exist for required states
+  - Accessibility checks complete with audit artifact
+  - Release verification steps completed
+
+### 6.2 Telemetry Data Governance (required)
+
+- **Event schema location:** Documented in `docs/operations/RUNBOOK.md` (Telemetry section).
+- **Allowed fields:** component name, surface (web/widget/desktop), state, duration bucket, success/failure.
+- **Prohibited fields:** user identifiers, raw content, prompts, PII.
+- **Retention:** define window and deletion policy in runbook.
+- **Access control:** restrict to repo owners; document access list.
+
+### 6.3 Accessibility Verification (required)
+
+- **Automated checks:** keyboard navigation, focus-visible, color contrast, label/name/role/value.
+- **Manual audit cadence:** every release; scope limited to new or modified components.
+- **Evidence artifact:** store audit checklist output in `docs/operations/` (format defined in guide).
 ---
 
 ## 7) Success Metrics / KPIs
@@ -199,11 +238,13 @@ Out of scope are non-UI backend services, unrelated product features, and any re
 - UX state requirements and definition of done
 - Governance for guide + checklist ownership and review cadence
 - Operational readiness updates for MCP contracts and rollback guidance
+- Telemetry + SLO definitions and governance documentation (no instrumentation changes)
 
 ### Out of scope (required)
 
 - New UI components or features beyond documentation/process updates
 - Changes to Apps SDK UI or design tokens
+- Telemetry instrumentation or runtime behavior changes
 
 ### Non-goals (recommended)
 

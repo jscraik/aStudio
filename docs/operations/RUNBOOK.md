@@ -20,6 +20,29 @@
 | Dev Server | `pnpm dev` | http://localhost:5173 | Terminal output |
 | Storybook | `pnpm dev:storybook` | http://localhost:6006 | Terminal output |
 
+## Telemetry Data Governance
+
+**Scope:** Widget render telemetry and MCP tool call telemetry only.
+
+**Event schema location:** This runbook (Telemetry Data Governance section).
+
+**Allowed fields:**
+- Component name
+- Surface (web/widget/desktop)
+- State (success/failure/empty/loading)
+- Duration bucket (e.g., <100ms, 100-500ms, 500ms-1.5s, >1.5s)
+- Error class (non-PII, high level)
+
+**Prohibited fields:**
+- User identifiers
+- Raw content or prompts
+- PII (names, emails, IPs)
+- Full stack traces (use error class only)
+
+**Retention:** 30 days default; adjust only with documented rationale in SLOS review.
+
+**Access control:** Repo owners only; document access changes in incident notes.
+
 ## Common Operations
 
 ### Start MCP Server in Development
@@ -396,6 +419,7 @@ Escalate immediately if:
 - [INCIDENT_RESPONSE.md](./INCIDENT_RESPONSE.md) - Incident procedures
 - [platforms/mcp/README.md](../../platforms/mcp/README.md) - MCP-specific documentation
 - [docs/guides/COMPONENT_CREATION.md](../guides/COMPONENT_CREATION.md) - Component creation workflow
+- [a11y-audit-template.md](./a11y-audit-template.md) - Accessibility audit artifact template
 
 ## Quick Reference Commands
 

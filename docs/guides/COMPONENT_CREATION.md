@@ -2,8 +2,9 @@
 
 **Audience:** Developers
 **Last updated:** 2026-01-19
-**Owner:** TBD
-**Review cadence:** TBD
+**Owner:** Jamie Scott Craik (@jscraik)
+**Backup owner:** TBD
+**Review cadence:** Every release or monthly (whichever is sooner)
 
 This guide explains the end-to-end workflow for creating UI components in the AStudio monorepo, from planning to release.
 
@@ -24,10 +25,16 @@ This guide explains the end-to-end workflow for creating UI components in the AS
 Before writing code, understand what you're building.
 
 - [ ] **Review design tokens** in `packages/tokens/README.md` for patterns
+- [ ] **Review coverage matrix** in `docs/design-system/COVERAGE_MATRIX.md` and note any gaps
 - [ ] **Identify UX states required:**
-  - Loading state
-  - Empty state
-  - Error state
+  - Initial loading (skeleton or spinner)
+  - Background refresh / stale data
+  - Empty state with next action (if applicable)
+  - No-results state (search/filter contexts)
+  - Error state with recovery path (retry/fallback)
+  - Permission/entitlement denied (if applicable)
+  - Offline or degraded mode (if applicable)
+  - Success confirmation (action components)
   - Hover/active states
   - Disabled state
 
@@ -202,6 +209,8 @@ Install [axe DevTools](https://www.deque.com/axe/devtools/) browser extension.
 1. Open Storybook
 2. Run axe DevTools on each story
 3. Fix any WCAG 2.2 AA violations
+4. Validate keyboard nav, focus-visible, and label/name/role/value
+5. Save the audit artifact to `docs/operations/` using `docs/operations/a11y-audit-template.md`
 
 **Step 4: Visual regression tests**
 
@@ -263,15 +272,28 @@ See `docs/guides/RELEASE_CHECKLIST.md` (if it exists) for full release requireme
 
 A component is complete when:
 
-- [ ] All UX states implemented (loading, empty, error, hover, active, disabled)
-- [ ] Accessibility passes WCAG 2.2 AA (tested with axe DevTools)
+- [ ] Required UX states implemented and documented in stories
+- [ ] Accessibility passes WCAG 2.2 AA (axe + keyboard/focus checks)
+- [ ] A11y audit artifact saved to `docs/operations/` using `docs/operations/a11y-audit-template.md`
 - [ ] Unit tests pass with ≥80% coverage
-- [ ] Storybook stories documented with examples
+- [ ] Storybook stories documented for required states
 - [ ] Visual regression tests pass
 - [ ] Keyboard navigation works correctly
+- [ ] Coverage matrix updated (or gap recorded) in `docs/design-system/COVERAGE_MATRIX.md`
 - [ ] Parity checklist updated (if applicable)
 - [ ] Changeset created
 - [ ] Code follows `CODESTYLE.md` standards
+
+### Definition of Done Evidence (template)
+
+| Item | Evidence | Link/Path |
+| --- | --- | --- |
+| Coverage matrix updated | Yes/No | `docs/design-system/COVERAGE_MATRIX.md` |
+| UX state stories | Yes/No | Storybook links |
+| A11y audit | Yes/No | `docs/operations/a11y-audit-template.md` |
+| Tests run | Yes/No | CI job or local log |
+| Visual regression | Yes/No | Playwright report |
+| Release checklist | Yes/No | `docs/guides/RELEASE_CHECKLIST.md` |
 
 ---
 

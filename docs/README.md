@@ -44,6 +44,7 @@ docs/
 - New to the repo? Read the root [README.md](../README.md) first.
 - Releasing? Use [RELEASE_CHECKLIST.md](./guides/RELEASE_CHECKLIST.md).
 - Looking for the CLI? See [packages/cli/README.md](../packages/cli/README.md).
+- Need structure help? See [repo-map.md](./architecture/repo-map.md) (canonical paths live under `platforms/`).
 
 ## Documentation quality checks
 

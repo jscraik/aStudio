@@ -38,6 +38,8 @@ A cross-platform UI workbench for building ChatGPT-style interfaces across multi
 - `platforms/web/apps/storybook` - Component documentation and interactive development
 - `platforms/mcp` - MCP server for ChatGPT integration
 
+Note: `apps/` is a navigation index only; canonical app paths remain under `platforms/`.
+
 ## Contents
 
 - [Prerequisites](#prerequisites)

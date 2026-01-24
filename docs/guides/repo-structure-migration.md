@@ -50,6 +50,7 @@ This guide documents the 2026 restructure that improved discoverability and norm
 - `apps/storybook/*` → `platforms/web/apps/storybook/*`
 - `apps/ChatGPT-UI_templates/*` → `platforms/web/apps/web/src/pages/TemplateBrowserPage.tsx`
 - `apps/mcp/*` → `platforms/mcp/*`
+- `apps/` is now an alias/index; treat `platforms/` as canonical for all tooling.
 - `platforms/web/apps/templates-gallery/src/shared/lib/template-registry.tsx` → `packages/ui/src/dev/templates-gallery.tsx` (consumed via `@astudio/ui/dev`)
 - `platforms/web/apps/web/src/features/widgets/WidgetHarness.tsx` → `platforms/web/apps/web/src/pages/HarnessPage.tsx`
 

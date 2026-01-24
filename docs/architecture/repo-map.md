@@ -20,8 +20,9 @@ This document provides a quick, task-oriented map of the repository so contribut
   - `platforms/web/apps/web/src/pages/`: route-level pages (About/Profile/Settings/Harness)
   - `platforms/web/apps/web/src/pages/TemplateBrowserPage.tsx`: templates gallery route (`/templates`)
   - `packages/ui/src/dev/templates-gallery.tsx`: canonical templates-gallery registry (consumed via `@astudio/ui/dev`)
-  - `platforms/web/apps/storybook/.storybook/`: Storybook configuration + preview styles
+- `platforms/web/apps/storybook/.storybook/`: Storybook configuration + preview styles
   - `platforms/mcp/`: MCP server (tool contracts + integration harness)
+  - `platforms/desktop/apps/desktop/`: desktop shell scaffold (Tauri placeholder)
 - `packages/`: Reusable JS/TS packages (UI, tokens, runtime, widgets).
 - `docs/`: Architecture, guides, audits, and build pipeline documentation.
 - `scripts/`: Build pipeline, version sync, and compliance tooling.
@@ -32,6 +33,8 @@ This document provides a quick, task-oriented map of the repository so contribut
 - `platforms/web/`
   - `platforms/web/apps/web/`: main web app
   - `platforms/web/apps/storybook/`: Storybook harness
+- `platforms/desktop/`
+  - `platforms/desktop/apps/desktop/`: desktop shell scaffold
 - `platforms/mcp/`: MCP server (tool contracts + integration harness)
 
 ## JS/TS packages

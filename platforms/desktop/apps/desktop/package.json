@@ -1,0 +1,10 @@
+{
+  "name": "@astudio/desktop",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "echo \"TODO: scaffold Tauri + Vite app\"",
+    "build": "echo \"TODO: scaffold Tauri + Vite app\""
+  }
+}

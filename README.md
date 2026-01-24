@@ -36,6 +36,7 @@ A cross-platform UI workbench for building ChatGPT-style interfaces across multi
 
 - `platforms/web/apps/web` - Widget Gallery for visual testing and MCP widget builds
 - `platforms/web/apps/storybook` - Component documentation and interactive development
+- `platforms/desktop/apps/desktop` - Desktop shell scaffold (Tauri placeholder)
 - `platforms/mcp` - MCP server for ChatGPT integration
 
 Note: `apps/` is a navigation index only; canonical app paths remain under `platforms/`.

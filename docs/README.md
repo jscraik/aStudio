@@ -28,6 +28,7 @@ This index helps you find the right doc fast. Start here, then jump into the cat
 ## Directory structure
 
 ```
+apps/                # Navigation index (canonical apps under platforms/)
 docs/
 ├── architecture/    # System design and architecture documents
 ├── audits/          # Design system audits and compliance reports
@@ -69,6 +70,7 @@ Technical architecture and design decisions.
 - **[WIDGET_SYSTEM_ENHANCEMENTS.md](./architecture/WIDGET_SYSTEM_ENHANCEMENTS.md)** - Widget infrastructure enhancements
 - **[template-library.md](./architecture/template-library.md)** - Template library layout and parity rules
 - **[template-api.md](./architecture/template-api.md)** - Template and block API (internal)
+- **[DESIGN_SYSTEM_FLOW.md](./architecture/DESIGN_SYSTEM_FLOW.md)** - Token → UI → apps flow diagram
 
 ## Audit reports
 
@@ -117,3 +119,4 @@ Key project documentation remains at the repository root:
 - **[RFC_TEMPLATE.md](./workflows/RFC_TEMPLATE.md)** - RFC workflow template for design-system changes
 - **[QA_EVIDENCE_SCHEMA.md](./operations/QA_EVIDENCE_SCHEMA.md)** - QA evidence requirements and CI gate artifacts
 - **[GOVERNANCE_SECURITY_PRIVACY.md](./operations/GOVERNANCE_SECURITY_PRIVACY.md)** - Security and privacy rules for governance artifacts
+- **[TOKEN_ADD_CHECKLIST.md](./theming/TOKEN_ADD_CHECKLIST.md)** - Add a token without breaking token sources

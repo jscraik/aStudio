@@ -7,8 +7,8 @@ Last updated: 2026-01-09
 - Audience: Developers (intermediate)
 - Scope: Topic defined by this document
 - Non-scope: Anything not explicitly covered here
-- Owner: TBD (confirm)
-- Review cadence: TBD (confirm)
+- Owner: Jamie Scott Craik (@jscraik)
+- Review cadence: Every release or monthly (whichever is sooner)
 
 ## Contents
 
@@ -35,6 +35,7 @@ This guide documents the 2026 restructure that improved discoverability and norm
 - Storybook demos/docs consolidated under `packages/ui/src/storybook/`.
 - Templates gallery moved into the web app as `/templates`.
 - Web app + Storybook moved under `platforms/web/apps/`.
+- `apps/` exists as a navigation index only (canonical paths remain under `platforms/`).
 - MCP server moved to `platforms/mcp/`.
 - Widget SDK tooling moved under `packages/widgets/src/sdk/`.
 - Widget examples moved to `packages/widgets/docs/examples/`.

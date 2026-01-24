@@ -14,6 +14,7 @@ This document provides a quick, task-oriented map of the repository so contribut
 
 ## Top-level
 
+- `apps/`: Navigation index (pointers to canonical app locations).
 - `platforms/`: Platform-specific code and apps.
   - `platforms/web/apps/web/src/app/`: app shell + router
   - `platforms/web/apps/web/src/pages/`: route-level pages (About/Profile/Settings/Harness)
@@ -27,6 +28,7 @@ This document provides a quick, task-oriented map of the repository so contribut
 
 ## Platform surface
 
+- `apps/`: index only (see `apps/README.md` for mapping)
 - `platforms/web/`
   - `platforms/web/apps/web/`: main web app
   - `platforms/web/apps/storybook/`: Storybook harness

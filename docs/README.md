@@ -114,3 +114,4 @@ Key project documentation remains at the repository root:
 
 - **[BUILD_PIPELINE.md](./BUILD_PIPELINE.md)** - Build pipeline architecture and usage
 - **[VERSION_SYNC.md](./VERSION_SYNC.md)** - Version synchronization across packages
+- **[RFC_TEMPLATE.md](./workflows/RFC_TEMPLATE.md)** - RFC workflow template for design-system changes

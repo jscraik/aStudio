@@ -71,3 +71,4 @@ Use Conventional Commits where possible:
 - [ ] Docs updated if the public API or workflows changed
 - [ ] Coverage matrix updated or gap recorded (`docs/design-system/COVERAGE_MATRIX.md`)
 - [ ] A11y audit artifact saved (use `docs/operations/a11y-audit-template.md`) when UI changes
+- [ ] RFC created for design-system changes (`docs/workflows/RFC_TEMPLATE.md`)

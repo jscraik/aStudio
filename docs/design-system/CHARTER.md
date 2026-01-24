@@ -64,6 +64,7 @@ Any proposal that adds or changes tokens, components, or UX patterns must includ
 - Design review and accessibility signoff.
 - Impact analysis on web + Tauri + widgets.
 - Migration plan for breaking changes.
+ - RFC file created using `docs/workflows/RFC_TEMPLATE.md`.
 
 ## Component Lifecycle
 

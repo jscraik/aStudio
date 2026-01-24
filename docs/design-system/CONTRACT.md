@@ -10,6 +10,7 @@ This index links all governing artifacts for the UI design system.
 
 - Charter: `docs/design-system/CHARTER.md`
 - Upstream alignment: `docs/design-system/UPSTREAM_ALIGNMENT.md`
+- RFC template: `docs/workflows/RFC_TEMPLATE.md`
 
 ## Tokens
 

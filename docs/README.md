@@ -72,6 +72,7 @@ Technical architecture and design decisions.
 - **[template-library.md](./architecture/template-library.md)** - Template library layout and parity rules
 - **[template-api.md](./architecture/template-api.md)** - Template and block API (internal)
 - **[DESIGN_SYSTEM_FLOW.md](./architecture/DESIGN_SYSTEM_FLOW.md)** - Token → UI → apps flow diagram
+- **[TOP_LEVEL_INDEX.md](./architecture/TOP_LEVEL_INDEX.md)** - Canonical vs auxiliary top-level folders
 
 ## Audit reports
 

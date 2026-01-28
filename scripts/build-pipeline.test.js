@@ -433,7 +433,6 @@ function validatePlatformArtifacts(platforms) {
           }
         }
         break;
-
     }
   }
 }

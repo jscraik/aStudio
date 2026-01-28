@@ -9,7 +9,7 @@ import { CheckForUpdatesPanel } from "./CheckForUpdatesPanel";
  *
  * ## Usage
  * ```tsx
- * import { CheckForUpdatesPanel } from "@astudio/ui";
+ * import { CheckForUpdatesPanel } from "@design-studio/ui";
  *
  * <CheckForUpdatesPanel onBack={fn()} />
  * ```

@@ -9,7 +9,7 @@ import { PersonalizationPanel } from "./PersonalizationPanel";
  *
  * ## Usage
  * ```tsx
- * import { PersonalizationPanel } from "@astudio/ui";
+ * import { PersonalizationPanel } from "@design-studio/ui";
  *
  * <PersonalizationPanel onBack={fn()} />
  * ```

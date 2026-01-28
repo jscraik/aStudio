@@ -10,14 +10,32 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 
 import { IconCheckmark, IconChevronDownMd, IconChevronUpMd } from "../../../../../icons";
 import { cn } from "../../../utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
+
+// Context to pass state down to Select subcomponents
+const SelectContext = React.createContext<{
+  effectiveState: ComponentState;
+  error?: string;
+  required?: boolean;
+}>({
+  effectiveState: "default",
+});
+SelectContext.displayName = "SelectContext";
 
 /**
- * Select root component (Radix Select).
+ * Select root component (Radix Select) with Apps SDK UI tokens.
+ *
+ * Supports stateful props for loading, error, disabled, and required states.
  *
  * Accessibility contract:
  * - Ensure a visible label or `aria-label`/`aria-labelledby` on the trigger.
  *
- * @param props - Radix Select root props.
+ * @param props - Radix Select root props including stateful options.
+ * @param props.error - Error message, applies error styling when set.
+ * @param props.loading - Shows loading state and disables select (default: `false`).
+ * @param props.disabled - Disabled state (also set automatically when loading).
+ * @param props.required - Required field indicator (default: `false`).
+ * @param props.onStateChange - Callback when component state changes.
  * @returns The Select root element.
  *
  * @example
@@ -30,10 +48,52 @@ import { cn } from "../../../utils";
  *     <SelectItem value="one">One</SelectItem>
  *   </SelectContent>
  * </Select>
+ * <Select error="Selection required" required />
  * ```
  */
-function Select({ ...props }: React.ComponentProps<typeof SelectPrimitive.Root>) {
-  return <SelectPrimitive.Root data-slot="select" {...props} />;
+function Select({
+  loading = false,
+  error,
+  disabled = false,
+  required = false,
+  onStateChange,
+  ...props
+}: React.ComponentProps<typeof SelectPrimitive.Root> &
+  StatefulComponentProps) {
+  // Determine effective state
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
+  // Select is effectively disabled when loading or explicitly disabled
+  const isDisabled = disabled || loading;
+
+  const contextValue = React.useMemo(
+    () => ({ effectiveState, error, required }),
+    [effectiveState, error, required],
+  );
+
+  return (
+    <SelectContext.Provider value={contextValue}>
+      <SelectPrimitive.Root
+        data-slot="select"
+        data-state={effectiveState}
+        data-error={error ? "true" : undefined}
+        data-required={required ? "true" : undefined}
+        disabled={isDisabled}
+        {...props}
+      />
+    </SelectContext.Provider>
+  );
 }
 
 /**
@@ -57,7 +117,7 @@ function SelectValue({ ...props }: React.ComponentProps<typeof SelectPrimitive.V
 }
 
 /**
- * Trigger button for opening the Select menu.
+ * Trigger button for opening the Select menu with Apps SDK UI tokens.
  *
  * @param props.size - Size variant for the trigger (default: `default`).
  * @returns The Select trigger element.
@@ -70,12 +130,43 @@ function SelectTrigger({
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
   size?: "sm" | "default";
 }) {
+  const { effectiveState, error } = React.useContext(SelectContext);
+
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
+      data-state={effectiveState}
       data-size={size}
       className={cn(
-        "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 hover:bg-input/50 dark:hover:bg-input/50 flex w-full items-center justify-between gap-2 rounded-md border bg-input-background px-3 py-2 text-sm whitespace-nowrap transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:min-h-[var(--foundation-size-control-height)] data-[size=sm]:min-h-[var(--foundation-size-control-height)] *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        // Base layout
+        "flex w-full items-center justify-between gap-2 rounded-md border px-3 py-2 text-sm whitespace-nowrap transition-[color,box-shadow] outline-none",
+        // Border - using Apps SDK UI tokens
+        "border-input",
+        // Background - using Apps SDK UI tokens
+        "bg-input-background",
+        // Placeholder text - using Apps SDK UI tokens
+        "data-[placeholder]:text-muted-foreground",
+        // Icon color - using Apps SDK UI tokens
+        "[&_svg:not([class*='text-'])]:text-muted-foreground",
+        // Focus styles - using Apps SDK UI tokens
+        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+        // Error state styling - using Apps SDK UI tokens
+        error && "border-destructive focus:border-destructive focus:ring-destructive/50",
+        effectiveState === "error" && "ring-destructive/20 dark:ring-destructive/40",
+        // Hover - using Apps SDK UI tokens
+        "hover:bg-input/50 dark:hover:bg-input/50",
+        // Dark mode background - using Apps SDK UI tokens
+        "dark:bg-input/30",
+        // Disabled state
+        "disabled:cursor-not-allowed disabled:opacity-50",
+        // Loading state styling
+        effectiveState === "loading" && "opacity-70 cursor-wait",
+        // Size variants
+        "data-[size=default]:min-h-[var(--foundation-size-control-height)] data-[size=sm]:min-h-[var(--foundation-size-control-height)]",
+        // Select value styling
+        "*:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2",
+        // Icon styling
+        "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -89,7 +180,7 @@ function SelectTrigger({
 }
 
 /**
- * Content wrapper for the Select dropdown.
+ * Content wrapper for the Select dropdown with Apps SDK UI tokens.
  *
  * @param props - Radix Select content props.
  * @returns The Select content element rendered in a portal.
@@ -105,7 +196,12 @@ function SelectContent({
       <SelectPrimitive.Content
         data-slot="select-content"
         className={cn(
-          "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-(--radix-select-content-available-height) min-w-[8rem] origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border shadow-md",
+          "relative z-50 max-h-(--radix-select-content-available-height) min-w-[8rem] origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border shadow-md",
+          // Background - using Apps SDK UI tokens
+          "bg-popover text-popover-foreground",
+          // Animation
+          "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+          // Position offset
           position === "popper" &&
             "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
           className,
@@ -130,7 +226,7 @@ function SelectContent({
 }
 
 /**
- * Label for a group of Select items.
+ * Label for a group of Select items with Apps SDK UI tokens.
  *
  * @param props - Radix Select label props.
  * @returns A label element for grouped items.
@@ -139,6 +235,7 @@ function SelectLabel({ className, ...props }: React.ComponentProps<typeof Select
   return (
     <SelectPrimitive.Label
       data-slot="select-label"
+      // Text color - using Apps SDK UI tokens
       className={cn("text-muted-foreground px-2 py-1.5 text-xs", className)}
       {...props}
     />
@@ -146,7 +243,7 @@ function SelectLabel({ className, ...props }: React.ComponentProps<typeof Select
 }
 
 /**
- * Selectable item within the dropdown list.
+ * Selectable item within the dropdown list with Apps SDK UI tokens.
  *
  * @param props - Radix Select item props.
  * @returns An item element for selection.
@@ -160,7 +257,17 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+        "relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none",
+        // Focus background - using Apps SDK UI tokens
+        "focus:bg-accent focus:text-accent-foreground",
+        // Icon color - using Apps SDK UI tokens
+        "[&_svg:not([class*='text-'])]:text-muted-foreground",
+        // Disabled state
+        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+        // Icon styling
+        "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        // Item text/indicator styling
+        "*:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
         className,
       )}
       {...props}
@@ -176,7 +283,7 @@ function SelectItem({
 }
 
 /**
- * Visual separator between groups of items.
+ * Visual separator between groups of items with Apps SDK UI tokens.
  *
  * @param props - Radix Select separator props.
  * @returns A separator element.
@@ -188,6 +295,7 @@ function SelectSeparator({
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
+      // Background - using Apps SDK UI tokens
       className={cn("bg-border pointer-events-none -mx-1 my-1 h-px", className)}
       {...props}
     />

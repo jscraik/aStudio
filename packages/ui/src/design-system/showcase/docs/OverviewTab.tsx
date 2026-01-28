@@ -61,7 +61,7 @@ export function OverviewTab() {
               </span>
               Import Foundation CSS
             </h3>
-            <CodeBlock code={`import '@astudio/ui/styles/foundation.css';`} language="ts" />
+            <CodeBlock code={`import '@design-studio/ui/styles/foundation.css';`} language="ts" />
           </Card>
           <Card>
             <h3 className="text-sm font-semibold text-foundation-text-light-primary dark:text-foundation-text-dark-primary mb-3 flex items-center gap-2">
@@ -85,7 +85,7 @@ export function OverviewTab() {
               Import Components
             </h3>
             <CodeBlock
-              code={`import { Button, Card, IconButton } from '@astudio/ui';`}
+              code={`import { Button, Card, IconButton } from '@design-studio/ui';`}
               language="ts"
             />
           </Card>

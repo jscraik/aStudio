@@ -1,5 +1,5 @@
 import "@astudio/tokens/tokens.css";
-import { Stack, Text } from "@astudio/ui";
+import { Stack, Text } from "@design-studio/ui";
 import { Icon } from "@astudio/icons";
 
 export function MakeTemplateExample() {

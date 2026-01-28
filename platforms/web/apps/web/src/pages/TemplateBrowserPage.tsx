@@ -1,5 +1,5 @@
-import { AppsSDKButton } from "@astudio/ui";
-import { IconArrowLeftSm } from "@astudio/ui/icons";
+import { AppsSDKButton } from "@design-studio/ui";
+import { IconArrowLeftSm } from "@design-studio/ui/icons";
 
 import { TemplateBrowser } from "../components/template-browser/TemplateBrowser";
 

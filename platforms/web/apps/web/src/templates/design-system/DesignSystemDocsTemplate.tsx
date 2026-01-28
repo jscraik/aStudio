@@ -8,4 +8,4 @@
  * status: stable
  * entry: DesignSystemDocs
  */
-export { DesignSystemDocs } from "@astudio/ui/showcase";
+export { DesignSystemDocs } from "@design-studio/ui/showcase";

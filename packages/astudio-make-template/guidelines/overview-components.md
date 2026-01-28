@@ -1,6 +1,6 @@
 # Component Overview
 
-Use `@astudio/ui` for Apps SDK UI-first React components. The package mirrors the `@astudio/ui` surface area and exposes:
+Use `@design-studio/ui` for Apps SDK UI-first React components. The package mirrors the `@design-studio/ui` surface area and exposes:
 
 - Core primitives: buttons, text, badges, cards, separators, stacks
 - Navigation: tabs, menus, breadcrumbs
@@ -11,7 +11,7 @@ Use `@astudio/ui` for Apps SDK UI-first React components. The package mirrors th
 ## Usage
 
 ```tsx
-import { Button, Stack, Text } from "@astudio/ui";
+import { Button, Stack, Text } from "@design-studio/ui";
 
 export function Example() {
   return (

@@ -166,4 +166,64 @@ describe("Button", () => {
       expect(screen.getByRole("button")).toHaveAttribute("type", "reset");
     });
   });
+
+  describe("StatefulComponentProps", () => {
+    describe("loading state", () => {
+      it("shows loading spinner when loading is true", () => {
+        render(<Button loading>Loading...</Button>);
+        const button = screen.getByRole("button");
+        expect(button).toHaveAttribute("data-state", "loading");
+        expect(button).toBeDisabled();
+        expect(button.querySelector("svg")).toBeInTheDocument();
+      });
+
+      it("disables button when loading", async () => {
+        const onClick = vi.fn();
+        const { user } = render(
+          <Button loading onClick={onClick}>
+            Click me
+          </Button>,
+        );
+        await user.click(screen.getByRole("button"));
+        expect(onClick).not.toHaveBeenCalled();
+      });
+
+      it("applies loading opacity styles", () => {
+        render(<Button loading>Loading...</Button>);
+        expect(screen.getByRole("button")).toHaveClass("opacity-70", "cursor-wait");
+      });
+    });
+
+    describe("error state", () => {
+      it("applies error styles when error prop is set", () => {
+        render(<Button error="Failed to submit">Retry</Button>);
+        const button = screen.getByRole("button");
+        expect(button).toHaveAttribute("data-error", "true");
+        expect(button).toHaveAttribute("data-state", "error");
+        expect(button).toHaveClass("border-foundation-accent-red");
+      });
+
+      it("applies error focus ring", () => {
+        render(<Button error="Failed">Retry</Button>);
+        expect(screen.getByRole("button")).toHaveClass(
+          "focus-visible:ring-foundation-accent-red",
+        );
+      });
+    });
+
+    describe("onStateChange callback", () => {
+      it("calls onStateChange when state changes", () => {
+        const onStateChange = vi.fn();
+        const { rerender } = render(
+          <Button loading onStateChange={onStateChange}>
+            Submit
+          </Button>,
+        );
+        expect(onStateChange).toHaveBeenCalledWith("loading");
+
+        rerender(<Button onStateChange={onStateChange}>Submit</Button>);
+        expect(onStateChange).toHaveBeenCalledWith("default");
+      });
+    });
+  });
 });

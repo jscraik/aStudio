@@ -8,4 +8,4 @@
  * status: stable
  * entry: SpacingShowcase
  */
-export { SpacingShowcase } from "@astudio/ui/showcase";
+export { SpacingShowcase } from "@design-studio/ui/showcase";

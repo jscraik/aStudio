@@ -11,6 +11,8 @@ export default defineConfig({
     setupFiles: ["./src/testing/setup.ts"],
     include: ["src/**/*.test.{ts,tsx}"],
     exclude: ["**/node_modules/**", "**/dist/**", "**/*.stories.*"],
+    snapshotDirectory: "./src/tests/__snapshots__",
+    snapshotFormat: {},
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],

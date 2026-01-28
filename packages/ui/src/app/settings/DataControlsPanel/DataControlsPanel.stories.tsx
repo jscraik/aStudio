@@ -9,7 +9,7 @@ import { DataControlsPanel } from "./DataControlsPanel";
  *
  * ## Usage
  * ```tsx
- * import { DataControlsPanel } from "@astudio/ui";
+ * import { DataControlsPanel } from "@design-studio/ui";
  *
  * <DataControlsPanel onBack={fn()} />
  * ```

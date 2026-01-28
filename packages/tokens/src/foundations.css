@@ -12,65 +12,65 @@
   --foundation-bg-dark-3: #414141;
 
   /* Dark text */
-  --foundation-text-dark-primary: #ffffff;
-  --foundation-text-dark-secondary: #cdcdcd;
-  --foundation-text-dark-tertiary: #afafaf;
+  --foundation-text-dark-primary: #FFFFFF;
+  --foundation-text-dark-secondary: #CDCDCD;
+  --foundation-text-dark-tertiary: #AFAFAF;
 
   /* Dark accents */
-  --foundation-accent-gray: #ababab;
-  --foundation-accent-red: #ff8583;
-  --foundation-accent-orange: #ff9e6c;
-  --foundation-accent-yellow: #ffd666;
-  --foundation-accent-green: #40c977;
-  --foundation-accent-blue: #5a9ff5;
-  --foundation-accent-purple: #ba8ff7;
-  --foundation-accent-pink: #ff6bc7;
+  --foundation-accent-gray: #AFAFAF;
+  --foundation-accent-red: #FF8583;
+  --foundation-accent-orange: #FF9E6C;
+  --foundation-accent-yellow: #FFDB66;
+  --foundation-accent-green: #40C977;
+  --foundation-accent-blue: #66B5FF;
+  --foundation-accent-purple: #BE95FA;
+  --foundation-accent-pink: #FF66AD;
 
   /* Light backgrounds */
-  --foundation-bg-light-1: #ffffff;
-  --foundation-bg-light-2: #e8e8e8;
-  --foundation-bg-light-3: #f3f3f3;
+  --foundation-bg-light-1: #FFFFFF;
+  --foundation-bg-light-2: #EDEDED;
+  --foundation-bg-light-3: #F3F3F3;
 
   /* Light text */
-  --foundation-text-light-primary: #0d0d0d;
-  --foundation-text-light-secondary: #5d5d5d;
-  --foundation-text-light-tertiary: #8f8f8f;
+  --foundation-text-light-primary: #0D0D0D;
+  --foundation-text-light-secondary: #5D5D5D;
+  --foundation-text-light-tertiary: #8F8F8F;
 
   /* Light icon */
-  --foundation-icon-light-primary: #0d0d0d;
-  --foundation-icon-light-secondary: #5d5d5d;
-  --foundation-icon-light-tertiary: #8f8f8f;
-  --foundation-icon-light-inverted: #ffffff;
-  --foundation-icon-light-accent: #0285ff;
-  --foundation-icon-light-status-error: #e02e2a;
-  --foundation-icon-light-status-warning: #e25507;
+  --foundation-icon-light-primary: #0D0D0D;
+  --foundation-icon-light-secondary: #5D5D5D;
+  --foundation-icon-light-tertiary: #8F8F8F;
+  --foundation-icon-light-inverted: #FFFFFF;
+  --foundation-icon-light-accent: #0285FF;
+  --foundation-icon-light-status-error: #E02E2A;
+  --foundation-icon-light-status-warning: #E25507;
   --foundation-icon-light-status-success: #008635;
 
   /* Dark icon */
-  --foundation-icon-dark-primary: #ffffff;
-  --foundation-icon-dark-secondary: #cdcdcd;
-  --foundation-icon-dark-tertiary: #afafaf;
-  --foundation-icon-dark-inverted: #0d0d0d;
-  --foundation-icon-dark-accent: #48aaff;
-  --foundation-icon-dark-status-error: #ff8583;
-  --foundation-icon-dark-status-warning: #ff9e6c;
-  --foundation-icon-dark-status-success: #40c977;
+  --foundation-icon-dark-primary: #FFFFFF;
+  --foundation-icon-dark-secondary: #CDCDCD;
+  --foundation-icon-dark-tertiary: #AFAFAF;
+  --foundation-icon-dark-inverted: #0D0D0D;
+  --foundation-icon-dark-accent: #339CFF;
+  --foundation-icon-dark-status-error: #FF8583;
+  --foundation-icon-dark-status-warning: #FF9E6C;
+  --foundation-icon-dark-status-success: #40C977;
 
   /* Borders */
-  --foundation-border-light: #0d0d0d0d;
-  --foundation-border-heavy: #0d0d0d26;
-  --foundation-border-dark-default: #ffffff26;
-  --foundation-border-dark-light: #ffffff0d;
+  --foundation-border-light: #0D0D0D0D;
+  --foundation-border-heavy: #0D0D0D26;
+  --foundation-border-dark-default: #FFFFFF26;
+  --foundation-border-dark-light: #FFFFFF0D;
 
   /* Light accents */
-  --foundation-accent-gray-light: #8f8f8f;
-  --foundation-accent-red-light: #e02e2a;
-  --foundation-accent-orange-light: #e25507;
-  --foundation-accent-yellow-light: #c08c00;
+  --foundation-accent-gray-light: #8F8F8F;
+  --foundation-accent-red-light: #E02E2A;
+  --foundation-accent-orange-light: #E25507;
+  --foundation-accent-yellow-light: #BA8E00;
   --foundation-accent-green-light: #008635;
-  --foundation-accent-blue-light: #0285ff;
-  --foundation-accent-purple-light: #934ff2;
-  --foundation-accent-pink-light: #e3008d;
+  --foundation-accent-blue-light: #0285FF;
+  --foundation-accent-purple-light: #924FF7;
+  --foundation-accent-pink-light: #E04C91;
 
   /* Spacing scale */
   --foundation-space-128: 128px;
@@ -83,55 +83,58 @@
   --foundation-space-12: 12px;
   --foundation-space-8: 8px;
   --foundation-space-4: 4px;
-  --foundation-space-2: 2px;
+  --foundation-space-4: 4px;
   --foundation-space-0: 0px;
 
   /* Typography */
   --foundation-font-family:
     "SF Pro", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --foundation-heading1-size: 36px;
-  --foundation-heading1-line: 40px;
-  --foundation-heading1-weight: 600;
-  --foundation-heading1-weight-regular: 600;
-  --foundation-heading1-tracking: -0.1px;
+  --foundation-heading-1-size: 36px;
+  --foundation-heading-1-line: 42px;
+  --foundation-heading-1-weight: 600;
+  --foundation-heading-1-weight-regular: 600;
+  --foundation-heading-1-tracking: -0.1px;
 
-  --foundation-heading2-size: 24px;
-  --foundation-heading2-line: 28px;
-  --foundation-heading2-weight: 600;
-  --foundation-heading2-weight-regular: 600;
-  --foundation-heading2-tracking: -0.25px;
+  --foundation-heading-2-size: 24px;
+  --foundation-heading-2-line: 28px;
+  --foundation-heading-2-weight: 600;
+  --foundation-heading-2-weight-regular: 600;
+  --foundation-heading-2-tracking: -0.25px;
 
-  --foundation-heading3-size: 18px;
-  --foundation-heading3-line: 26px;
-  --foundation-heading3-weight: 600;
-  --foundation-heading3-weight-regular: 600;
-  --foundation-heading3-tracking: -0.45px;
+  --foundation-heading-3-size: 18px;
+  --foundation-heading-3-line: 26px;
+  --foundation-heading-3-weight: 600;
+  --foundation-heading-3-weight-regular: 600;
+  --foundation-heading-3-tracking: -0.45px;
 
   --foundation-body-size: 16px;
-  --foundation-body-line: 26px;
+  --foundation-body-line: 24px;
   --foundation-body-weight: 400;
+  --foundation-body-weight-regular: 400;
   --foundation-body-weight-emphasis: 600;
   --foundation-body-tracking: -0.4px;
 
   --foundation-body-small-size: 14px;
-  --foundation-body-small-line: 18px;
+  --foundation-body-small-line: 20px;
   --foundation-body-small-weight: 400;
+  --foundation-body-small-weight-regular: 400;
   --foundation-body-small-weight-emphasis: 600;
   --foundation-body-small-tracking: -0.3px;
 
   --foundation-caption-size: 12px;
-  --foundation-caption-line: 16px;
+  --foundation-caption-line: 18px;
   --foundation-caption-weight: 400;
+  --foundation-caption-weight-regular: 400;
   --foundation-caption-weight-emphasis: 600;
   --foundation-caption-tracking: -0.1px;
 
-  --foundation-card-title-size: 17px;
-  --foundation-card-title-line: 23px;
+  --foundation-card-title-size: 18px;
+  --foundation-card-title-line: 26px;
   --foundation-card-title-weight: 500;
   --foundation-card-title-weight-regular: 500;
   --foundation-card-title-tracking: -0.43px;
 
-  --foundation-list-title-size: 17px;
+  --foundation-list-title-size: 16px;
   --foundation-list-title-line: 24px;
   --foundation-list-title-weight: 400;
   --foundation-list-title-weight-regular: 400;
@@ -143,7 +146,7 @@
   --foundation-list-subtitle-weight-regular: 400;
   --foundation-list-subtitle-tracking: -0.18px;
 
-  --foundation-button-label-size: 15px;
+  --foundation-button-label-size: 16px;
   --foundation-button-label-line: 24px;
   --foundation-button-label-weight: 500;
   --foundation-button-label-weight-regular: 500;
@@ -155,17 +158,18 @@
   --foundation-button-label-small-weight-regular: 600;
   --foundation-button-label-small-tracking: -0.3px;
 
+
   /* Radius scale */
   --foundation-radius-6: 6px;
   --foundation-radius-8: 8px;
   --foundation-radius-10: 10px;
   --foundation-radius-12: 12px;
   --foundation-radius-16: 16px;
-  --foundation-radius-18: 18px;
-  --foundation-radius-21: 21px;
+  --foundation-radius-18: 20px;
+  --foundation-radius-21: 20px;
   --foundation-radius-24: 24px;
-  --foundation-radius-30: 30px;
-  --foundation-radius-round: 999px;
+  --foundation-radius-30: 24px;
+  --foundation-radius-round: 9999px;
 
   /* Size scale */
   --foundation-size-control-height: 44px;
@@ -173,17 +177,17 @@
   --foundation-size-hit-target: 44px;
 
   /* Shadows */
-  --foundation-shadow-card: 0px 4px 16px 0px #0000000d;
-  --foundation-shadow-pip: 0px 4px 16px 0px #0000000d;
-  --foundation-shadow-pill: 0px 10px 22px 0px #0000000a;
-  --foundation-shadow-close: 0px 4px 8px 0px #00000029;
+  --foundation-shadow-card: 0px 10px 15px -3px rgba(0 0 0 / 10%), 0px 4px 6px -4px rgba(0 0 0 / 10%);
+  --foundation-shadow-pip: 0px 10px 15px -3px rgba(0 0 0 / 10%), 0px 4px 6px -4px rgba(0 0 0 / 10%);
+  --foundation-shadow-pill: 0px 10px 15px -3px rgba(0 0 0 / 10%), 0px 4px 6px -4px rgba(0 0 0 / 10%);
+  --foundation-shadow-close: 0px 10px 15px -3px rgba(0 0 0 / 10%), 0px 4px 6px -4px rgba(0 0 0 / 10%);
 
   /* Accessibility */
   --foundation-focus-ring: #0285ff;
   --foundation-focus-ring-width: 2px;
   --foundation-animation-duration: 0.25s;
   --foundation-animation-duration-reduced: 0.1s;
-
+  
   /* High contrast variants */
   --foundation-high-contrast-text: #ffffff;
   --foundation-high-contrast-bg: #000000;
@@ -206,7 +210,7 @@
   :root {
     --foundation-animation-duration: var(--foundation-animation-duration-reduced);
   }
-
+  
   * {
     animation-duration: var(--foundation-animation-duration-reduced) !important;
     transition-duration: var(--foundation-animation-duration-reduced) !important;

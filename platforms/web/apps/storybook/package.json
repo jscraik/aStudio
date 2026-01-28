@@ -11,9 +11,9 @@
     "test:coverage": "STORYBOOK_BROWSER_TESTS=1 vitest --project=storybook run --browser --coverage"
   },
   "dependencies": {
-    "@astudio/runtime": "workspace:*",
-    "@astudio/tokens": "workspace:*",
-    "@astudio/ui": "workspace:*",
+    "@design-studio/runtime": "workspace:*",
+    "@design-studio/tokens": "workspace:*",
+    "@design-studio/ui": "workspace:*",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },

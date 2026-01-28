@@ -185,7 +185,7 @@ const config = {
       ...(viteConfig.resolve ?? {}),
       alias: {
         ...(viteConfig.resolve?.alias ?? {}),
-        "@astudio/ui": path.join(repoRoot, "packages/ui/src"),
+        "@design-studio/ui": path.join(repoRoot, "packages/ui/src"),
         "@astudio/runtime": path.join(repoRoot, "packages/runtime/src"),
       },
     };

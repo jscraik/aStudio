@@ -1,4 +1,4 @@
-import { radiusTokens, spacingScale } from "@astudio/tokens";
+import { radiusTokens, spacingScale } from "@design-studio/tokens";
 
 interface SpacingBoxProps {
   token: string;

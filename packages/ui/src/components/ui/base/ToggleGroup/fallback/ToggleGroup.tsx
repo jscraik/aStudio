@@ -11,32 +11,82 @@ import { type VariantProps } from "class-variance-authority";
 
 import { cn } from "../../../utils";
 import { toggleVariants } from "../../Toggle/Toggle";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
 const ToggleGroupContext = React.createContext<VariantProps<typeof toggleVariants>>({
   size: "default",
   variant: "default",
 });
+ToggleGroupContext.displayName = "ToggleGroupContext";
 
 /**
- * Renders a group of toggle items.
+ * Renders a group of toggle items with Apps SDK UI tokens.
  *
- * @param props - Radix toggle group props plus variant sizing.
+ * Supports stateful props for loading, error, disabled, and required states.
+ *
+ * @param props - Radix toggle group props plus variant sizing and stateful options.
+ * @param props.error - Error message, applies error styling when set.
+ * @param props.loading - Shows loading state and disables all items (default: `false`).
+ * @param props.disabled - Disabled state (also set automatically when loading).
+ * @param props.required - Required field indicator (default: `false`).
+ * @param props.onStateChange - Callback when component state changes.
  * @returns A toggle group element.
+ *
+ * @example
+ * ```tsx
+ * <ToggleGroup type="single">
+ *   <ToggleGroupItem value="bold">Bold</ToggleGroupItem>
+ *   <ToggleGroupItem value="italic">Italic</ToggleGroupItem>
+ * </ToggleGroup>
+ * <ToggleGroup error="Invalid selection" />
+ * ```
  */
 function ToggleGroup({
   className,
   variant,
   size,
   children,
+  loading = false,
+  error,
+  disabled = false,
+  required = false,
+  onStateChange,
   ...props
-}: React.ComponentProps<typeof ToggleGroupPrimitive.Root> & VariantProps<typeof toggleVariants>) {
+}: React.ComponentProps<typeof ToggleGroupPrimitive.Root> &
+  VariantProps<typeof toggleVariants> &
+  StatefulComponentProps) {
+  // Determine effective state
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
+  // ToggleGroup is effectively disabled when loading or explicitly disabled
+  const isDisabled = disabled || loading;
+
   return (
     <ToggleGroupPrimitive.Root
       data-slot="toggle-group"
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      data-required={required ? "true" : undefined}
       data-variant={variant}
       data-size={size}
+      disabled={isDisabled}
       className={cn(
         "group/toggle-group flex w-fit items-center rounded-md data-[variant=outline]:shadow-xs",
+        // Error state styling
+        error && "border-destructive/50 border",
+        // Loading state styling
+        loading && "opacity-70",
         className,
       )}
       {...props}

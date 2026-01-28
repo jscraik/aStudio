@@ -7,6 +7,16 @@ vi.mock("@openai/apps-sdk-ui/components/Icon", () => ({
   Sparkles: () => null,
 }));
 
+// Mock CodeBlock to avoid react-syntax-highlighter ESM/CJS interop issues
+vi.mock("@openai/apps-sdk-ui/components/CodeBlock", () => ({
+  CodeBlock: () => null,
+}));
+
+// Mock ViewModeToggle which imports CodeBlock
+vi.mock("../components/ui/navigation/ViewModeToggle", () => ({
+  ViewModeToggle: () => null,
+}));
+
 // Cleanup after each test
 afterEach(() => {
   cleanup();

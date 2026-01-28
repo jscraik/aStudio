@@ -1,8 +1,9 @@
 {
-  "name": "@astudio/runtime",
-  "version": "0.0.1",
+  "name": "@design-studio/runtime",
+  "version": "2.0.0",
   "type": "module",
-  "license": "MIT",
+  "license": "Apache-2.0",
+  "description": "DesignStudio Runtime - Host abstraction layer for embedded and standalone deployments",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -18,15 +19,22 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "type-check": "tsc -p tsconfig.json --noEmit",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "publishConfig": {
     "access": "public"
   },
   "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0"
+    "react": "^19.0.0"
   },
   "devDependencies": {
-    "@types/react": "^19.2.7"
+    "@biomejs/biome": "^1.9.0",
+    "@types/react": "^19.2.7",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.16"
   }
 }

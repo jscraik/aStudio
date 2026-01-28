@@ -1,5 +1,5 @@
-import { AppsSDKButton, AppsSDKInput } from "@astudio/ui";
-import { IconSearch, IconX } from "@astudio/ui/icons";
+import { AppsSDKButton, AppsSDKInput } from "@design-studio/ui";
+import { IconSearch, IconX } from "@design-studio/ui/icons";
 
 type TemplateSearchProps = {
   query: string;

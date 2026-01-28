@@ -1,5 +1,5 @@
-import { AppsSDKBadge, AppsSDKButton, AppsSDKInput } from "@astudio/ui";
-import { IconSearch } from "@astudio/ui/icons";
+import { AppsSDKBadge, AppsSDKButton, AppsSDKInput } from "@design-studio/ui";
+import { IconSearch } from "@design-studio/ui/icons";
 
 const badgeBaseClassName =
   "bg-foundation-bg-light-3 text-foundation-text-light-secondary dark:bg-foundation-bg-dark-3 dark:text-foundation-text-dark-secondary";

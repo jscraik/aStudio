@@ -8,7 +8,7 @@ This document outlines the dependency reconciliation strategy for porting ChatGP
 
 ### Source App Dependencies vs Platform Dependencies
 
-| Package                           | Source App        | Platform (@astudio/ui) | Action Required       |
+| Package                           | Source App        | Platform (@design-studio/ui) | Action Required       |
 | --------------------------------- | ----------------- | ---------------------- | --------------------- |
 | **Radix UI Components**           | ✅ Direct imports | ✅ Already included    | Use platform wrappers |
 | `@radix-ui/react-accordion`       | ^1.2.3            | ^1.1.2                 | Use platform version  |
@@ -40,7 +40,7 @@ This document outlines the dependency reconciliation strategy for porting ChatGP
 
 ### Supporting Libraries
 
-| Package                    | Source App | Platform (@astudio/ui) | Action Required              |
+| Package                    | Source App | Platform (@design-studio/ui) | Action Required              |
 | -------------------------- | ---------- | ---------------------- | ---------------------------- |
 | `class-variance-authority` | ^0.7.1     | ^0.7.1                 | ✅ Already compatible        |
 | `clsx`                     | \*         | ^2.1.1                 | ✅ Already compatible        |
@@ -66,7 +66,7 @@ The following dependencies are needed in the web app but not currently present:
 
 | Package | Version | Purpose | Justification                                               |
 | ------- | ------- | ------- | ----------------------------------------------------------- |
-| None    | -       | -       | All required dependencies already available via @astudio/ui |
+| None    | -       | -       | All required dependencies already available via @design-studio/ui |
 
 ## Design Token Analysis
 
@@ -93,9 +93,9 @@ The following dependencies are needed in the web app but not currently present:
 
 ### Phase 1: No Additional Dependencies Required
 
-- All Radix UI components are already available via @astudio/ui
-- All supporting libraries are already available via @astudio/ui
-- Templates will import from @astudio/ui instead of direct Radix imports
+- All Radix UI components are already available via @design-studio/ui
+- All supporting libraries are already available via @design-studio/ui
+- Templates will import from @design-studio/ui instead of direct Radix imports
 
 ### Phase 2: Component Mapping Strategy
 
@@ -107,8 +107,8 @@ import { Button } from "@radix-ui/react-button";
 import { Dialog } from "@radix-ui/react-dialog";
 
 // Platform (AFTER)
-import { Button } from "@astudio/ui/base";
-import { Dialog } from "@astudio/ui/feedback";
+import { Button } from "@design-studio/ui/base";
+import { Dialog } from "@design-studio/ui/feedback";
 ```
 
 ### Phase 3: Token Integration Strategy
@@ -126,9 +126,9 @@ import { tokens } from "@astudio/tokens";
 
 ## Conclusion
 
-**No additional dependencies are required** for the web platform. The existing @astudio/ui package already includes all necessary Radix UI components and supporting libraries. The port will focus on:
+**No additional dependencies are required** for the web platform. The existing @design-studio/ui package already includes all necessary Radix UI components and supporting libraries. The port will focus on:
 
-1. Updating import statements to use @astudio/ui
+1. Updating import statements to use @design-studio/ui
 2. Updating token usage to use @astudio/tokens
 3. Ensuring Apps SDK UI components are preferred over Radix fallbacks where available
 

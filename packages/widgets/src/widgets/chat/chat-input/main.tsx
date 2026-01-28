@@ -1,6 +1,6 @@
 import { HostProvider, createEmbeddedHost, ensureMockOpenAI } from "@astudio/runtime";
-import { AppsSDKUIProvider } from "@astudio/ui";
-import { ChatInputTemplate } from "@astudio/ui/templates";
+import { AppsSDKUIProvider } from "@design-studio/ui";
+import { ChatInputTemplate } from "@design-studio/ui/templates";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 

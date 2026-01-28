@@ -1,0 +1,128 @@
+/**
+ * Animation keyframes for effects components
+ */
+
+/* Liquid morph effect */
+@keyframes liquid-morph {
+  0%,
+  100% {
+    border-radius: 8px;
+  }
+  25% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  }
+  50% {
+    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+  }
+  75% {
+    border-radius: 40% 60% 60% 40% / 60% 40% 60% 40%;
+  }
+}
+
+/* Magnetic follow effect */
+@keyframes magnetic-follow {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(var(--magnetic-x), var(--magnetic-y));
+  }
+}
+
+/* Holographic shimmer */
+@keyframes holo-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Glow pulse */
+@keyframes glow-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 5px var(--glow-color)) drop-shadow(0 0 10px var(--glow-color))
+      drop-shadow(0 0 20px var(--glow-color));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px var(--glow-color)) drop-shadow(0 0 20px var(--glow-color))
+      drop-shadow(0 0 40px var(--glow-color));
+  }
+}
+
+/* Gradient flow */
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
+}
+
+/* Scroll reveal */
+@keyframes scroll-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glow breathing animation */
+@keyframes glow-breathe {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 5px var(--glow-color)) drop-shadow(0 0 10px var(--glow-color));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px var(--glow-color)) drop-shadow(0 0 30px var(--glow-color));
+  }
+}
+
+/* Gradient shimmer */
+@keyframes gradient-shimmer {
+  0% {
+    background-position: -150% center;
+  }
+  100% {
+    background-position: 150% center;
+  }
+}
+
+/* Apply glow animations via utility classes */
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.animate-glow-breathe {
+  animation: glow-breathe 3s ease-in-out infinite;
+}
+
+/* Apply gradient animations via utility classes */
+.animate-gradient-flow {
+  animation: gradient-flow 5s ease-in-out infinite;
+}
+
+.animate-gradient-shimmer {
+  animation: gradient-shimmer 3s linear infinite;
+}
+
+/* Reduced motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

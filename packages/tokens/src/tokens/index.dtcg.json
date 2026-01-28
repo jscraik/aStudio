@@ -13,7 +13,7 @@
           "type": "color"
         },
         "secondary": {
-          "value": "#E8E8E8",
+          "value": "#EDEDED",
           "type": "color"
         },
         "tertiary": {
@@ -127,7 +127,7 @@
           "type": "color"
         },
         "accent": {
-          "value": "#48AAFF",
+          "value": "#339CFF",
           "type": "color"
         },
         "statusError": {
@@ -189,7 +189,7 @@
           "type": "color"
         },
         "yellow": {
-          "value": "#C08C00",
+          "value": "#BA8E00",
           "type": "color"
         },
         "green": {
@@ -201,11 +201,11 @@
           "type": "color"
         },
         "purple": {
-          "value": "#934FF2",
+          "value": "#924FF7",
           "type": "color"
         },
         "pink": {
-          "value": "#E3008D",
+          "value": "#E04C91",
           "type": "color"
         },
         "foreground": {
@@ -216,7 +216,7 @@
       },
       "dark": {
         "gray": {
-          "value": "#ABABAB",
+          "value": "#AFAFAF",
           "type": "color"
         },
         "red": {
@@ -228,7 +228,7 @@
           "type": "color"
         },
         "yellow": {
-          "value": "#FFD666",
+          "value": "#FFDB66",
           "type": "color"
         },
         "green": {
@@ -236,15 +236,15 @@
           "type": "color"
         },
         "blue": {
-          "value": "#5A9FF5",
+          "value": "#66B5FF",
           "type": "color"
         },
         "purple": {
-          "value": "#BA8FF7",
+          "value": "#BE95FA",
           "type": "color"
         },
         "pink": {
-          "value": "#FF6BC7",
+          "value": "#FF66AD",
           "type": "color"
         },
         "foreground": {
@@ -313,7 +313,7 @@
       "type": "dimension"
     },
     "s2": {
-      "value": 2,
+      "value": 4,
       "type": "dimension"
     },
     "s0": {
@@ -343,11 +343,11 @@
       "type": "dimension"
     },
     "r18": {
-      "value": 18,
+      "value": 20,
       "type": "dimension"
     },
     "r21": {
-      "value": 21,
+      "value": 20,
       "type": "dimension"
     },
     "r24": {
@@ -355,11 +355,11 @@
       "type": "dimension"
     },
     "r30": {
-      "value": 30,
+      "value": 24,
       "type": "dimension"
     },
     "round": {
-      "value": 999,
+      "value": 9999,
       "type": "dimension"
     }
   },
@@ -381,11 +381,18 @@
     "card": {
       "value": [
         {
-          "color": "#0000000D",
+          "color": "rgba(0 0 0 / 10%)",
+          "offsetX": 0,
+          "offsetY": 10,
+          "blur": 15,
+          "spread": -3
+        },
+        {
+          "color": "rgba(0 0 0 / 10%)",
           "offsetX": 0,
           "offsetY": 4,
-          "blur": 16,
-          "spread": 0
+          "blur": 6,
+          "spread": -4
         }
       ],
       "type": "shadow"
@@ -393,11 +400,18 @@
     "pip": {
       "value": [
         {
-          "color": "#0000000D",
+          "color": "rgba(0 0 0 / 10%)",
+          "offsetX": 0,
+          "offsetY": 10,
+          "blur": 15,
+          "spread": -3
+        },
+        {
+          "color": "rgba(0 0 0 / 10%)",
           "offsetX": 0,
           "offsetY": 4,
-          "blur": 16,
-          "spread": 0
+          "blur": 6,
+          "spread": -4
         }
       ],
       "type": "shadow"
@@ -405,11 +419,18 @@
     "pill": {
       "value": [
         {
-          "color": "#0000000A",
+          "color": "rgba(0 0 0 / 10%)",
           "offsetX": 0,
           "offsetY": 10,
-          "blur": 22,
-          "spread": 0
+          "blur": 15,
+          "spread": -3
+        },
+        {
+          "color": "rgba(0 0 0 / 10%)",
+          "offsetX": 0,
+          "offsetY": 4,
+          "blur": 6,
+          "spread": -4
         }
       ],
       "type": "shadow"
@@ -417,11 +438,18 @@
     "close": {
       "value": [
         {
-          "color": "#00000029",
+          "color": "rgba(0 0 0 / 10%)",
+          "offsetX": 0,
+          "offsetY": 10,
+          "blur": 15,
+          "spread": -3
+        },
+        {
+          "color": "rgba(0 0 0 / 10%)",
           "offsetX": 0,
           "offsetY": 4,
-          "blur": 8,
-          "spread": 0
+          "blur": 6,
+          "spread": -4
         }
       ],
       "type": "shadow"
@@ -439,7 +467,7 @@
           "type": "dimension"
         },
         "lineHeight": {
-          "value": 40,
+          "value": 42,
           "type": "dimension"
         },
         "weight": {
@@ -493,7 +521,7 @@
           "type": "dimension"
         },
         "lineHeight": {
-          "value": 26,
+          "value": 24,
           "type": "dimension"
         },
         "weight": {
@@ -515,7 +543,7 @@
           "type": "dimension"
         },
         "lineHeight": {
-          "value": 18,
+          "value": 20,
           "type": "dimension"
         },
         "weight": {
@@ -537,7 +565,7 @@
           "type": "dimension"
         },
         "lineHeight": {
-          "value": 16,
+          "value": 18,
           "type": "dimension"
         },
         "weight": {
@@ -555,11 +583,11 @@
       },
       "cardTitle": {
         "size": {
-          "value": 17,
+          "value": 18,
           "type": "dimension"
         },
         "lineHeight": {
-          "value": 23,
+          "value": 26,
           "type": "dimension"
         },
         "weight": {
@@ -573,7 +601,7 @@
       },
       "listTitle": {
         "size": {
-          "value": 17,
+          "value": 16,
           "type": "dimension"
         },
         "lineHeight": {
@@ -609,7 +637,7 @@
       },
       "buttonLabel": {
         "size": {
-          "value": 15,
+          "value": 16,
           "type": "dimension"
         },
         "lineHeight": {

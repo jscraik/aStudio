@@ -12,7 +12,7 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { vi } from "vitest";
 
-vi.mock("@astudio/ui", () => ({
+vi.mock("@design-studio/ui", () => ({
   AppsSDKButton: ({ children }) => React.createElement("button", null, children),
 }));
 

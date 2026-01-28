@@ -1,5 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
-import { AppsSDKButton } from "@astudio/ui";
+import { AppsSDKButton } from "@design-studio/ui";
 
 type TemplateHostProps = {
   templateId: string;

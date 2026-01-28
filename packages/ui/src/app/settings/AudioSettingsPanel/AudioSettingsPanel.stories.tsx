@@ -9,7 +9,7 @@ import { AudioSettingsPanel } from "./AudioSettingsPanel";
  *
  * ## Usage
  * ```tsx
- * import { AudioSettingsPanel } from "@astudio/ui";
+ * import { AudioSettingsPanel } from "@design-studio/ui";
  *
  * <AudioSettingsPanel onBack={fn()} />
  * ```

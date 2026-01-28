@@ -2,21 +2,13 @@
   "version": "1.0.0",
   "builds": {},
   "lastBuild": {
-    "timestamp": "2026-01-09T01:01:49.671Z",
-    "duration": 17480,
+    "timestamp": "2026-01-25T07:10:28.269Z",
+    "duration": 72852,
     "results": [
       {
-        "step": "version-sync",
-        "success": true,
-        "version": "0.0.0"
-      },
-      {
-        "step": "token-validation",
-        "success": true
-      },
-      {
         "step": "token-generation",
-        "success": true
+        "success": true,
+        "skipped": true
       },
       {
         "step": "web-build",
@@ -36,6 +28,26 @@
       {
         "step": "web-build",
         "package": "packages/widgets",
+        "success": true
+      },
+      {
+        "step": "test",
+        "suite": "Unit Tests",
+        "success": true
+      },
+      {
+        "step": "test",
+        "suite": "MCP Contract Tests",
+        "success": true
+      },
+      {
+        "step": "test",
+        "suite": "E2E Tests",
+        "success": true
+      },
+      {
+        "step": "test",
+        "suite": "A11y Tests",
         "success": true
       }
     ],

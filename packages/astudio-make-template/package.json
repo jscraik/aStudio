@@ -9,8 +9,8 @@
     "src"
   ],
   "dependencies": {
-    "@astudio/tokens": "workspace:*",
-    "@astudio/ui": "workspace:*",
+    "@design-studio/tokens": "workspace:*",
+    "@design-studio/ui": "workspace:*",
     "@astudio/icons": "workspace:*",
     "react": ">=18",
     "react-dom": ">=18"

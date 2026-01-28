@@ -45,6 +45,137 @@ describe("RadioGroup", () => {
     });
   });
 
+  describe("StatefulComponentProps", () => {
+    describe("loading state", () => {
+      it("shows loading state when loading is true", () => {
+        render(
+          <RadioGroup loading aria-label="Loading radio group">
+            <RadioGroupItem value="option1" />
+          </RadioGroup>,
+        );
+        const radioGroup = screen.getByRole("radiogroup");
+        expect(radioGroup).toHaveAttribute("data-state", "loading");
+      });
+
+      it("disables all items when group is loading", () => {
+        render(
+          <RadioGroup loading>
+            <RadioGroupItem value="option1" />
+            <RadioGroupItem value="option2" />
+          </RadioGroup>,
+        );
+
+        screen.getAllByRole("radio").forEach((radio) => {
+          expect(radio).toBeDisabled();
+        });
+      });
+
+      it("calls onStateChange with loading state", () => {
+        const onStateChange = vi.fn();
+        render(
+          <RadioGroup loading onStateChange={onStateChange} aria-label="Loading radio group">
+            <RadioGroupItem value="option1" />
+          </RadioGroup>,
+        );
+        expect(onStateChange).toHaveBeenCalledWith("loading");
+      });
+    });
+
+    describe("error state", () => {
+      it("applies error styles when error message is provided", () => {
+        render(
+          <RadioGroup error="Selection required" aria-label="Error radio group">
+            <RadioGroupItem value="option1" />
+          </RadioGroup>,
+        );
+        const radioGroup = screen.getByRole("radiogroup");
+        expect(radioGroup).toHaveAttribute("data-state", "error");
+        expect(radioGroup).toHaveAttribute("data-error", "true");
+      });
+
+      it("calls onStateChange with error state", () => {
+        const onStateChange = vi.fn();
+        render(
+          <RadioGroup error="Error message" onStateChange={onStateChange} aria-label="Error radio group">
+            <RadioGroupItem value="option1" />
+          </RadioGroup>,
+        );
+        expect(onStateChange).toHaveBeenCalledWith("error");
+      });
+    });
+
+    describe("required state", () => {
+      it("sets data-required attribute when required is true", () => {
+        render(
+          <RadioGroup required aria-label="Required radio group">
+            <RadioGroupItem value="option1" />
+          </RadioGroup>,
+        );
+        expect(screen.getByRole("radiogroup")).toHaveAttribute("data-required", "true");
+      });
+
+      it("sets native required attribute when required is true", () => {
+        render(
+          <RadioGroup required aria-label="Required radio group">
+            <RadioGroupItem value="option1" />
+          </RadioGroup>,
+        );
+        expect(screen.getByRole("radiogroup")).toBeRequired();
+      });
+
+      it("does not set data-required when required is false", () => {
+        render(
+          <RadioGroup required={false} aria-label="Optional radio group">
+            <RadioGroupItem value="option1" />
+          </RadioGroup>,
+        );
+        expect(screen.getByRole("radiogroup")).not.toHaveAttribute("data-required");
+      });
+    });
+
+    describe("onStateChange callback", () => {
+      it("calls onStateChange with default state when no other state is set", () => {
+        const onStateChange = vi.fn();
+        render(
+          <RadioGroup onStateChange={onStateChange} aria-label="Test radio group">
+            <RadioGroupItem value="option1" />
+          </RadioGroup>,
+        );
+        expect(onStateChange).toHaveBeenCalledWith("default");
+      });
+
+      it("calls onStateChange with disabled state when disabled", () => {
+        const onStateChange = vi.fn();
+        render(
+          <RadioGroup disabled onStateChange={onStateChange} aria-label="Disabled radio group">
+            <RadioGroupItem value="option1" />
+          </RadioGroup>,
+        );
+        expect(onStateChange).toHaveBeenCalledWith("disabled");
+      });
+
+      it("prioritizes loading over disabled state", () => {
+        const onStateChange = vi.fn();
+        render(
+          <RadioGroup loading disabled onStateChange={onStateChange} aria-label="Loading disabled radio group">
+            <RadioGroupItem value="option1" />
+          </RadioGroup>,
+        );
+        expect(onStateChange).toHaveBeenCalledWith("loading");
+      });
+
+      it("prioritizes error over other states", () => {
+        const onStateChange = vi.fn();
+        render(
+          <RadioGroup error="Error" loading onStateChange={onStateChange} aria-label="Error loading radio group">
+            <RadioGroupItem value="option1" />
+          </RadioGroup>,
+        );
+        expect(onStateChange).toHaveBeenCalledWith("loading");
+      });
+    });
+  });
+
   describe("selection", () => {
     it("selects item when clicked", async () => {
       const onChange = vi.fn();

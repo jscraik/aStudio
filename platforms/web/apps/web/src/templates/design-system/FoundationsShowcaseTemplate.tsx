@@ -8,4 +8,4 @@
  * status: stable
  * entry: FoundationsShowcase
  */
-export { FoundationsShowcase } from "@astudio/ui/showcase";
+export { FoundationsShowcase } from "@design-studio/ui/showcase";

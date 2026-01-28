@@ -4,7 +4,7 @@ import {
   ensureMockOpenAI,
   useToolOutput,
 } from "@astudio/runtime";
-import { AppsSDKBadge, AppsSDKUIProvider } from "@astudio/ui";
+import { AppsSDKBadge, AppsSDKUIProvider } from "@design-studio/ui";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "../../../styles.css";

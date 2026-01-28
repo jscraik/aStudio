@@ -18,7 +18,7 @@ export const astudioCatalog = createCatalog({
 
     /**
      * Card - Container with optional header
-     * Maps to @astudio/ui Card compound component
+     * Maps to @design-studio/ui Card compound component
      */
     Card: {
       props: z.object({
@@ -174,7 +174,7 @@ export const astudioCatalog = createCatalog({
 
     /**
      * Button - Action button
-     * Maps to @astudio/ui Button
+     * Maps to @design-studio/ui Button
      */
     Button: {
       props: z.object({

@@ -56,9 +56,7 @@ function loadIconExports() {
 
 async function loadUpstreamExports() {
   try {
-    const typesPath = resolve(
-      "node_modules/@openai/apps-sdk-ui/dist/types/components",
-    );
+    const typesPath = resolve("node_modules/@openai/apps-sdk-ui/dist/types/components");
     if (!existsSync(typesPath)) {
       throw new Error(`Missing apps-sdk-ui types path: ${typesPath}`);
     }

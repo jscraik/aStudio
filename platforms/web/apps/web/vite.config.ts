@@ -22,7 +22,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes("@astudio/ui")) {
+          if (id.includes("@design-studio/ui")) {
             if (id.includes("/dist/")) {
               if (id.includes("/chat.")) return "astudio-chat";
               if (

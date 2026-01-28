@@ -6,7 +6,7 @@ import {
   type OpenAiDisplayMode,
   type OpenAiGlobals as RuntimeOpenAiGlobals,
   type OpenAiTheme,
-} from "@astudio/runtime";
+} from "@design-studio/runtime";
 
 import { validateWidgetStateBudget } from "./widget-state-budget";
 

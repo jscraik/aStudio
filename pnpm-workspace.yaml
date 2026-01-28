@@ -2,3 +2,4 @@ packages:
   - "packages/*"
   - "platforms/*/apps/*"
   - "platforms/mcp"
+  - "tools/*"

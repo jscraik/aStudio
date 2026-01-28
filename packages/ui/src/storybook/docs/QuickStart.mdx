@@ -11,10 +11,10 @@ Get started quickly with common patterns and examples.
 
 ```bash
 # Install the UI package
-pnpm install @astudio/ui
+pnpm install @design-studio/ui
 
 # Or with npm
-npm install @astudio/ui
+npm install @design-studio/ui
 ```
 
 ## Basic Setup
@@ -22,19 +22,19 @@ npm install @astudio/ui
 ### 1. Import Styles
 
 ```tsx
-import "@astudio/ui/styles";
+import "@design-studio/ui/styles";
 ```
 
 Or in your CSS:
 
 ```css
-@import "@astudio/ui/styles";
+@import "@design-studio/ui/styles";
 ```
 
 ### 2. Import Components
 
 ```tsx
-import { Button, ChatHeader, ChatInput } from "@astudio/ui";
+import { Button, ChatHeader, ChatInput } from "@design-studio/ui";
 ```
 
 ## Common Patterns
@@ -42,7 +42,7 @@ import { Button, ChatHeader, ChatInput } from "@astudio/ui";
 ### Pattern 1: Simple Button
 
 ```tsx
-import { Button } from "@astudio/ui";
+import { Button } from "@design-studio/ui";
 
 export function Example() {
   return (
@@ -56,7 +56,7 @@ export function Example() {
 ### Pattern 2: Chat Interface
 
 ```tsx
-import { ChatHeader, ChatSidebar, ChatMessages, ChatInput } from "@astudio/ui";
+import { ChatHeader, ChatSidebar, ChatMessages, ChatInput } from "@design-studio/ui";
 
 export function ChatApp() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -99,7 +99,7 @@ export function ChatApp() {
 ### Pattern 3: Settings Panel
 
 ```tsx
-import { SettingRow, SettingToggle } from "@astudio/ui";
+import { SettingRow, SettingToggle } from "@design-studio/ui";
 
 export function SettingsPanel() {
   const [darkMode, setDarkMode] = useState(false);
@@ -122,7 +122,7 @@ export function SettingsPanel() {
 ### Pattern 4: Form with Validation
 
 ```tsx
-import { Input, Button } from "@astudio/ui";
+import { Input, Button } from "@design-studio/ui";
 
 export function ContactForm() {
   const [email, setEmail] = useState("");
@@ -162,7 +162,7 @@ export function ContactForm() {
 ### Pattern 5: Modal Dialog
 
 ```tsx
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@astudio/ui";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@design-studio/ui";
 
 export function Example() {
   const [isOpen, setIsOpen] = useState(false);
@@ -195,7 +195,7 @@ export function Example() {
 ### Pattern 6: Tabbed Interface
 
 ```tsx
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@astudio/ui";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@design-studio/ui";
 
 export function TabbedExample() {
   return (
@@ -216,7 +216,7 @@ export function TabbedExample() {
 ### Pattern 7: Toast Notification
 
 ```tsx
-import { Toast } from "@astudio/ui";
+import { Toast } from "@design-studio/ui";
 
 export function ToastExample() {
   const [showToast, setShowToast] = useState(false);
@@ -243,11 +243,11 @@ export function ToastExample() {
 ### Pattern 8: Full Template Layout
 
 ```tsx
-import { DashboardTemplate } from "@astudio/ui";
-import { ChatHeader } from "@astudio/ui/chat";
-import { ChatSidebar } from "@astudio/ui/chat";
-import { ChatMessages } from "@astudio/ui/chat";
-import { ChatInput } from "@astudio/ui/chat";
+import { DashboardTemplate } from "@design-studio/ui";
+import { ChatHeader } from "@design-studio/ui/chat";
+import { ChatSidebar } from "@design-studio/ui/chat";
+import { ChatMessages } from "@design-studio/ui/chat";
+import { ChatInput } from "@design-studio/ui/chat";
 
 export function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -300,7 +300,7 @@ export function App() {
 ### Using Design Tokens
 
 ```tsx
-import { FColor, FSpacing, FType } from "@astudio/ui/foundation";
+import { FColor, FSpacing, FType } from "@design-studio/ui/foundation";
 
 // Tokens are available as CSS variables
 const styles = {
@@ -328,7 +328,7 @@ const styles = {
 ## Icons
 
 ```tsx
-import { IconSettings, IconUser, IconChat } from "@astudio/ui";
+import { IconSettings, IconUser, IconChat } from "@design-studio/ui";
 
 // Use icons in your components
 <div>

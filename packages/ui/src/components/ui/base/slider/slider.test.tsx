@@ -24,6 +24,107 @@ describe("Slider", () => {
     });
   });
 
+  describe("StatefulComponentProps", () => {
+    describe("loading state", () => {
+      it("shows loading state when loading is true", () => {
+        render(<Slider loading defaultValue={[50]} />);
+        const slider = screen.getByRole("slider").closest("[data-slot='slider']");
+        expect(slider).toHaveAttribute("data-state", "loading");
+      });
+
+      it("applies loading opacity to thumb", () => {
+        render(<Slider loading defaultValue={[50]} />);
+        const slider = screen.getByRole("slider");
+        expect(slider).toHaveClass("opacity-70");
+      });
+
+      it("applies loading cursor style to thumb", () => {
+        render(<Slider loading defaultValue={[50]} />);
+        const slider = screen.getByRole("slider");
+        expect(slider).toHaveClass("cursor-wait");
+      });
+
+      it("calls onStateChange with loading state", () => {
+        const onStateChange = vi.fn();
+        render(<Slider loading onStateChange={onStateChange} defaultValue={[50]} />);
+        expect(onStateChange).toHaveBeenCalledWith("loading");
+      });
+    });
+
+    describe("error state", () => {
+      it("applies error styles when error message is provided", () => {
+        render(<Slider error="Value too high" defaultValue={[50]} />);
+        const slider = screen.getByRole("slider").closest("[data-slot='slider']");
+        expect(slider).toHaveAttribute("data-state", "error");
+        expect(slider).toHaveAttribute("data-error", "true");
+      });
+
+      it("applies error border to track", () => {
+        render(<Slider error="Value too high" defaultValue={[50]} />);
+        const track = screen.getByRole("slider").closest("[data-slot='slider']")?.querySelector("[data-slot='slider-track']");
+        expect(track).toHaveClass("border-destructive/50");
+      });
+
+      it("applies error background to range", () => {
+        render(<Slider error="Value too high" defaultValue={[50]} />);
+        const range = screen.getByRole("slider").closest("[data-slot='slider']")?.querySelector("[data-slot='slider-range']");
+        expect(range).toHaveClass("bg-destructive");
+      });
+
+      it("applies error border to thumb", () => {
+        render(<Slider error="Value too high" defaultValue={[50]} />);
+        const thumb = screen.getByRole("slider");
+        expect(thumb).toHaveClass("border-destructive");
+      });
+
+      it("calls onStateChange with error state", () => {
+        const onStateChange = vi.fn();
+        render(<Slider error="Error message" onStateChange={onStateChange} defaultValue={[50]} />);
+        expect(onStateChange).toHaveBeenCalledWith("error");
+      });
+    });
+
+    describe("required state", () => {
+      it("sets data-required attribute when required is true", () => {
+        render(<Slider required defaultValue={[50]} />);
+        const slider = screen.getByRole("slider").closest("[data-slot='slider']");
+        expect(slider).toHaveAttribute("data-required", "true");
+      });
+
+      it("does not set data-required when required is false", () => {
+        render(<Slider required={false} defaultValue={[50]} />);
+        const slider = screen.getByRole("slider").closest("[data-slot='slider']");
+        expect(slider).not.toHaveAttribute("data-required");
+      });
+    });
+
+    describe("onStateChange callback", () => {
+      it("calls onStateChange with default state when no other state is set", () => {
+        const onStateChange = vi.fn();
+        render(<Slider onStateChange={onStateChange} defaultValue={[50]} />);
+        expect(onStateChange).toHaveBeenCalledWith("default");
+      });
+
+      it("calls onStateChange with disabled state when disabled", () => {
+        const onStateChange = vi.fn();
+        render(<Slider disabled onStateChange={onStateChange} defaultValue={[50]} />);
+        expect(onStateChange).toHaveBeenCalledWith("disabled");
+      });
+
+      it("prioritizes loading over disabled state", () => {
+        const onStateChange = vi.fn();
+        render(<Slider loading disabled onStateChange={onStateChange} defaultValue={[50]} />);
+        expect(onStateChange).toHaveBeenCalledWith("loading");
+      });
+
+      it("prioritizes error over other states", () => {
+        const onStateChange = vi.fn();
+        render(<Slider error="Error" loading onStateChange={onStateChange} defaultValue={[50]} />);
+        expect(onStateChange).toHaveBeenCalledWith("loading");
+      });
+    });
+  });
+
   describe("values", () => {
     it("renders with defaultValue", () => {
       render(<Slider defaultValue={[50]} />);
@@ -63,6 +164,24 @@ describe("Slider", () => {
       await user.tab();
       expect(document.activeElement).toBe(screen.getByRole("slider"));
     });
+
+    it("does not trigger onChange when disabled", async () => {
+      const onValueChange = vi.fn();
+      const { user } = render(<Slider disabled defaultValue={[50]} onValueChange={onValueChange} />);
+
+      const slider = screen.getByRole("slider");
+      await user.click(slider);
+      expect(onValueChange).not.toHaveBeenCalled();
+    });
+
+    it("does not trigger onChange when loading", async () => {
+      const onValueChange = vi.fn();
+      const { user } = render(<Slider loading defaultValue={[50]} onValueChange={onValueChange} />);
+
+      const slider = screen.getByRole("slider");
+      await user.click(slider);
+      expect(onValueChange).not.toHaveBeenCalled();
+    });
   });
 
   describe("disabled state", () => {
@@ -78,6 +197,15 @@ describe("Slider", () => {
       expect(screen.getByRole("slider").closest("[data-slot='slider']")).toHaveClass(
         "data-[disabled]:opacity-50",
       );
+    });
+
+    it("does not trigger onChange when disabled", async () => {
+      const onValueChange = vi.fn();
+      const { user } = render(<Slider disabled defaultValue={[50]} onValueChange={onValueChange} />);
+
+      const slider = screen.getByRole("slider");
+      await user.click(slider);
+      expect(onValueChange).not.toHaveBeenCalled();
     });
   });
 
@@ -119,6 +247,12 @@ describe("Slider", () => {
       // Radix Slider applies aria-label to the thumb, not the root
       const slider = screen.getByRole("slider");
       expect(slider).toBeInTheDocument();
+    });
+
+    it("has visible focus indicator styles", () => {
+      render(<Slider defaultValue={[50]} />);
+      const thumb = screen.getByRole("slider");
+      expect(thumb).toHaveClass("focus-visible:ring-4");
     });
   });
 

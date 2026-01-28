@@ -25,7 +25,7 @@ import {
  *
  * ## Usage
  * ```tsx
- * import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@astudio/ui";
+ * import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@design-studio/ui";
  *
  * <Dialog>
  *   <DialogTrigger asChild>

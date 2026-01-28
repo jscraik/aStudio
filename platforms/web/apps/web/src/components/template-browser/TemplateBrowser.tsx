@@ -8,7 +8,7 @@ import {
   IconSettings,
   IconSidebar,
   IconStar,
-} from "@astudio/ui/icons";
+} from "@design-studio/ui/icons";
 
 import {
   templateCategoryLabels,

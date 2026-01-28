@@ -1,5 +1,5 @@
-import { AppsSDKBadge, AppsSDKButton } from "@astudio/ui";
-import { IconCopy, IconMoon, IconSun } from "@astudio/ui/icons";
+import { AppsSDKBadge, AppsSDKButton } from "@design-studio/ui";
+import { IconCopy, IconMoon, IconSun } from "@design-studio/ui/icons";
 
 import { TemplateHost } from "./TemplateHost";
 

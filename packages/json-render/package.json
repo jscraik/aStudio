@@ -34,8 +34,8 @@
     "react-dom": "^19.0.0"
   },
   "dependencies": {
-    "@astudio/ui": "workspace:*",
-    "@astudio/tokens": "workspace:*",
+    "@design-studio/ui": "workspace:*",
+    "@design-studio/tokens": "workspace:*",
     "zod": "^4.3.5"
   },
   "devDependencies": {

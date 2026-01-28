@@ -8,4 +8,4 @@
  * status: stable
  * entry: ColorShowcase
  */
-export { ColorShowcase } from "@astudio/ui/showcase";
+export { ColorShowcase } from "@design-studio/ui/showcase";

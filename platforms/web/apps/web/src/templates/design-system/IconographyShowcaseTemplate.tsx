@@ -8,4 +8,4 @@
  * status: stable
  * entry: IconographyShowcase
  */
-export { IconographyShowcase } from "@astudio/ui/showcase";
+export { IconographyShowcase } from "@design-studio/ui/showcase";

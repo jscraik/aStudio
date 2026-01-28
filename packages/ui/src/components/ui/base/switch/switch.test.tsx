@@ -63,6 +63,118 @@ describe("Switch", () => {
     });
   });
 
+  describe("StatefulComponentProps", () => {
+    describe("loading state", () => {
+      it("shows loading spinner when loading is true", () => {
+        render(<Switch loading aria-label="Loading switch" />);
+        const switchEl = screen.getByRole("switch");
+        expect(switchEl).toHaveAttribute("data-state", "loading");
+        expect(switchEl).toHaveClass("opacity-70");
+      });
+
+      it("disables switch when loading", () => {
+        render(<Switch loading aria-label="Loading switch" />);
+        expect(screen.getByRole("switch")).toBeDisabled();
+      });
+
+      it("does not toggle when loading", async () => {
+        const onCheckedChange = vi.fn();
+        const { user } = render(
+          <Switch loading onCheckedChange={onCheckedChange} aria-label="Loading switch" />,
+        );
+        await user.click(screen.getByRole("switch"));
+        expect(onCheckedChange).not.toHaveBeenCalled();
+      });
+
+      it("calls onStateChange with loading state", () => {
+        const onStateChange = vi.fn();
+        render(<Switch loading onStateChange={onStateChange} aria-label="Loading switch" />);
+        expect(onStateChange).toHaveBeenCalledWith("loading");
+      });
+    });
+
+    describe("error state", () => {
+      it("applies error styles when error message is provided", () => {
+        render(<Switch error="Must enable to continue" aria-label="Error switch" />);
+        const switchEl = screen.getByRole("switch");
+        expect(switchEl).toHaveAttribute("data-state", "error");
+        expect(switchEl).toHaveAttribute("data-error", "true");
+        expect(switchEl).toHaveClass("border-red-500");
+      });
+
+      it("applies error focus styles", () => {
+        render(<Switch error="Connection failed" aria-label="Error switch" />);
+        expect(screen.getByRole("switch")).toHaveClass("focus:border-red-500");
+        expect(screen.getByRole("switch")).toHaveClass("focus:ring-red-500");
+      });
+
+      it("applies error state to thumb when checked", () => {
+        render(<Switch error="Sync failed" checked aria-label="Error checked switch" />);
+        const switchEl = screen.getByRole("switch");
+        expect(switchEl).toHaveAttribute("data-state", "error");
+      });
+
+      it("calls onStateChange with error state", () => {
+        const onStateChange = vi.fn();
+        render(<Switch error="Error message" onStateChange={onStateChange} aria-label="Error switch" />);
+        expect(onStateChange).toHaveBeenCalledWith("error");
+      });
+    });
+
+    describe("required state", () => {
+      it("sets data-required attribute when required is true", () => {
+        render(<Switch required aria-label="Required switch" />);
+        expect(screen.getByRole("switch")).toHaveAttribute("data-required", "true");
+      });
+
+      it("sets aria-required attribute for accessibility when required is true", () => {
+        render(<Switch required aria-label="Required switch" />);
+        expect(screen.getByRole("switch")).toHaveAttribute("aria-required", "true");
+      });
+
+      it("does not set data-required when required is false", () => {
+        render(<Switch required={false} aria-label="Optional switch" />);
+        expect(screen.getByRole("switch")).not.toHaveAttribute("data-required");
+      });
+    });
+
+    describe("onStateChange callback", () => {
+      it("calls onStateChange with unchecked state when no other state is set", () => {
+        const onStateChange = vi.fn();
+        render(<Switch onStateChange={onStateChange} aria-label="Test switch" />);
+        expect(onStateChange).toHaveBeenCalledWith("unchecked");
+      });
+
+      it("calls onStateChange with checked state when checked", () => {
+        const onStateChange = vi.fn();
+        render(<Switch checked onStateChange={onStateChange} aria-label="Test switch" />);
+        expect(onStateChange).toHaveBeenCalledWith("checked");
+      });
+
+      it("calls onStateChange with disabled state when disabled", () => {
+        const onStateChange = vi.fn();
+        render(<Switch disabled onStateChange={onStateChange} aria-label="Disabled switch" />);
+        expect(onStateChange).toHaveBeenCalledWith("disabled");
+      });
+
+      it("prioritizes loading over disabled state", () => {
+        const onStateChange = vi.fn();
+        render(
+          <Switch loading disabled onStateChange={onStateChange} aria-label="Loading disabled switch" />,
+        );
+        expect(onStateChange).toHaveBeenCalledWith("loading");
+      });
+
+      it("prioritizes error over other states", () => {
+        const onStateChange = vi.fn();
+        render(
+          <Switch error="Error" loading onStateChange={onStateChange} aria-label="Error loading switch" />,
+        );
+        expect(onStateChange).toHaveBeenCalledWith("loading");
+      });
+    });
+  });
+
   describe("disabled state", () => {
     it("renders as disabled when disabled prop is true", () => {
       render(<Switch disabled aria-label="Disabled switch" />);
@@ -185,8 +297,12 @@ describe("Switch", () => {
 
     it("has visible focus indicator styles", () => {
       render(<Switch aria-label="Test switch" />);
-      // The actual class uses foundation tokens
       expect(screen.getByRole("switch")).toHaveClass("focus-visible:ring-2");
+    });
+
+    it("has error state styles for error prop", () => {
+      render(<Switch error="Connection error" aria-label="Error switch" />);
+      expect(screen.getByRole("switch")).toHaveClass("border-red-500");
     });
   });
 

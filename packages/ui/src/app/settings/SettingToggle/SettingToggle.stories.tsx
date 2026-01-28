@@ -12,7 +12,7 @@ import { SettingToggle } from "./SettingToggle";
  *
  * ## Usage
  * ```tsx
- * import { SettingToggle } from "@astudio/ui";
+ * import { SettingToggle } from "@design-studio/ui";
  *
  * <SettingToggle
  *   checked={enabled}

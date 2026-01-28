@@ -35,6 +35,149 @@ describe("ToggleGroup", () => {
     });
   });
 
+  describe("StatefulComponentProps", () => {
+    describe("loading state", () => {
+      it("shows loading state when loading is true", () => {
+        render(
+          <ToggleGroup type="single" loading>
+            <ToggleGroupItem value="a">A</ToggleGroupItem>
+          </ToggleGroup>,
+        );
+        const group = screen.getByRole("group");
+        expect(group).toHaveAttribute("data-state", "loading");
+      });
+
+      it("disables all items when group is loading", () => {
+        render(
+          <ToggleGroup type="single" loading>
+            <ToggleGroupItem value="a">A</ToggleGroupItem>
+            <ToggleGroupItem value="b">B</ToggleGroupItem>
+          </ToggleGroup>,
+        );
+
+        expect(screen.getByText("A")).toBeDisabled();
+        expect(screen.getByText("B")).toBeDisabled();
+      });
+
+      it("applies loading opacity to group", () => {
+        render(
+          <ToggleGroup type="single" loading>
+            <ToggleGroupItem value="a">A</ToggleGroupItem>
+          </ToggleGroup>,
+        );
+        const group = screen.getByRole("group");
+        expect(group).toHaveClass("opacity-70");
+      });
+
+      it("calls onStateChange with loading state", () => {
+        const onStateChange = vi.fn();
+        render(
+          <ToggleGroup type="single" loading onStateChange={onStateChange}>
+            <ToggleGroupItem value="a">A</ToggleGroupItem>
+          </ToggleGroup>,
+        );
+        expect(onStateChange).toHaveBeenCalledWith("loading");
+      });
+    });
+
+    describe("error state", () => {
+      it("applies error styles when error message is provided", () => {
+        render(
+          <ToggleGroup type="single" error="Selection required">
+            <ToggleGroupItem value="a">A</ToggleGroupItem>
+          </ToggleGroup>,
+        );
+        const group = screen.getByRole("group");
+        expect(group).toHaveAttribute("data-state", "error");
+        expect(group).toHaveAttribute("data-error", "true");
+      });
+
+      it("applies error border to group", () => {
+        render(
+          <ToggleGroup type="single" error="Selection required">
+            <ToggleGroupItem value="a">A</ToggleGroupItem>
+          </ToggleGroup>,
+        );
+        const group = screen.getByRole("group");
+        expect(group).toHaveClass("border-destructive/50");
+      });
+
+      it("calls onStateChange with error state", () => {
+        const onStateChange = vi.fn();
+        render(
+          <ToggleGroup type="single" error="Error message" onStateChange={onStateChange}>
+            <ToggleGroupItem value="a">A</ToggleGroupItem>
+          </ToggleGroup>,
+        );
+        expect(onStateChange).toHaveBeenCalledWith("error");
+      });
+    });
+
+    describe("required state", () => {
+      it("sets data-required attribute when required is true", () => {
+        render(
+          <ToggleGroup type="single" required>
+            <ToggleGroupItem value="a">A</ToggleGroupItem>
+          </ToggleGroup>,
+        );
+        const group = screen.getByRole("group");
+        expect(group).toHaveAttribute("data-required", "true");
+      });
+
+      it("does not set data-required when required is false", () => {
+        render(
+          <ToggleGroup type="single" required={false}>
+            <ToggleGroupItem value="a">A</ToggleGroupItem>
+          </ToggleGroup>,
+        );
+        const group = screen.getByRole("group");
+        expect(group).not.toHaveAttribute("data-required");
+      });
+    });
+
+    describe("onStateChange callback", () => {
+      it("calls onStateChange with default state when no other state is set", () => {
+        const onStateChange = vi.fn();
+        render(
+          <ToggleGroup type="single" onStateChange={onStateChange}>
+            <ToggleGroupItem value="a">A</ToggleGroupItem>
+          </ToggleGroup>,
+        );
+        expect(onStateChange).toHaveBeenCalledWith("default");
+      });
+
+      it("calls onStateChange with disabled state when disabled", () => {
+        const onStateChange = vi.fn();
+        render(
+          <ToggleGroup type="single" disabled onStateChange={onStateChange}>
+            <ToggleGroupItem value="a">A</ToggleGroupItem>
+          </ToggleGroup>,
+        );
+        expect(onStateChange).toHaveBeenCalledWith("disabled");
+      });
+
+      it("prioritizes loading over disabled state", () => {
+        const onStateChange = vi.fn();
+        render(
+          <ToggleGroup type="single" loading disabled onStateChange={onStateChange}>
+            <ToggleGroupItem value="a">A</ToggleGroupItem>
+          </ToggleGroup>,
+        );
+        expect(onStateChange).toHaveBeenCalledWith("loading");
+      });
+
+      it("prioritizes error over other states", () => {
+        const onStateChange = vi.fn();
+        render(
+          <ToggleGroup type="single" error="Error" loading onStateChange={onStateChange}>
+            <ToggleGroupItem value="a">A</ToggleGroupItem>
+          </ToggleGroup>,
+        );
+        expect(onStateChange).toHaveBeenCalledWith("loading");
+      });
+    });
+  });
+
   describe("single selection", () => {
     it("selects item when clicked", async () => {
       const onChange = vi.fn();

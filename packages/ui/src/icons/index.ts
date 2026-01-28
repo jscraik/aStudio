@@ -11,7 +11,7 @@
 // - Brand icons (GitHub, Notion, Slack, etc.)
 // - Apps SDK UI icons (Download, Sparkles)
 //
-// Usage: import { IconCheckmark, IconSettings } from "@astudio/ui/icons"
+// Usage: import { IconCheckmark, IconSettings } from "@design-studio/ui/icons"
 // ============================================================================
 
 import { chatGPTIconSizes } from "./ChatGPTIconSizes";
@@ -47,14 +47,6 @@ export {
   IconUserAdd,
   IconUserLock as IconUserLockLegacy,
 } from "./legacy/chatgpt/account";
-export {
-  IconNotification,
-  IconNotificationFilled,
-  IconWifi,
-  IconBatteryFull,
-  IconBatteryHalf,
-  IconBatteryLow,
-} from "./legacy/chatgpt/platform";
 
 // Common icon aliases for consistency
 export { IconArrowUpSm as IconArrowUp } from "./chatgpt/ChatGPTIconsFixed";
@@ -76,6 +68,23 @@ export {
   SlackIcon,
   TeamsIcon,
 } from "./brands";
+
+// ----------------------------------------------------------------------------
+// UTILITY ICONS (replacing legacy/chatgpt/platform.tsx)
+// ----------------------------------------------------------------------------
+
+export {
+  IconRadio,
+  IconRadioChecked,
+  IconNotification,
+  IconNotificationFilled,
+  IconWifi,
+  IconBatteryFull,
+  IconBatteryHalf,
+  IconBatteryLow,
+} from "./UtilityIcons";
+// IconRefresh aliases to IconRegenerate (semantically similar)
+export { IconRegenerate as IconRefresh } from "./chatgpt/ChatGPTIconsFixed";
 
 // ----------------------------------------------------------------------------
 // APPS SDK UI ICONS
@@ -129,7 +138,6 @@ export {
   IconPlusSm,
   IconSidebar,
 } from "./legacy/chatgpt/interface";
-export { IconRadio, IconRefreshCw as IconRefresh } from "./legacy/chatgpt/platform";
 
 // ----------------------------------------------------------------------------
 // ICON CATALOG (for browsing all icons)

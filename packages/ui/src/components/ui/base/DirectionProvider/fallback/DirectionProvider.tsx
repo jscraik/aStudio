@@ -29,6 +29,7 @@ const DirectionContext = React.createContext<{
   dir: "ltr",
   isRTL: false,
 });
+DirectionContext.displayName = "DirectionContext";
 
 /**
  * Provides RTL/LTR direction context to components.

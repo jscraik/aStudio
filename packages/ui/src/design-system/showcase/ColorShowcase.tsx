@@ -1,4 +1,4 @@
-import { colorTokens } from "@astudio/tokens";
+import { colorTokens } from "@design-studio/tokens";
 import { useCallback, useState } from "react";
 
 import { cn } from "../../components/ui/utils";

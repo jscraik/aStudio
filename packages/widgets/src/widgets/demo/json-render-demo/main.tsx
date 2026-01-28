@@ -1,6 +1,6 @@
 import type { ComponentSchema } from "@astudio/json-render";
 import { JsonRender } from "@astudio/json-render";
-import { AppsSDKButton } from "@astudio/ui";
+import { AppsSDKButton } from "@design-studio/ui";
 import { useState } from "react";
 
 import { mountWidget, WidgetBase, WidgetErrorBoundary } from "../../../shared/widget-base";

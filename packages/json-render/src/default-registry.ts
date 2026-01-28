@@ -42,7 +42,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@astudio/ui";
+} from "@design-studio/ui";
 
 import { createRegistry } from "./registry";
 

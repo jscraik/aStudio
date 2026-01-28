@@ -1,7 +1,7 @@
 /**
  * JSON Render Registry - Maps catalog component names to React components.
  *
- * Each entry receives the element definition and renders using @astudio/ui
+ * Each entry receives the element definition and renders using @design-studio/ui
  * components or custom widget components matching existing patterns.
  *
  * @see https://github.com/vercel-labs/json-render
@@ -29,7 +29,7 @@ import {
   Tabs,
   TabsList,
   TabsTrigger,
-} from "@astudio/ui";
+} from "@design-studio/ui";
 import type { ComponentRegistry, ComponentRenderProps } from "@json-render/react";
 import { useState } from "react";
 

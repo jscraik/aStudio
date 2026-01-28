@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "@astudio/ui/styles.css";
+@import "@design-studio/ui/styles.css";
 @import "tw-animate-css";
 
 /* Required for Tailwind to find class references in Apps SDK UI components. */

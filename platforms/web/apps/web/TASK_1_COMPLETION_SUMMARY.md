@@ -11,7 +11,7 @@
 📄 **File**: `DEPENDENCY_RECONCILIATION_PLAN.md`
 
 - Comprehensive analysis of source app vs platform dependencies
-- Component mapping strategy (Radix UI → @astudio/ui)
+- Component mapping strategy (Radix UI → @design-studio/ui)
 - Token integration strategy (source tokens → @astudio/tokens)
 - Implementation phases and approach
 
@@ -36,14 +36,14 @@
 
 ### ✅ Perfect Dependency Alignment
 
-- **27/27 Radix UI components** already available via @astudio/ui
-- **15/15 supporting libraries** already available via @astudio/ui
+- **27/27 Radix UI components** already available via @design-studio/ui
+- **15/15 supporting libraries** already available via @design-studio/ui
 - **Design tokens** - Platform tokens are superset of source tokens
 - **Registry system** - Simple TypeScript, no build tools needed
 
 ### ✅ Apps SDK UI-First Compliance
 
-- All templates will use @astudio/ui as primary component source
+- All templates will use @design-studio/ui as primary component source
 - Radix UI components accessed only via platform wrappers
 - No direct `@radix-ui/*` imports in template code
 - Import boundary linting will enforce compliance
@@ -64,7 +64,7 @@
 import { Button } from "@radix-ui/react-button";
 
 // AFTER (Platform)
-import { Button } from "@astudio/ui/base";
+import { Button } from "@design-studio/ui/base";
 ```
 
 ### Phase 2: Token Integration

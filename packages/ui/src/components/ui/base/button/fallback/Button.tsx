@@ -8,6 +8,36 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "../../../utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
+
+/**
+ * Loading spinner component for button loading state
+ */
+function ButtonSpinner() {
+  return (
+    <svg
+      className="animate-spin size-4"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <circle
+        className="opacity-25"
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="currentColor"
+        strokeWidth="4"
+      />
+      <path
+        className="opacity-75"
+        fill="currentColor"
+        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+      />
+    </svg>
+  );
+}
 
 /**
  * Defines the base class names and variant mappings for the Button component.
@@ -43,19 +73,29 @@ const buttonVariants = cva(
 /**
  * Renders a styled button with size and visual variants.
  *
+ * Supports stateful props for loading, error, disabled, and required states.
+ *
  * Accessibility contract:
  * - Uses native `button` semantics by default.
  * - When `asChild` is true, ensure the child element provides button semantics.
+ * - Loading state disables button and shows spinner.
+ * - Error state applies error styling.
  *
- * @param props - Button props including variant and size options.
+ * @param props - Button props including variant, size, and stateful options.
  * @param props.variant - Visual style for the button.
  * @param props.size - Size variant for the button.
  * @param props.asChild - Renders the child element via Radix Slot (default: `false`).
+ * @param props.loading - Shows loading spinner and disables button (default: `false`).
+ * @param props.error - Error message, applies error styling when set.
+ * @param props.disabled - Disabled state (also set automatically when loading).
+ * @param props.onStateChange - Callback when component state changes.
  * @returns A styled button element.
  *
  * @example
  * ```tsx
  * <Button variant="secondary" size="sm">Cancel</Button>
+ * <Button loading>Loading...</Button>
+ * <Button error="Failed to submit">Retry</Button>
  * ```
  */
 function Button({
@@ -63,19 +103,64 @@ function Button({
   variant,
   size,
   asChild = false,
+  loading = false,
+  error,
+  disabled = false,
+  onStateChange,
+  children,
   ...props
 }: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
+  VariantProps<typeof buttonVariants> &
+  StatefulComponentProps & {
     asChild?: boolean;
   }) {
   const Comp = asChild ? Slot : "button";
 
+  // Determine effective state
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
+  // Button is effectively disabled when loading or explicitly disabled
+  const isDisabled = disabled || loading;
+
+  // When using asChild with Slot, we can only have one child
+  // The loading spinner can't be rendered in asChild mode
+  const buttonChildren = asChild ? children : (
+    <>
+      {loading && <ButtonSpinner />}
+      {children}
+    </>
+  );
+
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      disabled={isDisabled}
+      className={cn(
+        buttonVariants({ variant, size, className }),
+        // Error state styling
+        error && "border-foundation-accent-red text-foundation-accent-red hover:bg-foundation-accent-red/10",
+        // Loading state styling
+        loading && "opacity-70 cursor-wait",
+        // Focus ring for error state
+        error && "focus-visible:ring-foundation-accent-red",
+      )}
       {...props}
-    />
+    >
+      {buttonChildren}
+    </Comp>
   );
 }
 

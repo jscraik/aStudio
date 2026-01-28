@@ -16,7 +16,7 @@ import { Input } from "./Input";
  *
  * ## Usage
  * ```tsx
- * import { Input } from "@astudio/ui";
+ * import { Input } from "@design-studio/ui";
  *
  * <Input type="email" placeholder="Enter your email" />
  * ```

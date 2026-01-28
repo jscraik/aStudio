@@ -62,7 +62,6 @@ export class TokenGenerator {
     };
   }
 
-
   /**
    * Generate CSS custom properties from design tokens
    * This maintains compatibility with existing foundations.css
@@ -358,15 +357,17 @@ ${this.generateCSSTypography()}
         tracking: number;
       };
 
-      const cssKey = key.replace(/([A-Z])/g, "-$1").toLowerCase();
+      const cssKey = key
+        .replace(/([A-Z])/g, "-$1")
+        .replace(/(\d+)/g, "-$1")
+        .toLowerCase();
       lines.push(`  --foundation-${cssKey}-size: ${token.size}px;`);
       lines.push(`  --foundation-${cssKey}-line: ${token.lineHeight}px;`);
       lines.push(`  --foundation-${cssKey}-weight: ${token.weight};`);
+      lines.push(`  --foundation-${cssKey}-weight-regular: ${token.weight};`);
 
       if ("emphasisWeight" in token && token.emphasisWeight !== undefined) {
         lines.push(`  --foundation-${cssKey}-weight-emphasis: ${token.emphasisWeight};`);
-      } else {
-        lines.push(`  --foundation-${cssKey}-weight-regular: ${token.weight};`);
       }
 
       lines.push(`  --foundation-${cssKey}-tracking: ${token.tracking}px;`);

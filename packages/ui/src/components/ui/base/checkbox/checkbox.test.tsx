@@ -74,6 +74,106 @@ describe("Checkbox", () => {
     });
   });
 
+  describe("StatefulComponentProps", () => {
+    describe("loading state", () => {
+      it("shows loading spinner when loading is true", () => {
+        render(<Checkbox loading aria-label="Loading checkbox" />);
+        const checkbox = screen.getByRole("checkbox");
+        expect(checkbox).toHaveAttribute("data-state", "loading");
+        expect(checkbox).toHaveClass("opacity-70");
+      });
+
+      it("disables checkbox when loading", () => {
+        render(<Checkbox loading aria-label="Loading checkbox" />);
+        expect(screen.getByRole("checkbox")).toBeDisabled();
+      });
+
+      it("does not toggle when loading", async () => {
+        const onCheckedChange = vi.fn();
+        const { user } = render(
+          <Checkbox loading onCheckedChange={onCheckedChange} aria-label="Loading checkbox" />,
+        );
+        await user.click(screen.getByRole("checkbox"));
+        expect(onCheckedChange).not.toHaveBeenCalled();
+      });
+
+      it("calls onStateChange with loading state", () => {
+        const onStateChange = vi.fn();
+        render(<Checkbox loading onStateChange={onStateChange} aria-label="Loading checkbox" />);
+        expect(onStateChange).toHaveBeenCalledWith("loading");
+      });
+    });
+
+    describe("error state", () => {
+      it("applies error styles when error message is provided", () => {
+        render(<Checkbox error="This field is required" aria-label="Error checkbox" />);
+        const checkbox = screen.getByRole("checkbox");
+        expect(checkbox).toHaveAttribute("data-state", "error");
+        expect(checkbox).toHaveAttribute("data-error", "true");
+        expect(checkbox).toHaveClass("border-red-500");
+      });
+
+      it("applies error focus styles", () => {
+        render(<Checkbox error="Invalid value" aria-label="Error checkbox" />);
+        expect(screen.getByRole("checkbox")).toHaveClass("focus:border-red-500");
+        expect(screen.getByRole("checkbox")).toHaveClass("focus:ring-red-500");
+      });
+
+      it("calls onStateChange with error state", () => {
+        const onStateChange = vi.fn();
+        render(<Checkbox error="Error message" onStateChange={onStateChange} aria-label="Error checkbox" />);
+        expect(onStateChange).toHaveBeenCalledWith("error");
+      });
+    });
+
+    describe("required state", () => {
+      it("sets data-required attribute when required is true", () => {
+        render(<Checkbox required aria-label="Required checkbox" />);
+        expect(screen.getByRole("checkbox")).toHaveAttribute("data-required", "true");
+      });
+
+      it("sets native required attribute when required is true", () => {
+        render(<Checkbox required aria-label="Required checkbox" />);
+        expect(screen.getByRole("checkbox")).toBeRequired();
+      });
+
+      it("does not set data-required when required is false", () => {
+        render(<Checkbox required={false} aria-label="Optional checkbox" />);
+        expect(screen.getByRole("checkbox")).not.toHaveAttribute("data-required");
+      });
+    });
+
+    describe("onStateChange callback", () => {
+      it("calls onStateChange with default state when no other state is set", () => {
+        const onStateChange = vi.fn();
+        render(<Checkbox onStateChange={onStateChange} aria-label="Test checkbox" />);
+        expect(onStateChange).toHaveBeenCalledWith("default");
+      });
+
+      it("calls onStateChange with disabled state when disabled", () => {
+        const onStateChange = vi.fn();
+        render(<Checkbox disabled onStateChange={onStateChange} aria-label="Disabled checkbox" />);
+        expect(onStateChange).toHaveBeenCalledWith("disabled");
+      });
+
+      it("prioritizes loading over disabled state", () => {
+        const onStateChange = vi.fn();
+        render(
+          <Checkbox loading disabled onStateChange={onStateChange} aria-label="Loading disabled checkbox" />,
+        );
+        expect(onStateChange).toHaveBeenCalledWith("loading");
+      });
+
+      it("prioritizes error over other states", () => {
+        const onStateChange = vi.fn();
+        render(
+          <Checkbox error="Error" loading onStateChange={onStateChange} aria-label="Error loading checkbox" />,
+        );
+        expect(onStateChange).toHaveBeenCalledWith("loading");
+      });
+    });
+  });
+
   describe("interactions", () => {
     it("toggles on click", async () => {
       const onCheckedChange = vi.fn();
@@ -183,9 +283,9 @@ describe("Checkbox", () => {
       expect(screen.getByRole("checkbox")).toHaveClass("focus-visible:ring-ring/50");
     });
 
-    it("has error state styles for aria-invalid", () => {
-      render(<Checkbox aria-invalid="true" aria-label="Invalid checkbox" />);
-      expect(screen.getByRole("checkbox")).toHaveClass("aria-invalid:border-destructive");
+    it("has error state styles for error prop", () => {
+      render(<Checkbox error="Invalid" aria-label="Invalid checkbox" />);
+      expect(screen.getByRole("checkbox")).toHaveClass("border-red-500");
     });
   });
 

@@ -1,5 +1,5 @@
-import { AppsSDKButton, ModalBody, ModalDialog, ModalFooter, ModalHeader } from "@astudio/ui";
-import { DiscoverySettingsModal, IconPickerModal, SettingsModal } from "@astudio/ui/modals";
+import { AppsSDKButton, ModalBody, ModalDialog, ModalFooter, ModalHeader } from "@design-studio/ui";
+import { DiscoverySettingsModal, IconPickerModal, SettingsModal } from "@design-studio/ui/modals";
 import { useState } from "react";
 
 interface Widget {

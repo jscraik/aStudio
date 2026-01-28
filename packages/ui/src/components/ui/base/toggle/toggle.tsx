@@ -1,19 +1,44 @@
 import { cva } from "class-variance-authority";
+import * as React from "react";
 import { useId } from "react";
 
 import { cn } from "../../utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
 /**
  * Toggle style variants used by Toggle and ToggleGroup.
+ * Uses Apps SDK UI tokens for styling.
  */
 export const toggleVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground",
+  "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "bg-transparent",
-        outline:
-          "border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground",
+        default: cn(
+          "bg-transparent",
+          // Hover - using Apps SDK UI tokens
+          "hover:bg-color-background-hover",
+          // Text colors - using Apps SDK UI tokens
+          "text-foreground",
+          "hover:text-foreground",
+          // Active/on state - using Apps SDK UI tokens
+          "data-[state=on]:bg-primary data-[state=on]:text-primary-foreground",
+          // Focus styles - using Apps SDK UI tokens
+          "focus-visible:ring-1 focus-visible:ring-ring/50",
+        ),
+        outline: cn(
+          "border bg-transparent shadow-sm",
+          // Border - using Apps SDK UI tokens
+          "border-input",
+          // Hover - using Apps SDK UI tokens
+          "hover:bg-color-background-hover hover:text-foreground",
+          // Text color - using Apps SDK UI tokens
+          "text-foreground",
+          // Active/on state - using Apps SDK UI tokens
+          "data-[state=on]:bg-primary data-[state=on]:text-primary-foreground",
+          // Focus styles - using Apps SDK UI tokens
+          "focus-visible:ring-1 focus-visible:ring-ring/50",
+        ),
       },
       size: {
         default: "h-9 px-3",
@@ -31,15 +56,13 @@ export const toggleVariants = cva(
 /**
  * Props for the toggle switch.
  */
-export interface ToggleProps {
+export interface ToggleProps extends StatefulComponentProps {
   /** Whether the toggle is on */
   checked?: boolean;
   /** Callback when toggle changes */
   onChange?: (checked: boolean) => void;
   /** Size variant */
   size?: "sm" | "md" | "lg";
-  /** Disable the toggle */
-  disabled?: boolean;
   /** Additional CSS classes */
   className?: string;
   /** Active color */
@@ -71,12 +94,35 @@ export function Toggle({
   onChange,
   size = "md",
   disabled = false,
+  loading = false,
+  error,
+  required = false,
+  onStateChange,
   className,
   activeColor = "var(--foundation-accent-green)",
   ariaLabel,
   ariaLabelledby,
   ariaDescribedby,
 }: ToggleProps) {
+  // Determine effective state
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : checked
+          ? "checked"
+          : "unchecked";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
+  // Toggle is effectively disabled when loading or explicitly disabled
+  const isDisabled = disabled || loading;
+
   const sizes = {
     sm: { track: "w-8 h-4", thumb: "size-3", translate: "translate-x-4" },
     md: { track: "w-11 h-6", thumb: "size-5", translate: "translate-x-5" },
@@ -84,6 +130,14 @@ export function Toggle({
   };
 
   const { track, thumb, translate } = sizes[size];
+
+  // Handle keyboard activation (Space/Enter)
+  const handleKeyDown = React.useCallback((e: React.KeyboardEvent) => {
+    if (!isDisabled && (e.key === " " || e.key === "Enter")) {
+      e.preventDefault();
+      onChange?.(!checked);
+    }
+  }, [isDisabled, checked, onChange]);
 
   return (
     <button
@@ -93,21 +147,34 @@ export function Toggle({
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledby}
       aria-describedby={ariaDescribedby}
-      disabled={disabled}
-      onClick={() => !disabled && onChange?.(!checked)}
+      aria-required={required ? true : undefined}
+      disabled={isDisabled}
+      onKeyDown={handleKeyDown}
+      onClick={() => !isDisabled && onChange?.(!checked)}
       className={cn(
         "relative rounded-full transition-colors",
         track,
-        !checked && "bg-foundation-bg-dark-3",
-        disabled && "opacity-50 cursor-not-allowed",
+        // Unchecked background - using Apps SDK UI tokens
+        !checked && "bg-input-background",
+        // Error state styling
+        error && "border-2 border-destructive",
+        effectiveState === "error" && "ring-2 ring-destructive/20",
+        // Loading state styling
+        effectiveState === "loading" && "opacity-70 cursor-wait",
+        // Disabled state
+        isDisabled && "opacity-50 cursor-not-allowed",
         className,
       )}
       style={checked ? { backgroundColor: activeColor } : undefined}
     >
       <div
         className={cn(
-          "absolute top-0.5 left-0.5 bg-foundation-bg-dark-1 rounded-full transition-transform shadow-sm",
+          "absolute top-0.5 left-0.5 rounded-full transition-transform shadow-sm",
           thumb,
+          // Thumb background - using Apps SDK UI tokens
+          "bg-background",
+          // Error thumb styling
+          error && checked && "bg-destructive",
           checked && translate,
         )}
       />
@@ -118,7 +185,7 @@ export function Toggle({
 /**
  * Props for the toggle row helper.
  */
-export interface ToggleRowProps {
+export interface ToggleRowProps extends StatefulComponentProps {
   /** Icon to display */
   icon?: React.ReactNode;
   /** Label text */
@@ -156,6 +223,11 @@ export function ToggleRow({
   description,
   checked,
   onChange,
+  loading,
+  error,
+  disabled,
+  required,
+  onStateChange,
   className,
 }: ToggleRowProps) {
   const labelId = useId();
@@ -165,16 +237,16 @@ export function ToggleRow({
     <div className={cn("flex items-center justify-between", className)}>
       <div className="flex items-center gap-3">
         {icon && (
-          <div className="text-foundation-icon-light-secondary dark:text-foundation-icon-dark-secondary">
+          <div className="text-muted-foreground">
             {icon}
           </div>
         )}
         <div>
-          <div id={labelId} className="text-body-small text-foundation-text-dark-primary">
+          <div id={labelId} className="text-body-small text-foreground">
             {label}
           </div>
           {description && (
-            <div id={descriptionId} className="text-caption text-foundation-text-dark-tertiary">
+            <div id={descriptionId} className="text-caption text-muted-foreground">
               {description}
             </div>
           )}
@@ -183,6 +255,11 @@ export function ToggleRow({
       <Toggle
         checked={checked}
         onChange={onChange}
+        loading={loading}
+        error={error}
+        disabled={disabled}
+        required={required}
+        onStateChange={onStateChange}
         ariaLabelledby={labelId}
         ariaDescribedby={description ? descriptionId : undefined}
       />

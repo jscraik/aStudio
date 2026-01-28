@@ -337,7 +337,7 @@ describe("Token Generation Properties", () => {
           expect(cssOutput).toContain(`"${generatedTokens.typography.fontFamily}"`);
 
           expect(cssOutput).toContain(
-            `--foundation-heading1-size: ${generatedTokens.typography.heading1.size}px;`,
+            `--foundation-heading-1-size: ${generatedTokens.typography.heading1.size}px;`,
           );
 
           // Test 3: Spacing values should match

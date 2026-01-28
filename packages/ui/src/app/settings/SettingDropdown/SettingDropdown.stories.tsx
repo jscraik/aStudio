@@ -10,7 +10,7 @@ import { SettingDropdown, type DropdownOption } from "./SettingDropdown";
  *
  * ## Usage
  * ```tsx
- * import { SettingDropdown } from "@astudio/ui";
+ * import { SettingDropdown } from "@design-studio/ui";
  *
  * const options = [
  *   { value: "light", label: "Light", description: "Light theme" },

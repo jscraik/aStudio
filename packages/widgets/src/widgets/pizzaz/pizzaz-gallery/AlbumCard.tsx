@@ -1,4 +1,4 @@
-import { AppsSDKBadge, AppsSDKButton, AppsSDKImage } from "@astudio/ui";
+import { AppsSDKBadge, AppsSDKButton, AppsSDKImage } from "@design-studio/ui";
 
 import type { Album } from "../../../shared/data-types";
 

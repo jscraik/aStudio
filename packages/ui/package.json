@@ -1,5 +1,5 @@
 {
-  "name": "@astudio/ui",
+  "name": "@design-studio/ui",
   "version": "0.0.1",
   "type": "module",
   "license": "MIT",
@@ -104,8 +104,8 @@
     "react-dom": "^19.0.0"
   },
   "dependencies": {
-    "@astudio/tokens": "workspace:*",
-    "@astudio/runtime": "workspace:*",
+    "@design-studio/tokens": "workspace:*",
+    "@design-studio/runtime": "workspace:*",
     "@openai/apps-sdk-ui": "^0.2.1",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-alert-dialog": "^1.1.15",

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { AppsSDKBadge, AppsSDKButton, AppsSDKInput } from "@astudio/ui";
-import { IconCheckmark, IconSettings } from "@astudio/ui/icons";
-import { DiscoverySettingsModal, IconPickerModal, SettingsModal } from "@astudio/ui/modals";
+import { AppsSDKBadge, AppsSDKButton, AppsSDKInput } from "@design-studio/ui";
+import { IconCheckmark, IconSettings } from "@design-studio/ui/icons";
+import { DiscoverySettingsModal, IconPickerModal, SettingsModal } from "@design-studio/ui/modals";
 import {
   SettingDropdownBlock,
   SettingRowBlock,
@@ -12,7 +12,7 @@ import {
   TemplateHeaderBar,
   TemplatePanel,
   TemplateShell,
-} from "@astudio/ui/templates";
+} from "@design-studio/ui/templates";
 
 const badgeBaseClassName =
   "bg-foundation-bg-light-3 text-foundation-text-light-secondary dark:bg-foundation-bg-dark-3 dark:text-foundation-text-dark-secondary";
@@ -246,7 +246,7 @@ export { TypographyShowcase } from "./design-system/TypographyShowcaseTemplate";
  * status: stable
  * entry: ChatTemplate
  */
-export { ChatTemplate } from "@astudio/ui/templates";
+export { ChatTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -258,7 +258,7 @@ export { ChatTemplate } from "@astudio/ui/templates";
  * status: stable
  * entry: ChatFullWidthTemplate
  */
-export { ChatFullWidthTemplate } from "@astudio/ui/templates";
+export { ChatFullWidthTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -270,7 +270,7 @@ export { ChatFullWidthTemplate } from "@astudio/ui/templates";
  * status: stable
  * entry: ChatHeaderTemplate
  */
-export { ChatHeaderTemplate } from "@astudio/ui/templates";
+export { ChatHeaderTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -282,7 +282,7 @@ export { ChatHeaderTemplate } from "@astudio/ui/templates";
  * status: stable
  * entry: ChatInputTemplate
  */
-export { ChatInputTemplate } from "@astudio/ui/templates";
+export { ChatInputTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -294,7 +294,7 @@ export { ChatInputTemplate } from "@astudio/ui/templates";
  * status: stable
  * entry: ChatMessagesTemplate
  */
-export { ChatMessagesTemplate } from "@astudio/ui/templates";
+export { ChatMessagesTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -306,7 +306,7 @@ export { ChatMessagesTemplate } from "@astudio/ui/templates";
  * status: stable
  * entry: ChatSidebarTemplate
  */
-export { ChatSidebarTemplate } from "@astudio/ui/templates";
+export { ChatSidebarTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -318,7 +318,7 @@ export { ChatSidebarTemplate } from "@astudio/ui/templates";
  * status: stable
  * entry: ChatTwoPaneTemplate
  */
-export { ChatTwoPaneTemplate } from "@astudio/ui/templates";
+export { ChatTwoPaneTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -330,7 +330,7 @@ export { ChatTwoPaneTemplate } from "@astudio/ui/templates";
  * status: stable
  * entry: ChatVariantsTemplate
  */
-export { ChatVariantsTemplate } from "@astudio/ui/templates";
+export { ChatVariantsTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -342,7 +342,7 @@ export { ChatVariantsTemplate } from "@astudio/ui/templates";
  * status: stable
  * entry: ComposeTemplate
  */
-export { ComposeTemplate } from "@astudio/ui/templates";
+export { ComposeTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -354,7 +354,7 @@ export { ComposeTemplate } from "@astudio/ui/templates";
  * status: stable
  * entry: DashboardTemplate
  */
-export { DashboardTemplate } from "@astudio/ui/templates";
+export { DashboardTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -507,7 +507,7 @@ export function SettingsModalTemplate() {
  * status: stable
  * entry: AppsPanelTemplate
  */
-export { AppsPanelTemplate } from "@astudio/ui/templates";
+export { AppsPanelTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -519,7 +519,7 @@ export { AppsPanelTemplate } from "@astudio/ui/templates";
  * status: stable
  * entry: ArchivedChatsPanelTemplate
  */
-export { ArchivedChatsPanelTemplate } from "@astudio/ui/templates";
+export { ArchivedChatsPanelTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -531,7 +531,7 @@ export { ArchivedChatsPanelTemplate } from "@astudio/ui/templates";
  * status: stable
  * entry: AudioSettingsPanelTemplate
  */
-export { AudioSettingsPanelTemplate } from "@astudio/ui/templates";
+export { AudioSettingsPanelTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -543,7 +543,7 @@ export { AudioSettingsPanelTemplate } from "@astudio/ui/templates";
  * status: stable
  * entry: CheckForUpdatesPanelTemplate
  */
-export { CheckForUpdatesPanelTemplate } from "@astudio/ui/templates";
+export { CheckForUpdatesPanelTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -555,7 +555,7 @@ export { CheckForUpdatesPanelTemplate } from "@astudio/ui/templates";
  * status: stable
  * entry: DataControlsPanelTemplate
  */
-export { DataControlsPanelTemplate } from "@astudio/ui/templates";
+export { DataControlsPanelTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -567,7 +567,7 @@ export { DataControlsPanelTemplate } from "@astudio/ui/templates";
  * status: stable
  * entry: ManageAppsPanelTemplate
  */
-export { ManageAppsPanelTemplate } from "@astudio/ui/templates";
+export { ManageAppsPanelTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -579,7 +579,7 @@ export { ManageAppsPanelTemplate } from "@astudio/ui/templates";
  * status: stable
  * entry: NotificationsPanelTemplate
  */
-export { NotificationsPanelTemplate } from "@astudio/ui/templates";
+export { NotificationsPanelTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -591,7 +591,7 @@ export { NotificationsPanelTemplate } from "@astudio/ui/templates";
  * status: stable
  * entry: PersonalizationPanelTemplate
  */
-export { PersonalizationPanelTemplate } from "@astudio/ui/templates";
+export { PersonalizationPanelTemplate } from "@design-studio/ui/templates";
 
 /**
  * @template
@@ -603,4 +603,4 @@ export { PersonalizationPanelTemplate } from "@astudio/ui/templates";
  * status: stable
  * entry: SecurityPanelTemplate
  */
-export { SecurityPanelTemplate } from "@astudio/ui/templates";
+export { SecurityPanelTemplate } from "@design-studio/ui/templates";

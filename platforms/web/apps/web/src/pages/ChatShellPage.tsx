@@ -1,4 +1,4 @@
-import { ChatUIRoot } from "@astudio/ui/chat";
+import { ChatUIRoot } from "@design-studio/ui/chat";
 
 export function ChatShellPage() {
   return (

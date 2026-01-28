@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
-import { AppsSDKButton } from "@astudio/ui";
-import { IconChevronDownMd, IconChevronRightMd } from "@astudio/ui/icons";
+import { AppsSDKButton } from "@design-studio/ui";
+import { IconChevronDownMd, IconChevronRightMd } from "@design-studio/ui/icons";
 
 import type { TemplateRegistryEntry } from "@/generated/template-registry";
 

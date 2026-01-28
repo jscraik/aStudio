@@ -58,21 +58,22 @@ function loadUpstreamExports(): Set<string> {
 describe("Apps SDK UI drift suite", () => {
   it("keeps local Apps SDK UI re-exports stable", () => {
     const localExports = parseIntegrationExports().map((entry) => `${entry.name}::${entry.module}`);
-    expect(localExports).toMatchInlineSnapshot(`
-      [
-        "AppsSDKUIProvider::@openai/apps-sdk-ui/components/AppsSDKUIProvider",
-        "Badge::@openai/apps-sdk-ui/components/Badge",
-        "Button::@openai/apps-sdk-ui/components/Button",
-        "Checkbox::@openai/apps-sdk-ui/components/Checkbox",
-        "CodeBlock::@openai/apps-sdk-ui/components/CodeBlock",
-        "Download::@openai/apps-sdk-ui/components/Icon",
-        "Image::@openai/apps-sdk-ui/components/Image",
-        "Input::@openai/apps-sdk-ui/components/Input",
-        "Popover::@openai/apps-sdk-ui/components/Popover",
-        "Sparkles::@openai/apps-sdk-ui/components/Icon",
-        "Textarea::@openai/apps-sdk-ui/components/Textarea",
-      ]
-    `);
+    // Use toEqual() instead of toMatchSnapshot() due to vitest-axe SnapshotClient compatibility issue
+    // TODO: Revert to toMatchSnapshot() when vitest-axe snapshot serialization is fixed
+    const expectedExports = [
+      "AppsSDKUIProvider::@openai/apps-sdk-ui/components/AppsSDKUIProvider",
+      "Badge::@openai/apps-sdk-ui/components/Badge",
+      "Button::@openai/apps-sdk-ui/components/Button",
+      "Checkbox::@openai/apps-sdk-ui/components/Checkbox",
+      "CodeBlock::@openai/apps-sdk-ui/components/CodeBlock",
+      "Download::@openai/apps-sdk-ui/components/Icon",
+      "Image::@openai/apps-sdk-ui/components/Image",
+      "Input::@openai/apps-sdk-ui/components/Input",
+      "Popover::@openai/apps-sdk-ui/components/Popover",
+      "Sparkles::@openai/apps-sdk-ui/components/Icon",
+      "Textarea::@openai/apps-sdk-ui/components/Textarea",
+    ];
+    expect(localExports).toEqual(expectedExports);
   });
 
   it("ensures upstream exports include local re-export modules", () => {

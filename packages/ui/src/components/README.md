@@ -65,7 +65,7 @@ Chat-specific components for the main chat interface.
 **Usage:**
 
 ```tsx
-import { ChatHeader, ChatInput, ChatMessages } from "@astudio/ui";
+import { ChatHeader, ChatInput, ChatMessages } from "@design-studio/ui";
 ```
 
 ### `app/modals` - Modal Dialogs
@@ -81,7 +81,7 @@ Reusable modal dialog components.
 **Usage:**
 
 ```tsx
-import { SettingsModal } from "@astudio/ui/modals";
+import { SettingsModal } from "@design-studio/ui/modals";
 ```
 
 ### `app/settings` - Settings System
@@ -109,7 +109,7 @@ Modular settings panels and reusable setting controls.
 **Usage:**
 
 ```tsx
-import { SettingRow, SettingToggle } from "@astudio/ui/settings";
+import { SettingRow, SettingToggle } from "@design-studio/ui/settings";
 ```
 
 ### `design-system/showcase` - Design System Documentation
@@ -129,7 +129,7 @@ Components that demonstrate and document the design system.
 **Usage:**
 
 ```tsx
-import { DesignSystemDocs } from "@astudio/ui/showcase";
+import { DesignSystemDocs } from "@design-studio/ui/showcase";
 ```
 
 ### `integrations/figma` - Figma Utilities
@@ -147,7 +147,7 @@ ChatGPT icon system (canonical source).
 **Usage:**
 
 ```tsx
-import { IconSettings, IconUser } from "@astudio/ui";
+import { IconSettings, IconUser } from "@design-studio/ui";
 ```
 
 ### `components/ui` - Base UI Primitives
@@ -173,7 +173,7 @@ components/ui/
 **Usage:**
 
 ```tsx
-import { Button, Card, Toggle } from "@astudio/ui";
+import { Button, Card, Toggle } from "@design-studio/ui";
 ```
 
 ## Import Patterns
@@ -181,8 +181,8 @@ import { Button, Card, Toggle } from "@astudio/ui";
 ### Direct Imports (Recommended)
 
 ```tsx
-import { ChatHeader } from "@astudio/ui";
-import { SettingRow } from "@astudio/ui/settings";
+import { ChatHeader } from "@design-studio/ui";
+import { SettingRow } from "@design-studio/ui/settings";
 ```
 
 ### Barrel Imports
@@ -190,8 +190,8 @@ import { SettingRow } from "@astudio/ui/settings";
 Each category has an `index.ts` for convenient imports:
 
 ```tsx
-import { SettingsModal, IconPickerModal } from "@astudio/ui/modals";
-import { DesignSystemDocs } from "@astudio/ui/showcase";
+import { SettingsModal, IconPickerModal } from "@design-studio/ui/modals";
+import { DesignSystemDocs } from "@design-studio/ui/showcase";
 ```
 
 ## Adding New Components

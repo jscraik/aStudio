@@ -1,8 +1,9 @@
 {
-  "name": "@astudio/tokens",
-  "version": "0.0.1",
+  "name": "@design-studio/tokens",
+  "version": "2.0.0",
   "type": "module",
-  "license": "MIT",
+  "license": "Apache-2.0",
+  "description": "DesignStudio Tokens - Type-safe design tokens with CSS variables and runtime theming API",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -11,6 +12,7 @@
     "./foundations.css": "./src/foundations.css",
     "./tokens.css": "./src/tokens.css",
     "./icon-picker-theme.css": "./src/icon-picker-theme.css",
+    "./enhanced.css": "./src/enhanced.css",
     "./tailwind.preset": "./tailwind.preset.ts",
     "./tokens/index.dtcg.json": "./src/tokens/index.dtcg.json"
   },
@@ -24,7 +26,8 @@
   "sideEffects": [
     "./src/foundations.css",
     "./src/tokens.css",
-    "./src/icon-picker-theme.css"
+    "./src/icon-picker-theme.css",
+    "./src/enhanced.css"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
@@ -40,16 +43,28 @@
     "dev:hot-reload:verbose": "tsx scripts/watch-tokens.ts --verbose",
     "tokens:watch": "tsx src/dev-tools/token-watcher.ts",
     "test": "vitest --run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "lint": "biome check .",
+    "format": "biome format --write ."
   },
   "publishConfig": {
     "access": "public"
   },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
   "devDependencies": {
-    "tsx": "^4.7.0",
+    "@biomejs/biome": "^1.9.0",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/jest-dom": "^6.6.6",
+    "@types/node": "^20.0.0",
+    "@types/react": "^19.2.7",
     "fast-check": "^3.15.1",
+    "happy-dom": "^17.4.3",
+    "react": "^19.0.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.9.3",
     "vitest": "^4.0.16",
-    "chokidar": "^3.5.3",
-    "@types/node": "^20.0.0"
+    "chokidar": "^3.5.3"
   }
 }

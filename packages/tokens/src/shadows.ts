@@ -3,40 +3,68 @@
  * Shadow tokens with offsets, blur, and spread in px plus hex colors.
  */
 export const shadowTokens = {
-  card: [
+  "card": [
     {
-      color: "#0000000D",
-      offsetX: 0,
-      offsetY: 4,
-      blur: 16,
-      spread: 0,
+      "color": "rgba(0 0 0 / 10%)",
+      "offsetX": 0,
+      "offsetY": 10,
+      "blur": 15,
+      "spread": -3
     },
-  ],
-  pip: [
     {
-      color: "#0000000D",
-      offsetX: 0,
-      offsetY: 4,
-      blur: 16,
-      spread: 0,
-    },
+      "color": "rgba(0 0 0 / 10%)",
+      "offsetX": 0,
+      "offsetY": 4,
+      "blur": 6,
+      "spread": -4
+    }
   ],
-  pill: [
+  "pip": [
     {
-      color: "#0000000A",
-      offsetX: 0,
-      offsetY: 10,
-      blur: 22,
-      spread: 0,
+      "color": "rgba(0 0 0 / 10%)",
+      "offsetX": 0,
+      "offsetY": 10,
+      "blur": 15,
+      "spread": -3
     },
-  ],
-  close: [
     {
-      color: "#00000029",
-      offsetX: 0,
-      offsetY: 4,
-      blur: 8,
-      spread: 0,
-    },
+      "color": "rgba(0 0 0 / 10%)",
+      "offsetX": 0,
+      "offsetY": 4,
+      "blur": 6,
+      "spread": -4
+    }
   ],
+  "pill": [
+    {
+      "color": "rgba(0 0 0 / 10%)",
+      "offsetX": 0,
+      "offsetY": 10,
+      "blur": 15,
+      "spread": -3
+    },
+    {
+      "color": "rgba(0 0 0 / 10%)",
+      "offsetX": 0,
+      "offsetY": 4,
+      "blur": 6,
+      "spread": -4
+    }
+  ],
+  "close": [
+    {
+      "color": "rgba(0 0 0 / 10%)",
+      "offsetX": 0,
+      "offsetY": 10,
+      "blur": 15,
+      "spread": -3
+    },
+    {
+      "color": "rgba(0 0 0 / 10%)",
+      "offsetX": 0,
+      "offsetY": 4,
+      "blur": 6,
+      "spread": -4
+    }
+  ]
 } as const;

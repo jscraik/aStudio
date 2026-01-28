@@ -1,4 +1,4 @@
-import { colorTokens } from "@astudio/tokens";
+import { colorTokens } from "@design-studio/tokens";
 
 type SectionItem = { name: string; value: string };
 type Section = { title: string; items: SectionItem[]; darkSurface?: boolean };

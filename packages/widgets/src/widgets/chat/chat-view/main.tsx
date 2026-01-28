@@ -1,5 +1,5 @@
 import { HostProvider, createEmbeddedHost, ensureMockOpenAI } from "@astudio/runtime";
-import { AppsSDKUIProvider, ChatUIRoot } from "@astudio/ui";
+import { AppsSDKUIProvider, ChatUIRoot } from "@design-studio/ui";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "../../../styles.css";

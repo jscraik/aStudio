@@ -5,7 +5,7 @@
  * Enables testing of components that depend on the runtime host abstraction.
  */
 
-import type { Host } from "@astudio/runtime";
+import type { Host } from "@design-studio/runtime";
 
 /**
  * Mock message data for testing

@@ -13,7 +13,7 @@ import { Button } from "./fallback/Button";
  *
  * ## Usage
  * ```tsx
- * import { Button } from "@astudio/ui";
+ * import { Button } from "@design-studio/ui";
  *
  * <Button variant="default" size="default">
  *   Click me

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import * as React from "react";
 
 import { Popover, PopoverContent, PopoverTrigger } from "../../../components/ui/overlays/Popover";
 import { cn } from "../../../components/ui/utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 import {
   IconChat,
   IconCheck,
@@ -25,7 +26,7 @@ interface ModelConfig {
 /**
  * Props for the chat header.
  */
-interface ChatHeaderProps {
+interface ChatHeaderProps extends StatefulComponentProps {
   /** Callback when sidebar toggle is clicked */
   onSidebarToggle?: () => void;
   /** Whether sidebar is currently open */
@@ -95,11 +96,23 @@ const defaultLegacyModels: ModelConfig[] = [
 /**
  * Renders the chat header with model selection and mode toggle.
  *
+ * Supports stateful props for loading, error, and disabled states.
+ * When loading, shows loading state in model selector.
+ * When error, shows error message.
+ * When disabled, disables all interactive elements.
+ *
  * Accessibility contract:
  * - Sidebar and mode toggles are native buttons with ARIA labels.
  *
- * @param props - Chat header props.
+ * @param props - Chat header props and stateful options.
  * @returns A chat header element.
+ *
+ * @example
+ * ```tsx
+ * <ChatHeader selectedModel="Auto" viewMode="chat" />
+ * <ChatHeader loading />
+ * <ChatHeader error="Failed to load models" />
+ * ```
  */
 export function ChatHeader({
   onSidebarToggle,
@@ -113,13 +126,36 @@ export function ChatHeader({
   models = defaultModels,
   legacyModels = defaultLegacyModels,
   className,
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
 }: ChatHeaderProps) {
-  const [isModelSelectorOpen, setIsModelSelectorOpen] = useState(false);
-  const [isLegacyOpen, setIsLegacyOpen] = useState(false);
+  // Determine effective state (priority: loading > error > disabled > default)
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
+  // Effective disabled state (disabled if explicitly disabled OR loading)
+  const isDisabled = disabled || loading;
+
+  const [isModelSelectorOpen, setIsModelSelectorOpen] = React.useState(false);
+  const [isLegacyOpen, setIsLegacyOpen] = React.useState(false);
 
   const modelName = typeof selectedModel === "string" ? selectedModel : selectedModel.shortName;
 
   const handleModelSelect = (model: ModelConfig) => {
+    if (isDisabled) return;
     onModelChange?.(model);
     setIsModelSelectorOpen(false);
     setIsLegacyOpen(false);
@@ -134,10 +170,20 @@ export function ChatHeader({
 
   return (
     <header
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      data-required={required ? "true" : undefined}
+      aria-disabled={isDisabled || undefined}
+      aria-invalid={error ? "true" : required ? "false" : undefined}
+      aria-required={required || undefined}
+      aria-busy={loading || undefined}
       className={cn(
         "h-14 border-b border-foundation-border-light dark:border-foundation-border-dark",
         "bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-2",
         "flex items-center justify-between px-4 shrink-0",
+        isDisabled && "opacity-50 pointer-events-none",
+        error && "ring-b-2 ring-foundation-accent-red/50",
+        loading && "animate-pulse",
         className,
       )}
     >

@@ -20,6 +20,7 @@ import {
 import { getSizeClass } from "../../../icons";
 import { Popover, PopoverContent, PopoverTrigger } from "../../../components/ui/overlays/Popover";
 import { cn } from "../../../components/ui/utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
 /**
  * Primary attachment menu actions.
@@ -54,7 +55,7 @@ export type MoreAction =
 /**
  * Props for the attachment menu popover.
  */
-export interface AttachmentMenuProps {
+export interface AttachmentMenuProps extends StatefulComponentProps {
   onAttachmentAction?: (action: AttachmentAction) => void;
   onMoreAction?: (action: MoreAction) => void;
   isWebSearchActive?: boolean;
@@ -165,12 +166,23 @@ MenuItem.displayName = "MenuItem";
 /**
  * Renders the attachment menu popover for the chat composer.
  *
+ * Supports stateful props for loading, error, and disabled states.
+ * When loading or disabled, menu items are disabled.
+ * When error, shows error message in place of menu.
+ *
  * Accessibility contract:
  * - Trigger is a button with a visible icon and title.
  * - Menu items are focusable buttons with visible labels.
  *
- * @param props - Attachment menu props.
+ * @param props - Attachment menu props and stateful options.
  * @returns An attachment menu popover.
+ *
+ * @example
+ * ```tsx
+ * <AttachmentMenu onAttachmentAction={handleAction} />
+ * <AttachmentMenu loading />
+ * <AttachmentMenu error="Failed to load attachments" />
+ * ```
  */
 export function AttachmentMenu({
   onAttachmentAction,
@@ -179,19 +191,44 @@ export function AttachmentMenu({
   onWebSearchToggle,
   open,
   onOpenChange,
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
 }: AttachmentMenuProps) {
+  // Determine effective state (priority: loading > error > disabled > default)
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
+  // Effective disabled state (disabled if explicitly disabled OR loading)
+  const isDisabled = disabled || loading;
+
   const iconMd = getSizeClass("md");
   const handleAction = (action: AttachmentAction) => {
+    if (isDisabled) return;
     onAttachmentAction?.(action);
     onOpenChange?.(false);
   };
 
   const handleMoreAction = (action: MoreAction) => {
+    if (isDisabled) return;
     onMoreAction?.(action);
     onOpenChange?.(false);
   };
 
   const handleWebSearch = () => {
+    if (isDisabled) return;
     onWebSearchToggle?.();
     onOpenChange?.(false);
   };
@@ -201,11 +238,22 @@ export function AttachmentMenu({
       <PopoverTrigger asChild>
         <button
           type="button"
+          data-state={effectiveState}
+          data-error={error ? "true" : undefined}
+          data-required={required ? "true" : undefined}
+          aria-disabled={isDisabled || undefined}
+          aria-invalid={error ? "true" : required ? "false" : undefined}
+          aria-required={required || undefined}
+          aria-busy={loading || undefined}
+          disabled={isDisabled}
           className={cn(
             "p-2 rounded-lg transition-colors group",
             "hover:bg-foundation-bg-light-3 dark:hover:bg-foundation-bg-dark-3",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foundation-accent-blue-light dark:focus-visible:ring-foundation-accent-blue focus-visible:ring-offset-2 focus-visible:ring-offset-foundation-bg-light-1 dark:focus-visible:ring-offset-foundation-bg-dark-1",
             "data-[state=open]:bg-foundation-accent-blue-light/20 dark:data-[state=open]:bg-foundation-accent-blue/20",
+            isDisabled && "opacity-50 cursor-not-allowed",
+            error && "ring-2 ring-foundation-accent-red/50",
+            loading && "animate-pulse",
           )}
           title="Add attachment"
         >

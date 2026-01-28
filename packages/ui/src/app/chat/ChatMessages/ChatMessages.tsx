@@ -12,6 +12,7 @@ import {
   IconUser,
 } from "../../../icons";
 import { getSizeClass } from "../../../icons";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
 /**
  * Represents a chat message in the conversation stream.
@@ -35,7 +36,7 @@ export type ChatMessageAction =
   | "more"
   | "edit";
 
-interface ChatMessagesProps {
+interface ChatMessagesProps extends StatefulComponentProps {
   emptyState?: ReactNode;
   messages?: ChatMessage[];
   onMessageAction?: (action: ChatMessageAction, message: ChatMessage) => void;
@@ -59,28 +60,99 @@ const sampleMessages: ChatMessage[] = [
 /**
  * Renders the chat message list with optional empty state.
  *
+ * Supports stateful props for loading, error, and disabled states.
+ * When loading, shows loading message instead of messages.
+ * When error, shows error message.
+ * When disabled, disables message action buttons.
+ *
  * When `messages` is omitted, a sample transcript is shown.
  *
  * Accessibility contract:
  * - Message actions are native buttons with tooltips.
  *
- * @param props - Chat messages props.
+ * @param props - Chat messages props and stateful options.
  * @returns A message list container.
+ *
+ * @example
+ * ```tsx
+ * <ChatMessages messages={messages} onMessageAction={handleAction} />
+ * <ChatMessages loading />
+ * <ChatMessages error="Failed to load messages" />
+ * ```
  */
-export function ChatMessages({ emptyState, messages, onMessageAction }: ChatMessagesProps) {
+export function ChatMessages({
+  emptyState,
+  messages,
+  onMessageAction,
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
+}: ChatMessagesProps) {
+  // Determine effective state (priority: loading > error > disabled > default)
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
+  // Effective disabled state (disabled if explicitly disabled OR loading)
+  const isDisabled = disabled || loading;
+
   const iconMd = getSizeClass("md");
   const resolvedMessages = messages ?? sampleMessages;
 
+  if (loading) {
+    return (
+      <div className="flex min-h-0 flex-1 flex-col bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 items-center justify-center">
+        <div className="text-foundation-text-dark-tertiary">Loading messages...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex min-h-0 flex-1 flex-col bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 items-center justify-center">
+        <div className="text-foundation-accent-red">{error}</div>
+      </div>
+    );
+  }
+
   if (emptyState && resolvedMessages.length === 0) {
     return (
-      <div className="flex min-h-0 flex-1 flex-col bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1">
+      <div
+        data-state={effectiveState}
+        data-error={error ? "true" : undefined}
+        data-required={required ? "true" : undefined}
+        aria-disabled={isDisabled || undefined}
+        aria-invalid={error ? "true" : required ? "false" : undefined}
+        aria-required={required || undefined}
+        className="flex min-h-0 flex-1 flex-col bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1"
+      >
         {emptyState}
       </div>
     );
   }
 
   return (
-    <div className="bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1">
+    <div
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      data-required={required ? "true" : undefined}
+      aria-disabled={isDisabled || undefined}
+      aria-invalid={error ? "true" : required ? "false" : undefined}
+      aria-required={required || undefined}
+      aria-busy={loading || undefined}
+      className="bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1"
+    >
       <div className="max-w-[62rem] mx-auto px-6 py-8 space-y-6">
         {resolvedMessages.map((message, index) => (
           <div key={message.id ?? index} className="group">

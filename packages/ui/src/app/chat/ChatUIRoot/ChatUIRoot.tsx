@@ -7,6 +7,7 @@ import { ChatView } from "../ChatView";
 import { ComposeView } from "../ComposeView";
 import { useControllableState } from "../../../hooks/useControllableState";
 import { ChatUISlotsProvider, type ChatUISlots } from "../shared/slots";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
 /**
  * Layout modes for the chat UI.
@@ -25,7 +26,7 @@ export interface ModelConfig {
 /**
  * Props for the chat UI root container.
  */
-export interface ChatUIRootProps {
+export interface ChatUIRootProps extends StatefulComponentProps {
   mode?: ChatUIMode;
   defaultMode?: ChatUIMode;
   onModeChange?: (mode: ChatUIMode) => void;
@@ -109,12 +110,24 @@ function getFocusable(container: HTMLElement) {
 /**
  * Renders the full chat UI shell with sidebar, header, and content.
  *
+ * Supports stateful props for loading, error, and disabled states.
+ * When loading, shows loading overlay over main content.
+ * When error, shows error message overlay.
+ * When disabled, disables all interactive elements.
+ *
  * Accessibility contract:
  * - When sidebar opens as an overlay, focus is restored to the previously
- *   focused element on close.
+ *     focused element on close.
  *
- * @param props - Chat UI root props.
+ * @param props - Chat UI root props and stateful options.
  * @returns The full chat UI layout.
+ *
+ * @example
+ * ```tsx
+ * <ChatUIRoot mode="twoPane" />
+ * <ChatUIRoot loading />
+ * <ChatUIRoot error="Failed to load chat" />
+ * ```
  */
 export function ChatUIRoot({
   mode: modeProp,
@@ -134,7 +147,29 @@ export function ChatUIRoot({
   composerLeft,
   composerRight,
   emptyState,
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
 }: ChatUIRootProps) {
+  // Determine effective state (priority: loading > error > disabled > default)
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
+  // Effective disabled state (disabled if explicitly disabled OR loading)
+  const isDisabled = disabled || loading;
+
   const isMobile = useMediaQuery(`(max-width: ${mobileBreakpointPx}px)`);
   const slotsValue = useMemo(() => slots ?? {}, [slots]);
 
@@ -365,7 +400,26 @@ export function ChatUIRoot({
     <div
       className="min-h-screen w-full flex bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 overflow-hidden"
       data-testid="chat-ui-root"
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      data-required={required ? "true" : undefined}
+      aria-disabled={isDisabled || undefined}
+      aria-invalid={error ? "true" : required ? "false" : undefined}
+      aria-required={required || undefined}
+      aria-busy={loading || undefined}
     >
+      {/* Loading overlay */}
+      {loading && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-foundation-bg-light-1/80 dark:bg-foundation-bg-dark-1/80">
+          <div className="text-foundation-text-dark-tertiary">Loading chat...</div>
+        </div>
+      )}
+      {/* Error overlay */}
+      {error && !loading && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-foundation-bg-light-1/80 dark:bg-foundation-bg-dark-1/80">
+          <div className="text-foundation-accent-red">{error}</div>
+        </div>
+      )}
       {/* Inline desktop sidebar (twoPane desktop only; Option B = fully hidden when closed) */}
       {sidebarBehavior === "inline" ? (
         <ChatUISlotsProvider value={slotsValue}>

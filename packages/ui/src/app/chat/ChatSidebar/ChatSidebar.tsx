@@ -9,6 +9,7 @@
  * Main component now focuses on composition and rendering.
  */
 
+import * as React from "react";
 import { useRef } from "react";
 
 import {
@@ -27,6 +28,7 @@ import {
   DropdownMenuTrigger,
 } from "../../../components/ui/overlays";
 import { cn } from "../../../components/ui/utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 import {
   IconChat,
   IconChevronRightMd,
@@ -64,7 +66,7 @@ import { useChatSidebarState } from "./hooks/useChatSidebarState";
 /**
  * Props for the chat sidebar component.
  */
-interface ChatSidebarProps {
+interface ChatSidebarProps extends StatefulComponentProps {
   isOpen: boolean;
   onToggle: () => void;
   onProjectSelect?: (project: SidebarItem) => void;
@@ -82,8 +84,20 @@ interface ChatSidebarProps {
 /**
  * Renders the chat sidebar with projects, history, and quick actions.
  *
- * @param props - Chat sidebar props.
+ * Supports stateful props for loading, error, and disabled states.
+ * When loading, shows loading state overlay.
+ * When error, shows error message overlay.
+ * When disabled, disables all interactive elements.
+ *
+ * @param props - Chat sidebar props and stateful options.
  * @returns A sidebar panel element.
+ *
+ * @example
+ * ```tsx
+ * <ChatSidebar isOpen={true} onToggle={handleToggle} />
+ * <ChatSidebar isOpen={true} loading />
+ * <ChatSidebar isOpen={true} error="Failed to load sidebar" />
+ * ```
  */
 export function ChatSidebar({
   isOpen,
@@ -97,7 +111,28 @@ export function ChatSidebar({
   categoryColors,
   categoryIconColors,
   user: _user,
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
 }: ChatSidebarProps) {
+  // Determine effective state (priority: loading > error > disabled > default)
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
+  // Effective disabled state (disabled if explicitly disabled OR loading)
+  const isDisabled = disabled || loading;
   const resolvedProjects = projects ?? defaultProjects;
   const resolvedChatHistory = chatHistory ?? defaultChatHistory;
   const resolvedCategories = categories ?? defaultCategories;
@@ -165,11 +200,31 @@ export function ChatSidebar({
         data-testid="chat-sidebar"
         role="navigation"
         aria-label="Chat sidebar"
+        data-state={effectiveState}
+        data-error={error ? "true" : undefined}
+        data-required={required ? "true" : undefined}
+        aria-disabled={isDisabled || undefined}
+        aria-invalid={error ? "true" : required ? "false" : undefined}
+        aria-required={required || undefined}
+        aria-busy={loading || undefined}
         className={cn(
-          "bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 text-foundation-text-light-primary dark:text-foundation-text-dark-primary flex flex-col h-full border-r border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 transition-all duration-300 shrink-0 w-[260px]",
+          "bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-1 text-foundation-text-light-primary dark:text-foundation-text-dark-primary flex flex-col h-full border-r border-foundation-bg-light-3 dark:border-foundation-bg-dark-3 transition-all duration-300 shrink-0 w-[260px] relative",
           isCollapsed && "w-[64px]",
+          isDisabled && "opacity-50 pointer-events-none",
+          error && "ring-2 ring-foundation-accent-red/50",
+          loading && "animate-pulse",
         )}
       >
+        {loading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-foundation-bg-light-1/80 dark:bg-foundation-bg-dark-1/80 z-10">
+            <div className="text-foundation-text-dark-tertiary">Loading...</div>
+          </div>
+        )}
+        {error && !loading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-foundation-bg-light-1/80 dark:bg-foundation-bg-dark-1/80 z-10">
+            <div className="text-foundation-accent-red">{error}</div>
+          </div>
+        )}
         <div
           className={`flex items-center px-6 py-6 ${isCollapsed ? "justify-center" : "justify-between"}`}
         >

@@ -3,31 +3,65 @@
 // migration_trigger: Replace with Apps SDK UI component when available with matching props and behavior.
 // a11y_contract_ref: docs/KEYBOARD_NAVIGATION_TESTS.md
 
-"use client";
-
 import * as React from "react";
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 
 import { cn } from "../../../utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
 /**
  * Renders a scroll area container (Radix Scroll Area).
  *
+ * Supports stateful props for loading, error, and disabled states.
+ *
  * The viewport is focusable for keyboard scrolling; ensure a visible focus
  * outline if you override the default classes.
  *
- * @param props - Radix scroll area root props.
+ * @param props - Radix scroll area root props and stateful options.
  * @returns A scroll area element.
  */
 function ScrollArea({
   className,
   children,
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
   ...props
-}: React.ComponentProps<typeof ScrollAreaPrimitive.Root>) {
+}: React.ComponentProps<typeof ScrollAreaPrimitive.Root> & StatefulComponentProps) {
+  // Determine effective state
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
   return (
     <ScrollAreaPrimitive.Root
       data-slot="scroll-area"
-      className={cn("relative", className)}
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      data-required={required ? "true" : undefined}
+      className={cn(
+        "relative",
+        // Disabled state styling
+        disabled && "opacity-50 pointer-events-none",
+        // Error state styling
+        error && "ring-2 ring-foundation-accent-red/50",
+        className,
+      )}
+      aria-disabled={disabled || undefined}
+      aria-invalid={error ? "true" : required ? "false" : undefined}
+      aria-required={required || undefined}
+      aria-busy={loading || undefined}
       {...props}
     >
       <ScrollAreaPrimitive.Viewport

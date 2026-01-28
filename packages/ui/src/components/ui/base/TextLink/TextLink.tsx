@@ -3,6 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { IconArrowTopRightSm } from "../../../../icons";
 import { cn } from "../../utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
 const textLinkVariants = cva(
   "inline-flex items-center gap-1 transition-colors focus:outline-none focus:ring-2 focus:ring-ring rounded-sm",
@@ -32,7 +33,8 @@ const textLinkVariants = cva(
 
 export interface TextLinkProps
   extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
-    VariantProps<typeof textLinkVariants> {
+    VariantProps<typeof textLinkVariants>,
+    StatefulComponentProps {
   external?: boolean;
   showExternalIcon?: boolean;
 }
@@ -43,25 +45,58 @@ function TextLink({
   size,
   external = false,
   showExternalIcon = false,
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
   children,
   href,
   ...props
 }: TextLinkProps) {
   const isExternal = external || (href ? href.startsWith("http") : false);
 
+  // Determine effective state
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
   return (
     <a
       data-slot="text-link"
-      href={href}
-      className={cn(textLinkVariants({ variant, size }), className)}
-      {...(isExternal && {
-        target: "_blank",
-        rel: "noopener noreferrer",
-      })}
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      data-required={required ? "true" : undefined}
+      href={disabled ? undefined : href}
+      className={cn(
+        textLinkVariants({ variant, size }),
+        // Disabled state styling
+        disabled && "pointer-events-none opacity-50 no-underline",
+        // Error state styling
+        error && "text-foundation-accent-red hover:text-foundation-accent-red/80",
+        className,
+      )}
+      aria-disabled={disabled || undefined}
+      aria-invalid={error ? "true" : required ? "false" : undefined}
+      aria-required={required || undefined}
+      {...(isExternal &&
+        !disabled && {
+          target: "_blank",
+          rel: "noopener noreferrer",
+        })}
       {...props}
     >
       {children}
-      {showExternalIcon && isExternal && (
+      {showExternalIcon && isExternal && !disabled && (
         <IconArrowTopRightSm className="size-3.5" aria-label="Opens in new tab" />
       )}
     </a>

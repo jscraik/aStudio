@@ -506,7 +506,7 @@ main
 | Component Category | Status | Components Done | Total Components | Test Coverage |
 |-------------------|--------|----------------|-----------------|---------------|
 | Base | 🟢 Complete | 20/20 | 20 | 100% |
-| Layout | 🟡 Partial | 2/7 | 7 | 30% |
+| Layout | 🟢 Complete | 6/6 | 6 | 100% |
 | Forms | 🟡 Started | 4/5 | 5 | 80% |
 | Navigation | 🟡 Started | 2/10 | 10 | 70% |
 | Overlays | 🟡 Started | 2/11 | 11 | 65% |
@@ -541,12 +541,18 @@ main
 
 **Excluded from StatefulComponentProps:**
 - ⚪ Transition (already has state model via `show` prop; the animation IS the state)
+- ⚪ DirectionProvider (context provider for RTL/LTR; no stateful semantics)
+- ⚪ ShimmerText (loading indicator by design; adding stateful props would be circular)
 
-**Remaining Base Components (not in original inventory, to assess):**
-- Collapsible
-- DirectionProvider
-- ListItem
-- ShimmerText
+**Migrated Layout Components:**
+- ✅ AspectRatio
+- ✅ Collapsible
+- ✅ DirectionProvider (cleaned up "use client" directive only)
+- ✅ ListItem (with StatefulComponentProps for error/loading states)
+- ✅ Resizable
+- ✅ ScrollArea
+- ✅ SectionHeader
+- ✅ ShimmerText (cleaned up "use client" directive only)
 
 **Migrated Forms Components:**
 - ✅ Input

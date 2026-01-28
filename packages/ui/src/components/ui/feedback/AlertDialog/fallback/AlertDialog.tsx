@@ -3,15 +3,40 @@
 // migration_trigger: Replace with Apps SDK UI component when available with matching props and behavior.
 // a11y_contract_ref: docs/KEYBOARD_NAVIGATION_TESTS.md
 
-"use client";
-
 import * as React from "react";
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 
 import { cn } from "../../../utils";
 import { buttonVariants } from "../../../base/Button";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
-function AlertDialog({ ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Root>) {
+/**
+ * Props for the alert dialog root component.
+ */
+export interface AlertDialogRootProps extends StatefulComponentProps, React.ComponentProps<typeof AlertDialogPrimitive.Root> {}
+
+function AlertDialog({
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
+  ...props
+}: AlertDialogRootProps) {
+  // Determine effective state (priority: loading > error > disabled > default)
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
   return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />;
 }
 
@@ -41,17 +66,38 @@ function AlertDialogOverlay({
   );
 }
 
+/**
+ * Props for the alert dialog content component.
+ */
+export interface AlertDialogContentProps extends StatefulComponentProps, React.ComponentProps<typeof AlertDialogPrimitive.Content> {}
+
 function AlertDialogContent({
   className,
+  loading = false,
+  error,
+  disabled = false,
+  required,
   ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Content>) {
+}: AlertDialogContentProps) {
+  // Effective disabled state (disabled if explicitly disabled OR loading)
+  const isDisabled = disabled || loading;
+
   return (
     <AlertDialogPortal>
       <AlertDialogOverlay />
       <AlertDialogPrimitive.Content
         data-slot="alert-dialog-content"
+        data-error={error ? "true" : undefined}
+        data-required={required ? "true" : undefined}
+        aria-disabled={isDisabled || undefined}
+        aria-invalid={error ? "true" : required ? "false" : undefined}
+        aria-required={required || undefined}
+        aria-busy={loading || undefined}
         className={cn(
           "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 sm:max-w-lg",
+          isDisabled && "opacity-50 pointer-events-none",
+          error && "ring-2 ring-foundation-accent-red/50",
+          loading && "animate-pulse",
           className,
         )}
         {...props}

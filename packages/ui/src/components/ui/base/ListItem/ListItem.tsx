@@ -3,11 +3,12 @@ import { cloneElement, isValidElement } from "react";
 
 import { IconChevronRightMd } from "../../../../icons";
 import { cn } from "../../utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
 /**
  * Props for the list item component.
  */
-export interface ListItemProps {
+export interface ListItemProps extends StatefulComponentProps {
   /** Icon to display on the left */
   icon?: ReactNode;
   /** Primary label text */
@@ -22,8 +23,6 @@ export interface ListItemProps {
   onClick?: () => void;
   /** Whether the item is selected */
   selected?: boolean;
-  /** Whether the item is disabled */
-  disabled?: boolean;
   /** Additional CSS classes */
   className?: string;
   /** Size variant */
@@ -64,6 +63,10 @@ export function ListItem({
   onClick,
   selected = false,
   disabled = false,
+  loading = false,
+  error,
+  required,
+  onStateChange,
   className,
   size = "md",
   ariaLabel,
@@ -71,6 +74,20 @@ export function ListItem({
   dataRailItem,
   dataTestId,
 }: ListItemProps) {
+  // Determine effective state (priority: loading > error > disabled > default)
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
   const iconSizeClass = size === "lg" ? "size-6" : size === "sm" ? "size-4" : "size-5";
   const iconWrapperSizeClass =
     size === "lg" ? "[&>svg]:size-6" : size === "sm" ? "[&>svg]:size-4" : "[&>svg]:size-5";
@@ -91,23 +108,33 @@ export function ListItem({
   };
 
   const isButton = Boolean(onClick);
+  const isDisabled = disabled || loading;
   const Component = isButton ? "button" : "div";
 
   return (
     <Component
-      {...(isButton ? { type: "button" as const, disabled } : {})}
-      onClick={disabled ? undefined : onClick}
+      {...(isButton ? { type: "button" as const, disabled: isDisabled } : {})}
+      onClick={isDisabled ? undefined : onClick}
       aria-label={ariaLabel}
       title={title}
       data-rail-item={dataRailItem ? "true" : undefined}
       data-testid={dataTestId}
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      data-required={required ? "true" : undefined}
+      aria-disabled={isDisabled || undefined}
+      aria-invalid={error ? "true" : required ? "false" : undefined}
+      aria-required={required || undefined}
+      aria-busy={loading || undefined}
       className={cn(
         "group w-full flex items-center justify-between rounded-10 transition-colors text-left",
         sizes[size],
         onClick &&
           "hover:bg-foundation-bg-light-2/80 dark:hover:bg-foundation-bg-dark-2/80 cursor-pointer",
         selected && "bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-2",
-        disabled && "opacity-50 cursor-not-allowed",
+        isDisabled && "opacity-50 cursor-not-allowed",
+        error && "border border-foundation-accent-red/50",
+        loading && "animate-pulse",
         dataRailItem && "justify-center px-2",
         className,
       )}

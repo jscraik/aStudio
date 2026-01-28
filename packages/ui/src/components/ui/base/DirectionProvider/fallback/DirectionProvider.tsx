@@ -3,8 +3,6 @@
 // migration_trigger: Replace with Apps SDK UI component when available with matching props and behavior.
 // a11y_contract_ref: docs/KEYBOARD_NAVIGATION_TESTS.md
 
-"use client";
-
 import { DirectionProvider as RadixDirectionProvider } from "@radix-ui/react-direction";
 import * as React from "react";
 

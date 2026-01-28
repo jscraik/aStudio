@@ -22,7 +22,7 @@
     "clean": "rm -rf dist"
   },
   "devDependencies": {
-    "@types/node": "^22.19.3",
+    "@types/node": "^25.1.0",
     "vitest": "^4.0.16"
   }
 }

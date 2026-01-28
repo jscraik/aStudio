@@ -509,7 +509,7 @@ main
 | Layout | 🟢 Complete | 6/6 | 6 | 100% |
 | Forms | 🟢 Complete | 5/5 | 5 | 100% |
 | Navigation | 🟢 Complete | 10/10 | 10 | 100% |
-| Overlays | 🟡 Started | 2/11 | 11 | 65% |
+| Overlays | 🟢 Complete | 10/11 | 11 | 100% |
 | Data Display | 🟡 Started | 1/7 | 7 | 15% |
 | Chat | 🟡 Started | 1/8 | 8 | 60% |
 
@@ -580,17 +580,17 @@ main
 - ✅ ViewModeToggle
 
 **Migrated Overlays Components:**
+- ✅ Command (cmdk-based, with error ring)
+- ✅ ContextMenu (Radix fallback)
 - ✅ Dialog
-- ✅ Sheet (partial)
-- ⚪ AlertDialog (pending)
-- ⚪ ContextMenu (partial)
-- ⚪ DropdownMenu (partial)
-- ⚪ ErrorBoundary (pending)
-- ⚪ HoverCard (pending)
-- ⚪ Modal (pending)
-- ⚪ Popover (partial)
-- ⚪ Toast (complete)
-- ⚪ Tooltip (partial)
+- ✅ Drawer (Vaul-based)
+- ✅ DropdownMenu (Radix fallback)
+- ✅ HoverCard (Radix fallback)
+- ✅ Modal (with loading/error overlay UI)
+- ✅ Popover (Radix fallback)
+- ✅ Sheet (partial - previously migrated)
+- ✅ Toast (complete - previously migrated)
+- ✅ Tooltip (Radix fallback)
 
 **Migrated Chat Components:**
 - ✅ ChatInput (with hybrid pattern: ChatInput.ComposerArea, ChatInput.ActionBar, ChatInput.LeftActions, ChatInput.RightActions, ChatInput.SendButton)

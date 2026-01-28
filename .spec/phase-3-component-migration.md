@@ -511,6 +511,7 @@ main
 | Navigation | 🟢 Complete | 10/10 | 10 | 100% |
 | Overlays | 🟢 Complete | 10/11 | 11 | 100% |
 | Data Display | 🟢 Complete | 8/8 | 8 | 100% |
+| Chat | 🟢 Complete | 6/6 | 6 | 100% |
 | Chat | 🟡 Started | 1/8 | 8 | 60% |
 
 **Migrated Base Components:**
@@ -604,13 +605,12 @@ main
 
 **Migrated Chat Components:**
 - ✅ ChatInput (with hybrid pattern: ChatInput.ComposerArea, ChatInput.ActionBar, ChatInput.LeftActions, ChatInput.RightActions, ChatInput.SendButton)
-- ⚪ AttachmentMenu (partial)
-- ⚪ ChatActions (pending)
-- ⚪ ChatHeader (pending)
-- ⚪ ChatMessages (pending)
-- ⚪ ChatShell (pending)
-- ⚪ ChatSidebar (pending)
-- ⚪ ChatUIRoot (pending)
+- ✅ ChatShell (with loading/error overlay states for entire chat shell)
+- ✅ AttachmentMenu (with disabled state for menu items)
+- ✅ ChatHeader (with loading/error states with visual feedback)
+- ✅ ChatMessages (with loading/error message display states)
+- ✅ ChatUIRoot (with loading/error overlay for main chat UI)
+- ✅ ChatSidebar (with loading/error states with disabled controls)
 
 ## 6. Success Criteria
 

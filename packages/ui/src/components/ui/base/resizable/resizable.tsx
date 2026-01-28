@@ -1,24 +1,61 @@
-"use client";
-
 import * as React from "react";
 import { Group, Panel, Separator } from "react-resizable-panels";
 
 import { IconDotsVertical } from "../../../../icons";
 import { cn } from "../../utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
 /**
  * Renders a resizable panel group.
  *
+ * Supports stateful props for loading, error, and disabled states.
+ *
  * Use `direction="horizontal" | "vertical"` to control layout direction.
  *
- * @param props - Resizable panel group props.
+ * @param props - Resizable panel group props and stateful options.
  * @returns A resizable panel group element.
  */
-function ResizablePanelGroup({ className, ...props }: React.ComponentProps<typeof Group>) {
+function ResizablePanelGroup({
+  className,
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
+  ...props
+}: React.ComponentProps<typeof Group> & StatefulComponentProps) {
+  // Determine effective state
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
   return (
     <Group
       data-slot="resizable-panel-group"
-      className={cn("flex h-full w-full data-[panel-group-direction=vertical]:flex-col", className)}
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      data-required={required ? "true" : undefined}
+      className={cn(
+        "flex h-full w-full data-[panel-group-direction=vertical]:flex-col",
+        // Disabled state styling
+        disabled && "opacity-50 pointer-events-none",
+        // Error state styling
+        error && "ring-2 ring-foundation-accent-red/50",
+        className,
+      )}
+      aria-disabled={disabled || undefined}
+      aria-invalid={error ? "true" : required ? "false" : undefined}
+      aria-required={required || undefined}
+      aria-busy={loading || undefined}
       {...props}
     />
   );

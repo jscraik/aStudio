@@ -8,6 +8,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "../../../utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
 /**
  * Defines base class names and variant mappings for badges.
@@ -36,24 +37,68 @@ const badgeVariants = cva(
 /**
  * Renders a badge element with visual variants.
  *
- * @param props - Badge props including variant and `asChild`.
+ * Supports stateful props for loading, error, disabled, and required states.
+ *
+ * @param props - Badge props including variant, asChild, and stateful options.
  * @returns A badge element.
  *
  * @example
  * ```tsx
  * <Badge variant="secondary">Beta</Badge>
+ * <Badge loading>Loading...</Badge>
+ * <Badge error="Failed">Error</Badge>
  * ```
  */
 function Badge({
   className,
   variant,
   asChild = false,
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
   ...props
-}: React.ComponentProps<"span"> & VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
+}: React.ComponentProps<"span"> &
+  VariantProps<typeof badgeVariants> &
+  StatefulComponentProps & {
+    asChild?: boolean;
+  }) {
   const Comp = asChild ? Slot : "span";
 
+  // Determine effective state
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
   return (
-    <Comp data-slot="badge" className={cn(badgeVariants({ variant }), className)} {...props} />
+    <Comp
+      data-slot="badge"
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      data-required={required ? "true" : undefined}
+      className={cn(
+        badgeVariants({ variant }),
+        // Disabled state styling
+        disabled && "opacity-50 pointer-events-none",
+        // Error state styling
+        error && "border-foundation-accent-red text-foundation-accent-red",
+        className,
+      )}
+      aria-disabled={disabled || undefined}
+      aria-invalid={error ? "true" : required ? "false" : undefined}
+      aria-required={required || undefined}
+      {...props}
+    />
   );
 }
 

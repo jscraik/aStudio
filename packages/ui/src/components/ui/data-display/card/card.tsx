@@ -1,15 +1,49 @@
 import * as React from "react";
 
 import { cn } from "../../utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
+function Card({
+  className,
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
+  ...props
+}: React.ComponentProps<"div"> & StatefulComponentProps) {
+  // Determine effective state
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
   return (
     <div
       data-slot="card"
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      data-required={required ? "true" : undefined}
       className={cn(
         "bg-card text-foreground flex flex-col gap-6 rounded-24 border border-border-strong shadow-foundation-card font-foundation",
+        // Disabled state styling
+        disabled && "opacity-50 pointer-events-none",
+        // Error state styling
+        error && "border-foundation-accent-red ring-2 ring-foundation-accent-red/50",
         className,
       )}
+      aria-disabled={disabled || undefined}
+      aria-invalid={error ? "true" : required ? "false" : undefined}
+      aria-required={required || undefined}
+      aria-busy={loading || undefined}
       {...props}
     />
   );

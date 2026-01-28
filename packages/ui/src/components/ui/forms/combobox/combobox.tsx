@@ -1,9 +1,8 @@
-"use client";
-
 import * as React from "react";
 
 import { Button } from "../../base/Button";
 import { cn } from "../../utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
 /**
  * Represents a combobox option.
@@ -20,7 +19,7 @@ export interface ComboboxOption {
 /**
  * Props for the combobox component.
  */
-export interface ComboboxProps {
+export interface ComboboxProps extends StatefulComponentProps {
   /** Available options */
   options: ComboboxOption[];
   /** Selected value */
@@ -33,12 +32,10 @@ export interface ComboboxProps {
   searchPlaceholder?: string;
   /** Empty state message */
   emptyMessage?: string;
-  /** Whether the combobox is disabled */
-  disabled?: boolean;
-  /** Additional className */
-  className?: string;
   /** Allow custom values not in options */
   allowCustomValue?: boolean;
+  /** Additional className */
+  className?: string;
 }
 
 /**
@@ -73,6 +70,10 @@ function Combobox({
   searchPlaceholder = "Search...",
   emptyMessage = "No results found.",
   disabled = false,
+  loading = false,
+  error,
+  required,
+  onStateChange,
   className,
   allowCustomValue = false,
 }: ComboboxProps) {
@@ -81,6 +82,23 @@ function Combobox({
   const inputRef = React.useRef<HTMLInputElement>(null);
   const listRef = React.useRef<HTMLUListElement>(null);
   const [highlightedIndex, setHighlightedIndex] = React.useState(-1);
+
+  // Determine effective state (priority: loading > error > disabled > default)
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
+  // Effective disabled state (disabled if explicitly disabled OR loading)
+  const isDisabled = disabled || loading;
 
   const selectedOption = options.find((opt) => opt.value === value);
 
@@ -168,8 +186,19 @@ function Combobox({
   return (
     <div
       data-slot="combobox"
-      className={cn("relative w-full font-foundation", className)}
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      data-required={required ? "true" : undefined}
+      className={cn(
+        "relative w-full font-foundation",
+        error && "ring-2 ring-foundation-accent-red/50 rounded-md",
+        className,
+      )}
       onKeyDown={handleKeyDown}
+      aria-disabled={isDisabled || undefined}
+      aria-invalid={error ? "true" : required ? "false" : undefined}
+      aria-required={required || undefined}
+      aria-busy={loading || undefined}
     >
       <Button
         type="button"
@@ -177,8 +206,9 @@ function Combobox({
         role="combobox"
         aria-expanded={open}
         aria-haspopup="listbox"
-        disabled={disabled}
-        onClick={() => setOpen(!open)}
+        disabled={isDisabled}
+        loading={loading}
+        onClick={() => !isDisabled && setOpen(!open)}
         className={cn("w-full justify-between", !value && "text-foundation-text-dark-tertiary")}
       >
         {selectedOption?.label || value || placeholder}
@@ -200,72 +230,84 @@ function Combobox({
           data-slot="combobox-content"
           className="absolute z-50 mt-1 w-full rounded-md border border-foundation-bg-dark-3 bg-foundation-bg-light-1 dark:bg-foundation-bg-dark-2 shadow-lg"
         >
-          <div className="p-2">
-            <input
-              ref={inputRef}
-              type="text"
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setHighlightedIndex(0);
-              }}
-              placeholder={searchPlaceholder}
-              className="w-full rounded-md border border-foundation-bg-dark-3 bg-transparent px-3 py-2 text-sm text-foundation-text-dark-primary placeholder:text-foundation-text-light-tertiary dark:placeholder:text-foundation-text-dark-tertiary focus:outline-none focus:ring-2 focus:ring-foundation-accent-blue"
-              aria-label={searchPlaceholder}
-            />
-          </div>
+          {loading ? (
+            <div className="p-4 text-center text-sm text-foundation-text-dark-tertiary">
+              Loading...
+            </div>
+          ) : (
+            <>
+              <div className="p-2">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={search}
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                    setHighlightedIndex(0);
+                  }}
+                  placeholder={searchPlaceholder}
+                  disabled={isDisabled}
+                  className="w-full rounded-md border border-foundation-bg-dark-3 bg-transparent px-3 py-2 text-sm text-foundation-text-dark-primary placeholder:text-foundation-text-light-tertiary dark:placeholder:text-foundation-text-dark-tertiary focus:outline-none focus:ring-2 focus:ring-foundation-accent-blue disabled:opacity-50 disabled:cursor-not-allowed"
+                  aria-label={searchPlaceholder}
+                  aria-disabled={isDisabled || undefined}
+                />
+              </div>
 
-          <ul
-            ref={listRef}
-            role="listbox"
-            className="max-h-60 overflow-auto p-1"
-            aria-label="Options"
-          >
-            {filteredOptions.length === 0 ? (
-              <li className="px-3 py-2 text-sm text-foundation-text-dark-tertiary">
-                {emptyMessage}
-              </li>
-            ) : (
-              filteredOptions.map((option, index) => (
-                <li
-                  key={option.value}
-                  role="option"
-                  aria-selected={value === option.value}
-                  aria-disabled={option.disabled}
-                  onClick={() => !option.disabled && handleSelect(option.value)}
-                  className={cn(
-                    "relative flex cursor-pointer select-none items-center rounded-sm px-3 py-2 text-sm outline-none transition-colors",
-                    value === option.value &&
-                      "bg-foundation-accent-blue/10 text-foundation-text-dark-primary",
-                    highlightedIndex === index &&
-                      value !== option.value &&
-                      "bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-3",
-                    option.disabled && "pointer-events-none opacity-50",
-                    !option.disabled &&
-                      value !== option.value &&
-                      "text-foundation-text-dark-primary hover:bg-foundation-bg-light-2 dark:hover:bg-foundation-bg-dark-3",
-                  )}
-                >
-                  {value === option.value && (
-                    <svg
-                      className="mr-2 size-4 text-foundation-accent-blue"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
+              {error && <div className="px-3 pb-2 text-sm text-foundation-accent-red">{error}</div>}
+
+              <ul
+                ref={listRef}
+                role="listbox"
+                className="max-h-60 overflow-auto p-1"
+                aria-label="Options"
+              >
+                {filteredOptions.length === 0 ? (
+                  <li className="px-3 py-2 text-sm text-foundation-text-dark-tertiary">
+                    {emptyMessage}
+                  </li>
+                ) : (
+                  filteredOptions.map((option, index) => (
+                    <li
+                      key={option.value}
+                      role="option"
+                      aria-selected={value === option.value}
+                      aria-disabled={option.disabled || isDisabled}
+                      onClick={() => !option.disabled && !isDisabled && handleSelect(option.value)}
+                      className={cn(
+                        "relative flex cursor-pointer select-none items-center rounded-sm px-3 py-2 text-sm outline-none transition-colors",
+                        value === option.value &&
+                          "bg-foundation-accent-blue/10 text-foundation-text-dark-primary",
+                        highlightedIndex === index &&
+                          value !== option.value &&
+                          "bg-foundation-bg-light-2 dark:bg-foundation-bg-dark-3",
+                        (option.disabled || isDisabled) && "pointer-events-none opacity-50",
+                        !(option.disabled || isDisabled) &&
+                          value !== option.value &&
+                          "text-foundation-text-dark-primary hover:bg-foundation-bg-light-2 dark:hover:bg-foundation-bg-dark-3",
+                      )}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  )}
-                  <span className={cn(value !== option.value && "ml-6")}>{option.label}</span>
-                </li>
-              ))
-            )}
-          </ul>
+                      {value === option.value && (
+                        <svg
+                          className="mr-2 size-4 text-foundation-accent-blue"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      )}
+                      <span className={cn(value !== option.value && "ml-6")}>{option.label}</span>
+                    </li>
+                  ))
+                )}
+              </ul>
+            </>
+          )}
         </div>
       )}
     </div>

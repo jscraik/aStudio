@@ -3,21 +3,57 @@
 // migration_trigger: Replace with Apps SDK UI component when available with matching props and behavior.
 // a11y_contract_ref: docs/KEYBOARD_NAVIGATION_TESTS.md
 
-"use client";
-
 import * as React from "react";
 import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
+
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
 /**
  * Renders the collapsible root component (Radix Collapsible).
  *
+ * Supports stateful props for loading, error, and disabled states.
+ * Note: Radix Collapsible manages its own open/closed state via `open`/`onOpenChange` props.
+ *
  * Use `open`/`onOpenChange` for controlled state or `defaultOpen` for uncontrolled.
  *
- * @param props - Radix collapsible root props.
+ * @param props - Radix collapsible root props and stateful options.
  * @returns The collapsible root element.
  */
-function Collapsible({ ...props }: React.ComponentProps<typeof CollapsiblePrimitive.Root>) {
-  return <CollapsiblePrimitive.Root data-slot="collapsible" {...props} />;
+function Collapsible({
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
+  ...props
+}: React.ComponentProps<typeof CollapsiblePrimitive.Root> & StatefulComponentProps) {
+  // Determine effective state
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
+  return (
+    <CollapsiblePrimitive.Root
+      data-slot="collapsible"
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      data-required={required ? "true" : undefined}
+      aria-disabled={disabled || undefined}
+      aria-invalid={error ? "true" : required ? "false" : undefined}
+      aria-required={required || undefined}
+      aria-busy={loading || undefined}
+      {...props}
+    />
+  );
 }
 
 /**

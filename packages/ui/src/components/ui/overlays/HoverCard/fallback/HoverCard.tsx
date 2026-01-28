@@ -3,17 +3,18 @@
 // migration_trigger: Replace with Apps SDK UI component when available with matching props and behavior.
 // a11y_contract_ref: docs/KEYBOARD_NAVIGATION_TESTS.md
 
-"use client";
-
 import * as React from "react";
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
 
 import { cn } from "../../../utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
 /**
  * Renders the hover card root component (Radix Hover Card).
  *
- * @param props - Radix hover card root props.
+ * Supports stateful props for loading, error, and disabled states.
+ *
+ * @param props - Radix hover card root props and stateful options.
  * @returns The hover card root element.
  *
  * @example
@@ -24,8 +25,44 @@ import { cn } from "../../../utils";
  * </HoverCard>
  * ```
  */
-function HoverCard({ ...props }: React.ComponentProps<typeof HoverCardPrimitive.Root>) {
-  return <HoverCardPrimitive.Root data-slot="hover-card" {...props} />;
+function HoverCard({
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
+  ...props
+}: React.ComponentProps<typeof HoverCardPrimitive.Root> & StatefulComponentProps) {
+  // Determine effective state (priority: loading > error > disabled > default)
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
+  // Effective disabled state (disabled if explicitly disabled OR loading)
+  const isDisabled = disabled || loading;
+
+  return (
+    <HoverCardPrimitive.Root
+      data-slot="hover-card"
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      data-required={required ? "true" : undefined}
+      aria-disabled={isDisabled || undefined}
+      aria-invalid={error ? "true" : required ? "false" : undefined}
+      aria-required={required || undefined}
+      aria-busy={loading || undefined}
+      {...props}
+    />
+  );
 }
 
 /**

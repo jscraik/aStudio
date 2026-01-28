@@ -1,14 +1,15 @@
-"use client";
-
 import * as React from "react";
 import { Drawer as DrawerPrimitive } from "vaul";
 
 import { cn } from "../../utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
 /**
  * Renders the drawer root component (Vaul).
  *
- * @param props - Vaul drawer root props.
+ * Supports stateful props for loading, error, and disabled states.
+ *
+ * @param props - Vaul drawer root props and stateful options.
  * @returns The drawer root element.
  *
  * @example
@@ -23,8 +24,44 @@ import { cn } from "../../utils";
  * </Drawer>
  * ```
  */
-function Drawer({ ...props }: React.ComponentProps<typeof DrawerPrimitive.Root>) {
-  return <DrawerPrimitive.Root data-slot="drawer" {...props} />;
+function Drawer({
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
+  ...props
+}: React.ComponentProps<typeof DrawerPrimitive.Root> & StatefulComponentProps) {
+  // Determine effective state (priority: loading > error > disabled > default)
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
+  // Effective disabled state (disabled if explicitly disabled OR loading)
+  const isDisabled = disabled || loading;
+
+  return (
+    <DrawerPrimitive.Root
+      data-slot="drawer"
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      data-required={required ? "true" : undefined}
+      aria-disabled={isDisabled || undefined}
+      aria-invalid={error ? "true" : required ? "false" : undefined}
+      aria-required={required || undefined}
+      aria-busy={loading || undefined}
+      {...props}
+    />
+  );
 }
 
 /**

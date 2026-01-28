@@ -3,12 +3,11 @@
 // migration_trigger: Replace with Apps SDK UI component when available with matching props and behavior.
 // a11y_contract_ref: docs/KEYBOARD_NAVIGATION_TESTS.md
 
-"use client";
-
 import * as React from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 
 import { cn } from "../../../utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
 /**
  * Provides a tooltip provider for shared configuration.
@@ -32,7 +31,9 @@ function TooltipProvider({
 /**
  * Renders the tooltip root component.
  *
- * @param props - Radix tooltip root props.
+ * Supports stateful props for loading, error, and disabled states.
+ *
+ * @param props - Radix tooltip root props and stateful options.
  * @returns The tooltip root element.
  *
  * @example
@@ -43,10 +44,44 @@ function TooltipProvider({
  * </Tooltip>
  * ```
  */
-function Tooltip({ ...props }: React.ComponentProps<typeof TooltipPrimitive.Root>) {
+function Tooltip({
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
+  ...props
+}: React.ComponentProps<typeof TooltipPrimitive.Root> & StatefulComponentProps) {
+  // Determine effective state (priority: loading > error > disabled > default)
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
+  // Effective disabled state (disabled if explicitly disabled OR loading)
+  const isDisabled = disabled || loading;
+
   return (
     <TooltipProvider>
-      <TooltipPrimitive.Root data-slot="tooltip" {...props} />
+      <TooltipPrimitive.Root
+        data-slot="tooltip"
+        data-state={effectiveState}
+        data-error={error ? "true" : undefined}
+        data-required={required ? "true" : undefined}
+        aria-disabled={isDisabled || undefined}
+        aria-invalid={error ? "true" : required ? "false" : undefined}
+        aria-required={required || undefined}
+        aria-busy={loading || undefined}
+        {...props}
+      />
     </TooltipProvider>
   );
 }

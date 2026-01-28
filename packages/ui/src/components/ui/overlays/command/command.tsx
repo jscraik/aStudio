@@ -1,10 +1,9 @@
-"use client";
-
 import * as React from "react";
 import { Command as CommandPrimitive } from "cmdk";
 
 import { IconSearch } from "../../../../icons";
 import { cn } from "../../utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 import {
   Dialog,
   DialogContent,
@@ -16,15 +15,52 @@ import {
 /**
  * Renders the command palette container (cmdk).
  *
- * @param props - Cmdk root props.
+ * Supports stateful props for loading, error, and disabled states.
+ *
+ * @param props - Cmdk root props and stateful options.
  * @returns The command palette root element.
  */
-function Command({ className, ...props }: React.ComponentProps<typeof CommandPrimitive>) {
+function Command({
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
+  className,
+  ...props
+}: React.ComponentProps<typeof CommandPrimitive> & StatefulComponentProps) {
+  // Determine effective state (priority: loading > error > disabled > default)
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
+  // Effective disabled state (disabled if explicitly disabled OR loading)
+  const isDisabled = disabled || loading;
+
   return (
     <CommandPrimitive
       data-slot="command"
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      data-required={required ? "true" : undefined}
+      aria-disabled={isDisabled || undefined}
+      aria-invalid={error ? "true" : required ? "false" : undefined}
+      aria-required={required || undefined}
+      aria-busy={loading || undefined}
       className={cn(
         "bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md",
+        isDisabled && "opacity-50 pointer-events-none",
+        error && "ring-2 ring-foundation-accent-red/50 rounded-md",
+        loading && "animate-pulse",
         className,
       )}
       {...props}

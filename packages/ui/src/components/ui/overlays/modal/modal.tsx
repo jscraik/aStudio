@@ -1,12 +1,14 @@
+import * as React from "react";
 import { useId, type ReactNode } from "react";
 
 import { useFocusTrap } from "../../../../hooks/useFocusTrap";
 import { cn } from "../../utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
 /**
  * Props for the modal dialog component.
  */
-export interface ModalDialogProps {
+export interface ModalDialogProps extends StatefulComponentProps {
   /** Whether the modal is open */
   isOpen: boolean;
   /** Callback when the modal is closed (via overlay click, Escape, or close button) */
@@ -66,6 +68,11 @@ export function ModalDialog({
   showOverlay = true,
   className,
   overlayClassName,
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
 }: ModalDialogProps) {
   const baseId = useId();
   const { trapProps } = useFocusTrap({
@@ -74,6 +81,23 @@ export function ModalDialog({
     restoreFocus: true,
   });
 
+  // Determine effective state (priority: loading > error > disabled > default)
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
+  // Effective disabled state (disabled if explicitly disabled OR loading)
+  const isDisabled = disabled || loading;
+
   if (!isOpen) return null;
 
   // Generate unique IDs using useId() for guaranteed uniqueness
@@ -81,12 +105,28 @@ export function ModalDialog({
   const descriptionId = description ? `modal-description-${baseId}` : undefined;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center" role="presentation">
+    <div
+      data-slot="modal"
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      data-required={required ? "true" : undefined}
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      role="presentation"
+      aria-disabled={isDisabled || undefined}
+      aria-invalid={error ? "true" : required ? "false" : undefined}
+      aria-required={required || undefined}
+      aria-busy={loading || undefined}
+    >
       {/* Overlay */}
       {showOverlay && (
         <button
           type="button"
-          className={cn("absolute inset-0 bg-foundation-bg-dark-1/60", overlayClassName)}
+          className={cn(
+            "absolute inset-0 bg-foundation-bg-dark-1/60",
+            isDisabled && "opacity-50 pointer-events-none",
+            error && "bg-foundation-accent-red/30",
+            overlayClassName,
+          )}
           aria-hidden="true"
           tabIndex={-1}
           onClick={onClose}
@@ -106,10 +146,23 @@ export function ModalDialog({
           "border border-foundation-bg-light-3 dark:border-foundation-bg-dark-3",
           "rounded-xl shadow-2xl",
           "max-h-[90vh] overflow-y-auto",
+          isDisabled && "opacity-50 pointer-events-none",
+          error && "ring-2 ring-foundation-accent-red/50",
+          loading && "animate-pulse",
           className,
         )}
         style={{ maxWidth }}
       >
+        {loading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-foundation-bg-light-1/80 dark:bg-foundation-bg-dark-2/80 z-20 rounded-xl">
+            <div className="text-foundation-text-dark-tertiary">Loading...</div>
+          </div>
+        )}
+        {error && !loading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-foundation-bg-light-1/80 dark:bg-foundation-bg-dark-2/80 z-20 rounded-xl">
+            <div className="text-foundation-accent-red">{error}</div>
+          </div>
+        )}
         {title && !titleId ? (
           <span id={generatedTitleId} className="sr-only">
             {title}

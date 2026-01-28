@@ -3,28 +3,63 @@
 // migration_trigger: Replace with Apps SDK UI component when available with matching props and behavior.
 // a11y_contract_ref: docs/KEYBOARD_NAVIGATION_TESTS.md
 
-"use client";
-
 import * as React from "react";
 import * as MenubarPrimitive from "@radix-ui/react-menubar";
 
 import { IconCheckCircle, IconCheckmark, IconChevronRightMd } from "../../../../../icons";
 import { cn } from "../../../utils";
+import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
 
 /**
  * Renders the menubar root component (Radix Menubar).
  *
- * @param props - Radix menubar root props.
+ * Supports stateful props for loading, error, and disabled states.
+ *
+ * @param props - Radix menubar root props and stateful options.
  * @returns A menubar element.
  */
-function Menubar({ className, ...props }: React.ComponentProps<typeof MenubarPrimitive.Root>) {
+function Menubar({
+  className,
+  loading = false,
+  error,
+  disabled = false,
+  required,
+  onStateChange,
+  ...props
+}: React.ComponentProps<typeof MenubarPrimitive.Root> & StatefulComponentProps) {
+  // Determine effective state (priority: loading > error > disabled > default)
+  const effectiveState: ComponentState = loading
+    ? "loading"
+    : error
+      ? "error"
+      : disabled
+        ? "disabled"
+        : "default";
+
+  // Notify parent of state changes
+  React.useEffect(() => {
+    onStateChange?.(effectiveState);
+  }, [effectiveState, onStateChange]);
+
+  // Effective disabled state (disabled if explicitly disabled OR loading)
+  const isDisabled = disabled || loading;
+
   return (
     <MenubarPrimitive.Root
       data-slot="menubar"
+      data-state={effectiveState}
+      data-error={error ? "true" : undefined}
+      data-required={required ? "true" : undefined}
       className={cn(
         "bg-background flex h-9 items-center gap-1 rounded-md border p-1 shadow-xs",
+        isDisabled && "opacity-50 pointer-events-none",
+        error && "border-foundation-accent-red",
         className,
       )}
+      aria-disabled={isDisabled || undefined}
+      aria-invalid={error ? "true" : required ? "false" : undefined}
+      aria-required={required || undefined}
+      aria-busy={loading || undefined}
       {...props}
     />
   );

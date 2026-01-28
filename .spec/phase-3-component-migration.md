@@ -508,7 +508,7 @@ main
 | Base | 🟢 Complete | 20/20 | 20 | 100% |
 | Layout | 🟢 Complete | 6/6 | 6 | 100% |
 | Forms | 🟢 Complete | 5/5 | 5 | 100% |
-| Navigation | 🟡 In Progress | 5/10 | 10 | 75% |
+| Navigation | 🟢 Complete | 10/10 | 10 | 100% |
 | Overlays | 🟡 Started | 2/11 | 11 | 65% |
 | Data Display | 🟡 Started | 1/7 | 7 | 15% |
 | Chat | 🟡 Started | 1/8 | 8 | 60% |
@@ -569,18 +569,15 @@ main
 
 **Migrated Navigation Components:**
 - ✅ Breadcrumb
-- ✅ Pagination
-- ✅ Tabs
-- ✅ NavigationMenu
+- ✅ Carousel (Embla-based, with loading/error overlay)
 - ✅ Menubar
-- ⚪ Carousel (pending)
-- ⚪ Command (pending)
-- ⚪ ContextMenu (partial)
-- ⚪ DropdownMenu (partial)
-- ⚪ ModelBadge (pending)
-- ⚪ ModeSelector (pending)
-- ⚪ Sidebar (pending)
-- ⚪ ViewModeToggle (pending)
+- ✅ ModelBadge (with loading/error display states)
+- ✅ ModeSelector (with loading/error trigger states)
+- ✅ NavigationMenu
+- ✅ Pagination
+- ✅ Sidebar (SidebarProvider with StatefulComponentProps)
+- ✅ Tabs
+- ✅ ViewModeToggle
 
 **Migrated Overlays Components:**
 - ✅ Dialog

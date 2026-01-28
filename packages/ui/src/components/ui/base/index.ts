@@ -30,3 +30,4 @@ export * from "./Textarea";
 export * from "./Toggle";
 export * from "./ToggleGroup";
 export * from "./UseMobile";
+export * from "./ShimmerText";

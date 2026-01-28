@@ -208,7 +208,7 @@ export const AllSizes: Story = {
       <Button size="default">Default</Button>
       <Button size="lg">Large</Button>
       <Button size="icon" aria-label="Icon button">
-        <Plus className="h-4 w-4" />
+        <IconPlusLg className="h-4 w-4" />
       </Button>
     </div>
   ),

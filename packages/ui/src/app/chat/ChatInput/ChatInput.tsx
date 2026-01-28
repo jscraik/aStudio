@@ -92,12 +92,15 @@ interface ChatInputContextValue {
   setIsResearchEnabled: (enabled: boolean) => void;
   attachmentMenuOpen: boolean;
   setAttachmentMenuOpen: (open: boolean) => void;
-  textareaRef: React.RefObject<HTMLTextAreaElement>;
+  textareaRef: React.RefObject<HTMLTextAreaElement | null>;
   selectedModel: ModelConfig;
   placeholder: string;
   disabled: boolean;
   iconSm: string;
   iconMd: string;
+  composerLeft?: ReactNode;
+  composerRight?: ReactNode;
+  onAutoClear?: () => void;
   handleSubmit: (e: FormEvent) => void;
   handleSearchToggle: () => void;
   handleResearchToggle: () => void;
@@ -520,7 +523,7 @@ export function ChatInput({
   const [isSearchEnabled, setIsSearchEnabled] = useState(false);
   const [isResearchEnabled, setIsResearchEnabled] = useState(false);
   const [attachmentMenuOpen, setAttachmentMenuOpen] = useState(false);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const isCompound = variant === "compound";
 

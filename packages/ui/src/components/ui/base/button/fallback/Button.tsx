@@ -252,7 +252,7 @@ function Button({
   children,
   ...props
 }: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> &
+  Omit<VariantProps<typeof buttonVariants>, "variant"> &
   StatefulComponentProps & {
     asChild?: boolean;
     variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | "compound";
@@ -284,6 +284,8 @@ function Button({
           data-slot="button-compound"
           data-state={effectiveState}
           data-error={error ? "true" : undefined}
+          tabIndex={isDisabled ? -1 : undefined}
+          aria-disabled={isDisabled || undefined}
           className={cn(
             "inline-flex items-center gap-2",
             // Error state styling for compound container
@@ -329,6 +331,7 @@ function Button({
         // Focus ring for error state
         error && "focus-visible:ring-foundation-accent-red",
       )}
+      tabIndex={isDisabled ? -1 : undefined}
       {...props}
     >
       {buttonChildren}

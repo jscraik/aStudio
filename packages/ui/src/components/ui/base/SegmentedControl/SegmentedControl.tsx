@@ -43,6 +43,8 @@ export interface SegmentedControlProps<T extends string = string> extends Statef
   disabled?: boolean;
   /** Required field indicator (default: `false`) */
   required?: boolean;
+  /** Unique ID for the control */
+  id?: string;
 }
 
 /**

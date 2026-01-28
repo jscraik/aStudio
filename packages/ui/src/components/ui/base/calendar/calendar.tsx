@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import { DayPicker } from "react-day-picker";
 
@@ -7,6 +5,21 @@ import { IconChevronLeftMd, IconChevronRightMd } from "../../../../icons";
 import { cn } from "../../utils";
 import { buttonVariants } from "../Button";
 import type { StatefulComponentProps, ComponentState } from "@design-studio/tokens";
+
+/**
+ * Props for the Calendar component.
+ */
+export interface CalendarProps extends StatefulComponentProps {
+  className?: string;
+  classNames?: Record<string, string>;
+  showOutsideDays?: boolean;
+  disabled?: boolean | ((date: Date) => boolean);
+  required?: boolean;
+  id?: string;
+  // Allow any other DayPicker props - use any to work around react-day-picker v9 complex types
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+}
 
 /**
  * Error message display for calendar.
@@ -88,12 +101,23 @@ function Calendar({
   showOutsideDays = true,
   error,
   loading = false,
-  disabled = false,
+  disabled: disabledProp = false,
   required = false,
   onStateChange,
   id,
   ...props
-}: React.ComponentProps<typeof DayPicker> & StatefulComponentProps) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+}: StatefulComponentProps & {
+  className?: string;
+  classNames?: Record<string, string>;
+  showOutsideDays?: boolean;
+  disabled?: boolean | ((date: Date) => boolean);
+  required?: boolean;
+  id?: string;
+  // Use any for remaining props to work around react-day-picker v9 complex types
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+}) {
   // Generate a unique ID for the error message using React's useId
   const generatedCalendarId = React.useId();
   const calendarId = id || generatedCalendarId;
@@ -104,7 +128,7 @@ function Calendar({
     ? "loading"
     : error
       ? "error"
-      : disabled
+      : disabledProp
         ? "disabled"
         : "default";
 
@@ -113,13 +137,14 @@ function Calendar({
     onStateChange?.(effectiveState);
   }, [effectiveState, onStateChange]);
 
-  const isDisabled = disabled || loading;
+  // Convert boolean disabled to Matcher for DayPicker
+  const disabledMatcher = typeof disabledProp === "boolean" && disabledProp ? () => true : disabledProp;
 
   const calendarElement = (
     <DayPicker
       id={calendarId}
       showOutsideDays={showOutsideDays}
-      disabled={isDisabled}
+      disabled={disabledMatcher}
       aria-invalid={error ? "true" : undefined}
       aria-describedby={error ? errorId : undefined}
       aria-required={required ? "true" : undefined}
@@ -176,7 +201,7 @@ function Calendar({
             <IconChevronLeftMd className={cn("size-4", className)} {...props} />
           ),
       }}
-      {...props}
+      {...(props as React.ComponentProps<typeof DayPicker>)}
     />
   );
 

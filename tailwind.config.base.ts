@@ -1,4 +1,4 @@
-import { chatUIPreset } from "@astudio/tokens/tailwind";
+import chatUIPreset from "@design-studio/tokens/tailwind.preset";
 import type { Config } from "tailwindcss";
 
 /**

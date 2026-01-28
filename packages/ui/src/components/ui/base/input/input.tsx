@@ -102,6 +102,9 @@ function Input({
     onStateChange?.(effectiveState);
   }, [effectiveState, onStateChange]);
 
+  // Effective disabled state (disabled if explicitly disabled OR loading)
+  const isDisabled = disabled || loading;
+
   const inputElement = (
     <input
       type={type}
@@ -109,10 +112,11 @@ function Input({
       data-slot="input"
       data-state={effectiveState}
       data-error={error ? "true" : undefined}
-      disabled={disabled || loading}
+      disabled={isDisabled}
       aria-invalid={error ? "true" : undefined}
       aria-describedby={error ? errorId : undefined}
       aria-required={required ? "true" : undefined}
+      tabIndex={isDisabled ? -1 : undefined}
       className={cn(
         "font-foundation text-body placeholder:text-foundation-text-light-tertiary dark:placeholder:text-foundation-text-dark-tertiary selection:bg-foundation-accent-blue selection:text-foundation-text-light-primary border-foundation-bg-dark-3 flex min-h-[var(--foundation-size-control-height)] w-full min-w-0 rounded-md border px-3 py-1 bg-foundation-bg-dark-1 text-foundation-text-dark-primary transition-colors outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-body-small file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
         // Focus styles

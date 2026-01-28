@@ -83,7 +83,6 @@
   --foundation-space-12: 12px;
   --foundation-space-8: 8px;
   --foundation-space-4: 4px;
-  --foundation-space-4: 4px;
   --foundation-space-0: 0px;
 
   /* Typography */
@@ -164,10 +163,10 @@
   --foundation-radius-10: 10px;
   --foundation-radius-12: 12px;
   --foundation-radius-16: 16px;
-  --foundation-radius-18: 20px;
-  --foundation-radius-21: 20px;
+  --foundation-radius-18: 18px;
+  --foundation-radius-21: 21px;
   --foundation-radius-24: 24px;
-  --foundation-radius-30: 24px;
+  --foundation-radius-30: 30px;
   --foundation-radius-round: 9999px;
 
   /* Size scale */

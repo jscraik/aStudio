@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useMemo } from "react";
 
 import { Button } from "../../base/Button";
 import { Calendar } from "../../base/Calendar";
@@ -97,11 +98,14 @@ function DatePicker({
     setOpen(false);
   };
 
-  const isDateDisabled = (date: Date) => {
-    if (minDate && date < minDate) return true;
-    if (maxDate && date > maxDate) return true;
-    return false;
-  };
+  const isDateDisabled: ((date: Date) => boolean) | undefined = useMemo(() => {
+    if (!minDate && !maxDate) return undefined;
+    return (date: Date) => {
+      if (minDate && date < minDate) return true;
+      if (maxDate && date > maxDate) return true;
+      return false;
+    };
+  }, [minDate, maxDate]);
 
   return (
     <div
